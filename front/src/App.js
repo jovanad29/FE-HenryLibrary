@@ -10,7 +10,9 @@ import NewBookChakra from "./Components/NewBook/NewBookChakra";
 import AboutUs from "./Components/Extras/AboutUs/AboutUs";
 import PoliticaPrivacidad from "./Components/Extras/PoliticaPrivacidad/PoliticaPrivacidad";
 import PoliticaDevolucion from "./Components/Extras/PoliticaDevolucion/PoliticaDevolucion";
-import PageError from "./Components/PageError/PageError.jsx";
+
+import PageError from "./Components/PageError/PageError.jsx"
+import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
 
 function App() {
   return (
@@ -39,7 +41,8 @@ function App() {
 
         {/*Ruta Inicio de Sesion */}
         {/* <Route path={"/login"} component={} /> */}
-
+      <Route path="/catalog/author/:id" component={CardsAuthor} />
+ 
         {/*Ruta administrador*/}
         {/* <Route path={"/user/admin"} component={} /> */}
 
