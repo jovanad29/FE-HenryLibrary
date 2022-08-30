@@ -2,9 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooksByAuthor } from "../../actions";
 import { useParams, NavLink } from "react-router-dom";
+
+//COMPONENTES
 import NavBar from "../NavBar/NavBar";
 import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
+
+//CSS
+import styles from "./CardsAuthor.module.css"
 
 export default function CardsAuthor() {
   const dispatch = useDispatch();
@@ -21,23 +26,32 @@ export default function CardsAuthor() {
 
 
   return (
-    <div>
+    <div className={styles.container}>
         <NavBar />
         <NavBar2 />
 
+
+
       {allBooks?.map((a) => (
-        <div key={a.id}>
+
+        <div className={styles.CardsAuthor} key={a.id}>
+          <div className={styles.image}>
           <NavLink to={`/catalog/detail/${a.id}`}>
-            <img src={a.image} alt="imagenDelLibro" />
+            <img className={styles.img} src={a.image} alt="imagenDelLibro" />
           </NavLink>
+          </div>
 
-          <h2>{a.title}</h2>
-          <h4>{a.authors && a.authors.map(a => `Authores: ${a.name}`)}</h4>
+          <div className={styles.info}>
+          <h2 className={styles.titulo}>{a.title}</h2>
+          <h4 className={styles.infoItem}>{a.authors && a.authors.map(a => `Authores: ${a.name}`)}</h4>
 
-          <h4>$ {a.price}</h4>
 
-          {/* Renderizado condicional verificando si hay stock disponible */}
-          {a.stock > 0 ? (
+          <div className={styles.pago}> 
+
+          <h4 className={styles.precio}>$ {a.price}</h4>
+      
+         {/* Renderizado condicional verificando si hay stock disponible */}
+          {a.stock > 0 ? ( 
             <button>Agregar al carrito</button>
           ) : (
             <div>
@@ -45,7 +59,11 @@ export default function CardsAuthor() {
             </div>
           )}
         </div>
+        </div>
+        </div>
       ))}
+
+
 
       <Footer />
     </div>
