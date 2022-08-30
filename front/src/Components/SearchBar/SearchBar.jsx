@@ -31,6 +31,7 @@ export default function SerachBar() {
       <form className={styles.conteiner} onSubmit={handledSubmit}>
         <input
           className={styles.input}
+          value={title}
           type={"text"}
           placeholder="Busca un Libro..."
           onChange={handleChange}
