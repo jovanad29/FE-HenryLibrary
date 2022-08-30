@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCategories, getBooksByCategory } from "../../actions";
+import { getCategories, getBooksByCategory, setPage } from "../../actions";
 import { List, ListItem, Heading, Link, Collapse } from "@chakra-ui/react";
 
 export default function Footer() {
@@ -12,6 +12,7 @@ export default function Footer() {
 
   const handledClick = (event) => {
     event.preventDefault();
+    dispatch(setPage(0));
     dispatch(getBooksByCategory(event.target.id));
   };
 

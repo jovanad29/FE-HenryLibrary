@@ -24,7 +24,7 @@ const initialState = {
     publishers: [],
     msg: [],
     createBooks: [],
-    page: 0,
+    actualPage: 0,
     status: "not-authenticated",
     uid: null,
     email: null,
@@ -80,7 +80,7 @@ function rootReducer(state = initialState, action) {
         case SET_PAGE:
             return {
                 ...state,
-                page: action.payload,
+                actualPage: action.payload,
             };
 
         case BANNED_BOOK:
