@@ -41,7 +41,7 @@ export default function NewRecipe() {
         publishedDate: "",
         pageCount: 1,
         currentStock: 0,
-        language: "",
+        language: "es",
         authors: [],
         categories: [],
     });
@@ -58,7 +58,7 @@ export default function NewRecipe() {
             if (!book.authors.includes(event.target.value)) {
                 setBook({
                     ...book,
-                    authors: [...book.authors, event.target.value],
+                    authors: [...book.authors, parseInt(event.target.value)],
                 });
             }
         } else if (event.target.name === "categories") {
@@ -101,7 +101,7 @@ export default function NewRecipe() {
             publishedDate: "",
             pageCount: 1,
             currentStock: 0,
-            language: "",
+            language: "es",
             isBanned: false,
             authors: [],
             categories: [],
