@@ -65,7 +65,7 @@ export default function NewRecipe() {
             if (!book.categories.includes(event.target.value)) {
                 setBook({
                     ...book,
-                    categories: [...book.categories, event.target.value],
+                    categories: [...book.categories, parseInt(event.target.value)],
                 });
             }
         } else {
@@ -282,15 +282,15 @@ export default function NewRecipe() {
                                 className={styles.inputs}
                                 name="authors"
                                 onChange={handleInputsChange}
-                                defaultValue="default"
+                                // defaultValue="default"
                             >
-                                <option value="default">Elegir autor</option>
+                                <option disabled selected>Elegir autor</option>
                                 {allAuthors.map((authors) => {
                                     return (
                                         <option
                                             key={authors.id}
-                                            id="authors"
-                                            name="authors"
+                                            // id="authors"
+                                            // name="authors"
                                             value={authors.id}
                                         >
                                             {authors.name}
@@ -302,20 +302,20 @@ export default function NewRecipe() {
 
                         <div className={styles.contenedorTypeSelected}>
                             {book.authors?.map((author) => {
-                                let autor = allAuthors?.map((a) => {
-                                    return a.id === author ? a.name : null;
-                                });
+                                let autor = allAuthors.find(
+                                    (obj) => obj.id === author
+                                );
 
                                 return (
                                     <div
-                                        key={author.id}
+                                        key={autor.id}
                                         className={styles.contenedortype}
                                     >
-                                        <p>{author.name}</p>
+                                        <p>{autor.name}</p>
                                         <button
                                             className={styles.btnTypeSelected}
                                             type="button"
-                                            value={author.id}
+                                            value={autor.id}
                                             onClick={(e) => eliminarAuthor(e)}
                                         >
                                             X
@@ -331,17 +331,17 @@ export default function NewRecipe() {
                                 className={styles.inputs}
                                 name="categories"
                                 onChange={handleInputsChange}
-                                defaultValue="default"
+                                // defaultValue="default"
                             >
-                                <option value="default">
+                                <option disabled selected>
                                     Elegir categorias
                                 </option>
                                 {allCategories.map((categories) => {
                                     return (
                                         <option
                                             key={categories.id}
-                                            id="categories"
-                                            name="categories"
+                                            // id="categories"
+                                            // name="categories"
                                             value={categories.id}
                                         >
                                             {categories.name}
@@ -352,11 +352,10 @@ export default function NewRecipe() {
                         </div>
 
                         <div className={styles.contenedorTypeSelected}>
-                            {book.categories?.map((categoria) => {
-                                let categorias = allCategories?.map((c) => {
-                                    return c.id === categoria ? c.name : null;
-                                });
-
+                            {book.categories?.map((category) => {
+                                let categoria = allCategories.find(
+                                    (obj) => obj.id === category
+                                );
                                 return (
                                     <div
                                         key={categoria.id}
