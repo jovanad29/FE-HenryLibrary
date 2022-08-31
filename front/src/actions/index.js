@@ -19,6 +19,8 @@ export const SET_AUTHOR_BY_NAME = "GET_AUTHOR_BY_NAME";
 export const GET_ALL_AUTHORS = "GET_ALL_AUTHORS";
 export const GET_ALL_PUBLISHERS = "GET_ALL_PUBLISHERS";
 export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
+export const PUT_BOOK = "PUT_BOOK";
+
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -230,5 +232,19 @@ export function getAllPublishers() {
 export function emptyAuthors() {
     return function (dispatch) {
         dispatch({ type: EMPTY_AUTHORS });
+    };
+}
+
+
+export function updateBook(book, id) {
+    return function (dispatch) {
+        axios
+            .put(`/catalogue/${id}`, book)
+            .then((response) => {
+                dispatch({ type: PUT_BOOK, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("updateBook", error);
+            });
     };
 }
