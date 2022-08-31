@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, getBooksCount } from "../../actions/index.js";
+import { getAllBooks, getBooksCount, setPage } from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -19,29 +19,31 @@ import Loading from "../Loading/Loading.jsx";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const allBooks = useSelector((state) => state.allBooks);
-
+    const { actualPage, allBooks } = useSelector((state) => state);
 
     const location = useLocation();
     const search = location.state ? location.state.search : null;
-    const [page, setPage] = useState(0);
     const itemsPorPagina = 12;
-    const offset = page * itemsPorPagina;
+    const offset = actualPage * itemsPorPagina;
     const limit = offset + itemsPorPagina;
 
     useEffect(() => {
-        // dispatch(getBooksCount());
-        !search && dispatch(getAllBooks());
+        if (!search) {
+            dispatch(getAllBooks());
+            dispatch(setPage(0));
+        }
     }, [dispatch, search]);
 
+    // useEffect(() => {
+      
+    // }, [actualPage])
+    
 
-    // console.log("allBooks", allBooks);
-    const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit)
 
-    // const handleGetAllBooks = (page) => {
-    //     dispatch(getAllBooks(page))
-    // }
 
+    console.log(allBooks, actualPage);
+
+    const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
 
     return (
         <div className={styles.home}>
@@ -60,12 +62,10 @@ export default function Home() {
                     </div>
 
                     <div className={styles.paginado}>
-                    <Paginated
-                        page={page}
-                        totalItems={allBooks.length}
-                        itemsPorPagina={itemsPorPagina}
-                        setPage={setPage}
-                    />
+                        <Paginated
+                            totalItems={allBooks.length}
+                            itemsPorPagina={itemsPorPagina}
+                        />
                     </div>
 
                     <div className={styles.cuerpo}>
@@ -90,27 +90,15 @@ export default function Home() {
                         </div>
                     </div>
                 </>
-            ) 
-
-           
-            
-            :
-            ( 
-                allBooks.message ? 
-
+            ) : allBooks.message ? (
                 <div className={styles.ErrorSearch}>
                     <h3 className={styles.errorH3}>{allBooks.message}</h3>
-
-                </div> 
-                
-                : 
-                
+                </div>
+            ) : (
                 <Loading />
+            )}
 
-            )
-            }
-
-             <Footer />
+            <Footer />
         </div>
     );
 }
