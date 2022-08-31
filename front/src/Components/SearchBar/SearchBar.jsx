@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getNameBooks } from "../../actions";
+import { getNameBooks, setPage } from "../../actions";
 import { useHistory } from "react-router-dom";
 
 //REACT ICONS
@@ -22,6 +22,7 @@ export default function SerachBar() {
     event.preventDefault();
 
     history.push("/home", { search: true });
+    dispatch(setPage(0));
     dispatch(getNameBooks(title));
     setTitle("");
   };
@@ -31,6 +32,7 @@ export default function SerachBar() {
       <form className={styles.conteiner} onSubmit={handledSubmit}>
         <input
           className={styles.input}
+          value={title}
           type={"text"}
           placeholder="Busca un Libro..."
           onChange={handleChange}
