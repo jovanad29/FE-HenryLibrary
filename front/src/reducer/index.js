@@ -14,6 +14,7 @@ import {
     GET_ALL_AUTHORS,
     GET_ALL_PUBLISHERS,
     EMPTY_AUTHORS,
+    PUT_BOOK,
 } from "../actions/index";
 
 const initialState = {
@@ -76,6 +77,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 allBooks: [...state.allBooks, { ...action.payload }],
             };
+
+        case PUT_BOOK:
+            return{
+                ...state,
+                allBooks: [...state.allBooks, { ...action.payload }]
+            }
 
         case SET_PAGE:
             return {

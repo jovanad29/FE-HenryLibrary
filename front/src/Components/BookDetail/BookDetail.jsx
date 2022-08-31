@@ -182,7 +182,7 @@ export default function BookDetail() {
                                     {isActive ? "ACTIVO" : "BORRADO"}
                                 </button>
 
-                                {/* <button onClick={handleClickModal}>EDITAR</button> */}
+                                <button onClick={handleClickModal}>EDITAR</button>
                             </div>
                         </div>
                     </div>
@@ -195,7 +195,7 @@ export default function BookDetail() {
 
             <Footer />
 
-            {modal && ( <EditBook />) }
+            {modal && ( <EditBook bookDetail={bookDetail} />) }
         </div>
     );
 }
