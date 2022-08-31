@@ -13,7 +13,7 @@ import validate from "../NewBook/validate.js";
 //CSS
 import styles from "./EditBook.module.css";
 
-export default function EditBook({bookDetail}) {
+export default function EditBook({bookDetail, setModal}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const allAuthors = useSelector((state) => state.authors);
@@ -115,7 +115,7 @@ export default function EditBook({bookDetail}) {
     const handleBackSubmit = (e) => {
         e.preventDefault();
         
-        history.push(`/detail/${bookDetail.id}`); // ---> esta ruta debe volver al detalle
+        setModal(false)
     };
 
 
@@ -414,20 +414,22 @@ export default function EditBook({bookDetail}) {
 
 
                         <div className={styles.containerButtons}>
-                            <button
+                            <div className={styles.itemsButtonsEnviar}>
+                                <button
                                 type="submit"
                                 onClick={handleOnSubmit}
                                 className={styles.buttonEnviar}
                                 disabled={checked}
                             >
                                 Enviar
-                            </button>
-                            <button
+                            </button></div>
+                            <div className={styles.itemsButtonsCancelar}>
+                                <button
                                 onClick={handleBackSubmit}
                                 className={styles.buttonCancelar}
                             >
                                 Cancelar
-                            </button>
+                            </button></div>
                         </div>
                   
                 </form>
