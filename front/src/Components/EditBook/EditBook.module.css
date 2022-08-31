@@ -5,10 +5,10 @@ body {
 }
 
 
-.container{
+.container {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.888);
-    box-shadow: 4px 4px 6px #01A86C ;
+    box-shadow: 4px 4px 6px #01A86C;
     backdrop-filter: blur(10px);
     border: solid 3px #01A86C;
     top: 10rem;
@@ -17,7 +17,7 @@ body {
     height: 95%;
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -29,7 +29,7 @@ body {
 
 
 
-.containerInput{
+.containerInput {
     display: flex;
     margin-left: 12rem;
     flex-direction: row;
@@ -41,7 +41,7 @@ body {
     margin-bottom: 1.2rem;
 }
 
-.label{
+.label {
     font-weight: 600;
     font-size: 15px;
     text-align: center;
@@ -50,9 +50,9 @@ body {
     margin-right: 1rem;
 }
 
-.inputs{
+.inputs {
     width: 50%;
-    height: 43%; 
+    height: 43%;
     font-size: 13px;
     color: #01A86C;
     font-family: Quicksand;
@@ -61,11 +61,11 @@ body {
     border-radius: 4px 4px 4px 4px;
 }
 
-.inputs:focus{
+.inputs:focus {
     outline-color: #01A86C;
 }
 
-.containerInputDescripcion{
+.containerInputDescripcion {
     display: flex;
     margin-left: 12rem;
     flex-direction: row;
@@ -77,9 +77,9 @@ body {
     margin-bottom: 1.2rem;
 }
 
-.inputsDescripcion{
+.inputsDescripcion {
     width: 80%;
-    height: 95%; 
+    height: 95%;
     font-size: 13px;
     color: #01A86C;
     font-weight: bolder;
@@ -87,10 +87,10 @@ body {
 }
 
 
-.danger{
+.danger {
     margin-left: 1rem;
     margin-top: 1.5rem;
-    color:red;
+    color: red;
     font-size: 10px;
     font-weight: bolder;
     font-family: Quicksand;
@@ -100,16 +100,55 @@ body {
 
 
 
-.containerButtons{
+.containerButtons {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    margin-left: 14rem;
+    width: 30%;
+    height: 6%;
 }
 
-/* .buttonEnviar{
 
+
+.itemsButtonsEnviar {
+    width: 40%;
+}
+
+.buttonEnviar{
+    background-color: white;
+    border: 2px solid #01A86C;
+    font-weight: bolder;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #01A86C;
+    width: 100%;
+    height: 100%;
+}
+
+.buttonEnviar:hover{
+    background-color:  #01A86C;
+    color: white;
+}
+
+
+
+.itemsButtonsCancelar{
+    width: 40%;
 }
 
 .buttonCancelar{
+    background-color: white;
+    border: 2px solid red;
+    font-weight: bolder;
+    font-size: 13px;
+    border-radius: 8px;
+    color: red;
+    width: 100%;
+    height: 100%;
+}
 
-} */
+.buttonCancelar:hover{
+    background-color: red;
+    color: white;
+}
