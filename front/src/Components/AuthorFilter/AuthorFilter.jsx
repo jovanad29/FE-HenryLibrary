@@ -6,6 +6,7 @@ import {
     getAuthorByName,
     getAllBooks,
     emptyAuthors,
+    setPage,
 } from "../../actions";
 
 export default function Footer() {
@@ -32,11 +33,13 @@ export default function Footer() {
             id: Number(event.target.id),
             name: event.target.textContent,
         });
+        dispatch(setPage(0));
         dispatch(getBooksByAuthor(Number(event.target.id)));
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        dispatch(setPage(0));
         dispatch(getBooksByAuthor(author.id));
     };
 
