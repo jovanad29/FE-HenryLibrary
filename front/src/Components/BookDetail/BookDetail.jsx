@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooksId, deleteBookDetail, deleteLogicBook } from "../../actions";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar";
@@ -53,7 +53,20 @@ export default function BookDetail() {
     setModal(!modal);
   }
 
-  // console.log(bookDetail);
+  console.log(bookDetail);
+  
+
+  const arrAuthores = bookDetail.authors && bookDetail.authors.map(a => {
+  return <Link to={`/catalog/author/${a.id}`} className={styles.active} key={a.id}>{a.name},  </Link>
+   
+ })
+
+ const arrCategories = bookDetail.categories && bookDetail.categories.map(a => {
+  return `${a.name}, ` 
+   
+ })
+
+
 
   return (
     <div className={styles.detail}>
@@ -93,26 +106,13 @@ export default function BookDetail() {
           <div className={styles.info}>
             <h2 className={styles.title}>{bookDetail.title}</h2>
 
-            {bookDetail.categories &&
-              bookDetail.categories.map((c) => (
-                <h2 className={styles.datos} key={id}>
-                  Genero: {c.name}
-                </h2>
-              ))}
+            <h2 className={styles.datos}>
+                  Genero: {arrCategories}
+            </h2>
 
-            {bookDetail.authors &&
-              bookDetail.authors.map((a) => (
-                <h4 className={styles.datos} key={a.id}>
-                  Autores:
-                  <NavLink
-                    to={`/catalog/author/${a.id}`}
-                    className={styles.active}
-                  >
-                    {" "}
-                    {a.name}
-                  </NavLink>
-                </h4>
-              ))}
+            <h4 className={styles.datos}>
+            Autores: {arrAuthores}
+            </h4>
 
             <h4 className={styles.datos}>
               Editorial: {bookDetail.publisher && bookDetail.publisher.name}
@@ -185,6 +185,8 @@ export default function BookDetail() {
           </div>
         </div>
       </div>
+
+      <div className={styles.recomendados}>REVIEWS</div>
 
       <div className={styles.recomendados}>ACA VAN NUESTROS RECOMENDADOS </div>
 
