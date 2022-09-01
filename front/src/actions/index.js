@@ -236,10 +236,10 @@ export function emptyAuthors() {
 }
 
 
-export function updateBook(book, id) {
+export function updateBook(id, body) {
     return function (dispatch) {
         axios
-            .put(`/catalogue/${id}`, book)
+            .put(`/catalogue/${id}`, body)
             .then((response) => {
                 dispatch({ type: PUT_BOOK, payload: response.data });
             })
