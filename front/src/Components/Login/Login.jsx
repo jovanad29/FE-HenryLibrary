@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startGoogleSignIn, startLogout } from "../../actions";
+import { startCreatingUserWithEmailPassword, startGoogleSignIn, startLoginWithEmailPassword, startLogout } from "../../actions";
 
 //CSS
 import styles from "./Login.module.css";
@@ -40,6 +40,24 @@ function Login({ HandleOpenLogin }) {
     const handleCloseSesion = () => {
         dispatch(startLogout());
     };
+
+    const handleCreateNewUser = () => {
+        const user = {
+            displayName: "Pepe Hongo",
+            password: "123456",
+            email: "yoyo@gmail.com"
+        }
+        dispatch(startCreatingUserWithEmailPassword(user));
+    }
+
+    const handleLoginUserPass = () => {
+        const user = {
+            password: "123456",
+            email: "yoyo@gmail.com"
+        }
+        dispatch(startLoginWithEmailPassword(user));
+    }
+    
 
     console.log(status);
 
@@ -138,8 +156,8 @@ function Login({ HandleOpenLogin }) {
                             </Button>
                         </Stack>
                         <div className={styles.cuenta}>
-                            <button>Crear nueva cuenta</button>
-                            <button>Olvido la contraseña</button>
+                            <button onClick={handleCreateNewUser}>Crear nueva cuenta</button>
+                            <button onClick={handleLoginUserPass}>Olvido la contraseña</button>
                         </div>
                     </div>
                 )}
