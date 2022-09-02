@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBooks, setPage } from "../../actions/index.js";
 
+
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";

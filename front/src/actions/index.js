@@ -24,7 +24,9 @@ export const ADD_CARRITO = "ADD_CARRITO";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SET_SECTION = "SET_SECTION";
 export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
-export const GET_ALL_DETAILS_FAVORITES = "GET_ALL_DETAILS_FAVORITES";
+export const DELETE_FAVORITES = "DELETE_FAVORITES";
+
+
 
 
 export function getAllBooks(pagina = 0, items = 10) {
@@ -302,12 +304,13 @@ export function getAllFavorites(){
 
 }
 
-// export function getAllDetailsFavorites(){
-//     return function (dispatch) {
-//         dispatch({
-//             type: GET_ALL_DETAILS_FAVORITES,
-            
-//         });
-//     }
+export function deleteFavoriteBook(id){
+    return function (dispatch) {
+        dispatch({
+            type: DELETE_FAVORITES,
+            payload: id,
+        });
 
-// }
+   }
+
+}
