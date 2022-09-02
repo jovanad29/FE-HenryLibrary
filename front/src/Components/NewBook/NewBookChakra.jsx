@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 import {
   uploadBook,
   getAllAuthors,
@@ -18,19 +19,14 @@ import {
   Textarea,
   NumberInput,
   NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   Button,
   Stack,
   Flex,
   Select,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  useDisclosure,
+  Box,
 } from "@chakra-ui/react";
+
+import { CgCheck } from "react-icons/cg";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -53,7 +49,7 @@ export default function NewBookChakra() {
     publisherId: null,
     publishedDate: "",
     pageCount: 0,
-    languages: "",
+    language: "",
     currentStock: 0,
     categories: [],
     authors: [],
@@ -61,24 +57,25 @@ export default function NewBookChakra() {
 
   const [error, setError] = useState({}),
     languages = [
-      { id: 1, name: "Español" },
-      { id: 2, name: "Ingles" },
-      { id: 3, name: "Portugues" },
+      { id: 1, name: "Español", value: "es" },
+      { id: 2, name: "Ingles", value: "en" },
+      { id: 3, name: "Portugues", value: "pr" },
     ];
 
   function handleInputsChange(event) {
     if (event.target.name === "authors") {
+      console.log(event.target.value);
       if (!book.authors.includes(event.target.value)) {
         setBook({
           ...book,
-          authors: [...book.authors, event.target.value],
+          authors: [...book.authors, parseInt(event.target.value)],
         });
       }
     } else if (event.target.name === "categories") {
       if (!book.categories.includes(event.target.value)) {
         setBook({
           ...book,
-          categories: [...book.categories, event.target.value],
+          categories: [...book.categories, parseInt(event.target.value)],
         });
       }
     } else {
@@ -96,7 +93,7 @@ export default function NewBookChakra() {
     }
   }
 
-  const handleChangePrice = (value) => {
+  function handleChangePrice(value) {
     setBook({
       ...book,
       price: value,
@@ -108,7 +105,7 @@ export default function NewBookChakra() {
         price: value,
       })
     );
-  };
+  }
 
   const handleChangePage = (value) => {
     setBook({
@@ -130,27 +127,30 @@ export default function NewBookChakra() {
       currentStock: value,
     });
 
-    setError(
-      validate({
-        ...book,
-        currentStock: value,
-      })
-    );
+    // setError(
+    //   validate({
+    //     ...book,
+    //     currentStock: value,
+    //   })
+    // );
   };
 
   const filterOptions = (event) => {
+    console.log(event.target.title);
     event.target.title === "category" &&
       setBook({
         ...book,
         categories: book.categories.filter(
-          (category) => category !== event.target.id
+          (category) => category !== Number(event.target.id)
         ),
       });
 
     event.target.title === "author" &&
       setBook({
         ...book,
-        authors: book.authors.filter((author) => author !== event.target.id),
+        authors: book.authors.filter(
+          (author) => author !== Number(event.target.id)
+        ),
       });
   };
 
@@ -167,13 +167,17 @@ export default function NewBookChakra() {
       publisherId: null,
       publishedDate: "",
       pageCount: 0,
-      languages: "",
+      language: "",
       currentStock: 0,
       categories: [],
       authors: [],
     });
 
-    alert("Libro creado Exitosamente!");
+    swal({
+      title: "Buen Trabajo!",
+      text: "Se Creo el libro!",
+      icon: "success",
+    });
   };
 
   const handleBackSubmit = (e) => {
@@ -181,42 +185,316 @@ export default function NewBookChakra() {
     history.push("/"); // ---> esta ruta debe volver al catalogo
   };
 
-  function CompExample() {
-    const { isOpen: isVisible, onClose } = useDisclosure({
-      defaultIsOpen: true,
-    });
+  const elementInput = (label, validate, value, name, placeholder = null) => {
     return (
-      isVisible && (
-        <Alert
-          justifyContent="center"
-          status="success"
-          variant="subtle"
-          onClick={onClose}
-        >
-          <Flex
-            flexDirection="column"
+      <FormControl isRequired isInvalid={validate}>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <Input
+            value={value}
+            name={name}
+            onChange={handleInputsChange}
+            focusBorderColor="#01A86C"
+            placeholder={placeholder}
+            boxShadow="lg"
+            rounded="lg"
+          />
+          <Box
+            paddingLeft="3%"
+            display="flex"
             alignItems="center"
             justifyContent="center"
-            textAlign="center"
-            height="200px"
           >
-            <AlertIcon boxSize="40px" mr={0} />
-            <AlertTitle mt={4} mb={1} fontSize="lg">
-              Application submitted!
-            </AlertTitle>
-            <AlertDescription maxWidth="sm">
-              Thanks for submitting your application. Our team will get back to
-              you soon.
-            </AlertDescription>
-          </Flex>
-        </Alert>
-      )
+            {value === ""
+              ? null
+              : !validate && <CgCheck size="30px" color="#01A86C" />}
+          </Box>
+        </Box>
+        {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
+      </FormControl>
     );
-  }
+  };
 
-  const example = (event) => {
-    event.preventDefault();
-    console.log(event);
+  const elementTestArea = (
+    label,
+    validate,
+    value,
+    name,
+    placeholder = null
+  ) => {
+    return (
+      <FormControl isRequired isInvalid={validate}>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <Textarea
+            value={value}
+            name={name}
+            onChange={handleInputsChange}
+            focusBorderColor="#01A86C"
+            placeholder={placeholder}
+            boxShadow="lg"
+            rounded="lg"
+          />
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === ""
+              ? null
+              : !validate && <CgCheck size="30px" color="#01A86C" />}
+          </Box>
+        </Box>
+        {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
+      </FormControl>
+    );
+  };
+
+  const elementNumberInputValidate = (
+    label,
+    validate = null,
+    value,
+    name,
+    handle
+  ) => {
+    return (
+      <FormControl isRequired isInvalid={validate}>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <NumberInput
+            defaultValue={0}
+            min={1}
+            value={value}
+            name={name}
+            onChange={handle}
+            focusBorderColor="#01A86C"
+            boxShadow="lg"
+            rounded="lg"
+            width="97.5%"
+          >
+            <NumberInputField />
+          </NumberInput>
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === 0
+              ? null
+              : !validate && <CgCheck size="30px" color="#01A86C" />}
+          </Box>
+        </Box>
+        {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
+      </FormControl>
+    );
+  };
+
+  const elementNumberInput = (label, value, name, handle) => {
+    return (
+      <FormControl isInvalid={false}>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <NumberInput
+            min={1}
+            value={value}
+            name={name}
+            onChange={handle}
+            focusBorderColor="#01A86C"
+            boxShadow="lg"
+            rounded="lg"
+            width="97.5%"
+          >
+            <NumberInputField />
+          </NumberInput>
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === 0 ? null : <CgCheck size="30px" color="#01A86C" />}
+          </Box>
+        </Box>
+      </FormControl>
+    );
+  };
+
+  const elementSelectValidate = (
+    label,
+    validate,
+    value,
+    name,
+    placeholder = null,
+    handle,
+    arr
+  ) => {
+    return (
+      <FormControl>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <Select
+            value={value}
+            name={name}
+            onChange={handle}
+            focusBorderColor="#01A86C"
+            placeholder={placeholder}
+            boxShadow="lg"
+            rounded="lg"
+          >
+            {arr.map((elemen) => {
+              return (
+                <option key={elemen.id} value={elemen.id}>
+                  {elemen.name}
+                </option>
+              );
+            })}
+          </Select>
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === null || value === "" || validate ? null : (
+              <CgCheck size="30px" color="#01A86C" />
+            )}
+          </Box>
+        </Box>
+      </FormControl>
+    );
+  };
+
+  const elementSelect = (
+    label,
+    value,
+    name,
+    placeholder = null,
+    handle,
+    arr
+  ) => {
+    return (
+      <>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <Select
+            value={value}
+            name={name}
+            onChange={handle}
+            focusBorderColor="#01A86C"
+            placeholder={placeholder}
+            boxShadow="lg"
+            rounded="lg"
+          >
+            {arr.map((elemen) => {
+              return (
+                <option key={elemen.id} value={elemen.value}>
+                  {elemen.name}
+                </option>
+              );
+            })}
+          </Select>
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === null || value === "" ? null : (
+              <CgCheck size="30px" color="#01A86C" />
+            )}
+          </Box>
+        </Box>
+      </>
+    );
+  };
+
+  const elementSelectOthers = (
+    label,
+    value,
+    name,
+    title,
+    placeholder = null,
+    handle,
+    arr
+  ) => {
+    return (
+      <>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <Select
+            value={value}
+            name={name}
+            onChange={handle}
+            focusBorderColor="#01A86C"
+            placeholder={placeholder}
+            boxShadow="lg"
+            rounded="lg"
+          >
+            {arr.map((elemen) => {
+              return (
+                <option key={elemen.id} value={elemen.id}>
+                  {elemen.name}
+                </option>
+              );
+            })}
+          </Select>
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value.length === 0 ? null : (
+              <CgCheck size="30px" color="#01A86C" />
+            )}
+          </Box>
+        </Box>
+        {value.map((element) => (
+          <FormLabel
+            key={element}
+            id={element}
+            title={title}
+            onClick={filterOptions}
+            cursor="pointer"
+            boxShadow="lg"
+            rounded="lg"
+            textAlign="center"
+            width="91%"
+          >
+            {arr.filter((e) => e.id === Number(element))[0].name}
+          </FormLabel>
+        ))}
+      </>
+    );
+  };
+
+  const elementInputDate = (type, label, value, name) => {
+    return (
+      <>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <Input
+            type={type}
+            value={value}
+            name={name}
+            onChange={handleInputsChange}
+            focusBorderColor="#01A86C"
+            boxShadow="lg"
+            rounded="lg"
+          />
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === "" ? null : <CgCheck size="30px" color="#01A86C" />}
+          </Box>
+        </Box>
+      </>
+    );
   };
 
   useEffect(() => {
@@ -231,189 +509,101 @@ export default function NewBookChakra() {
 
       <NavBar2 />
 
-      {CompExample()}
-      <Flex fontFamily="Quicksand" justify="center">
-        <Stack spacing={4} w="30%">
-          <FormControl isInvalid={error.title}>
-            <FormLabel>Nombre del Libro</FormLabel>
-            <Input
-              value={book.title}
-              name="title"
-              onChange={handleInputsChange}
-            />
-            {error.title && <FormErrorMessage>{error.title}</FormErrorMessage>}
-          </FormControl>
+      <Box
+        display="flex"
+        justifyContent="center"
+        fontFamily="Quicksand"
+        pt="5%"
+        pb="5%"
+      >
+        <Stack
+          border="2px"
+          borderColor="#D9D9D9"
+          padding="2%"
+          spacing={4}
+          w="40%"
+          boxShadow="lg"
+          rounded="2xl"
+        >
+          {elementInput("Nombre del Libro", error.title, book.title, "title")}
 
-          <FormControl isInvalid={error.description}>
-            <FormLabel>Descripcion</FormLabel>
-            <Textarea
-              value={book.description}
-              name="description"
-              onChange={handleInputsChange}
-            />
-            {error.description && (
-              <FormErrorMessage>{error.description}</FormErrorMessage>
-            )}
-          </FormControl>
+          {elementTestArea(
+            "Descripcion",
+            error.description,
+            book.description,
+            "description"
+          )}
 
-          <FormControl isInvalid={error.price}>
-            <FormLabel>Precio</FormLabel>
-            <NumberInput
-              min={1}
-              max={20000}
-              value={book.price}
-              name="price"
-              onChange={handleChangePrice}
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            {error.price && <FormErrorMessage>{error.price}</FormErrorMessage>}
-          </FormControl>
-          <FormControl isInvalid={error.image}>
-            <FormLabel>Imagen</FormLabel>
-            <Input
-              value={book.image}
-              name="image"
-              placeholder="https://..."
-              onChange={handleInputsChange}
-            />
-            {error.image && <FormErrorMessage>{error.image}</FormErrorMessage>}
-          </FormControl>
+          {elementNumberInputValidate(
+            "Precio",
+            error.price,
+            book.price,
+            "price",
+            handleChangePrice
+          )}
 
-          <FormControl isInvalid={error.publisherId}>
-            <FormLabel>Editorial</FormLabel>
-            <Select
-              placeholder="Selecione una opcion"
-              value={book.publisherId}
-              name="publisherId"
-              onChange={handleInputsChange}
-            >
-              {allPublishers.map((published) => {
-                return (
-                  <option key={published.id} value={published.id}>
-                    {published.name}
-                  </option>
-                );
-              })}
-            </Select>
-            {error.publisherId && (
-              <FormErrorMessage>{error.publisherId}</FormErrorMessage>
-            )}
-          </FormControl>
+          {elementInput("Imagen", error.image, book.image, "image")}
 
-          <FormLabel>Fecha de Publicacion</FormLabel>
-          <Input
-            placeholder="Select Date and Time"
-            size="md"
-            type="date"
-            value={book.publishedDate}
-            name="publishedDate"
-            onChange={handleInputsChange}
-          />
+          {elementSelectValidate(
+            "Editorial",
+            error.publisherId,
+            book.publisherId,
+            "publisherId",
+            "Selecione una opcion",
+            handleInputsChange,
+            allPublishers
+          )}
 
-          <FormControl isInvalid={error.pageCount}>
-            <FormLabel>Numero de Paginas</FormLabel>
-            <NumberInput
-              min={1}
-              max={20000}
-              value={book.pageCount}
-              name="pageCount"
-              onChange={handleChangePage}
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            {error.pageCount && (
-              <FormErrorMessage>{error.pageCount}</FormErrorMessage>
-            )}
-          </FormControl>
+          {elementInputDate(
+            "date",
+            "Fecha de Publicacion",
+            book.publishedDate,
+            "publishedDate"
+          )}
 
-          <FormLabel>Idioma</FormLabel>
-          <Select
-            value={book.languages}
-            name="languages"
-            placeholder="Seleccione una opcion"
-            onChange={handleInputsChange}
-          >
-            {languages.map((language) => (
-              <option key={language.id} value={language.name}>
-                {language.name}
-              </option>
-            ))}
-          </Select>
+          {elementNumberInputValidate(
+            "Numero de Paginas",
+            error.pageCount,
+            book.pageCount,
+            "pageCount",
+            handleChangePage
+          )}
 
-          <FormLabel>Stock</FormLabel>
-          <NumberInput
-            defaultValue={0}
-            min={0}
-            max={20000}
-            value={book.currentStock}
-            // name="currentStock"
-            onChange={handleChangeStock}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+          {elementSelect(
+            "Idioma",
+            book.language,
+            "language",
+            "Seleccione una opcion",
+            handleInputsChange,
+            languages
+          )}
 
-          <FormLabel>Categoria</FormLabel>
-          <Select
-            value={book.categories}
-            name="categories"
-            onChange={handleInputsChange}
-            placeholder="Selecione una opcion"
-          >
-            {allCategories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </Select>
-          {book.categories.map((category) => (
-            <FormLabel
-              key={category}
-              id={category}
-              title="category"
-              onClick={filterOptions}
-              cursor="pointer"
-            >
-              {allCategories.filter((c) => c.id === Number(category))[0].name}
-            </FormLabel>
-          ))}
+          {elementNumberInput(
+            "Stock",
+            book.currentStock,
+            "currentStock",
+            handleChangeStock
+          )}
 
-          <FormLabel>Autor</FormLabel>
-          <Select
-            value={book.authors}
-            name="authors"
-            onChange={handleInputsChange}
-            placeholder="Selecione una opcion"
-          >
-            {allAuthors.map((author) => (
-              <option key={author.id} value={author.id}>
-                {author.name}
-              </option>
-            ))}
-          </Select>
-          {book.authors.map((author) => (
-            <FormLabel
-              key={author}
-              id={author}
-              title="author"
-              onClick={filterOptions}
-              cursor="pointer"
-            >
-              {allAuthors.filter((a) => a.id === Number(author))[0].name}
-            </FormLabel>
-          ))}
+          {elementSelectOthers(
+            "Categoria",
+            book.categories,
+            "categories",
+            "category",
+            "Selecione una opcion",
+            handleInputsChange,
+            allCategories
+          )}
+
+          {elementSelectOthers(
+            "Autor",
+            book.authors,
+            "authors",
+            "author",
+            "Selecione una opcion",
+            handleInputsChange,
+            allAuthors
+          )}
 
           <Flex justifyContent="space-around">
             <Button
@@ -427,7 +617,7 @@ export default function NewBookChakra() {
                   : true
               }
             >
-              Guardar
+              Enviar
             </Button>
 
             <Button
@@ -440,7 +630,7 @@ export default function NewBookChakra() {
             </Button>
           </Flex>
         </Stack>
-      </Flex>
+      </Box>
       <Footer />
     </>
   );
