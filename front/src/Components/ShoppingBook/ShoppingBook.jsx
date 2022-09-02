@@ -35,9 +35,25 @@ function ShoppingBook() {
     }
   }, []); 
 
-  function deleteData(){
-    localStorage.removeItem("book")
+  function deleteData(id){
+    let newItems = items.filter((item) => item.id !== id);
+    setItems(newItems);
+
   }
+
+  useEffect (() => {
+// recorrer el estado items y sumar los precios
+    let totalBooks = 0;
+    let totalAmount = 0;
+    items.forEach((item) => {
+      totalBooks += item.quantity;
+      totalAmount += item.price * item.quantity;
+    });
+    setTotal({totalBooks, totalAmount});
+    localStorage.setItem("totalGuest", JSON.stringify({totalBooks, totalAmount}));
+  }, [items]);
+
+
 
   const item = items.map( b => {
     const {id, title, image, quanty, price} = b
@@ -49,7 +65,7 @@ function ShoppingBook() {
             <h2>{id}</h2>
             <h2>{quanty}</h2>
             <h2>{price}</h2>
-            <button onClick={deleteData}>X</button>
+            <button onClick={() => deleteData(id)}>X</button>
 
         </div>
     
