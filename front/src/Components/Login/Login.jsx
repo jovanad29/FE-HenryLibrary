@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startGoogleSignIn, startLogout } from "../../actions";
 
 //CSS
 import styles from "./Login.module.css";
+import { Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Stack, HStack, VStack } from "@chakra-ui/react";
 import { FiMail, FiEyeOff, FiEye } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-import { useDispatch } from "react-redux";
-import { startGoogleSignIn, startLogout } from "../../actions";
-import { useSelector } from "react-redux";
-import { useMemo } from "react";
-import { useEffect } from "react";
 
-function Login({HandleOpenLogin}) {
+function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
     const { status } = useSelector((state) => state);
-    const isAuthenticating = useMemo(() => status !== "authenticated", [status])
-    
+    const isAuthenticated = useMemo(() => status === "authenticated", [status]);
+    const isAuthenticating = useMemo(() => status === "checking", [status]);
 
     // const [login, setLogin] = useState({
     //     username: "",
@@ -34,14 +34,14 @@ function Login({HandleOpenLogin}) {
 
     const onGoogleSignIn = () => {
         dispatch(startGoogleSignIn());
-        HandleOpenLogin();
+        // HandleOpenLogin();
     };
 
     const handleCloseSesion = () => {
-      dispatch(startLogout());
-    }
+        dispatch(startLogout());
+    };
 
-    console.log(status, isAuthenticating);
+    console.log(status);
 
     return (
         <div className={styles.container}>
@@ -91,25 +91,68 @@ function Login({HandleOpenLogin}) {
                     />
                 </div>
 
-                {isAuthenticating && (
+                {!isAuthenticated && (
+                    // <div>
+                    //     <div>
+                    //         <button
+                    //             disabled={isAuthenticating}
+                    //             onClick={onGoogleSignIn}
+                    //             className={styles.boton}
+                    //         >
+                    //             <FcGoogle />
+                    //             <Text fontSize="md">Google</Text>
+                    //         </button>
+                    //     </div>
+                    //     <div>
+                    //         <button
+                    //             disabled={isAuthenticating}
+                    //             className={styles.boton}
+                    //         >
+                    //             Ingresar
+                    //         </button>
+                    //     </div>
+                    //     <div className={styles.cuenta}>
+                    //         <button>Crear nueva cuenta</button>
+                    //         <button>Olvido la contraseña</button>
+                    //     </div>
+                    // </div>
                     <div>
-                        <div>
-                            <button onClick={onGoogleSignIn} className={styles.boton}>
-                                Login with <FcGoogle />
-                            </button>
-                        </div>
-                        <div>
-                            <button className={styles.boton}>Ingresar</button>
-                        </div>
+                        <Stack direction="column" spacing={3} align="center">
+                            <Button
+                                disabled={isAuthenticating}
+                                leftIcon={<FcGoogle />}
+                                colorScheme="green"
+                                width="200px"
+                                height="2rem"
+                                onClick={onGoogleSignIn}
+                            >
+                                Google
+                            </Button>
+                            <Button
+                                disabled={isAuthenticating}
+                                colorScheme="green"
+                                width="200px"
+                                height="2rem"
+                            >
+                                Ingresar
+                            </Button>
+                        </Stack>
                         <div className={styles.cuenta}>
                             <button>Crear nueva cuenta</button>
                             <button>Olvido la contraseña</button>
                         </div>
                     </div>
                 )}
-                { !isAuthenticating && 
-                  <button onClick={handleCloseSesion} className={styles.boton}>Cerrar Sesion</button>
-                }
+                {isAuthenticated && (
+                    <Button
+                        colorScheme="pink"
+                        width="200px"
+                        height="2rem"
+                        onClick={handleCloseSesion}
+                    >
+                        Cerrar Sesion
+                    </Button>
+                )}
             </div>
         </div>
     );
