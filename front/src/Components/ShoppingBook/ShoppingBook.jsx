@@ -12,7 +12,7 @@ import { Button } from "@chakra-ui/react";
 
 
 function ShoppingBook() {
-  const [items, setItems] = useState([]);
+  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
   const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
 
@@ -24,20 +24,20 @@ function ShoppingBook() {
   //   }
   // }, []);
 //traer el localstorage cuando carga el componente
-  useEffect(() => {
-    const localItems = JSON.parse(localStorage.getItem("carritoGuest"));
-    if (localItems) {
-      setItems(localItems);
-    } 
-    const localTotal = JSON.parse(localStorage.getItem("totalGuest"));
-    if (localTotal) {
-      setTotal(localTotal);
-    }
-  }, []); 
+useEffect(() => {
+  const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
+  if (localItems) {
+    setGuestCartBooks(localItems);
+  } 
+  const localTotal = JSON.parse(localStorage.getItem("total"));
+  if (localTotal) {
+    setTotal(localTotal);
+  }
+}, []);
 
   function deleteData(id){
-    let newItems = items.filter((item) => item.id !== id);
-    setItems(newItems);
+    let newItems = guestCartBooks.filter((item) => item.id !== id);
+    setGuestCartBooks(newItems);
 
   }
 
@@ -45,22 +45,25 @@ function ShoppingBook() {
 // recorrer el estado items y sumar los precios
     let totalBooks = 0;
     let totalAmount = 0;
-    items.forEach((item) => {
+    guestCartBooks.forEach((item) => {
       totalBooks += item.quantity;
       totalAmount += item.price * item.quantity;
     });
-    setTotal({totalBooks, totalAmount});
-    localStorage.setItem("totalGuest", JSON.stringify({totalBooks, totalAmount}));
-  }, [items]);
+    const total = {totalBooks, totalAmount};
+    setTotal(total);
+    localStorage.setItem("total", JSON.stringify(total));
+    localStorage.setItem("guestCartBooks", JSON.stringify(guestCartBooks));
+  }, [guestCartBooks]);
 
 
 
-  const item = items.map( b => {
+
+  const item = guestCartBooks.map( b => {
     const {id, title, image, quanty, price} = b
     return (
 
         <div key={id}>
-            <img src={image} alt="" />
+            <img src={image} alt="" width={10} heigh={10}/>
             <h3>{title}</h3>
             <h2>{id}</h2>
             <h2>{quanty}</h2>
@@ -81,21 +84,21 @@ function ShoppingBook() {
 
       <div className={styles.container}>
         <div className={styles.containerItems}>
-          <h3 className={styles.items}>N° Items,{totalBooks}</h3>
-         </div>
+          <h3 className={styles.items}>N° Items:{totalBooks}</h3>
+        </div>
 
-        <h3 className={styles.continuarComprando}>
-          <Link to="/home">Continuar Comprando</Link>
-        </h3>
+          <h3 className={styles.continuarComprando}>
+            <Link to="/home">Continuar Comprando</Link>
+          </h3>
 
         <div className={styles.productos}>
             {/* <h2>{id}</h2>
             <h2>{title}</h2> */}
             <div>{item}</div>
-     
-
         </div>
-
+        <div className={styles.containerItems}>
+          <h3 className={styles.items}>Total: ${totalAmount}</h3>
+        </div>
         <div className={styles.button}>
           <Button
             className={styles.comprar}
