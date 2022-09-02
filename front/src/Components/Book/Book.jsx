@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavoriteBook } from "../../actions/index.js";
@@ -6,9 +7,18 @@ import { addFavoriteBook } from "../../actions/index.js";
 import styles from "./Book.module.css";
 
 
-export default function Book({ id, title, authors, image, price, stock }) {
-  let dispatch = useDispatch();
+export default function Book({ id, title, authors, image, price, stock, allBooks }) {
+  const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
+  const bookToCarrito = allBooks.filter( b => b.id === id )
+  // console.log("bookToCarrito", bookToCarrito)
+  function saveData(){
+    localStorage.setItem("book", JSON.stringify(bookToCarrito))
+                         //key , value
+    console.log(typeof bookToCarrito)
+    alert("has guardado tu libro en el carrito")
+  }
+
 
   useEffect(() => {
        console.log(favorites);
@@ -47,8 +57,7 @@ export default function Book({ id, title, authors, image, price, stock }) {
         {/* Renderizado condicional verificando si hay stock disponible */}
         {stock > 0 ? (
           <div className={styles.pago}>
-            <button className={styles.boton}>Agregar al carrito</button>
-            {/* Agregarle un icono de carrrito al botton */}
+            <button className={styles.boton} onClick={saveData}>Agregar al carrito</button>
           </div>
         ) : (
           <div>

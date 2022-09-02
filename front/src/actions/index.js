@@ -20,6 +20,7 @@ export const GET_ALL_AUTHORS = "GET_ALL_AUTHORS";
 export const GET_ALL_PUBLISHERS = "GET_ALL_PUBLISHERS";
 export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
 export const PUT_BOOK = "PUT_BOOK";
+export const ADD_CARRITO = "ADD_CARRITO";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SET_SECTION = "SET_SECTION";
 export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
@@ -253,6 +254,23 @@ export function updateBook(id, body) {
     };
 }
 
+// export const addCart = () => {
+//     const miStorage = window.localStorage;
+//     let Productos = Object.values(miStorage);
+//     let objetos = Productos.map((producto) => {
+//         return JSON.parse(producto);
+//     });
+//     let productos = objetos.filter((producto) => producto.hasOwnProperty("product_id"));
+//     productos.reduce((acc, producto) => acc + producto.cantidad, 0);
+
+//     return (dispatch) => {
+//         return dispatch({
+//             type: "ADD_CARRITO",
+//             payload: productos,
+//         });
+//     };
+// };
+
 export function addFavoriteBook(id){
     return function (dispatch) {
         dispatch({
@@ -293,5 +311,3 @@ export function getAllFavorites(){
 //     }
 
 // }
-
-
