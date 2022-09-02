@@ -20,8 +20,10 @@ import {
     SET_SECTION,
     GET_ALL_FAVORITES,
     DELETE_FAVORITES,
-
-    } from "../actions/index";
+    LOGIN,
+    LOGOUT,
+    CHECKING_CREDENTIALS,
+} from "../actions/index";
 
 const initialState = {
     allBooks: [],
@@ -32,7 +34,7 @@ const initialState = {
     msg: [],
     createBooks: [],
     actualPage: 0,
-    status: "not-authenticated",
+    status: "checking",
     uid: null,
     email: null,
     displayName: null,
@@ -90,8 +92,8 @@ function rootReducer(state = initialState, action) {
         case PUT_BOOK:
             return {
                 ...state,
-                allBooks: [...state.allBooks, { ...action.payload }]
-            }
+                allBooks: [...state.allBooks, { ...action.payload }],
+            };
 
         case SET_PAGE:
             return {
@@ -140,44 +142,6 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 authors: [],
             };
-
-        case ADD_CARRITO:
-            return{
-                ...state,
-                carrito: [...state.carrito,  action.payload ],
-            }
-
-        case ADD_FAVORITES:
-            return {
-                ...state,
-                favorites: [...state.favorites, action.payload]
-            }
-
-        case SET_SECTION:
-            return {
-                ...state,
-                section: action.payload,
-            };
-
-        case GET_ALL_FAVORITES:
-            const filtered = state.allBooks.filter((b)=> state.favorites.includes(b.id))
-            return {
-                ...state,
-                allBooks: filtered,
-            };
-
-            case DELETE_FAVORITES:
-                const filtereds = state.allBooks.filter(
-                    (b) => b.id !== action.payload
-                );
-                const availableFavorites = state.favorites.filter(
-                    (b) => b !== action.payload
-                );
-                return {
-                    ...state,
-                    favorites: availableFavorites,
-                    allBooks: filtereds,
-                };
 
         default:
             return state;

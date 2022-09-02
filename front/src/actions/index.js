@@ -1,5 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import { signInWithGoogle, logoutFirebase } from "../firebase/providers";
+
 dotenv.config();
 
 const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
@@ -25,9 +27,9 @@ export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SET_SECTION = "SET_SECTION";
 export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
 export const DELETE_FAVORITES = "DELETE_FAVORITES";
-
-
-
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+export const CHECKING_CREDENTIALS = "CHECKING_CREDENTIALS";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -242,7 +244,6 @@ export function emptyAuthors() {
     };
 }
 
-
 export function updateBook(id, body) {
     return function (dispatch) {
         axios
@@ -314,3 +315,68 @@ export function deleteFavoriteBook(id){
    }
 
 }
+
+export function login(user) {
+    return function (dispatch) {
+        dispatch({ type: LOGIN, payload: user });
+    };
+}
+
+export function logout(msg) {
+    return function (dispatch) {
+        dispatch({ type: LOGOUT, payload: msg });
+    };
+}
+
+export function checkingCredentials() {
+    return function (dispatch) {
+        dispatch({ type: CHECKING_CREDENTIALS });
+    };
+}
+
+export const startGoogleSignIn = () => {
+    return async (dispatch) => {
+        dispatch(checkingCredentials());
+
+        const result = await signInWithGoogle();
+        if (!result.ok) return dispatch(logout(result.errorMessage));
+
+        dispatch(login(result));
+    };
+};
+
+// export const startCreatingUserWithEmailPassword = ({ email, password, displayName }) => {
+//   return async( dispatch ) => {
+
+//       dispatch( checkingCredentials() );
+
+//       const result = await registerUserWithEmailPassword({ email, password, displayName });
+//       if ( !result.ok ) return dispatch( logout( result.errorMessage ) );
+
+//       dispatch( login( result ))
+
+//   }
+
+// }
+
+// export const startLoginWithEmailPassword = ({ email, password }) => {
+//   return async( dispatch ) => {
+
+//       dispatch( checkingCredentials() );
+
+//       const result = await loginWithEmailPassword({ email, password });
+//       console.log(result);
+
+//       if ( !result.ok ) return dispatch( logout( result ) );
+//       dispatch( login( result ));
+
+//   }
+// }
+
+export const startLogout = () => {
+    return async (dispatch) => {
+        await logoutFirebase();
+
+        dispatch(logout());
+    };
+};
