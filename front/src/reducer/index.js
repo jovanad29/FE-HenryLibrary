@@ -15,6 +15,7 @@ import {
     GET_ALL_PUBLISHERS,
     EMPTY_AUTHORS,
     PUT_BOOK,
+    ADD_CARRITO,
 } from "../actions/index";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
     displayName: null,
     photoURL: null,
     errorMessage: null,
+    carrito: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -131,6 +133,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 authors: [],
             };
+
+        case ADD_CARRITO:
+            return{
+                ...state,
+                carrito: [...state.carrito,  action.payload ],
+            }
 
         default:
             return state;

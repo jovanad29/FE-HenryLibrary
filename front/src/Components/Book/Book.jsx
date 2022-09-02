@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 //CSS
@@ -6,7 +7,22 @@ import styles from "./Book.module.css";
 
 
 
-export default function Book({ id, title, authors, image, price, stock }) {
+export default function Book({ id, title, authors, image, price, stock, allBooks }) {
+
+  const bookToCarrito = allBooks.filter( b => b.id === id )
+
+  // console.log("bookToCarrito", bookToCarrito)
+
+  function saveData(){
+    localStorage.setItem("book", JSON.stringify(bookToCarrito))
+                         //key , value
+    console.log(typeof bookToCarrito)
+    alert("has guardado tu libro en el carrito")
+  }
+
+
+
+
 
 
   return (
@@ -34,8 +50,7 @@ export default function Book({ id, title, authors, image, price, stock }) {
         {/* Renderizado condicional verificando si hay stock disponible */}
         {stock > 0 ? (
           <div className={styles.pago}>
-            <button className={styles.boton}>Agregar al carrito</button>
-            {/* Agregarle un icono de carrrito al botton */}
+            <button className={styles.boton} onClick={saveData}>Agregar al carrito</button>
           </div>
         ) : (
           <div>
