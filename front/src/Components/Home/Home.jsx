@@ -19,7 +19,7 @@ import Loading from "../Loading/Loading.jsx";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { actualPage, allBooks } = useSelector((state) => state);
+    const { actualPage, allBooks, section } = useSelector((state) => state);
 
     const location = useLocation();
     const search = location.state ? location.state.search : null;
@@ -28,7 +28,7 @@ export default function Home() {
     const limit = offset + itemsPorPagina;
 
     useEffect(() => {
-        if (!search) {
+        if (section !== "favoritos") {
             dispatch(getAllBooks());
             dispatch(setPage(0));
         }
@@ -39,9 +39,11 @@ export default function Home() {
     // }, [actualPage])
     
 
+   
+  
 
 
-    console.log(allBooks, actualPage);
+    // console.log(allBooks, actualPage);
 
     const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
 
