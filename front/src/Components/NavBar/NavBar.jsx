@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 
 //COMPONENTES
@@ -13,7 +13,7 @@ import { BsCart2 } from "react-icons/bs";
 import styles from "./NavBar.module.css";
 import banderaArgentina from "./arg.png";
 import banderaEeuu from "./eeuu.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getAllBooks,
   getAllFavorites,
@@ -22,15 +22,18 @@ import {
 } from "../../actions";
 
 export default function NavBar() {
-  const [loginModal, setLoginModal] = useState(false);
+    const { status } = useSelector((state) => state);
+    const isAuthenticating = useMemo(() => status !== "authenticated", [status]);
 
-  function HandleOpenLogin() {
-    loginModal === true ? setLoginModal(false) : setLoginModal(true);
+
+  const [loginModal, setLoginModal] = useState(false)
+
+
+
+  function HandleOpenLogin(){
+
+    loginModal === true ?  setLoginModal(false) : setLoginModal(true)
   }
-
-  
-  const dispatch = useDispatch();
-  
 
   const handleOnFavorites = () => {
     dispatch(setSection("favoritos"));
@@ -39,17 +42,12 @@ export default function NavBar() {
 
   return (
     <nav className={styles.container}>
-      <h1 className={styles.h1}>
-        <NavLink to="/">Libreria</NavLink>
-      </h1>
+      
+      <h1 className={styles.h1}><NavLink to="/">Libreria</NavLink></h1>
 
-      <h2 className={styles.h1_1}>
-        <NavLink to="/">HENRY</NavLink>
-      </h2>
+      <h2 className={styles.h1_1}><NavLink to="/">HENRY</NavLink></h2>
 
-      <div className={styles.search}>
-        <SearchBar />
-      </div>
+      <div className={styles.search}><SearchBar /></div>
 
       <div className={styles.iconos}>
         <button onClick={handleOnFavorites}>
@@ -76,7 +74,7 @@ export default function NavBar() {
         </button>
       </div>
 
-      {loginModal && <Login />}
+      {loginModal && <Login HandleOpenLogin={HandleOpenLogin} />}
     </nav>
   );
 }
