@@ -11,48 +11,68 @@ import styles from "./ShoppingBook.module.css";
 import { Button } from "@chakra-ui/react";
 
 
-
-
-
 function ShoppingBook() {
-
-
   const [items, setItems] = useState([]);
+  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
 
 
+  // useEffect(() => {
+  //   const item = JSON.parse(localStorage.getItem("book"));
+  //   if (item) {
+  //     setItems(item);
+  //   }
+  // }, []);
+//traer el localstorage cuando carga el componente
   useEffect(() => {
-    const item = JSON.parse(localStorage.getItem("book"));
-    if (item) {
-      setItems(item);
+    const localItems = JSON.parse(localStorage.getItem("carritoGuest"));
+    if (localItems) {
+      setItems(localItems);
+    } 
+    const localTotal = JSON.parse(localStorage.getItem("totalGuest"));
+    if (localTotal) {
+      setTotal(localTotal);
     }
-  }, []);
+  }, []); 
 
+  function deleteData(id){
+    let newItems = items.filter((item) => item.id !== id);
+    setItems(newItems);
 
-  function deleteData(){
-    localStorage.removeItem("book")
   }
 
+  useEffect (() => {
+// recorrer el estado items y sumar los precios
+    let totalBooks = 0;
+    let totalAmount = 0;
+    items.forEach((item) => {
+      totalBooks += item.quantity;
+      totalAmount += item.price * item.quantity;
+    });
+    setTotal({totalBooks, totalAmount});
+    localStorage.setItem("totalGuest", JSON.stringify({totalBooks, totalAmount}));
+  }, [items]);
 
 
 
   const item = items.map( b => {
-    const {id, title, image} = b
+    const {id, title, image, quanty, price} = b
     return (
 
         <div key={id}>
             <img src={image} alt="" />
             <h3>{title}</h3>
             <h2>{id}</h2>
-            <button onClick={deleteData}>X</button>
+            <h2>{quanty}</h2>
+            <h2>{price}</h2>
+            <button onClick={() => deleteData(id)}>X</button>
 
         </div>
     
         )
 })
-
-
-
+  const totalBooks = total.totalBooks;
+  const totalAmount = total.totalAmount;
 
   return (
     <div className={styles.shopping}>
@@ -61,8 +81,8 @@ function ShoppingBook() {
 
       <div className={styles.container}>
         <div className={styles.containerItems}>
-          <h3 className={styles.items}>N° Items</h3>
-        </div>
+          <h3 className={styles.items}>N° Items,{totalBooks}</h3>
+         </div>
 
         <h3 className={styles.continuarComprando}>
           <Link to="/home">Continuar Comprando</Link>
