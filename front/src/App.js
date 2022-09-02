@@ -13,6 +13,7 @@ import PoliticaDevolucion from "./Components/Extras/PoliticaDevolucion/PoliticaD
 
 import PageError from "./Components/PageError/PageError.jsx"
 import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
+import Favorites from './Components/Favorites/Favorites';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
 
         {/*Ruta Catalogo de Libros */}
         <Route path="/home" component={Home} />
+
+           {/*Ruta Favoritos de Libros */}
+           <Route path="/favoritos" component={Favorites} />
 
         {/*Ruta Catalogo de Libros */}
         {/* <Route path={"/carrito"} component={} /> */}

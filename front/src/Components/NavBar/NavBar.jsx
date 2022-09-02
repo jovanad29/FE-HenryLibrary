@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 
 //COMPONENTES
@@ -13,6 +13,8 @@ import { BsCart2 } from "react-icons/bs";
 import styles from "./NavBar.module.css";
 import banderaArgentina from "./arg.png"
 import banderaEeuu from "./eeuu.png"
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBooks, getAllFavorites, setSection, addFavoriteBook } from '../../actions';
 
 
 
@@ -29,7 +31,23 @@ export default function NavBar() {
     loginModal === true ?  setLoginModal(false) : setLoginModal(true)
   }
 
+ // const allBooks = useSelector((state) => state.allBooks);
+ const favorites = useSelector((state) => state.favorites);
+  
+  
+  
+ const dispatch = useDispatch();
+ useEffect(() => {
+   dispatch(getAllBooks());
+   
+   dispatch(setSection("favoritos"));
+ }, [dispatch, favorites]);
 
+  const handleOnFavorites = () => {
+    dispatch(getAllFavorites());
+
+  };
+ 
   return (
     <nav className={styles.container}>
       
@@ -40,7 +58,7 @@ export default function NavBar() {
       <div className={styles.search}><SearchBar /></div>
 
       <div className={styles.iconos}>
-        <NavLink to="/favoritos"><MdOutlineFavoriteBorder size="1.4rem"/></NavLink>
+        <button onClick={handleOnFavorites}><MdOutlineFavoriteBorder size="1.4rem"/></button>
         
         <button onClick={() => HandleOpenLogin()} > <VscAccount size="1.4rem"/></button>         
         

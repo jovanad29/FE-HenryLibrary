@@ -1,30 +1,34 @@
-import React { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks} from "../../actions/index.js";
-
+import { getAllBooks } from "../../actions/index.js";
+import { setSection, getAllFavorites } from '../../actions';
+import { useHistory } from "react-router-dom";
 
 export default function Favorites() {
-    const allBooks = useSelector((state) => state.allBooks);
-    const dispatch = useDispatch();
-    useEffec(() => {
-       
-     dispatch(getAllBooks());
-    }, []);
-
-console.log("Todos mis Libros",allBooks)
-
-    // const allIds = allBooks ?.map((i) => (
-
-    //   <div>{i.id}</div>  
-
-    // ))
-    // console.log(allIds)
-return(
-
-""
   
-)
 
+//   history.push("/home");
+
+  
+
+ 
+  //  favorites.push(newFavorites) ;
+  //  localStorageFavoritesList(favorites);
+
+  // function getFavoritesList(){
+  //  var storedList = localStorage.getItem("localFavoriteList");
+  //  if(storedList == null){
+  //    favorites= [];
+  //  } else {
+  //    favorites = JSON.parse(storedlist);
+  //  }
+  //  return favorites;
+  // }
+
+  // function localStorageFriendList(flist){
+  //  localStorage.setItem('localFavoriteList', JSON.stringify(flist));
+
+  return (
+   ""
+  );
 }
-
-Favorites()

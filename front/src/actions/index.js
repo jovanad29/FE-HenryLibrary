@@ -20,6 +20,10 @@ export const GET_ALL_AUTHORS = "GET_ALL_AUTHORS";
 export const GET_ALL_PUBLISHERS = "GET_ALL_PUBLISHERS";
 export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
 export const PUT_BOOK = "PUT_BOOK";
+export const ADD_FAVORITES = "ADD_FAVORITES";
+export const SET_SECTION = "SET_SECTION";
+export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
+export const GET_ALL_DETAILS_FAVORITES = "GET_ALL_DETAILS_FAVORITES";
 
 
 export function getAllBooks(pagina = 0, items = 10) {
@@ -248,3 +252,46 @@ export function updateBook(book, id) {
             });
     };
 }
+
+export function addFavoriteBook(id){
+    return function (dispatch) {
+        dispatch({
+            type: ADD_FAVORITES,
+            payload: id,
+        });
+
+   }
+
+}
+
+export function setSection(section){
+    return function (dispatch) {
+        dispatch({
+            type: SET_SECTION,
+            payload: section,
+        });
+    }
+
+}
+
+export function getAllFavorites(){
+    return function (dispatch) {
+        dispatch({
+            type: GET_ALL_FAVORITES,
+            
+        });
+    }
+
+}
+
+// export function getAllDetailsFavorites(){
+//     return function (dispatch) {
+//         dispatch({
+//             type: GET_ALL_DETAILS_FAVORITES,
+            
+//         });
+//     }
+
+// }
+
+
