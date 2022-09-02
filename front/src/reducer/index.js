@@ -16,7 +16,12 @@ import {
     EMPTY_AUTHORS,
     PUT_BOOK,
     ADD_CARRITO,
-} from "../actions/index";
+    ADD_FAVORITES,
+    SET_SECTION,
+    GET_ALL_FAVORITES,
+    DELETE_FAVORITES,
+
+    } from "../actions/index";
 
 const initialState = {
     allBooks: [],
@@ -33,7 +38,9 @@ const initialState = {
     displayName: null,
     photoURL: null,
     errorMessage: null,
-    carrito: []
+    carrito: [],
+    favorites: [],
+    section: "",
 };
 
 function rootReducer(state = initialState, action) {
@@ -81,7 +88,7 @@ function rootReducer(state = initialState, action) {
             };
 
         case PUT_BOOK:
-            return{
+            return {
                 ...state,
                 allBooks: [...state.allBooks, { ...action.payload }]
             }
@@ -139,6 +146,38 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 carrito: [...state.carrito,  action.payload ],
             }
+
+        case ADD_FAVORITES:
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload]
+            }
+
+        case SET_SECTION:
+            return {
+                ...state,
+                section: action.payload,
+            };
+
+        case GET_ALL_FAVORITES:
+            const filtered = state.allBooks.filter((b)=> state.favorites.includes(b.id))
+            return {
+                ...state,
+                allBooks: filtered,
+            };
+
+            case DELETE_FAVORITES:
+                const filtereds = state.allBooks.filter(
+                    (b) => b.id !== action.payload
+                );
+                const availableFavorites = state.favorites.filter(
+                    (b) => b !== action.payload
+                );
+                return {
+                    ...state,
+                    favorites: availableFavorites,
+                    allBooks: filtereds,
+                };
 
         default:
             return state;
