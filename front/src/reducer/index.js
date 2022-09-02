@@ -167,11 +167,17 @@ function rootReducer(state = initialState, action) {
             };
 
             case DELETE_FAVORITES:
-                const filtereds = state.allBooks.filter((b)=> b.id !== action.payload)
+                const filtereds = state.allBooks.filter(
+                    (b) => b.id !== action.payload
+                );
+                const availableFavorites = state.favorites.filter(
+                    (b) => b !== action.payload
+                );
                 return {
                     ...state,
-                    allBooks: filtereds
-                }
+                    favorites: availableFavorites,
+                    allBooks: filtereds,
+                };
 
         default:
             return state;

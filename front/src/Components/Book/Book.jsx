@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavoriteBook } from "../../actions/index.js";
+import { addFavoriteBook, getAllBooks, setPage, setSection } from "../../actions/index.js";
+
+
 //CSS
 import styles from "./Book.module.css";
 import { deleteFavoriteBook } from '../../actions';
@@ -32,6 +34,12 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
 
   const handleDeleteFavorite = (id) => {
     dispatch(deleteFavoriteBook(id));
+    dispatch(setSection("favoritos"));
+       if (favorites.length === 1){
+      dispatch(getAllBooks());
+      dispatch(setPage(0));
+      dispatch(setSection("home"));
+    } 
   };
 
   const isFavorite = favorites?.filter((f) => f === id);

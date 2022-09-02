@@ -13,7 +13,7 @@ import { BsCart2 } from "react-icons/bs";
 import styles from "./NavBar.module.css";
 import banderaArgentina from "./arg.png";
 import banderaEeuu from "./eeuu.png";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   getAllBooks,
   getAllFavorites,
@@ -28,16 +28,12 @@ export default function NavBar() {
     loginModal === true ? setLoginModal(false) : setLoginModal(true);
   }
 
-  // const allBooks = useSelector((state) => state.allBooks);
-  const favorites = useSelector((state) => state.favorites);
-
+  
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllBooks());
-    dispatch(setSection("favoritos"));
-  }, [dispatch, favorites]);
+  
 
   const handleOnFavorites = () => {
+    dispatch(setSection("favoritos"));
     dispatch(getAllFavorites());
   };
 
