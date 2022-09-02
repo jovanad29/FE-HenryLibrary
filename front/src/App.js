@@ -10,7 +10,7 @@ import NewBookChakra from "./Components/NewBook/NewBookChakra";
 import AboutUs from "./Components/Extras/AboutUs/AboutUs";
 import PoliticaPrivacidad from "./Components/Extras/PoliticaPrivacidad/PoliticaPrivacidad";
 import PoliticaDevolucion from "./Components/Extras/PoliticaDevolucion/PoliticaDevolucion";
-
+import ShoppingBook from "./Components/ShoppingBook/ShoppingBook";
 import PageError from "./Components/PageError/PageError.jsx"
 import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
 
@@ -27,7 +27,7 @@ function App() {
         <Route path="/home" component={Home} />
 
         {/*Ruta Catalogo de Libros */}
-        {/* <Route path={"/carrito"} component={} /> */}
+        <Route path={"/carrito"} component={ShoppingBook} />
 
         {/*Ruta Creacion de Nuevo Libro */}
         <Route path={"/nuevoLibro"} component={NewBook} />
