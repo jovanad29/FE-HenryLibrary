@@ -11,14 +11,14 @@ import AboutUs from "./Components/Extras/AboutUs/AboutUs";
 import PoliticaPrivacidad from "./Components/Extras/PoliticaPrivacidad/PoliticaPrivacidad";
 import PoliticaDevolucion from "./Components/Extras/PoliticaDevolucion/PoliticaDevolucion";
 import ShoppingBook from "./Components/ShoppingBook/ShoppingBook";
-import PageError from "./Components/PageError/PageError.jsx"
+import PageError from "./Components/PageError/PageError.jsx";
 import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
-import Favorites from './Components/Favorites/Favorites';
+import Favorites from "./Components/Favorites/Favorites";
 
 function App() {
   return (
     <>
-		{/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
+      {/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
 
       <Switch>
         {/*Ruta Landing Page */}
@@ -27,15 +27,14 @@ function App() {
         {/*Ruta Catalogo de Libros */}
         <Route path="/home" component={Home} />
 
-           {/*Ruta Favoritos de Libros */}
-           <Route path="/favoritos" component={Favorites} />
+        {/*Ruta Favoritos de Libros */}
+        <Route path="/favoritos" component={Favorites} />
 
         {/*Ruta Catalogo de Libros */}
         <Route path={"/carrito"} component={ShoppingBook} />
 
         {/*Ruta Creacion de Nuevo Libro */}
-        <Route path={"/nuevoLibro"} component={NewBook} />
-        <Route path={"/nuevoLibroChakra"} component={NewBookChakra} />
+        <Route path={"/nuevoLibro"} component={NewBookChakra} />
 
         {/*Ruta Catalogo de Libros */}
         {/* <Route path={"/favoritos"} component={} /> */}
@@ -45,8 +44,8 @@ function App() {
 
         {/*Ruta Inicio de Sesion */}
         {/* <Route path={"/login"} component={} /> */}
-      <Route path="/catalog/author/:id" component={CardsAuthor} />
- 
+        <Route path="/catalog/author/:id" component={CardsAuthor} />
+
         {/*Ruta administrador*/}
         {/* <Route path={"/user/admin"} component={} /> */}
 
