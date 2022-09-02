@@ -52,13 +52,14 @@ export default function BookDetail() {
   //   // console.log("agregado");
   // }
   const addItem = (id) => {
-    
+    id = bookDetail.id;
     const price = bookDetail.price;
     const quantity = 1;
     const title = bookDetail.title;
     const image = bookDetail.image;
     const bookToAdd = { id, price, quantity, title, image };
     alert("has guardado tu libro en el carrito")
+    console.log("bookToAdd desde bookdetail", bookToAdd)
     setItem(bookToAdd);
   }
 
@@ -87,6 +88,7 @@ useEffect (() => {
         return item;
       });
       setItems(items);
+      console.log("items desde bookdetail", items);
       localStorage.setItem("carritoGuest", JSON.stringify(items));
     } else {
       const items = [...itemsLS, item];

@@ -11,12 +11,7 @@ import styles from "./ShoppingBook.module.css";
 import { Button } from "@chakra-ui/react";
 
 
-
-
-
 function ShoppingBook() {
-
-
   const [items, setItems] = useState([]);
   const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
@@ -43,9 +38,6 @@ function ShoppingBook() {
   function deleteData(){
     localStorage.removeItem("book")
   }
-
-
-
 
   const item = items.map( b => {
     const {id, title, image, quanty, price} = b

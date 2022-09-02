@@ -26,6 +26,7 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
     const image = bookToCarrito[0].image;
     const bookToAdd = { id, price, quantity, title, image };
     alert("has guardado tu libro en el carrito")
+    console.log("bookToAdd desde book", bookToAdd)
     setItem(bookToAdd);
   }
 
@@ -54,6 +55,7 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
           return item;
         });
         setItems(items);
+        console.log("items desde books", items)
         localStorage.setItem("carritoGuest", JSON.stringify(items));
       } else {
         const items = [...itemsLS, item];
