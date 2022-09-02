@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, getBooksCount, setPage } from "../../actions/index.js";
+import { getAllBooks, setPage } from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -85,6 +85,7 @@ export default function Home() {
                                         image={b.image}
                                         price={b.price}
                                         stock={b.currentStock}
+                                        allBooks={allBooks}
                                     />
                                 ))}
                         </div>

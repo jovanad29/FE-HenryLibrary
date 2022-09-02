@@ -20,6 +20,7 @@ export const GET_ALL_AUTHORS = "GET_ALL_AUTHORS";
 export const GET_ALL_PUBLISHERS = "GET_ALL_PUBLISHERS";
 export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
 export const PUT_BOOK = "PUT_BOOK";
+export const ADD_CARRITO = "ADD_CARRITO";
 
 
 export function getAllBooks(pagina = 0, items = 10) {
@@ -248,3 +249,22 @@ export function updateBook(id, body) {
             });
     };
 }
+
+
+
+// export const addCart = () => {
+//     const miStorage = window.localStorage;
+//     let Productos = Object.values(miStorage);
+//     let objetos = Productos.map((producto) => {
+//         return JSON.parse(producto);
+//     });
+//     let productos = objetos.filter((producto) => producto.hasOwnProperty("product_id"));
+//     productos.reduce((acc, producto) => acc + producto.cantidad, 0);
+
+//     return (dispatch) => {
+//         return dispatch({
+//             type: "ADD_CARRITO",
+//             payload: productos,
+//         });
+//     };
+// };
