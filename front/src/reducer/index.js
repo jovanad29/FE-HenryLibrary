@@ -142,6 +142,71 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 authors: [],
             };
+        case LOGIN:
+            return {
+                ...state,
+                status: "authenticated",
+                uid: action.payload.uid,
+                email: action.payload.email,
+                displayName: action.payload.displayName,
+                photoURL: action.payload.photoURL,
+                errorMessage: null,
+            };
+        case LOGOUT:
+            return {
+                ...state,
+                status: "not-authenticated",
+                uid: null,
+                email: null,
+                displayName: null,
+                photoURL: null,
+                errorMessage: action.payload?.errorMessage,
+            };
+        case CHECKING_CREDENTIALS:
+            return {
+                ...state,
+                status: "checking",
+            };
+
+        case ADD_CARRITO:
+            return {
+                ...state,
+                carrito: [...state.carrito, action.payload],
+            };
+
+        case ADD_FAVORITES:
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload],
+            };
+
+        case SET_SECTION:
+            return {
+                ...state,
+                section: action.payload,
+            };
+
+        case GET_ALL_FAVORITES:
+            const filtered = state.allBooks.filter((b) =>
+                state.favorites.includes(b.id)
+            );
+            return {
+                ...state,
+                allBooks: filtered,
+            };
+
+        case DELETE_FAVORITES:
+            const filtereds = state.allBooks.filter(
+                (b) => b.id !== action.payload
+            );
+            const availableFavorites = state.favorites.filter(
+                (b) => b !== action.payload
+            );
+            return {
+                ...state,
+                favorites: availableFavorites,
+                allBooks: filtereds,
+            };
 
         default:
             return state;
