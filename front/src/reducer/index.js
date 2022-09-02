@@ -19,8 +19,9 @@ import {
     ADD_FAVORITES,
     SET_SECTION,
     GET_ALL_FAVORITES,
-    GET_ALL_DETAILS_FAVORITES,
-} from "../actions/index";
+    DELETE_FAVORITES,
+
+    } from "../actions/index";
 
 const initialState = {
     allBooks: [],
@@ -37,7 +38,7 @@ const initialState = {
     displayName: null,
     photoURL: null,
     errorMessage: null,
-    carrito: []
+    carrito: [],
     favorites: [],
     section: "",
 };
@@ -164,6 +165,13 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 allBooks: filtered,
             };
+
+            case DELETE_FAVORITES:
+                const filtereds = state.allBooks.filter((b)=> b.id !== action.payload)
+                return {
+                    ...state,
+                    allBooks: filtereds
+                }
 
         default:
             return state;

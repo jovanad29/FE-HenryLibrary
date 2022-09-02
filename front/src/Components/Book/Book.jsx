@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavoriteBook } from "../../actions/index.js";
@@ -10,6 +9,7 @@ import styles from "./Book.module.css";
 export default function Book({ id, title, authors, image, price, stock, allBooks }) {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
+  const section = useSelector((state) => state.section);
   const bookToCarrito = allBooks.filter( b => b.id === id )
   // console.log("bookToCarrito", bookToCarrito)
   function saveData(){
@@ -29,6 +29,10 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
     dispatch(addFavoriteBook(id));
   };
 
+  const handleDeleteFavorite = (id) => {
+    dispatch(addFavoriteBook(id));
+  };
+
   const isFavorite = favorites?.filter((f) => f === id);
 
   return (
@@ -39,6 +43,11 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
             AGREGAR A FAVORITOS
           </button>
         )}
+        {
+          section === "favoritos" &&  <button className={styles.icono} onClick={() => handleDeleteFavorite(id)}>
+          ELIMINAR FAVORITO
+        </button>
+        }
         <NavLink to={`/catalog/detail/${id}`}>
           <img className={styles.img} src={image} alt="imagenDelLibro" />
         </NavLink>
