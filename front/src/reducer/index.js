@@ -34,7 +34,7 @@ const initialState = {
     msg: [],
     createBooks: [],
     actualPage: 0,
-    status: "checking",
+    status: "not-authenticated",
     uid: null,
     email: null,
     displayName: null,
