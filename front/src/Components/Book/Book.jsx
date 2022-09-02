@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFavoriteBook } from "../../actions/index.js";
 //CSS
 import styles from "./Book.module.css";
+import { deleteFavoriteBook } from '../../actions';
 
 
 export default function Book({ id, title, authors, image, price, stock, allBooks }) {
@@ -30,7 +31,7 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
   };
 
   const handleDeleteFavorite = (id) => {
-    dispatch(addFavoriteBook(id));
+    dispatch(deleteFavoriteBook(id));
   };
 
   const isFavorite = favorites?.filter((f) => f === id);
