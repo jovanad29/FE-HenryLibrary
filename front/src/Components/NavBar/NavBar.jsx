@@ -22,6 +22,7 @@ import {
 } from "../../actions";
 
 export default function NavBar() {
+    const dispatch = useDispatch();
     const { status } = useSelector((state) => state);
     const isAuthenticating = useMemo(() => status !== "authenticated", [status]);
 
