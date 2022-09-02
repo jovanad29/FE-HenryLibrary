@@ -15,50 +15,64 @@ import PageError from "./Components/PageError/PageError.jsx";
 import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
 import Favorites from "./Components/Favorites/Favorites";
 
+import { useCheckAuth } from "../src/hooks/useCheckAuth";
+
 function App() {
-  return (
-    <>
-      {/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
+    const status = useCheckAuth();
 
-      <Switch>
-        {/*Ruta Landing Page */}
-        <Route exact path="/" component={LandingPage} />
+    // if (status === "checking") {
+    //     return <div>Autenticando</div>;
+    // }
 
-        {/*Ruta Catalogo de Libros */}
-        <Route path="/home" component={Home} />
+    return (
+        <>
+            {/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
 
-        {/*Ruta Favoritos de Libros */}
-        <Route path="/favoritos" component={Favorites} />
+            <Switch>
+                {/*Ruta Landing Page */}
+                <Route exact path="/" component={LandingPage} />
 
-        {/*Ruta Catalogo de Libros */}
-        <Route path={"/carrito"} component={ShoppingBook} />
+                {/*Ruta Catalogo de Libros */}
+                <Route path="/home" component={Home} />
 
-        {/*Ruta Creacion de Nuevo Libro */}
-        <Route path={"/nuevoLibro"} component={NewBookChakra} />
+                {/*Ruta Favoritos de Libros */}
+                <Route path="/favoritos" component={Favorites} />
 
-        {/*Ruta Catalogo de Libros */}
-        {/* <Route path={"/favoritos"} component={} /> */}
+                {/*Ruta Catalogo de Libros */}
+                <Route path={"/carrito"} component={ShoppingBook} />
 
-        {/*Ruta Detalles de Libro */}
-        <Route path="/catalog/detail/:id" component={BookDetail} />
+                {/*Ruta Creacion de Nuevo Libro */}
+                <Route path={"/nuevoLibro"} component={NewBookChakra} />
 
-        {/*Ruta Inicio de Sesion */}
-        {/* <Route path={"/login"} component={} /> */}
-        <Route path="/catalog/author/:id" component={CardsAuthor} />
+                {/*Ruta Catalogo de Libros */}
+                {/* <Route path={"/favoritos"} component={} /> */}
 
-        {/*Ruta administrador*/}
-        {/* <Route path={"/user/admin"} component={} /> */}
+                {/*Ruta Detalles de Libro */}
+                <Route path="/catalog/detail/:id" component={BookDetail} />
 
-        {/*Rutas Extras*/}
-        <Route path="/aboutUs" component={AboutUs} />
-        <Route path="/politicaPrivacidad" component={PoliticaPrivacidad} />
-        <Route path="/politicaDevolucion" component={PoliticaDevolucion} />
+                {/*Ruta Inicio de Sesion */}
+                {/* <Route path={"/login"} component={} /> */}
+                <Route path="/catalog/author/:id" component={CardsAuthor} />
 
-        {/*Rutas Error*/}
-        <Route path="*" component={PageError} />
-      </Switch>
-    </>
-  );
+                {/*Ruta administrador*/}
+                {/* <Route path={"/user/admin"} component={} /> */}
+
+                {/*Rutas Extras*/}
+                <Route path="/aboutUs" component={AboutUs} />
+                <Route
+                    path="/politicaPrivacidad"
+                    component={PoliticaPrivacidad}
+                />
+                <Route
+                    path="/politicaDevolucion"
+                    component={PoliticaDevolucion}
+                />
+
+                {/*Rutas Error*/}
+                <Route path="*" component={PageError} />
+            </Switch>
+        </>
+    );
 }
 
 export default App;
