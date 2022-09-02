@@ -23,6 +23,9 @@ export default function BookDetail() {
   const [isActive, setIsActive] = useState(true);
 
   const [modal, setModal] = useState(false);
+  const [items, setItems] = useState([]);//arreglo de libros guardados en local storage
+  const [item, setItem] = useState({});//objeto de libro a guardar en local storage
+  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
   useEffect(() => {
     dispatch(getBooksId(id));
@@ -45,9 +48,59 @@ export default function BookDetail() {
     dispatch(getBooksId(id));
   }
 
-  function handleClickCarrito() {
-    // console.log("agregado");
+  // function handleClickCarrito() {
+  //   // console.log("agregado");
+  // }
+  const addItem = (id) => {
+    
+    const price = bookDetail.price;
+    const quantity = 1;
+    const title = bookDetail.title;
+    const image = bookDetail.image;
+    const bookToAdd = { id, price, quantity, title, image };
+    alert("has guardado tu libro en el carrito")
+    setItem(bookToAdd);
   }
+
+//traer el localstorage cuando carga el componente
+useEffect(() => {
+  const localItems = JSON.parse(localStorage.getItem("carritoGuest"));
+  if (localItems) {
+    setItems(localItems);
+  } 
+  const localTotal = JSON.parse(localStorage.getItem("totalGuest"));
+  if (localTotal) {
+    setTotal(localTotal);
+  }
+}, []);
+
+useEffect (() => {
+  if (item.id) {
+    const totals = JSON.parse(localStorage.getItem("carritoTotal")) || {totalBooks: 0, totalAmount: 0};
+    const itemsLS = JSON.parse(localStorage.getItem("carritoGuest")) || [];
+    const itemExist = itemsLS.find((item) => item.id === id);
+    if (itemExist) {
+      const items = itemsLS.map((item) => {
+        if (item.id === id) {
+          item.quantity += 1;
+        }
+        return item;
+      });
+      setItems(items);
+      localStorage.setItem("carritoGuest", JSON.stringify(items));
+    } else {
+      const items = [...itemsLS, item];
+      setItems(items);
+      localStorage.setItem("carritoGuest", JSON.stringify(items));
+    }
+    totals.totalBooks += 1;
+    totals.totalAmount += item.price;
+    setTotal(totals);
+    localStorage.setItem("carritoTotal", JSON.stringify(totals));
+  }
+}, [item]);
+
+
 
   function handleClickModal() {
     setModal(!modal);
@@ -154,7 +207,7 @@ export default function BookDetail() {
                           : styles.boton + " " + styles.botonDisabled
                       }
                       disabled={bookDetail.currentStock === 0}
-                      onClick={handleClickCarrito}
+                      onClick={() => addItem(id)}
                   >
                     Agregar al carrito
                   </Button>

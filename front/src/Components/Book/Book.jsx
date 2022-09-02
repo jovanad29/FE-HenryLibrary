@@ -14,13 +14,66 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
   const favorites = useSelector((state) => state.favorites);
   const section = useSelector((state) => state.section);
   const bookToCarrito = allBooks.filter( b => b.id === id )
-  // console.log("bookToCarrito", bookToCarrito)
-  function saveData(){
-    localStorage.setItem("book", JSON.stringify(bookToCarrito))
-                         //key , value
-    console.log(typeof bookToCarrito)
+  const [items, setItems] = useState([]);//arreglo de libros guardados en local storage
+  const [item, setItem] = useState({});//objeto de libro a guardar en local storage
+  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+
+  const addItem = (id) => {
+    const price = bookToCarrito[0].price;
+    const quantity = 1;
+    const title = bookToCarrito[0].title;
+
+    const image = bookToCarrito[0].image;
+    const bookToAdd = { id, price, quantity, title, image };
     alert("has guardado tu libro en el carrito")
+    setItem(bookToAdd);
   }
+
+  //traer el localstorage cuando carga el componente
+  useEffect(() => {
+    const localItems = JSON.parse(localStorage.getItem("carritoGuest"));
+    if (localItems) {
+      setItems(localItems);
+    } 
+    const localTotal = JSON.parse(localStorage.getItem("totalGuest"));
+    if (localTotal) {
+      setTotal(localTotal);
+    }
+  }, []);
+
+  useEffect (() => {
+    if (item.id) {
+      const totals = JSON.parse(localStorage.getItem("carritoTotal")) || {totalBooks: 0, totalAmount: 0};
+      const itemsLS = JSON.parse(localStorage.getItem("carritoGuest")) || [];
+      const itemExist = itemsLS.find((item) => item.id === id);
+      if (itemExist) {
+        const items = itemsLS.map((item) => {
+          if (item.id === id) {
+            item.quantity += 1;
+          }
+          return item;
+        });
+        setItems(items);
+        localStorage.setItem("carritoGuest", JSON.stringify(items));
+      } else {
+        const items = [...itemsLS, item];
+        setItems(items);
+        localStorage.setItem("carritoGuest", JSON.stringify(items));
+      }
+      totals.totalBooks += 1;
+      totals.totalAmount += item.price;
+      setTotal(totals);
+      localStorage.setItem("carritoTotal", JSON.stringify(totals));
+    }
+  }, [item]);
+
+
+  // function saveData(){
+  //   localStorage.setItem("book", JSON.stringify(bookToCarrito))
+  //                        //key , value
+  //   console.log(typeof bookToCarrito)
+  //   alert("has guardado tu libro en el carrito")
+  // }
 
 
   useEffect(() => {
@@ -75,7 +128,7 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
         {/* Renderizado condicional verificando si hay stock disponible */}
         {stock > 0 ? (
           <div className={styles.pago}>
-            <button className={styles.boton} onClick={saveData}>Agregar al carrito</button>
+            <button className={styles.boton} onClick={ () => addItem(id)}>Agregar al carrito</button>
           </div>
         ) : (
           <div>
