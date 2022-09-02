@@ -94,8 +94,8 @@ function Login({HandleOpenLogin}) {
                 {isAuthenticating && (
                     <div>
                         <div>
-                            <button onClick={onGoogleSignIn}>
-                                <FcGoogle />
+                            <button onClick={onGoogleSignIn} className={styles.boton}>
+                                Login with <FcGoogle />
                             </button>
                         </div>
                         <div>
