@@ -14,8 +14,8 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
   const favorites = useSelector((state) => state.favorites);
   const section = useSelector((state) => state.section);
   const bookToCarrito = allBooks.filter( b => b.id === id )
-  const [items, setItems] = useState([]);//arreglo de libros guardados en local storage
-  const [item, setItem] = useState({});//objeto de libro a guardar en local storage
+  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
+  const [guestBook, setGuestBook] = useState({});//objeto de libro a guardar en local storage
   const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
   const addItem = (id) => {
@@ -27,25 +27,25 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
     const bookToAdd = { id, price, quantity, title, image };
     alert("has guardado tu libro en el carrito")
     console.log("bookToAdd desde book", bookToAdd)
-    setItem(bookToAdd);
+    setGuestBook(bookToAdd);
   }
 
   //traer el localstorage cuando carga el componente
   useEffect(() => {
-    const localItems = JSON.parse(localStorage.getItem("carritoGuest"));
+    const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
     if (localItems) {
-      setItems(localItems);
+      setGuestCartBooks(localItems);
     } 
-    const localTotal = JSON.parse(localStorage.getItem("totalGuest"));
+    const localTotal = JSON.parse(localStorage.getItem("total"));
     if (localTotal) {
       setTotal(localTotal);
     }
   }, []);
 
   useEffect (() => {
-    if (item.id) {
-      const totals = JSON.parse(localStorage.getItem("carritoTotal")) || {totalBooks: 0, totalAmount: 0};
-      const itemsLS = JSON.parse(localStorage.getItem("carritoGuest")) || [];
+    if (guestBook.id) {
+      const totals = JSON.parse(localStorage.getItem("total")) || {totalBooks: 0, totalAmount: 0};
+      const itemsLS = JSON.parse(localStorage.getItem("guestCartBooks")) || [];
       const itemExist = itemsLS.find((item) => item.id === id);
       if (itemExist) {
         const items = itemsLS.map((item) => {
@@ -54,20 +54,20 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
           }
           return item;
         });
-        setItems(items);
+        setGuestCartBooks(items);
         console.log("items desde books", items)
-        localStorage.setItem("carritoGuest", JSON.stringify(items));
+        localStorage.setItem("guestCartBooks", JSON.stringify(items));
       } else {
-        const items = [...itemsLS, item];
-        setItems(items);
-        localStorage.setItem("carritoGuest", JSON.stringify(items));
+        const items = [...itemsLS, guestBook];
+        setGuestCartBooks(items);
+        localStorage.setItem("guestCartBooks", JSON.stringify(items));
       }
       totals.totalBooks += 1;
-      totals.totalAmount += item.price;
+      totals.totalAmount += guestBook.price;
       setTotal(totals);
-      localStorage.setItem("carritoTotal", JSON.stringify(totals));
+      localStorage.setItem("total", JSON.stringify(totals));
     }
-  }, [item]);
+  }, [guestBook]);
 
 
   // function saveData(){
