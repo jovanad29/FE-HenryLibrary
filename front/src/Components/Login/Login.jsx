@@ -11,7 +11,7 @@ import {
 import styles from "./Login.module.css";
 import { Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Button, ButtonGroup, Alert, AlertIcon } from "@chakra-ui/react";
 import { Stack, HStack, VStack } from "@chakra-ui/react";
 import { FiMail, FiEyeOff, FiEye } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
@@ -19,14 +19,16 @@ import { FcGoogle } from "react-icons/fc";
 
 function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
-    const { status, displayName, photoURL } = useSelector((state) => state);
+    const { status, displayName, photoURL, errorMessage } = useSelector(
+        (state) => state
+    );
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
     const isAuthenticating = useMemo(() => status === "checking", [status]);
 
     const [createUser, setCreateUser] = useState(false);
 
     const [login, setLogin] = useState({
-        name: "",
+        displayName: "",
         email: "",
         password: "",
     });
@@ -50,7 +52,7 @@ function Login({ HandleOpenLogin }) {
     };
 
     const handleCreateNewUser = () => {
-        setLogin({ name: "", email: "", password: "" });
+        setLogin({ displayName: "", email: "", password: "" });
         setCreateUser(true);
     };
 
@@ -62,7 +64,7 @@ function Login({ HandleOpenLogin }) {
         //   email: "yoyo@gmail.com",
         // };
         dispatch(startCreatingUserWithEmailPassword(login));
-        setCreateUser(false);
+        // setCreateUser(false);
     };
 
     const handleLoginUserPass = () => {
@@ -70,10 +72,9 @@ function Login({ HandleOpenLogin }) {
             password: "123456",
             email: "yoyo@gmail.com",
         };
+        setCreateUser(false);
         dispatch(startLoginWithEmailPassword(user));
     };
-
-    console.log(status);
 
     const handleVolver = () => {
         setCreateUser(false);
@@ -93,13 +94,13 @@ function Login({ HandleOpenLogin }) {
                     )}
                 </div>
 
-                {createUser && (
+                {createUser && !isAuthenticated && (
                     <div>
                         <input
                             className={styles.input}
                             type="text"
                             placeholder="Nombre Completo"
-                            name="name"
+                            name="displayName"
                             value={login.name}
                             onChange={handleChange}
                         />
@@ -150,31 +151,14 @@ function Login({ HandleOpenLogin }) {
                     <p>{displayName}</p>
                 )}
                 {!isAuthenticated && (
-                    // <div>
-                    //     <div>
-                    //         <button
-                    //             disabled={isAuthenticating}
-                    //             onClick={onGoogleSignIn}
-                    //             className={styles.boton}
-                    //         >
-                    //             <FcGoogle />
-                    //             <Text fontSize="md">Google</Text>
-                    //         </button>
-                    //     </div>
-                    //     <div>
-                    //         <button
-                    //             disabled={isAuthenticating}
-                    //             className={styles.boton}
-                    //         >
-                    //             Ingresar
-                    //         </button>
-                    //     </div>
-                    //     <div className={styles.cuenta}>
-                    //         <button>Crear nueva cuenta</button>
-                    //         <button>Olvido la contraseña</button>
-                    //     </div>
-                    // </div>
                     <div>
+                        <Alert fontSize='xs'
+                            display={!!errorMessage ? "" : "none"}
+                            status="error"
+                        >
+                            <AlertIcon /> {errorMessage}
+                        </Alert>
+
                         <Stack direction="column" spacing={3} align="center">
                             {createUser ? (
                                 <Button
