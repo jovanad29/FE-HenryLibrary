@@ -60,20 +60,14 @@ export default function NavBar() {
       <div className={styles.search}>
         <SearchBar />
       </div>
+     
 
       <div className={styles.iconos}>
-        <button onClick={handleOnFavorites}>
-          <MdOutlineFavoriteBorder size="1.4rem" />
-        </button>
+        <button onClick={handleOnFavorites}><MdOutlineFavoriteBorder className={status === "authenticated" ? styles.iconoFav : styles.iconoNoFav} size="1.4rem" /></button>
 
-        <button onClick={() => HandleOpenLogin()}>
-          {" "}
-          <VscAccount size="1.4rem" />
-        </button>
+        <button onClick={() => HandleOpenLogin()}><VscAccount size="1.4rem" /></button>
 
-        <NavLink to="/carrito">
-          <BsCart2 size="1.5rem" />
-        </NavLink>
+        <NavLink to="/carrito"><BsCart2 size="1.5rem" /></NavLink>
       </div>
 
       <div className={styles.banderas}>
