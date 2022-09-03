@@ -26,15 +26,23 @@ export default function NavBar() {
     const { status } = useSelector((state) => state);
     const isAuthenticating = useMemo(() => status !== "authenticated", [status]);
 
-
-  const [loginModal, setLoginModal] = useState(false)
-
+  const [loginModal, setLoginModal] = useState(false);
 
 
-  function HandleOpenLogin(){
-
-    loginModal === true ?  setLoginModal(false) : setLoginModal(true)
+  function HandleOpenLogin() {
+    loginModal === true ? setLoginModal(false) : setLoginModal(true);
   }
+
+  // const allBooks = useSelector((state) => state.allBooks);
+  const favorites = useSelector((state) => state.favorites);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log("es este?");
+    dispatch(getAllBooks());
+
+    dispatch(setSection("favoritos"));
+  }, [dispatch, favorites]);
 
   const handleOnFavorites = () => {
     dispatch(setSection("favoritos"));
@@ -43,12 +51,17 @@ export default function NavBar() {
 
   return (
     <nav className={styles.container}>
-      
-      <h1 className={styles.h1}><NavLink to="/">Libreria</NavLink></h1>
+      <h1 className={styles.h1}>
+        <NavLink to="/">Libreria</NavLink>
+      </h1>
 
-      <h2 className={styles.h1_1}><NavLink to="/">HENRY</NavLink></h2>
+      <h2 className={styles.h1_1}>
+        <NavLink to="/">HENRY</NavLink>
+      </h2>
 
-      <div className={styles.search}><SearchBar /></div>
+      <div className={styles.search}>
+        <SearchBar />
+      </div>
 
       <div className={styles.iconos}>
         <button onClick={handleOnFavorites}>
@@ -74,7 +87,6 @@ export default function NavBar() {
           <img src={banderaEeuu} alt="" />
         </button>
       </div>
-
       {loginModal && <Login HandleOpenLogin={HandleOpenLogin} />}
     </nav>
   );
