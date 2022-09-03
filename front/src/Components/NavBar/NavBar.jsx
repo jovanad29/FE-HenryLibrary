@@ -22,12 +22,11 @@ import {
 } from "../../actions";
 
 export default function NavBar() {
-    const dispatch = useDispatch();
-    const { status } = useSelector((state) => state);
-    const isAuthenticating = useMemo(() => status !== "authenticated", [status]);
+  const dispatch = useDispatch();
+  const { status } = useSelector((state) => state);
+  const isAuthenticating = useMemo(() => status !== "authenticated", [status]);
 
   const [loginModal, setLoginModal] = useState(false);
-
 
   function HandleOpenLogin() {
     loginModal === true ? setLoginModal(false) : setLoginModal(true);
@@ -36,7 +35,7 @@ export default function NavBar() {
   // const allBooks = useSelector((state) => state.allBooks);
   const favorites = useSelector((state) => state.favorites);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   useEffect(() => {
     console.log("es este?");
     dispatch(getAllBooks());
