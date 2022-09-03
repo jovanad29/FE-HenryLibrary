@@ -14,6 +14,11 @@ import ShoppingBook from "./Components/ShoppingBook/ShoppingBook";
 import PageError from "./Components/PageError/PageError.jsx";
 import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
 import Favorites from "./Components/Favorites/Favorites";
+import Success from "./components/MercadoPago/SuccessMP";
+
+import Rejected from "./Components/MercadoPago/RejectedMP";
+import Pending from "./Components/MercadoPago/PendingMP";
+import Validate from "./components/MercadoPago/ValidateMP";
 
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 
@@ -29,6 +34,7 @@ function App() {
             {/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
 
             <Switch>
+           
                 {/*Ruta Landing Page */}
                 <Route exact path="/" component={LandingPage} />
 
@@ -63,6 +69,11 @@ function App() {
                     path="/politicaPrivacidad"
                     component={PoliticaPrivacidad}
                 />
+            <Route exact path={"/checkout/validate"} component={Validate} />
+            <Route exact path={"/checkout/pending"} component={Pending} />
+            <Route exact path={"/checkout/rejected"} component={Rejected} />
+            <Route exact path={"/checkout/success"} component={Success} />
+            <Route exact path={"/checkout"} component={Checkout} />
                 <Route
                     path="/politicaDevolucion"
                     component={PoliticaDevolucion}
