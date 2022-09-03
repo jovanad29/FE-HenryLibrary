@@ -41,6 +41,7 @@ export const ORDER_BY_RATING = "ORDER_BY_RATING";
 export const ORDER_BY_SOLD_COPIES = "ORDER_BY_SOLD_COPIES";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
+export const ACTIVE_CART = "ACTIVE_CART";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -466,3 +467,17 @@ export function orderBySoldCopies(order) {
         dispatch({ type: ORDER_BY_SOLD_COPIES, payload: order });
     };
 }
+
+export function getActiveCart(userId,statusId) {
+    return function (dispatch) {
+        axios
+        // get /cart {userId, statusId}
+            .get(`/cart/${userId}/${statusId}`)
+                .then((response) => {
+                dispatch({ type: ACTIVE_CART, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("getActiveCart", error);
+            });
+    };
+}   
