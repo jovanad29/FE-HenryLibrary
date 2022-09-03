@@ -1,6 +1,11 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { signInWithGoogle, logoutFirebase } from "../firebase/providers";
+import {
+    loginWithEmailPassword,
+    registerUserWithEmailPassword,
+    signInWithGoogle,
+    logoutFirebase,
+} from "../firebase/providers";
 
 dotenv.config();
 
@@ -30,6 +35,10 @@ export const DELETE_FAVORITES = "DELETE_FAVORITES";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const CHECKING_CREDENTIALS = "CHECKING_CREDENTIALS";
+export const GET_ALL_DETAILS_FAVORITES = "GET_ALL_DETAILS_FAVORITES";
+export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
+export const ORDER_BY_RATING = "ORDER_BY_RATING";
+export const ORDER_BY_SOLD_COPIES = "ORDER_BY_SOLD_COPIES";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -274,46 +283,39 @@ export function updateBook(id, body) {
 //     };
 // };
 
-export function addFavoriteBook(id){
+export function addFavoriteBook(id) {
     return function (dispatch) {
         dispatch({
             type: ADD_FAVORITES,
             payload: id,
         });
-
-   }
-
+    };
 }
 
-export function setSection(section){
+export function setSection(section) {
     return function (dispatch) {
         dispatch({
             type: SET_SECTION,
             payload: section,
         });
-    }
-
+    };
 }
 
-export function getAllFavorites(){
+export function getAllFavorites() {
     return function (dispatch) {
         dispatch({
             type: GET_ALL_FAVORITES,
-            
         });
-    }
-
+    };
 }
 
-export function deleteFavoriteBook(id){
+export function deleteFavoriteBook(id) {
     return function (dispatch) {
         dispatch({
             type: DELETE_FAVORITES,
             payload: id,
         });
-
-   }
-
+    };
 }
 
 export function login(user) {
@@ -339,40 +341,48 @@ export const startGoogleSignIn = () => {
         dispatch(checkingCredentials());
 
         const result = await signInWithGoogle();
-        console.log(result)
+        console.log(result);
+        if (!result.ok) return dispatch(logout(result.errorMessage));
+
+        //dispachar el guardado en la db del usuario previo revisar si no existe
+        const {email, photoURL: profilePic, uid, displayName: nameUser} = result;
+
+        
+        dispatch(login(result));
+    };
+};
+
+export const startCreatingUserWithEmailPassword = ({
+    email,
+    password,
+    displayName,
+}) => {
+    return async (dispatch) => {
+        dispatch(checkingCredentials());
+
+        const result = await registerUserWithEmailPassword({
+            email,
+            password,
+            displayName,
+        });
+        console.log(result);
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
         dispatch(login(result));
     };
 };
 
-// export const startCreatingUserWithEmailPassword = ({ email, password, displayName }) => {
-//   return async( dispatch ) => {
+export const startLoginWithEmailPassword = ({ email, password }) => {
+    return async (dispatch) => {
+        dispatch(checkingCredentials());
 
-//       dispatch( checkingCredentials() );
+        const result = await loginWithEmailPassword({ email, password });
+        console.log(result);
 
-//       const result = await registerUserWithEmailPassword({ email, password, displayName });
-//       if ( !result.ok ) return dispatch( logout( result.errorMessage ) );
-
-//       dispatch( login( result ))
-
-//   }
-
-// }
-
-// export const startLoginWithEmailPassword = ({ email, password }) => {
-//   return async( dispatch ) => {
-
-//       dispatch( checkingCredentials() );
-
-//       const result = await loginWithEmailPassword({ email, password });
-//       console.log(result);
-
-//       if ( !result.ok ) return dispatch( logout( result ) );
-//       dispatch( login( result ));
-
-//   }
-// }
+        if (!result.ok) return dispatch(logout(result));
+        dispatch(login(result));
+    };
+};
 
 export const startLogout = () => {
     return async (dispatch) => {
@@ -381,3 +391,23 @@ export const startLogout = () => {
         dispatch(logout());
     };
 };
+
+//ORDENAMIENTOS
+
+export function orderByPrice(order) {
+    return (dispatch) => {
+        dispatch({ type: ORDER_BY_PRICE, payload: order });
+    };
+}
+
+export function orderByRating(order) {
+    return (dispatch) => {
+        dispatch({ type: ORDER_BY_RATING, payload: order });
+    };
+}
+
+export function orderBySoldCopies(order) {
+    return (dispatch) => {
+        dispatch({ type: ORDER_BY_SOLD_COPIES, payload: order });
+    };
+}

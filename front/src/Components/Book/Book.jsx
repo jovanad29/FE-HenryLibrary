@@ -8,10 +8,18 @@ import { addFavoriteBook, getAllBooks, setPage, setSection } from "../../actions
 import styles from "./Book.module.css";
 import { deleteFavoriteBook } from '../../actions';
 
-
-export default function Book({ id, title, authors, image, price, stock, allBooks }) {
+export default function Book({
+  id,
+  title,
+  authors,
+  image,
+  price,
+  stock,
+  allBooks,
+}) {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
+
   const section = useSelector((state) => state.section);
   const { status } = useSelector((state) => state);
   const isAuthenticated = useMemo(() => status === "authenticated", [status]);
@@ -80,11 +88,9 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
   //   alert("has guardado tu libro en el carrito")
   // }
 
-
   useEffect(() => {
-       console.log(favorites);
-}, [favorites]);
-
+    console.log(favorites);
+  }, [favorites]);
 
   const handleOnFavorite = (id) => {
     dispatch(addFavoriteBook(id));

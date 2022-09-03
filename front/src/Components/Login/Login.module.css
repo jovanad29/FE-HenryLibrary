@@ -5,7 +5,9 @@ body {
 }
 
 
-
+p{
+    color: black;
+}
 
 .container {
     right: 8rem;
@@ -19,12 +21,12 @@ body {
 
 .containerItems {
     width: 18rem;
-    height: 21rem;
+    height: 25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    box-shadow: 9px 10px 11px 10px #ABABAB;
+    box-shadow: 5px 5px 10px 3px #ABABAB;
     padding-top: 30px;
     background-color: rgba(255, 255, 255, 0.964);
 }

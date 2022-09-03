@@ -9,7 +9,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: red;
+    /* background-color: red; */
     width: 20rem;
     height: 2rem;
     margin-right: 15rem;
@@ -41,4 +41,12 @@ body{
 
 .icono{
     margin-left: 0.5rem;
+}
+
+.autocomplete{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: #01A86C;
 }
