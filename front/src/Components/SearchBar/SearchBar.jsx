@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, getNameBooks, setPage } from "../../actions";
+import { getNameBooks, setPage } from "../../actions";
 import { useHistory } from "react-router-dom";
 
 //REACT ICONS
@@ -11,7 +11,7 @@ import { FiSearch } from "react-icons/fi";
 // import styles from "./SearchBar.module.css";
 
 //Componentes Chakra
-import { FormLabel, Input, Button, Box } from "@chakra-ui/react";
+import { FormLabel, Input, Button, Box, background } from "@chakra-ui/react";
 
 export default function SearchBar() {
   const history = useHistory();
@@ -61,12 +61,19 @@ export default function SearchBar() {
         </button>
       </form> */}
       <form onSubmit={handledSubmit}>
-        <Box mr="15rem" pr="15rem" width="100%" position="relative">
+        <Box
+          fontFamily="Quicksand"
+          mr="15rem"
+          pr="15rem"
+          width="100%"
+          position="relative"
+        >
           <Box display="flex">
             <Input
               value={title}
               onChange={handleChange}
               width="50%"
+              focusBorderColor="#01A86C"
               placeholder="Busca un Libro..."
             />
             <Box
@@ -74,7 +81,7 @@ export default function SearchBar() {
               borderRadius={5}
               border="3px #F1F1F1"
               bgColor="#F1F1F1"
-              width="35%"
+              width="34%"
               pos="absolute"
               top={10}
             >
@@ -91,8 +98,12 @@ export default function SearchBar() {
                         onClick={handledClick}
                         value={book.title}
                         cursor="pointer"
-                        _hover={{ fontWeight: "semibold" }}
+                        _hover={{
+                          fontWeight: "semibold",
+                          backgroundColor: "#01A86C",
+                        }}
                         textAlign="center"
+                        width={"100%"}
                       >
                         {book.title}
                       </FormLabel>
