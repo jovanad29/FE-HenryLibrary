@@ -11,7 +11,7 @@ import { FiSearch } from "react-icons/fi";
 // import styles from "./SearchBar.module.css";
 
 //Componentes Chakra
-import { FormLabel, Input, Button, Box, background } from "@chakra-ui/react";
+import { FormLabel, Input, Button, Box } from "@chakra-ui/react";
 
 export default function SearchBar() {
   const history = useHistory();
