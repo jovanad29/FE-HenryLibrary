@@ -25,19 +25,20 @@ function Login({ HandleOpenLogin }) {
 
     const [createUser, setCreateUser] = useState(false);
 
-    // const [login, setLogin] = useState({
-    //     username: "",
-    //     password: "",
-    // });
+    const [login, setLogin] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
 
     // const [show, setShow] = useState(false);
 
-    // function handleChange(event) {
-    //     setLogin({
-    //         ...login,
-    //         [event.target.name]: event.target.value,
-    //     });
-    // }
+    function handleChange(event) {
+        setLogin({
+            ...login,
+            [event.target.name]: event.target.value,
+        });
+    }
 
     const onGoogleSignIn = () => {
         dispatch(startGoogleSignIn());
@@ -49,14 +50,19 @@ function Login({ HandleOpenLogin }) {
     };
 
     const handleCreateNewUser = () => {
+        setLogin({ name: "", email: "", password: "" });
         setCreateUser(true);
+    };
 
+    const handleCreateUser = () => {
+        // console.log({login});
         // const user = {
         //   displayName: "Pepe Hongo",
         //   password: "123456",
         //   email: "yoyo@gmail.com",
         // };
-        // dispatch(startCreatingUserWithEmailPassword(user));
+        dispatch(startCreatingUserWithEmailPassword(login));
+        setCreateUser(false);
     };
 
     const handleLoginUserPass = () => {
@@ -78,10 +84,7 @@ function Login({ HandleOpenLogin }) {
             <div className={styles.containerItems}>
                 <div className={styles.img}>
                     {isAuthenticated ? (
-                        <Avatar
-                            name={displayName} 
-                            src={photoURL}
-                        />
+                        <Avatar name={displayName} src={photoURL} />
                     ) : (
                         <Avatar
                             name="Sin imagen"
@@ -97,30 +100,32 @@ function Login({ HandleOpenLogin }) {
                             type="text"
                             placeholder="Nombre Completo"
                             name="name"
-                            // value={login.name}
-                            // onChange={handleChange}
+                            value={login.name}
+                            onChange={handleChange}
                         />
                     </div>
                 )}
 
-                <div>
-                    <FiMail className={styles.iconoEmail} />
-                    <input
-                        className={styles.input}
-                        type="text"
-                        placeholder="Email"
-                        name="username"
-                        // value={login.username}
-                        // onChange={handleChange}
-                    />
-                </div>
+                {!isAuthenticated ? (
+                    <>
+                        <div>
+                            <FiMail className={styles.iconoEmail} />
+                            <input
+                                className={styles.input}
+                                type="text"
+                                placeholder="Email"
+                                name="email"
+                                value={login.email}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                <div>
-                    <MdNoEncryptionGmailerrorred
-                        className={styles.iconoContraseña}
-                    />
+                        <div>
+                            <MdNoEncryptionGmailerrorred
+                                className={styles.iconoContraseña}
+                            />
 
-                    {/* {login.hasOwnProperty("password") && (
+                            {/* {login.hasOwnProperty("password") && (
                         <button
                             className={styles.iconoVerContraseña}
                             onClick={() => {
@@ -131,16 +136,19 @@ function Login({ HandleOpenLogin }) {
                             {show ? <FiEyeOff /> : <FiEye />}
                         </button>
                     )} */}
-                    <input
-                        className={styles.input}
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        // value={login.password}
-                        // onChange={handleChange}
-                    />
-                </div>
-
+                            <input
+                                className={styles.input}
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                value={login.password}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </>
+                ) : (
+                    <p>{displayName}</p>
+                )}
                 {!isAuthenticated && (
                     // <div>
                     //     <div>
@@ -174,6 +182,7 @@ function Login({ HandleOpenLogin }) {
                                     colorScheme="green"
                                     width="200px"
                                     height="2rem"
+                                    onClick={handleCreateUser}
                                 >
                                     CREAR
                                 </Button>
