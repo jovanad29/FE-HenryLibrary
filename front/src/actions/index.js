@@ -322,6 +322,7 @@ export function deleteFavoriteBook(id) {
 
 export function login(user) {
     return function (dispatch) {
+        dispatch(getUserInfo(user.uid));
         dispatch({ type: LOGIN, payload: user });
     };
 }
@@ -350,8 +351,6 @@ export function createOrFindUser(user) {
             .post(`/user`, user)
             .then((response) => {
                 // console.log(response.data.isAdmin);
-                // dispatch({ type: GET_USER_INFO, payload: response.data });
-                dispatch(getUserInfo(response.data?.uid));
             })
             .catch((error) => {
                 console.log("createOrFindUser", error);
@@ -377,7 +376,6 @@ export const startGoogleSignIn = () => {
         dispatch(checkingCredentials());
 
         const result = await signInWithGoogle();
-        console.log(result);
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
         const {
@@ -387,9 +385,8 @@ export const startGoogleSignIn = () => {
             displayName: nameUser,
         } = result;
 
-        dispatch(login(result));
         dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
-        dispatch(getUserInfo(uid));
+        dispatch(login(result));
     };
 };
 
@@ -406,10 +403,17 @@ export const startCreatingUserWithEmailPassword = ({
             password,
             displayName,
         });
-        console.log(result);
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
+        const {
+            email,
+            photoURL: profilePic,
+            uid,
+            displayName: nameUser,
+        } = result;
+
         dispatch(login(result));
+        dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
     };
 };
 
@@ -429,9 +433,8 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
             displayName: nameUser,
         } = result;
 
-        dispatch(login(result));
         dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
-        dispatch(getUserInfo(uid));
+        dispatch(login(result));
     };
 };
 
