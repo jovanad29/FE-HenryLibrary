@@ -207,10 +207,70 @@ function rootReducer(state = initialState, action) {
                 favorites: availableFavorites,
                 allBooks: filtereds,
             };
+          
+         //ORDENAMIENTOS
+    case ORDER_BY_PRICE:
+      const orderedByPrice =
+        action.payload === "menor"
+          ? state.allBooks.sort((el1, el2) => {
+              return el1.price > el2.price ? 1 : el1.price < el2.price ? -1 : 0;
+            })
+          : state.allBooks.sort((el1, el2) => {
+              return el1.price > el2.price ? -1 : el1.price < el2.price ? 1 : 0;
+            });
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allBooks: orderedByPrice,
+      };
 
-        default:
-            return state;
-    }
-}
+    case ORDER_BY_RATING:
+      const orderedByRating =
+        action.payload === "menor"
+          ? state.allBooks.sort((el1, el2) => {
+              return el1.rating > el2.rating
+                ? 1
+                : el1.rating < el2.rating
+                ? -1
+                : 0;
+            })
+          : state.allBooks.sort((el1, el2) => {
+              return el1.rating > el2.rating
+                ? -1
+                : el1.rating < el2.rating
+                ? 1
+                : 0;
+            });
+
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allBooks: orderedByRating,
+      };
+
+    case ORDER_BY_SOLD_COPIES:
+      const orderedBySoldCopies =
+        action.payload === "menor"
+          ? state.allBooks.sort((el1, el2) => {
+              return el1.soldCopies > el2.soldCopies
+                ? 1
+                : el1.soldCopies < el2.soldCopies
+                ? -1
+                : 0;
+            })
+          : state.allBooks.sort((el1, el2) => {
+              return el1.soldCopies > el2.soldCopies
+                ? -1
+                : el1.soldCopies < el2.soldCopies
+                ? 1
+                : 0;
+            });
+
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allBooks: orderedBySoldCopies,
+      };
+
+    default:
+      return state;
+  }
 
 export default rootReducer;
