@@ -11,6 +11,7 @@ import Book from "../Book/Book.jsx";
 import CategoryFilter from "../CategoryFilter/CategoryFilter";
 import AuthorFilter from "../AuthorFilter/AuthorFilter";
 import Paginated from "../Paginated/Paginated.jsx";
+import Order from "../Sort/Order.jsx";
 
 //CSS
 import styles from "./Home.module.css";
@@ -18,90 +19,86 @@ import banner from "./banner.jpg";
 import Loading from "../Loading/Loading.jsx";
 
 export default function Home() {
-    const dispatch = useDispatch();
-    const { actualPage, allBooks, section } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const { actualPage, allBooks, section } = useSelector((state) => state);
 
-    const location = useLocation();
-    const search = location.state ? location.state.search : null;
-    const itemsPorPagina = 12;
-    const offset = actualPage * itemsPorPagina;
-    const limit = offset + itemsPorPagina;
+  const location = useLocation();
+  const search = location.state ? location.state.search : null;
+  const itemsPorPagina = 12;
+  const offset = actualPage * itemsPorPagina;
+  const limit = offset + itemsPorPagina;
 
-    useEffect(() => {
-        if (section !== "favoritos") {
-            dispatch(getAllBooks());
-            dispatch(setPage(0));
-        }
-    }, [dispatch, search]);
+  useEffect(() => {
+    if (section !== "favoritos") {
+      console.log("....");
+      dispatch(getAllBooks());
+      dispatch(setPage(0));
+    }
+  }, [dispatch, search]);
 
-    // useEffect(() => {
-      
-    // }, [actualPage])
-    
+  // useEffect(() => {
 
-   
-  
+  // }, [actualPage])
 
+  // console.log(allBooks, actualPage);
 
-    // console.log(allBooks, actualPage);
+  const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
 
-    const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
+  return (
+    <div className={styles.home}>
+      <NavBar />
+      <NavBar2 />
 
-    return (
-        <div className={styles.home}>
-            <NavBar />
-            <NavBar2 />
+      {currentBooks.length > 0 ? (
+        <>
+          <div className={styles.banner}>
+            <img src={banner} alt="banner" />
+          </div>
 
-            {currentBooks.length > 0 ? (
-                <>
-                    <div className={styles.banner}>
-                        <img src={banner} alt="banner" />
-                    </div>
+          {/* ORDENAMIENTOS */}
+          <div className={styles.ordenamientos}>
+            <Order />
+          </div>
 
-                    <div className={styles.ordenamientos}>
-                        {/* ACA VA LA LOGICA DEL ORDENAMIENTO */}
-                        ACA VAN LOS ORDENAMIENTOS
-                    </div>
+          <div className={styles.paginado}>
+            <Paginated
+              totalItems={allBooks.length}
+              itemsPorPagina={itemsPorPagina}
+            />
+          </div>
 
-                    <div className={styles.paginado}>
-                        <Paginated
-                            totalItems={allBooks.length}
-                            itemsPorPagina={itemsPorPagina}
-                        />
-                    </div>
+          <div className={styles.cuerpo}>
+            <div className={styles.filtro}>
+              <CategoryFilter />
+              <AuthorFilter />
+            </div>
 
-                    <div className={styles.cuerpo}>
-                        <div className={styles.filtro}>
-                            <CategoryFilter />
-                            <AuthorFilter />
-                        </div>
-
-                        <div className={styles.cards}>
-                            {currentBooks &&
-                                currentBooks.map((b) => (
-                                    <Book
-                                        key={b.id}
-                                        id={b.id}
-                                        title={b.title}
-                                        authors={b.authors}
-                                        image={b.image}
-                                        price={b.price}
-                                        stock={b.currentStock}
-                                        allBooks={allBooks}
-                                    />
-                                ))}
-                        </div>
-                    </div>
-                </>
-            ) : allBooks.message ? (
-                <div className={styles.ErrorSearch}>
-                    <h3 className={styles.errorH3}>{allBooks.message}</h3>
-                </div>
-            ) : (
-                <Loading />
-            )}
-
-            <Footer />
+            <div className={styles.cards}>
+              {currentBooks &&
+                currentBooks.map((b) => (
+                  <Book
+                    key={b.id}
+                    id={b.id}
+                    title={b.title}
+                    authors={b.authors}
+                    image={b.image}
+                    price={b.price}
+                    stock={b.currentStock}
+                    allBooks={allBooks}
+                  />
+                ))}
+            </div>
+          </div>
+        </>
+      ) : allBooks.message ? (
+        <div className={styles.ErrorSearch}>
+          <h3 className={styles.errorH3}>{allBooks.message}</h3>
         </div>
-    );
+      ) : (
+        <Loading />
+      )}
+
+      <Footer />
+    </div>
+  );
 }
