@@ -50,6 +50,7 @@ function Login({ HandleOpenLogin }) {
 
     const handleCloseSesion = () => {
         dispatch(startLogout());
+        setLogin({ displayName: "", email: "", password: "" });
     };
 
     const handleCreateNewUser = () => {
@@ -66,16 +67,18 @@ function Login({ HandleOpenLogin }) {
         //   email: "yoyo@gmail.com",
         // };
         dispatch(startCreatingUserWithEmailPassword(login));
-        // setCreateUser(false);
+        if (isAuthenticated){
+            setCreateUser(false);
+            setLogin({ displayName: "", email: "", password: "" });
+        } 
     };
 
     const handleLoginUserPass = () => {
-        const user = {
-            password: "123456",
-            email: "yoyo@gmail.com",
-        };
+        dispatch(startLoginWithEmailPassword(login));
         setCreateUser(false);
-        dispatch(startLoginWithEmailPassword(user));
+        if (isAuthenticated){
+            setLogin({ displayName: "", email: "", password: "" });
+        }
     };
 
     const handleVolver = () => {
@@ -154,7 +157,8 @@ function Login({ HandleOpenLogin }) {
                 )}
                 {!isAuthenticated && (
                     <div>
-                        <Alert fontSize='xs'
+                        <Alert
+                            fontSize="xs"
                             display={!!errorMessage ? "" : "none"}
                             status="error"
                         >
@@ -191,6 +195,7 @@ function Login({ HandleOpenLogin }) {
                                     colorScheme="green"
                                     width="200px"
                                     height="2rem"
+                                    onClick={handleLoginUserPass}
                                 >
                                     Ingresar
                                 </Button>
@@ -205,9 +210,7 @@ function Login({ HandleOpenLogin }) {
                                 <button onClick={handleVolver}>volver</button>
                             )}
                             {!createUser && (
-                                <button onClick={handleLoginUserPass}>
-                                    Olvido la contraseña
-                                </button>
+                                <button> Olvido la contraseña </button>
                             )}
                         </div>
                     </div>
