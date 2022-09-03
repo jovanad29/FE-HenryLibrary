@@ -377,7 +377,6 @@ export const startGoogleSignIn = () => {
         dispatch(checkingCredentials());
 
         const result = await signInWithGoogle();
-        console.log(result);
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
         const {
@@ -406,10 +405,18 @@ export const startCreatingUserWithEmailPassword = ({
             password,
             displayName,
         });
-        console.log(result);
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
+        const {
+          email,
+          photoURL: profilePic,
+          uid,
+          displayName: nameUser,
+      } = result;
+
         dispatch(login(result));
+        dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
+        dispatch(getUserInfo(uid));
     };
 };
 
