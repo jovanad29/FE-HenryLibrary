@@ -19,6 +19,7 @@ import {
     getAllFavorites,
     setSection,
     addFavoriteBook,
+    setPage,
 } from "../../actions";
 
 export default function NavBar() {
@@ -40,9 +41,11 @@ export default function NavBar() {
         if (favorites.length > 0) {
             dispatch(setSection("favoritos"));
             dispatch(getAllFavorites());
+            dispatch(setPage(0));
         } else {
             dispatch(setSection("home"));
             dispatch(getAllBooks());
+            dispatch(setPage(0));
         }
     };
 
