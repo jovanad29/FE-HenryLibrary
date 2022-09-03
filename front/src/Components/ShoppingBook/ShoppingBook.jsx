@@ -59,14 +59,14 @@ useEffect(() => {
 
 
   const item = guestCartBooks.map( b => {
-    const {id, title, image, quanty, price} = b
+    const {id, title, image, quantity, price} = b
     return (
 
         <div key={id}>
             <img src={image} alt="" width={10} heigh={10}/>
             <h3>{title}</h3>
             <h2>{id}</h2>
-            <h2>{quanty}</h2>
+            <h2>{quantity}</h2>
             <h2>{price}</h2>
             <button onClick={() => deleteData(id)}>X</button>
 
