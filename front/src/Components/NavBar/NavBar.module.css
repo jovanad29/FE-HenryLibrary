@@ -37,6 +37,14 @@ body{
     width: 6%;
 }
 
+.iconoFav{
+    visibility: visible;
+}
+
+.iconoNoFav{
+    visibility: hidden;
+}
+
 .banderas{
     display: flex;
 
