@@ -13,6 +13,9 @@ export default function Book({ id, title, authors, image, price, stock, allBooks
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
   const section = useSelector((state) => state.section);
+  const { status } = useSelector((state) => state);
+  const isAuthenticated = useMemo(() => status === "authenticated", [status]);
+  const { uid } = useSelector((state) => state.user);
   const bookToCarrito = allBooks.filter( b => b.id === id )
   const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
   const [guestBook, setGuestBook] = useState({});//objeto de libro a guardar en local storage
