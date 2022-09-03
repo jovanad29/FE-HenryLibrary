@@ -32,8 +32,10 @@ export const registerUserWithEmailPassword = async({ email, password, displayNam
     try {
         const resp = await createUserWithEmailAndPassword( FirebaseAuth, email, password );
         const { uid, photoURL } = resp.user;
-
+        
         await updateProfile( FirebaseAuth.currentUser, { displayName });
+
+        
 
         return {
             ok: true,
