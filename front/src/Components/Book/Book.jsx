@@ -106,11 +106,10 @@ export default function Book({
 
     const handleDeleteFavorite = (id) => {
         dispatch(deleteFavoriteBook(id));
-        // dispatch(setSection("favoritos"));
         if (favorites.length === 1 && section === "favoritos") {
             dispatch(getAllBooks());
             dispatch(setPage(0));
-            // dispatch(setSection("home"));
+            dispatch(setSection("home"));
         }
     };
 
