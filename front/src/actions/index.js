@@ -322,7 +322,6 @@ export function deleteFavoriteBook(id) {
 
 export function login(user) {
     return function (dispatch) {
-        dispatch(getUserInfo(user.uid));
         dispatch({ type: LOGIN, payload: user });
     };
 }
@@ -386,6 +385,7 @@ export const startGoogleSignIn = () => {
         } = result;
 
         dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
+        dispatch(getUserInfo(uid));
         dispatch(login(result));
     };
 };
@@ -403,17 +403,18 @@ export const startCreatingUserWithEmailPassword = ({
             password,
             displayName,
         });
+        
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
         const {
-            email,
             photoURL: profilePic,
             uid,
             displayName: nameUser,
         } = result;
 
-        dispatch(login(result));
         dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
+        dispatch(getUserInfo(uid));
+        dispatch(login(result));
     };
 };
 
@@ -427,13 +428,13 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
         if (!result.ok) return dispatch(logout(result));
 
         const {
-            email,
             photoURL: profilePic,
             uid,
             displayName: nameUser,
         } = result;
 
-        dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
+        // dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
+        dispatch(getUserInfo(uid));
         dispatch(login(result));
     };
 };
