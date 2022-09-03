@@ -16,8 +16,6 @@ export const useCheckAuth = () => {
             const { uid, email, displayName, photoURL } = user;
             dispatch(login({ uid, email, displayName, photoURL }));
 
-            dispatch(getUserInfo(uid));
-            console.log(uid);
             // dispatch(
             //     createOrFindUser({
             //         uid,
