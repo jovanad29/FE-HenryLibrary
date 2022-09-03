@@ -28,6 +28,7 @@ import {
     ORDER_BY_SOLD_COPIES,
     GET_USER_INFO,
     CLEAR_LOGIN_ERROR,
+    ACTIVE_CART,
 } from "../actions/index";
 
 const initialState = {
@@ -53,6 +54,7 @@ const initialState = {
     carrito: [],
     favorites: [],
     section: "",
+    activeCart: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -311,7 +313,11 @@ function rootReducer(state = initialState, action) {
                 isBanned: action.payload.isBanned,
                 address: action.payload.address,
             };
-
+        case ACTIVE_CART:
+                return {
+                    ...state,
+                    activeCart: action.payload,
+                };
         default:
             return state;
     }
