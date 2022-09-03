@@ -14,43 +14,60 @@ import styles from "./BookDetail.module.css";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { Button, Stack } from "@chakra-ui/react";
 
+
+
+
+
+
 export default function BookDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
-
   const bookDetail = useSelector((state) => state.bookDetail);
+
 
   const [isActive, setIsActive] = useState(true);
 
-  const [modal, setModal] = useState(false);
-  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
-  const [guestBook, setGuestBook ] = useState({});//objeto de libro a guardar en local storage
-  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+
+  //ESTADO DE LOGIN
+  const { status } = useSelector((state) => state);
+
+
 
   useEffect(() => {
     dispatch(getBooksId(id));
 
-    // console.log("el componente se monto");
-
     return () => {
       dispatch(deleteBookDetail(id));
-      // console.log("el componente se desmonto");
       //TENGO QUE DESMONTAR EL COMPONENTE SINO ME QUEDA AHI COLGADO
     };
   }, [dispatch, id]);
 
+
+
   useEffect(() => {
     setIsActive(bookDetail.isActive);
   }, [bookDetail.isActive]);
+
 
   function handleClickDeleteLogic(id) {
     dispatch(deleteLogicBook(id));
     dispatch(getBooksId(id));
   }
 
-  // function handleClickCarrito() {
-  //   // console.log("agregado");
-  // }
+
+  function handleClickModal() {
+    setModal(!modal);
+  }
+  
+
+ //FUNCIONALIDADES PARA CARRITO
+ const [modal, setModal] = useState(false);
+ const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
+ const [guestBook, setGuestBook ] = useState({});//objeto de libro a guardar en local storage
+ const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+
+
+
   const addItem = (id) => {
     id = bookDetail.id;
     const price = bookDetail.price;
@@ -62,6 +79,7 @@ export default function BookDetail() {
     console.log("bookToAdd desde bookdetail", bookToAdd)
     setGuestBook(bookToAdd);
   }
+
 
 //traer el localstorage cuando carga el componente
 useEffect(() => {
@@ -104,12 +122,6 @@ useEffect (() => {
 
 
 
-  function handleClickModal() {
-    setModal(!modal);
-  }
-
-  console.log(bookDetail);
-  
 
   const arrAuthores = bookDetail.authors && bookDetail.authors.map(a => {
   return <Link to={`/catalog/author/${a.id}`} className={styles.active} key={a.id}>{a.name},  </Link>
@@ -123,7 +135,9 @@ useEffect (() => {
 
 
 
+
   return (
+
     <div className={styles.detail}>
       <NavBar />
       <NavBar2 />
@@ -131,11 +145,7 @@ useEffect (() => {
       <div className={styles.container}>
         <div className={styles.containerItems}>
           <div>
-            <img
-              className={styles.img1}
-              src={bookDetail.image}
-              alt="imagen del libro"
-            />
+            <img className={styles.img1} src={bookDetail.image} alt="imagen del libro" />
           </div>
 
           <div className={styles.img}>
@@ -157,40 +167,27 @@ useEffect (() => {
           </div>
         </div>
 
+       {/* CONTENIDO DEL LIBRO */}
         <div className={styles.conteiner2}>
           <div className={styles.info}>
             <h2 className={styles.title}>{bookDetail.title}</h2>
-
-            <h2 className={styles.datos}>
-                  Genero: {arrCategories}
-            </h2>
-
-            <h4 className={styles.datos}>
-            Autores: {arrAuthores}
-            </h4>
-
-            <h4 className={styles.datos}>
-              Editorial: {bookDetail.publisher && bookDetail.publisher.name}
-            </h4>
-            <h4 className={styles.datos}>
-              Fecha de Publicacion: {bookDetail.publishedDate}
-            </h4>
-            <h2 className={styles.datos}>
-              Numero de paginas: {bookDetail.pageCount}
-            </h2>
+            <h2 className={styles.datos}>Genero: {arrCategories}</h2>
+            <h4 className={styles.datos}>Autores: {arrAuthores}</h4>
+            <h4 className={styles.datos}>Editorial: {bookDetail.publisher && bookDetail.publisher.name}</h4>
+            <h4 className={styles.datos}>Fecha de Publicacion: {bookDetail.publishedDate}</h4>
+            <h2 className={styles.datos}>Numero de paginas: {bookDetail.pageCount}</h2>
             <h4 className={styles.datos}>Rating: {bookDetail.rating} puntos</h4>
             <h4 className={styles.description}>{bookDetail.description}</h4>
           </div>
 
+
+       {/* CONTENIDO DE LA COMPRA */}
           <div className={styles.compra}>
             <div className={styles.compra1}>
               <h2 className={styles.precio}>$ {bookDetail.price}</h2>
-
               <div className={styles.stockItems}>
                 <h6 className={styles.stock}>Stock:</h6>
-                <h6 className={styles.NumeroStock}>
-                  {bookDetail.currentStock}
-                </h6>
+                <h6 className={styles.NumeroStock}>{bookDetail.currentStock}</h6>
               </div>
             </div>
 
@@ -216,26 +213,22 @@ useEffect (() => {
                 </Stack>
               </div>
 
-              <div className={styles.borrados}>
-                <button
-                  onClick={() => {
-                    handleClickDeleteLogic(bookDetail.id);
-                  }}
+
+
+      {/* BOTONES ADMIN */}
+      {status=== "authenticated" && <div className={styles.borrados}>
+                <button onClick={() => {handleClickDeleteLogic(bookDetail.id)}}
                   className={
                     isActive
                       ? styles.botonBorradoLogico
                       : styles.botonBorradoLogico +
                         " " +
-                        styles.botonBorradoLogicoDes
-                  }
-                >
-                  {isActive ? "ACTIVO" : "BORRADO"}
+                        styles.botonBorradoLogicoDes} >{isActive ? "ACTIVO" : "BORRADO"}
                 </button>
 
-                <button className={styles.editar} onClick={handleClickModal}>
-                  EDITAR
-                </button>
-              </div>
+                <button className={styles.editar} onClick={handleClickModal}>EDITAR</button>
+              </div> 
+      }
             </div>
           </div>
         </div>
@@ -247,7 +240,9 @@ useEffect (() => {
 
       <Footer />
 
+      {/* MODAL PARA ABRIR EL EDITBOOK */}
       {modal && <EditBook bookDetail={bookDetail} setModal={setModal} />}
+
     </div>
   );
 }
