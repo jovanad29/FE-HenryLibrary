@@ -20,6 +20,7 @@ import {
     setSection,
     addFavoriteBook,
     setPage,
+    clearLoginError,
 } from "../../actions";
 
 export default function NavBar() {
@@ -30,6 +31,7 @@ export default function NavBar() {
     const [loginModal, setLoginModal] = useState(false);
 
     function HandleOpenLogin() {
+        dispatch(clearLoginError());
         loginModal === true ? setLoginModal(false) : setLoginModal(true);
     }
 

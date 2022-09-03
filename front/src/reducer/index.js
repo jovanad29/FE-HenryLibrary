@@ -26,6 +26,8 @@ import {
     ORDER_BY_PRICE,
     ORDER_BY_RATING,
     ORDER_BY_SOLD_COPIES,
+    GET_USER_INFO,
+    CLEAR_LOGIN_ERROR,
 } from "../actions/index";
 
 const initialState = {
@@ -43,6 +45,10 @@ const initialState = {
     email: null,
     displayName: null,
     photoURL: null,
+    address: null,
+    isActive: true,
+    isAdmin: false,
+    isBanned: false,
     errorMessage: null,
     carrito: [],
     favorites: [],
@@ -147,6 +153,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 authors: [],
             };
+
         case LOGIN:
             return {
                 ...state,
@@ -156,6 +163,10 @@ function rootReducer(state = initialState, action) {
                 displayName: action.payload.displayName,
                 photoURL: action.payload.photoURL,
                 errorMessage: null,
+                isActive: true,
+                isAdmin: false,
+                isBanned: false,
+                address: null,
             };
         case LOGOUT:
             return {
@@ -166,11 +177,21 @@ function rootReducer(state = initialState, action) {
                 displayName: null,
                 photoURL: null,
                 errorMessage: action.payload,
+                isActive: true,
+                isAdmin: false,
+                isBanned: false,
+                address: null,
             };
         case CHECKING_CREDENTIALS:
             return {
                 ...state,
                 status: "checking",
+            };
+
+        case CLEAR_LOGIN_ERROR:
+            return {
+                ...state,
+                errorMessage: null,
             };
 
         case ADD_CARRITO:
@@ -280,6 +301,15 @@ function rootReducer(state = initialState, action) {
             return {
                 ...JSON.parse(JSON.stringify(state)),
                 allBooks: orderedBySoldCopies,
+            };
+
+        case GET_USER_INFO:
+            return {
+                ...state,
+                isActive: action.payload.isActive,
+                isAdmin: action.payload.isAdmin,
+                isBanned: action.payload.isBanned,
+                address: action.payload.address,
             };
 
         default:
