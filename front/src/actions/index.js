@@ -166,7 +166,7 @@ export function bannedBook(id) {
 export function deleteLogicBook(id) {
     return function (dispatch) {
         axios
-            .delete(`/catalog/${id}`)
+            .delete(`/catalogue/${id}`)
             .then((response) => {
                 dispatch({
                     type: DELETE_LOGICO_BOOK,
