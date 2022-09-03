@@ -5,7 +5,9 @@ body {
 }
 
 
-
+p{
+    color: black;
+}
 
 .container {
     right: 8rem;

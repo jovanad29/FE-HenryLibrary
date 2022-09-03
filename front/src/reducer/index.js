@@ -1,31 +1,31 @@
 import {
-  GET_ALL_BOOKS,
-  GET_NAME_BOOKS,
-  GET_BOOKS_ID,
-  DELETE_BOOKS_DETAIL,
-  GET_ALL_CATEGORIES,
-  GET_ALL_BOOKS_BY_CATEGORY,
-  POST_BOOK,
-  SET_PAGE,
-  BANNED_BOOK,
-  DELETE_LOGICO_BOOK,
-  SET_ALL_BOOKS_BY_AUTHOR,
-  SET_AUTHOR_BY_NAME,
-  GET_ALL_AUTHORS,
-  GET_ALL_PUBLISHERS,
-  EMPTY_AUTHORS,
-  PUT_BOOK,
-  ADD_CARRITO,
-  ADD_FAVORITES,
-  SET_SECTION,
-  GET_ALL_FAVORITES,
-  DELETE_FAVORITES,
-  LOGIN,
-  LOGOUT,
-  CHECKING_CREDENTIALS,
-  ORDER_BY_PRICE,
-  ORDER_BY_RATING,
-  ORDER_BY_SOLD_COPIES,
+    GET_ALL_BOOKS,
+    GET_NAME_BOOKS,
+    GET_BOOKS_ID,
+    DELETE_BOOKS_DETAIL,
+    GET_ALL_CATEGORIES,
+    GET_ALL_BOOKS_BY_CATEGORY,
+    POST_BOOK,
+    SET_PAGE,
+    BANNED_BOOK,
+    DELETE_LOGICO_BOOK,
+    SET_ALL_BOOKS_BY_AUTHOR,
+    SET_AUTHOR_BY_NAME,
+    GET_ALL_AUTHORS,
+    GET_ALL_PUBLISHERS,
+    EMPTY_AUTHORS,
+    PUT_BOOK,
+    ADD_CARRITO,
+    ADD_FAVORITES,
+    SET_SECTION,
+    GET_ALL_FAVORITES,
+    DELETE_FAVORITES,
+    LOGIN,
+    LOGOUT,
+    CHECKING_CREDENTIALS,
+    ORDER_BY_PRICE,
+    ORDER_BY_RATING,
+    ORDER_BY_SOLD_COPIES,
 } from "../actions/index";
 
 const initialState = {
@@ -209,70 +209,78 @@ function rootReducer(state = initialState, action) {
         allBooks: filtereds,
       };
 
-    //ORDENAMIENTOS
-    case ORDER_BY_PRICE:
-      const orderedByPrice =
-        action.payload === "menor"
-          ? state.allBooks.sort((el1, el2) => {
-              return el1.price > el2.price ? 1 : el1.price < el2.price ? -1 : 0;
-            })
-          : state.allBooks.sort((el1, el2) => {
-              return el1.price > el2.price ? -1 : el1.price < el2.price ? 1 : 0;
-            });
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        allBooks: orderedByPrice,
-      };
+        //ORDENAMIENTOS
+        case ORDER_BY_PRICE:
+            const orderedByPrice =
+                action.payload === "menor"
+                    ? state.allBooks.sort((el1, el2) => {
+                          return el1.price > el2.price
+                              ? 1
+                              : el1.price < el2.price
+                              ? -1
+                              : 0;
+                      })
+                    : state.allBooks.sort((el1, el2) => {
+                          return el1.price > el2.price
+                              ? -1
+                              : el1.price < el2.price
+                              ? 1
+                              : 0;
+                      });
+            return {
+                ...JSON.parse(JSON.stringify(state)),
+                allBooks: orderedByPrice,
+            };
 
-    case ORDER_BY_RATING:
-      const orderedByRating =
-        action.payload === "menor"
-          ? state.allBooks.sort((el1, el2) => {
-              return el1.rating > el2.rating
-                ? 1
-                : el1.rating < el2.rating
-                ? -1
-                : 0;
-            })
-          : state.allBooks.sort((el1, el2) => {
-              return el1.rating > el2.rating
-                ? -1
-                : el1.rating < el2.rating
-                ? 1
-                : 0;
-            });
+        case ORDER_BY_RATING:
+            const orderedByRating =
+                action.payload === "menor"
+                    ? state.allBooks.sort((el1, el2) => {
+                          return el1.rating > el2.rating
+                              ? 1
+                              : el1.rating < el2.rating
+                              ? -1
+                              : 0;
+                      })
+                    : state.allBooks.sort((el1, el2) => {
+                          return el1.rating > el2.rating
+                              ? -1
+                              : el1.rating < el2.rating
+                              ? 1
+                              : 0;
+                      });
 
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        allBooks: orderedByRating,
-      };
+            return {
+                ...JSON.parse(JSON.stringify(state)),
+                allBooks: orderedByRating,
+            };
 
-    case ORDER_BY_SOLD_COPIES:
-      const orderedBySoldCopies =
-        action.payload === "menor"
-          ? state.allBooks.sort((el1, el2) => {
-              return el1.soldCopies > el2.soldCopies
-                ? 1
-                : el1.soldCopies < el2.soldCopies
-                ? -1
-                : 0;
-            })
-          : state.allBooks.sort((el1, el2) => {
-              return el1.soldCopies > el2.soldCopies
-                ? -1
-                : el1.soldCopies < el2.soldCopies
-                ? 1
-                : 0;
-            });
+        case ORDER_BY_SOLD_COPIES:
+            const orderedBySoldCopies =
+                action.payload === "menor"
+                    ? state.allBooks.sort((el1, el2) => {
+                          return el1.soldCopies > el2.soldCopies
+                              ? 1
+                              : el1.soldCopies < el2.soldCopies
+                              ? -1
+                              : 0;
+                      })
+                    : state.allBooks.sort((el1, el2) => {
+                          return el1.soldCopies > el2.soldCopies
+                              ? -1
+                              : el1.soldCopies < el2.soldCopies
+                              ? 1
+                              : 0;
+                      });
 
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        allBooks: orderedBySoldCopies,
-      };
+            return {
+                ...JSON.parse(JSON.stringify(state)),
+                allBooks: orderedBySoldCopies,
+            };
 
-    default:
-      return state;
-  }
+
+        default:
+            return state;
+    }
 }
-
 export default rootReducer;
