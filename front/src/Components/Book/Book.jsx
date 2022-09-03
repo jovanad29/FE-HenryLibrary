@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavoriteBook, getAllBooks, setPage, setSection } from "../../actions/index.js";
@@ -21,20 +21,24 @@ export default function Book({
   const favorites = useSelector((state) => state.favorites);
 
   const section = useSelector((state) => state.section);
+  const { status } = useSelector((state) => state);
+  // const isAuthenticated = useMemo(() => status === "authenticated", [status]);
+  // const { uid } = useSelector((state) => state.user);
   const bookToCarrito = allBooks.filter( b => b.id === id )
+  const bookDetail = bookToCarrito[0];
   const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
   const [guestBook, setGuestBook] = useState({});//objeto de libro a guardar en local storage
   const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
   const addItem = (id) => {
-    const price = bookToCarrito[0].price;
+    id = bookDetail.id;
+    const price = bookDetail.price;
     const quantity = 1;
-    const title = bookToCarrito[0].title;
-
-    const image = bookToCarrito[0].image;
+    const title = bookDetail.title;
+    const image = bookDetail.image;
     const bookToAdd = { id, price, quantity, title, image };
     alert("has guardado tu libro en el carrito")
-    console.log("bookToAdd desde book", bookToAdd)
+    console.log("bookToAdd desde bookdetail", bookToAdd)
     setGuestBook(bookToAdd);
   }
 
