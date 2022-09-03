@@ -6,13 +6,14 @@ import {
   getCategories,
   getAllPublishers,
 } from "../../actions";
-import swal from 'sweetalert';
+
 
 // import validate from "../NewBook/validate.js";
 
 //CSS
 import styles from "./EditBook.module.css";
-
+import swal from 'sweetalert';
+import {ImCross} from "react-icons/im"
 
 
 
@@ -154,9 +155,13 @@ export default function EditBook({ bookDetail, setModal }) {
     <div className={styles.fondo}>
     <div className={styles.container}>
       
-      <div className={styles.form}>
-        <form>
+     
+        <form className={styles.form}>
           <div className={styles.containerInput}>
+
+
+            {/* TITULO */}
+
             <label className={styles.label}>Titulo: </label>
             <input
               placeholder="ingrese el titulo del Libro..."
@@ -171,6 +176,9 @@ export default function EditBook({ bookDetail, setModal }) {
               {errores.title && <p>{errores.title}</p>}
             </div>
           </div>
+
+
+          {/* DESCRIPCION */}
 
           <div className={styles.containerInputDescripcion}>
             <label className={styles.label}>Descripcion: </label>
@@ -188,6 +196,9 @@ export default function EditBook({ bookDetail, setModal }) {
             </div>
           </div>
 
+
+          {/* PRECIO */}
+
           <div className={styles.containerInput}>
             <label className={styles.label}>Precio: </label>
             <input
@@ -202,6 +213,9 @@ export default function EditBook({ bookDetail, setModal }) {
               {errores.price && <p>{errores.price}</p>}
             </div>
           </div>
+
+
+          {/* STOCK  */}
 
           <div className={styles.containerInput}>
             <label className={styles.label}>Stock Actual: </label>
@@ -218,6 +232,9 @@ export default function EditBook({ bookDetail, setModal }) {
             </div>
           </div>
 
+
+          {/* IMAGEN */}
+
           <div className={styles.containerInput}>
             <label className={styles.label}>Imagen: </label>
             <input
@@ -233,6 +250,9 @@ export default function EditBook({ bookDetail, setModal }) {
             </div>
           </div>
 
+
+          {/* FECHA DE PUBLICACION */}
+
           <div className={styles.containerInput}>
             <label className={styles.label}>Fecha de publicacion: </label>
             <input
@@ -247,6 +267,9 @@ export default function EditBook({ bookDetail, setModal }) {
               {errores.publishedDate && <p>{errores.publishedDate}</p>}
             </div>
           </div>
+
+
+          {/* CANTIDAD DE PAGINAS  */}
 
           <div className={styles.containerInput}>
             <label className={styles.label}>Cant. de Paginas:</label>
@@ -274,6 +297,9 @@ export default function EditBook({ bookDetail, setModal }) {
             />
           </div>
 
+
+          {/* LENGUAJES */}
+
           <div className={styles.containerInput}>
             <label className={styles.label}>Lenguaje: </label>
             <select
@@ -283,12 +309,17 @@ export default function EditBook({ bookDetail, setModal }) {
               onChange={handleInputsChange}
               // defaultValue="default"
             >
-              {/* <option >Elegir lenguaje</option> */}
+            
               <option value="es">Español</option>
               <option value="en">Ingles</option>
               <option value="pt">Portugues</option>
             </select>
           </div>
+
+
+
+
+          {/* EDITORIAL */}
 
           <div className={styles.containerInput}>
             <label className={styles.label}>Editorial: </label>
@@ -311,8 +342,16 @@ export default function EditBook({ bookDetail, setModal }) {
             </div>
           </div>
 
-          <div className={styles.containerInput}>
-            <label className={styles.label}>Autores: </label>
+        
+
+
+        {/* AUTORES */}
+
+          <div className={styles.containerInput2}>
+
+           <div className={styles.Input1}>
+            <div className={styles.autCat}>
+            <label className={styles.label}>Autores </label>
             <select
               className={styles.inputs}
               name="authors"
@@ -331,9 +370,9 @@ export default function EditBook({ bookDetail, setModal }) {
                 );
               })}
             </select>
-          </div>
+            </div>
 
-          <div className={styles.contenedorTypeSelected}>
+            <div className={styles.lista}>
             <ul>
               {book.authors.map((author) => {
 
@@ -341,27 +380,25 @@ export default function EditBook({ bookDetail, setModal }) {
                   return a.id === author && a.name;
                 });
 
-
                 return (
-                  <div className="lista-container" key={author.id}>
-                    <li className="lista">{autor}</li>
-                    <button
-                      value={author}
-                      onClick={(e) => {
-                        eliminarAuthor(e);
-                      }}
-                    >
-                      X
-                    </button>
+                  <div className={styles.contenedorLista} key={author.id}>
+                    <li className={styles.nombreLista}>{autor}</li>
+                    <button value={author} onClick={(e) => {eliminarAuthor(e)}}><ImCross color="red" /></button>
                   </div>
                 );
               })}
             </ul>
+            </div>
           </div>
+       
 
 
-          <div className={styles.containerInput}>
-            <label className={styles.label}>Genero: </label>
+
+           {/* GENERO */}
+         
+            <div className={styles.Input2}>
+            <div className={styles.autCat}>
+            <label className={styles.label}>Genero </label>
             <select
               className={styles.inputs}
               name="categories"
@@ -380,10 +417,9 @@ export default function EditBook({ bookDetail, setModal }) {
                 );
               })}
             </select>
-          </div>
-
-          
-          <div className={styles.contenedorTypeSelected}>
+            </div>
+               
+            <div className={styles.lista}>
             <ul>
               {book.categories.map((categorias) => {
 
@@ -393,21 +429,21 @@ export default function EditBook({ bookDetail, setModal }) {
 
 
                 return (
-                  <div className="lista-container" key={categorias.id}>
-                    <li className="lista">{genero}</li>
-                    <button
-                      value={categorias}
-                      onClick={(e) => {
-                        eliminarCategories(e);
-                      }}
-                    >
-                      X
-                    </button>
+                  <div className={styles.contenedorLista} key={categorias.id}>
+                    <li className={styles.nombreLista}>{genero}</li>
+                    <button value={categorias} onClick={(e) => {eliminarCategories(e)}}><ImCross color="red" /></button>
                   </div>
                 );
               })}
             </ul>
+            </div>
+            </div>
           </div>
+
+
+
+
+          {/* BOTONES FORMULARIO */}
 
           <div className={styles.containerButtons}>
             <div className={styles.itemsButtonsEnviar}>
@@ -430,7 +466,7 @@ export default function EditBook({ bookDetail, setModal }) {
             </div>
           </div>
         </form>
-      </div>
+      
     </div>
     </div>
   );
