@@ -39,6 +39,8 @@ export const GET_ALL_DETAILS_FAVORITES = "GET_ALL_DETAILS_FAVORITES";
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
 export const ORDER_BY_RATING = "ORDER_BY_RATING";
 export const ORDER_BY_SOLD_COPIES = "ORDER_BY_SOLD_COPIES";
+export const GET_USER_INFO = "GET_USER_INFO";
+export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -336,6 +338,40 @@ export function checkingCredentials() {
     };
 }
 
+export function clearLoginError() {
+    return (dispatch) => {
+        dispatch({ type: CLEAR_LOGIN_ERROR });
+    };
+}
+
+export function createOrFindUser(user) {
+    return function (dispatch) {
+        axios
+            .post(`/user`, user)
+            .then((response) => {
+                // console.log(response.data.isAdmin);
+                // dispatch({ type: GET_USER_INFO, payload: response.data });
+                dispatch(getUserInfo(response.data?.uid));
+            })
+            .catch((error) => {
+                console.log("createOrFindUser", error);
+            });
+    };
+}
+
+export function getUserInfo(uid) {
+    return function (dispatch) {
+        axios
+            .get(`/user/${uid}`)
+            .then((response) => {
+                dispatch({ type: GET_USER_INFO, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("getUserInfo", error);
+            });
+    };
+}
+
 export const startGoogleSignIn = () => {
     return async (dispatch) => {
         dispatch(checkingCredentials());
@@ -344,11 +380,16 @@ export const startGoogleSignIn = () => {
         console.log(result);
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
-        //dispachar el guardado en la db del usuario previo revisar si no existe
-        const {email, photoURL: profilePic, uid, displayName: nameUser} = result;
+        const {
+            email,
+            photoURL: profilePic,
+            uid,
+            displayName: nameUser,
+        } = result;
 
-        
         dispatch(login(result));
+        dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
+        dispatch(getUserInfo(uid));
     };
 };
 
@@ -380,7 +421,17 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
         console.log(result);
 
         if (!result.ok) return dispatch(logout(result));
+
+        const {
+            email,
+            photoURL: profilePic,
+            uid,
+            displayName: nameUser,
+        } = result;
+
         dispatch(login(result));
+        dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
+        dispatch(getUserInfo(uid));
     };
 };
 
