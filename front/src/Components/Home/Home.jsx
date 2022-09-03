@@ -30,12 +30,11 @@ export default function Home() {
   const limit = offset + itemsPorPagina;
 
   useEffect(() => {
-    if (section !== "favoritos") {
-      console.log("....");
+    if (section === "home") {
       dispatch(getAllBooks());
       dispatch(setPage(0));
     }
-  }, [dispatch, search]);
+  }, [dispatch, section]);
 
   // useEffect(() => {
 
