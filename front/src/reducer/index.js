@@ -163,7 +163,7 @@ function rootReducer(state = initialState, action) {
         email: null,
         displayName: null,
         photoURL: null,
-        errorMessage: action.payload?.errorMessage,
+        errorMessage: action.payload,
       };
     case CHECKING_CREDENTIALS:
       return {
