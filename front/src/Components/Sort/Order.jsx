@@ -1,44 +1,69 @@
 import React from "react";
 import { orderByPrice, orderByRating, orderBySoldCopies } from "../../actions";
 import { useDispatch } from "react-redux";
+import { Box, Select } from "@chakra-ui/react";
+
+import { BsChevronDown } from "react-icons/bs";
 
 export default function Order() {
   const dispatch = useDispatch();
+  const sorts = [
+    { id: 1, title: "Más vendidos", value: "bestSellers" },
+    { id: 2, title: "Menos vendidos", value: "lessSold" },
+    { id: 3, title: "Mayor precio", value: "higherPrice" },
+    { id: 4, title: "Menor precio", value: "lowerPrice" },
+    { id: 5, title: "Mejor calificación", value: "bestRating" },
+    { id: 6, title: "Peor calificación", value: "lowestRating" },
+  ];
 
-  //ORDENAMIENTO POR PRECIO
-  const ordenByPriceHandler = (e) => {
-    e.preventDefault();
+  const handleChange = (event) => {
+    event.preventDefault();
+    const selected = event.target.value;
 
-    dispatch(orderByPrice(e.target.value));
-  };
-  //ORDENAMIENTO POR RATING
-  const ordenByRatingHandler = (e) => {
-    e.preventDefault();
+    //ORDENAMIENTO POR VENTAS
+    if (selected === "bestSellers" || selected === "lessSold") {
+      dispatch(orderBySoldCopies(selected));
+    }
 
-    dispatch(orderByRating(e.target.value));
-  };
+    //ORDENAMIENTO POR PRECIO
+    if (selected === "higherPrice" || selected === "lowerPrice") {
+      dispatch(orderByPrice(selected));
+    }
 
-  //ORDENAMIENTO POR VENTAS
-  const ordenBySoldCopiesHandler = (e) => {
-    e.preventDefault();
-
-    dispatch(orderBySoldCopies(e.target.value));
+    //ORDENAMIENTO POR RATING
+    if (selected === "bestRating" || selected === "lowestRating") {
+      dispatch(orderByRating(selected));
+    }
   };
 
   return (
-    <section>
-      <select onChange={(e) => ordenByPriceHandler(e)}>
-        <option value="mayor">Mayor precio</option>
-        <option value="menor">Menor precio</option>
-      </select>
-      <select onChange={(e) => ordenByRatingHandler(e)}>
-        <option value="mayor">Mejor calificación</option>
-        <option value="menor">Peor calificación</option>
-      </select>
-      <select onChange={(e) => ordenBySoldCopiesHandler(e)}>
-        <option value="mayor">Más vendidos</option>
-        <option value="menor">Menos vendidos</option>
-      </select>
-    </section>
+    <Box
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      fontFamily="Quicksand"
+    >
+      <Box fontWeight={"bold"}>
+        <label> Ordenado por: </label>
+      </Box>
+      <Select
+        size="sm"
+        borderColor="#01A86C"
+        focusBorderColor="#01A86C"
+        variant={"flushed"}
+        icon={<BsChevronDown />}
+        width={"40%"}
+        pl={"3%"}
+        fontWeight={"semibold"}
+        cursor="pointer"
+        onChange={handleChange}
+      >
+        {sorts.map((sort) => (
+          <option key={sort.id} value={sort.value}>
+            {sort.title}
+          </option>
+        ))}
+      </Select>
+    </Box>
   );
 }
