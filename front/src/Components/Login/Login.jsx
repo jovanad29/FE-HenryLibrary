@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    clearLoginError,
     startCreatingUserWithEmailPassword,
     startGoogleSignIn,
     startLoginWithEmailPassword,
@@ -53,6 +54,7 @@ function Login({ HandleOpenLogin }) {
 
     const handleCreateNewUser = () => {
         setLogin({ displayName: "", email: "", password: "" });
+        dispatch(clearLoginError());
         setCreateUser(true);
     };
 
