@@ -25,19 +25,20 @@ export default function Book({
   // const isAuthenticated = useMemo(() => status === "authenticated", [status]);
   // const { uid } = useSelector((state) => state.user);
   const bookToCarrito = allBooks.filter( b => b.id === id )
+  const bookDetail = bookToCarrito[0];
   const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
   const [guestBook, setGuestBook] = useState({});//objeto de libro a guardar en local storage
   const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
   const addItem = (id) => {
-    const price = bookToCarrito[0].price;
+    id = bookDetail.id;
+    const price = bookDetail.price;
     const quantity = 1;
-    const title = bookToCarrito[0].title;
-
-    const image = bookToCarrito[0].image;
+    const title = bookDetail.title;
+    const image = bookDetail.image;
     const bookToAdd = { id, price, quantity, title, image };
     alert("has guardado tu libro en el carrito")
-    console.log("bookToAdd desde book", bookToAdd)
+    console.log("bookToAdd desde bookdetail", bookToAdd)
     setGuestBook(bookToAdd);
   }
 
