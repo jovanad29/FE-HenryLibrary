@@ -24,7 +24,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    box-shadow: 9px 10px 11px 10px #ABABAB;
+    box-shadow: 5px 5px 10px 3px #ABABAB;
     padding-top: 30px;
     background-color: rgba(255, 255, 255, 0.964);
 }
