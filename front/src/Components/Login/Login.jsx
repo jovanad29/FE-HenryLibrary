@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  startCreatingUserWithEmailPassword,
-  startGoogleSignIn,
-  startLoginWithEmailPassword,
-  startLogout,
+    startCreatingUserWithEmailPassword,
+    startGoogleSignIn,
+    startLoginWithEmailPassword,
+    startLogout,
 } from "../../actions";
 
 //CSS
@@ -18,101 +18,109 @@ import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 
 function Login({ HandleOpenLogin }) {
-  const dispatch = useDispatch();
-  const { status } = useSelector((state) => state);
-  const isAuthenticated = useMemo(() => status === "authenticated", [status]);
-  const isAuthenticating = useMemo(() => status === "checking", [status]);
+    const dispatch = useDispatch();
+    const { status, displayName, photoURL } = useSelector((state) => state);
+    const isAuthenticated = useMemo(() => status === "authenticated", [status]);
+    const isAuthenticating = useMemo(() => status === "checking", [status]);
 
-  const [createUser, setCreateUser] = useState(false);
+    const [createUser, setCreateUser] = useState(false);
 
-  // const [login, setLogin] = useState({
-  //     username: "",
-  //     password: "",
-  // });
+    // const [login, setLogin] = useState({
+    //     username: "",
+    //     password: "",
+    // });
 
-  // const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
 
-  // function handleChange(event) {
-  //     setLogin({
-  //         ...login,
-  //         [event.target.name]: event.target.value,
-  //     });
-  // }
+    // function handleChange(event) {
+    //     setLogin({
+    //         ...login,
+    //         [event.target.name]: event.target.value,
+    //     });
+    // }
 
-  const onGoogleSignIn = () => {
-    dispatch(startGoogleSignIn());
-    // HandleOpenLogin();
-  };
-
-  const handleCloseSesion = () => {
-    dispatch(startLogout());
-  };
-
-  const handleCreateNewUser = () => {
-    setCreateUser(true);
-
-    const user = {
-      displayName: "Pepe Hongo",
-      password: "123456",
-      email: "yoyo@gmail.com",
+    const onGoogleSignIn = () => {
+        dispatch(startGoogleSignIn());
+        // HandleOpenLogin();
     };
-    dispatch(startCreatingUserWithEmailPassword(user));
-  };
 
-  const handleLoginUserPass = () => {
-    const user = {
-      password: "123456",
-      email: "yoyo@gmail.com",
+    const handleCloseSesion = () => {
+        dispatch(startLogout());
     };
-    dispatch(startLoginWithEmailPassword(user));
-  };
 
-  console.log(status);
+    const handleCreateNewUser = () => {
+        setCreateUser(true);
 
-  
-  const handleVolver = () =>{
-    setCreateUser(false);
-  }
+        // const user = {
+        //   displayName: "Pepe Hongo",
+        //   password: "123456",
+        //   email: "yoyo@gmail.com",
+        // };
+        // dispatch(startCreatingUserWithEmailPassword(user));
+    };
 
+    const handleLoginUserPass = () => {
+        const user = {
+            password: "123456",
+            email: "yoyo@gmail.com",
+        };
+        dispatch(startLoginWithEmailPassword(user));
+    };
 
+    console.log(status);
 
+    const handleVolver = () => {
+        setCreateUser(false);
+    };
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.containerItems}>
-        <div className={styles.img}>
-          <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        </div>
+    return (
+        <div className={styles.container}>
+            <div className={styles.containerItems}>
+                <div className={styles.img}>
+                    {isAuthenticated ? (
+                        <Avatar
+                            name={displayName} 
+                            src={photoURL}
+                        />
+                    ) : (
+                        <Avatar
+                            name="Sin imagen"
+                            src="https://www.eleonoracardona.com/wp-content/uploads/2016/04/sin-foto.jpg"
+                        />
+                    )}
+                </div>
 
-        {createUser && (
-          <div>
-            <input
-              className={styles.input}
-              type="text"
-              placeholder="Nombre Completo"
-              name="name"
-              // value={login.name}
-              // onChange={handleChange}
-            />
-          </div>
-        )}
+                {createUser && (
+                    <div>
+                        <input
+                            className={styles.input}
+                            type="text"
+                            placeholder="Nombre Completo"
+                            name="name"
+                            // value={login.name}
+                            // onChange={handleChange}
+                        />
+                    </div>
+                )}
 
-        <div>
-          <FiMail className={styles.iconoEmail} />
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Nombre de usuario"
-            name="username"
-            // value={login.username}
-            // onChange={handleChange}
-          />
-        </div>
+                <div>
+                    <FiMail className={styles.iconoEmail} />
+                    <input
+                        className={styles.input}
+                        type="text"
+                        placeholder="Email"
+                        name="username"
+                        // value={login.username}
+                        // onChange={handleChange}
+                    />
+                </div>
 
-        <div>
-          <MdNoEncryptionGmailerrorred className={styles.iconoContraseña} />
+                <div>
+                    <MdNoEncryptionGmailerrorred
+                        className={styles.iconoContraseña}
+                    />
 
-          {/* {login.hasOwnProperty("password") && (
+                    {/* {login.hasOwnProperty("password") && (
                         <button
                             className={styles.iconoVerContraseña}
                             onClick={() => {
@@ -123,94 +131,105 @@ function Login({ HandleOpenLogin }) {
                             {show ? <FiEyeOff /> : <FiEye />}
                         </button>
                     )} */}
-          <input
-            className={styles.input}
-            type="password"
-            placeholder="Password"
-            name="password"
-            // value={login.password}
-            // onChange={handleChange}
-          />
-        </div>
+                    <input
+                        className={styles.input}
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        // value={login.password}
+                        // onChange={handleChange}
+                    />
+                </div>
 
-        {!isAuthenticated && (
-          // <div>
-          //     <div>
-          //         <button
-          //             disabled={isAuthenticating}
-          //             onClick={onGoogleSignIn}
-          //             className={styles.boton}
-          //         >
-          //             <FcGoogle />
-          //             <Text fontSize="md">Google</Text>
-          //         </button>
-          //     </div>
-          //     <div>
-          //         <button
-          //             disabled={isAuthenticating}
-          //             className={styles.boton}
-          //         >
-          //             Ingresar
-          //         </button>
-          //     </div>
-          //     <div className={styles.cuenta}>
-          //         <button>Crear nueva cuenta</button>
-          //         <button>Olvido la contraseña</button>
-          //     </div>
-          // </div>
-          <div>
-            <Stack direction="column" spacing={3} align="center">
-              {createUser ? (
-                <Button
-                  disabled={isAuthenticating}
-                  colorScheme="green"
-                  width="200px"
-                  height="2rem"
-                >
-                  CREAR
-                </Button>
-              ) : (
-                <Button
-                  disabled={isAuthenticating}
-                  leftIcon={<FcGoogle />}
-                  colorScheme="green"
-                  width="200px"
-                  height="2rem"
-                  onClick={onGoogleSignIn}
-                >
-                  Google
-                </Button>
-              )}
+                {!isAuthenticated && (
+                    // <div>
+                    //     <div>
+                    //         <button
+                    //             disabled={isAuthenticating}
+                    //             onClick={onGoogleSignIn}
+                    //             className={styles.boton}
+                    //         >
+                    //             <FcGoogle />
+                    //             <Text fontSize="md">Google</Text>
+                    //         </button>
+                    //     </div>
+                    //     <div>
+                    //         <button
+                    //             disabled={isAuthenticating}
+                    //             className={styles.boton}
+                    //         >
+                    //             Ingresar
+                    //         </button>
+                    //     </div>
+                    //     <div className={styles.cuenta}>
+                    //         <button>Crear nueva cuenta</button>
+                    //         <button>Olvido la contraseña</button>
+                    //     </div>
+                    // </div>
+                    <div>
+                        <Stack direction="column" spacing={3} align="center">
+                            {createUser ? (
+                                <Button
+                                    disabled={isAuthenticating}
+                                    colorScheme="green"
+                                    width="200px"
+                                    height="2rem"
+                                >
+                                    CREAR
+                                </Button>
+                            ) : (
+                                <Button
+                                    disabled={isAuthenticating}
+                                    leftIcon={<FcGoogle />}
+                                    colorScheme="green"
+                                    width="200px"
+                                    height="2rem"
+                                    onClick={onGoogleSignIn}
+                                >
+                                    Google
+                                </Button>
+                            )}
 
-            {!createUser &&
-              <Button
-                disabled={isAuthenticating}
-                colorScheme="green"
-                width="200px"
-                height="2rem"
-              >
-                Ingresar
-              </Button> }
-            </Stack>
-            <div className={styles.cuenta}>
-            {!createUser ? <button onClick={handleCreateNewUser}>Crear nueva cuenta</button> : <button onClick={handleVolver}>volver</button>}
-            {!createUser &&  <button onClick={handleLoginUserPass}>Olvido la contraseña</button>}
+                            {!createUser && (
+                                <Button
+                                    disabled={isAuthenticating}
+                                    colorScheme="green"
+                                    width="200px"
+                                    height="2rem"
+                                >
+                                    Ingresar
+                                </Button>
+                            )}
+                        </Stack>
+                        <div className={styles.cuenta}>
+                            {!createUser ? (
+                                <button onClick={handleCreateNewUser}>
+                                    Crear nueva cuenta
+                                </button>
+                            ) : (
+                                <button onClick={handleVolver}>volver</button>
+                            )}
+                            {!createUser && (
+                                <button onClick={handleLoginUserPass}>
+                                    Olvido la contraseña
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                )}
+                {isAuthenticated && (
+                    <Button
+                        colorScheme="pink"
+                        width="200px"
+                        height="2rem"
+                        onClick={handleCloseSesion}
+                    >
+                        Cerrar Sesion
+                    </Button>
+                )}
             </div>
-          </div>
-        )}
-        {isAuthenticated && (
-          <Button
-            colorScheme="pink"
-            width="200px"
-            height="2rem"
-            onClick={handleCloseSesion}
-          >
-            Cerrar Sesion
-          </Button>
-        )}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default Login;

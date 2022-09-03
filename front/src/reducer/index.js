@@ -23,6 +23,9 @@ import {
     LOGIN,
     LOGOUT,
     CHECKING_CREDENTIALS,
+    ORDER_BY_PRICE,
+    ORDER_BY_RATING,
+    ORDER_BY_SOLD_COPIES,
 } from "../actions/index";
 
 const initialState = {

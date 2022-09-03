@@ -36,7 +36,6 @@ export default function NavBar() {
   // const allBooks = useSelector((state) => state.allBooks);
   const favorites = useSelector((state) => state.favorites);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     console.log("es este?");
     dispatch(getAllBooks());
