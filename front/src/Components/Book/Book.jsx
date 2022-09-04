@@ -6,11 +6,12 @@ import {
     getAllBooks,
     setPage,
     setSection,
+    deleteFavoriteBook,
 } from "../../actions/index.js";
 
 //CSS
 import styles from "./Book.module.css";
-import { deleteFavoriteBook } from "../../actions";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 export default function Book({
     id,
@@ -24,27 +25,27 @@ export default function Book({
     const dispatch = useDispatch();
     const favorites = useSelector((state) => state.favorites);
 
-  const section = useSelector((state) => state.section);
-  const { status } = useSelector((state) => state);
-  // const isAuthenticated = useMemo(() => status === "authenticated", [status]);
-  // const { uid } = useSelector((state) => state.user);
-  const bookToCarrito = allBooks.filter( b => b.id === id )
-  const bookDetail = bookToCarrito[0];
-  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
-  const [guestBook, setGuestBook] = useState({});//objeto de libro a guardar en local storage
-  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+    const section = useSelector((state) => state.section);
+    const { status } = useSelector((state) => state);
+    const isAuthenticated = useMemo(() => status === "authenticated", [status]);
+    // const { uid } = useSelector((state) => state.user);
+    const bookToCarrito = allBooks.filter((b) => b.id === id);
+    const bookDetail = bookToCarrito[0];
+    const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
+    const [guestBook, setGuestBook] = useState({}); //objeto de libro a guardar en local storage
+    const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
 
-  const addItem = (id) => {
-    id = bookDetail.id;
-    const price = bookDetail.price;
-    const quantity = 1;
-    const title = bookDetail.title;
-    const image = bookDetail.image;
-    const bookToAdd = { id, price, quantity, title, image };
-    alert("has guardado tu libro en el carrito")
-    console.log("bookToAdd desde bookdetail", bookToAdd)
-    setGuestBook(bookToAdd);
-  }
+    const addItem = (id) => {
+        id = bookDetail.id;
+        const price = bookDetail.price;
+        const quantity = 1;
+        const title = bookDetail.title;
+        const image = bookDetail.image;
+        const bookToAdd = { id, price, quantity, title, image };
+        alert("has guardado tu libro en el carrito");
+        console.log("bookToAdd desde bookdetail", bookToAdd);
+        setGuestBook(bookToAdd);
+    };
 
     //traer el localstorage cuando carga el componente
     useEffect(() => {
@@ -96,10 +97,6 @@ export default function Book({
     //   alert("has guardado tu libro en el carrito")
     // }
 
-    // useEffect(() => {
-    //     console.log(favorites);
-    // }, [favorites]);
-
     const handleOnFavorite = (id) => {
         dispatch(addFavoriteBook(id));
     };
@@ -114,25 +111,12 @@ export default function Book({
     };
 
     const isFavorite = favorites?.filter((f) => f === id);
+    const white = { color: "white" };
+    const red = { color: "red" };
 
     return (
         <div className={styles.book}>
             <div className={styles.imagenes}>
-                {isFavorite?.length === 0 ? (
-                    <button
-                        className={styles.icono}
-                        onClick={() => handleOnFavorite(id)}
-                    >
-                        AGREGAR A FAVORITOS
-                    </button>
-                ) : (
-                    <button
-                        className={styles.icono}
-                        onClick={() => handleDeleteFavorite(id)}
-                    >
-                        ELIMINAR FAVORITO
-                    </button>
-                )}
                 <NavLink to={`/catalog/detail/${id}`}>
                     <img
                         className={styles.img}
@@ -146,6 +130,34 @@ export default function Book({
             <h4 className={styles.authors}>
                 {authors && authors.map((a) => `Autor: ${a.name}`)}
             </h4>
+
+            {isAuthenticated && (
+                <div className={styles.containerIconoFavAdd}>
+                    {isFavorite.length === 0 ? (
+                        <button
+                            className={styles.iconoFavAdd}
+                            onClick={() => handleOnFavorite(id)}
+                        >
+                            <MdOutlineFavoriteBorder
+                                // style={white}
+                                color="white"
+                                className={
+                                    isAuthenticated
+                                        ? styles.iconoFav
+                                        : styles.iconoNoFav
+                                }
+                            />
+                        </button>
+                    ) : (
+                        <button
+                            className={styles.iconoFavAdd}
+                            onClick={() => handleDeleteFavorite(id)}
+                        >
+                            <MdOutlineFavoriteBorder style={ red } />
+                        </button>
+                    )}
+                </div>
+            )}
 
             <div className={styles.conteiner}>
                 <div className={styles.info}>
