@@ -31,7 +31,8 @@ export default function BookDetail() {
 
 
   //ESTADO DE LOGIN
-  const { status } = useSelector((state) => state);
+  const { status, isAdmin } = useSelector((state) => state);
+
 
 
 
@@ -251,7 +252,7 @@ function buyingBook() {
 
 
       {/* BOTONES ADMIN */}
-      {status=== "authenticated" && <div className={styles.borrados}>
+      {isAdmin === true && <div className={styles.borrados}>
                 <button onClick={() => {handleClickDeleteLogic(bookDetail.id)}}
                   className={
                     isActive
