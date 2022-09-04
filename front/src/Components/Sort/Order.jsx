@@ -39,7 +39,7 @@ export default function Order() {
         fontFamily="Quicksand"
       >
         <Box fontWeight={"bold"}>
-          <label> Ordenado por: </label>
+          <label>Ordenado por: </label>
         </Box>
         <Select
           size="sm"
