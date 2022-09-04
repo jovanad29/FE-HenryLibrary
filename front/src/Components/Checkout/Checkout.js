@@ -9,7 +9,7 @@ function Checkout() {
   const [loading, setLoading] = useState(true);
   const { items } = useSelector((state) => state.items);
   //const { stack } = useSelector((state) => state.history);
-  const { status } = useSelector((state) => state.status);
+  // const { status } = useSelector((state) => state.status);
   const {uid} =useSelector(state=> state.uid)
   const history = useHistory();
   useEffect(() => {
@@ -38,7 +38,7 @@ function Checkout() {
     // } else {
       history.push("/home");
     }
-  }
+
   return (
     <div className={s.container}>
       {loading ? <Loading /> : null}
