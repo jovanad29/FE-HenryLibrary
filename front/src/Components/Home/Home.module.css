@@ -27,17 +27,21 @@ body{
 }
 
 .paginado{
-    width: 15%;
-    height: 3rem;
-    margin-left: 70rem;
+    /* width: 15%; */
+    /* height: 3rem; */
+    /* margin-left: 70rem; */
     margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: blanchedalmond; */
 }
 
 .cuerpo{
     width: 85%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 2rem;
     margin-left: 5rem;
 }

@@ -18,9 +18,11 @@ export default function SearchBar() {
   const dispatch = useDispatch();
   const copyAllBooks = useSelector((state) => state.copyAllBooks);
   const [title, setTitle] = useState("");
+  const [hidden, setHidden] = useState(false);
 
   const handleChange = (event) => {
     setTitle(event.target.value.trim());
+    setHidden(false);
   };
 
   const handledSubmit = (event) => {
@@ -35,10 +37,13 @@ export default function SearchBar() {
   const handledClick = (event) => {
     event.preventDefault();
 
+    setTitle(event.target.innerText);
+
     history.push("/home", { search: true });
     dispatch(setPage(0));
     dispatch(getNameBooks(event.target.innerText));
-    setTitle("");
+
+    setHidden(true);
   };
 
   return (
@@ -56,12 +61,19 @@ export default function SearchBar() {
         </button>
       </form> */}
       <form onSubmit={handledSubmit}>
-        <Box mr="15rem" pr="15rem" width="100%" position="relative">
+        <Box
+          fontFamily="Quicksand"
+          mr="15rem"
+          pr="15rem"
+          width="100%"
+          position="relative"
+        >
           <Box display="flex">
             <Input
               value={title}
               onChange={handleChange}
               width="50%"
+              focusBorderColor="#01A86C"
               placeholder="Busca un Libro..."
             />
             <Box
@@ -69,29 +81,33 @@ export default function SearchBar() {
               borderRadius={5}
               border="3px #F1F1F1"
               bgColor="#F1F1F1"
-              width="35%"
+              width="34%"
               pos="absolute"
               top={10}
             >
-              {!title
+              {!title || hidden
                 ? null
-                : copyAllBooks.map(
-                    (book, current) =>
-                      book.title
-                        .toLowerCase()
-                        .includes(title.toLowerCase()) && (
-                        <FormLabel
-                          key={book.id}
-                          onClick={handledClick}
-                          value={book.title}
-                          cursor="pointer"
-                          _hover={{ fontWeight: "semibold" }}
-                          textAlign="center"
-                        >
-                          {book.title}
-                        </FormLabel>
-                      )
-                  )}
+                : copyAllBooks
+                    .filter((book) =>
+                      book.title.toLowerCase().includes(title.toLowerCase())
+                    )
+                    .slice(0, 5)
+                    .map((book) => (
+                      <FormLabel
+                        key={book.id}
+                        onClick={handledClick}
+                        value={book.title}
+                        cursor="pointer"
+                        _hover={{
+                          fontWeight: "semibold",
+                          backgroundColor: "#01A86C",
+                        }}
+                        textAlign="center"
+                        width={"100%"}
+                      >
+                        {book.title}
+                      </FormLabel>
+                    ))}
             </Box>
             <Button title="Search" type="submit" bgColor="#01A86C">
               <FiSearch size="2rem" />
