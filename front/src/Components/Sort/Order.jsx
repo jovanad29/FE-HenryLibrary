@@ -1,40 +1,41 @@
-// import React from "react";
-// import { orderByPrice, orderByRating, orderBySoldCopies } from "../../actions";
-// import { useDispatch } from "react-redux";
-// import { Box, Select } from "@chakra-ui/react";
+import React from "react";
+import { orderByPrice, orderByRating, orderBySoldCopies } from "../../actions";
+import { Box, Select } from "@chakra-ui/react";
+import { BsChevronDown } from "react-icons/bs";
 
-// import { BsChevronDown } from "react-icons/bs";
+import { orderBy, getAllBooks } from "../../actions";
+import { useDispatch } from "react-redux";
 
-// export default function Order() {
-//   const dispatch = useDispatch();
-//   const sorts = [
-//     { id: 1, title: "Más vendidos", value: "bestSellers" },
-//     { id: 2, title: "Menos vendidos", value: "lessSold" },
-//     { id: 3, title: "Mayor precio", value: "higherPrice" },
-//     { id: 4, title: "Menor precio", value: "lowerPrice" },
-//     { id: 5, title: "Mejor calificación", value: "bestRating" },
-//     { id: 6, title: "Peor calificación", value: "lowestRating" },
-//   ];
+export default function Order() {
+  const dispatch = useDispatch();
+  const sorts = [
+    { id: 1, title: "Más vendidos", value: "bestSellers" },
+    { id: 2, title: "Menos vendidos", value: "lessSold" },
+    { id: 3, title: "Mayor precio", value: "higherPrice" },
+    { id: 4, title: "Menor precio", value: "lowerPrice" },
+    { id: 5, title: "Mejor calificación", value: "bestRating" },
+    { id: 6, title: "Peor calificación", value: "lowestRating" },
+  ];
 
-//   const handleChange = (event) => {
-//     event.preventDefault();
-//     const selected = event.target.value;
+  const handleChange = (event) => {
+    event.preventDefault();
+    // const selected = event.target.value;
 
-//     //ORDENAMIENTO POR VENTAS
-//     if (selected === "bestSellers" || selected === "lessSold") {
-//       dispatch(orderBySoldCopies(selected));
-//     }
+    // //ORDENAMIENTO POR VENTAS
+    // if (selected === "bestSellers" || selected === "lessSold") {
+    //   dispatch(orderBySoldCopies(selected));
+    // }
 
-//     //ORDENAMIENTO POR PRECIO
-//     if (selected === "higherPrice" || selected === "lowerPrice") {
-//       dispatch(orderByPrice(selected));
-//     }
+    // //ORDENAMIENTO POR PRECIO
+    // if (selected === "higherPrice" || selected === "lowerPrice") {
+    //   dispatch(orderByPrice(selected));
+    // }
 
-//     //ORDENAMIENTO POR RATING
-//     if (selected === "bestRating" || selected === "lowestRating") {
-//       dispatch(orderByRating(selected));
-//     }
-//   };
+    // //ORDENAMIENTO POR RATING
+    // if (selected === "bestRating" || selected === "lowestRating") {
+    //   dispatch(orderByRating(selected));
+    // }
+  };
 
 //   return (
 //     <Box
@@ -67,13 +68,6 @@
 //     </Box>
 //   );
 // }
-
-import React from "react";
-import { orderBy, getAllBooks } from "../../actions";
-import { useDispatch } from "react-redux";
-
-export default function Order() {
-  const dispatch = useDispatch();
 
   //ORDENAMIENTO
   const ordenByHandler = (e) => {
