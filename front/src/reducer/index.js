@@ -27,7 +27,14 @@ import {
   GET_USER_INFO,
   CLEAR_LOGIN_ERROR,
   ACTIVE_CART,
+  
+
 } from "../actions/index";
+//mercado pago
+import { CLEAR_PAYMENT, 
+   SET_ITEMS,
+  SET_PAYMENT,
+  SET_ORDER, } from "../actions/checkoutActions";
 
 const initialState = {
   allBooks: [],
@@ -53,6 +60,15 @@ const initialState = {
   favorites: [],
   section: "",
   activeCart: {},
+  mpID: "",
+  order: {
+    ID: "",
+    items: [],
+    status: "",
+    status_detail: "",
+    total: 0,
+  },
+  items: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -281,6 +297,42 @@ function rootReducer(state = initialState, action) {
         ...state,
         activeCart: action.payload,
       };
+
+   //mercado pago
+      case SET_PAYMENT: 
+         return {
+          ...state,
+              mpID :action.payload.mpID
+        };
+       case  CLEAR_PAYMENT: 
+       return{
+          mpID : "",
+          order : {
+            ID: "",
+            items: [],
+            status: "",
+            status_detail: "",
+            total: 0,
+          },
+          items :[],
+        };
+        case SET_ORDER: 
+        return {
+          order : action.payload,
+        }
+        case SET_ITEMS: 
+        return {
+           items : action.payload.map((i) => {
+            return {
+              id: i.ID,
+              unit_price: i.price,
+              picture_url: i.image,
+              quantity: 1,
+              title: i.title,
+            }
+          })
+        }
+      
     default:
       return state;
   }

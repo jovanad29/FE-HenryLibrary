@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Loading from "../Loading/Loading";
+import Loading from "../Loading/Loading.jsx";
 import MercadoPago from "../MercadoPago/MercadoPago";
 import s from "./Checkout.module.sass";
 
 function Checkout() {
   const [loading, setLoading] = useState(true);
-  const { items } = useSelector((state) => state.checkout);
-  const { stack } = useSelector((state) => state.history);
-  const { userProfile } = useSelector((state) => state.profile);
+  const { items } = useSelector((state) => state.items);
+  //const { stack } = useSelector((state) => state.history);
+  const { status } = useSelector((state) => state.status);
+  const {uid} =useSelector(state=> state.uid)
   const history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,20 +23,20 @@ function Checkout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
   function goBack() {
-    var lastPath = [];
-    for (let i = 1; i < stack.length; i++) {
-      if (
-        stack[i] !== "/register" &&
-        stack[i] !== "/login" &&
-        stack[i] !== "/profile"
-      ) {
-        lastPath.push(stack[i]);
-      }
-    }
-    if (lastPath.length > 0) {
-      history.push(lastPath[0]);
-    } else {
-      history.push("/");
+    // var lastPath = [];
+    // for (let i = 1; i < stack.length; i++) {
+    //   if (
+    //     stack[i] !== "/register" &&
+    //     stack[i] !== "/login" &&
+    //     stack[i] !== "/profile"
+    //   ) {
+    //     lastPath.push(stack[i]);
+    //   }
+    // }
+    // if (lastPath.length > 0) {
+    //   history.push(lastPath[0]);
+    // } else {
+      history.push("/home");
     }
   }
   return (
@@ -81,7 +82,7 @@ function Checkout() {
           <div className={s.MPbutton}>
             {items.length > 0 ? (
               <MercadoPago
-                userID={userProfile.ID}
+                userID={uid}
                 setLoading={setLoading}
                 items={items}
               />
