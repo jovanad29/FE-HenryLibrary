@@ -1,20 +1,13 @@
 // import React from "react";
 // import { orderByPrice, orderByRating, orderBySoldCopies } from "../../actions";
 // import { useDispatch } from "react-redux";
-// import { Box, Select } from "@chakra-ui/react";
+//
 
-// import { BsChevronDown } from "react-icons/bs";
+//;
 
 // export default function Order() {
 //   const dispatch = useDispatch();
-//   const sorts = [
-//     { id: 1, title: "Más vendidos", value: "bestSellers" },
-//     { id: 2, title: "Menos vendidos", value: "lessSold" },
-//     { id: 3, title: "Mayor precio", value: "higherPrice" },
-//     { id: 4, title: "Menor precio", value: "lowerPrice" },
-//     { id: 5, title: "Mejor calificación", value: "bestRating" },
-//     { id: 6, title: "Peor calificación", value: "lowestRating" },
-//   ];
+
 
 //   const handleChange = (event) => {
 //     event.preventDefault();
@@ -71,9 +64,19 @@
 import React from "react";
 import { orderBy, getAllBooks } from "../../actions";
 import { useDispatch } from "react-redux";
+import { Box, Select } from "@chakra-ui/react";
+import { BsChevronDown } from "react-icons/bs"
 
 export default function Order() {
   const dispatch = useDispatch();
+    const sorts = [
+    { id: 1, title: "Más vendidos", value: "bestSellers" },
+    { id: 2, title: "Menos vendidos", value: "lessSold" },
+    { id: 3, title: "Mayor precio", value: "higherPrice" },
+    { id: 4, title: "Menor precio", value: "lowerPrice" },
+    { id: 5, title: "Mejor calificación", value: "bestRating" },
+    { id: 6, title: "Peor calificación", value: "lowestRating" },
+  ];
 
   //ORDENAMIENTO
   const ordenByHandler = (e) => {
@@ -106,7 +109,7 @@ export default function Order() {
         width={"59%"}
         fontWeight={"semibold"}
         cursor="pointer"
-        onChange={handleChange}
+        onChange={(e) => ordenByHandler(e)}
       >
         {sorts.map((sort) => (
           <option key={sort.id} value={sort.value}>
