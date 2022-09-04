@@ -16,7 +16,6 @@ import { Stack } from "@chakra-ui/react";
 import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-import { checkearCarritoLocal } from "../../functions/carrito";
 
 function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
@@ -48,7 +47,6 @@ function Login({ HandleOpenLogin }) {
         if (isAuthenticated){
             setCreateUser(false);
             setLogin({ displayName: "", email: "", password: "" });
-            checkearCarritoLocal();
         } 
     };
 
