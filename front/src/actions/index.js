@@ -6,6 +6,7 @@ import {
   signInWithGoogle,
   logoutFirebase,
 } from "../firebase/providers";
+import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
 
 dotenv.config();
 
@@ -381,6 +382,7 @@ export const startGoogleSignIn = () => {
     dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
     dispatch(getUserInfo(uid));
     dispatch(login(result));
+    await checkLocalShoppingBookExist();
   };
 };
 
