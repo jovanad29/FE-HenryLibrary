@@ -16,7 +16,7 @@ import { Button, Stack } from "@chakra-ui/react";
 //pago
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-import { setItems } from "../../reducer/checkoutSlice";
+import { setItems } from "../../actions/checkoutActions";
 
 
 
@@ -136,33 +136,35 @@ useEffect (() => {
  })
 
 //funcion para el el PAGO 
-function buyingBook() {
-  if (status!=="authenticated") {
-    Swal.fire({
-      title: "Para comprar debe estar autenticado",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Go to Login",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        history.push("/home");
-      }
-    });
-  } else {
-    id = bookDetail.id;
+function buyingBook(id) {
+  // if (status!=="authenticated") {
+  //   Swal.fire({
+  //     title: "Para comprar debe estar autenticado",
+  //     icon: "info",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "Go to Login",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       history.push("/home");
+  //     }
+  //   });
+  // } else
+   
+    //id = bookDetail.id;
     const price = bookDetail.price;
-    const quantity = 1;
+    const quantity = 1;  ///falta funcionalidad 
     const title = bookDetail.title;
     const image = bookDetail.image;
-    const bookToAdd = { id, price, quantity, title, image}
-    dispatch(setItems([bookToAdd]));
-    alert("has guardado tu libro en el carrito")
+    const bookToAdd =[{ id, price, quantity, title, image}]  
+    alert("estoy en boton pago")
+    setItems(bookToAdd);
+   
     console.log("bookToAdd desde bookdetail", bookToAdd)
     
     history.push("/checkout");
-  }
+  
 }
 
 
@@ -243,9 +245,9 @@ function buyingBook() {
                 </Stack>
                 
               </div>
-              <div className={styles.botones}>
+              <div >
 
-                 <button  onClick={()=>buyingBook()}> BUY BOOK </button>
+                 <button  onClick={()=>buyingBook(id)}>   BUY BOOK   </button>
               </div>
                    
 

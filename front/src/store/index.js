@@ -1,12 +1,12 @@
 import {createStore, applyMiddleware} from 'redux';
 
 
-import { configureStore } from "@reduxjs/toolkit";
+//import { configureStore } from "@reduxjs/toolkit";
 import {composeWithDevTools} from "redux-devtools-extension"
 import rootReducer from '../reducer';
 import thunk from "redux-thunk";
-import checkoutSlice from '../reducer/checkoutSlice';
-import paymentsSlice from '../reducer/paymentsSlice'
+//import checkoutSlice from '../reducer/checkoutSlice';
+//import paymentsSlice from '../reducer/paymentsSlice'
 
 
 const store = createStore(

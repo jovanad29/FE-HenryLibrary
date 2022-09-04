@@ -27,8 +27,6 @@ import {
   GET_USER_INFO,
   CLEAR_LOGIN_ERROR,
   ACTIVE_CART,
-  
-
 } from "../actions/index";
 //mercado pago
 import { CLEAR_PAYMENT, 
@@ -318,20 +316,26 @@ function rootReducer(state = initialState, action) {
         };
         case SET_ORDER: 
         return {
+          ...state,
           order : action.payload,
-        }
+        };
         case SET_ITEMS: 
+        alert(`entre a set Items, tengo :${action.payload}`);
+      
         return {
-           items : action.payload.map((i) => {
+           ...state,
+           items : action.payload.length ? action.payload.map ( i=>{
             return {
-              id: i.ID,
+              id: i.id,
               unit_price: i.price,
               picture_url: i.image,
               quantity: 1,
               title: i.title,
-            }
-          })
-        }
+           }
+           }            
+            ) : [{msg: 'no hay datos'}]
+
+        } 
       
     default:
       return state;

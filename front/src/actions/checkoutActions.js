@@ -8,17 +8,13 @@ const heroku = `https://db-proyecto-final.herokuapp.com`;//cambiar al nuestro cu
 axios.defaults.baseURL = heroku;
 
 export function asyncConfirmPayment(body) {
-  return async function (dispatch) {
-    try {
-      //await axios.post(`/payments/create`, body);      VERRRR!!!
-      console.log(body)
-      dispatch(CLEAR_PAYMENT);
-      return true;
-    } catch (error) {
-      console.log(error);
+  return  function (dispatch) {
+    
+      dispatch({type:CLEAR_PAYMENT,
+      });
     }
   };
-}
+
 
 export function asyncGetMP(mpID) {
   return async function (dispatch) {
@@ -39,17 +35,45 @@ export function asyncGetMP(mpID) {
           price: parseFloat(i.unit_price).toFixed(2),
         };
       });
-      dispatch(SET_ORDER,
+      dispatch({
+        type:SET_ORDER, 
+        payload:
         {
           ID: mpID,
           items: items,
           status: response.status,
           status_detail: response.status_detail,
           total: parseFloat(response.transaction_details.total_paid_amount),
-        })
+        }
+      })
       
     } catch (error) {
       console.log(error);
     }
+  };
+ 
+}
+export function setOrder(order) {
+  return  function (dispatch) {
+    try {
+      
+      dispatch({
+        type: SET_ORDER,
+        payload: order
+              });
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export function setItems(items) {
+  console.log(items);
+  return   {
+        type:SET_ITEMS,
+        payload:items
+      
+     
   };
 }
