@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCategories, getBooksByCategory, setPage, setSection } from "../../actions";
+import {
+  getCategories,
+  getBooksByCategory,
+  setPage,
+  setSection,
+} from "../../actions";
 import { List, ListItem, Heading, Link, Collapse } from "@chakra-ui/react";
 
-export default function Footer() {
+export default function CategoryFilter({ categoriesFilter }) {
   const dispatch = useDispatch(),
     [show, setShow] = useState(false),
     categories = useSelector((state) => state.categories);
@@ -12,6 +17,10 @@ export default function Footer() {
 
   const handledClick = (event) => {
     event.preventDefault();
+    categoriesFilter({
+      id: Number(event.target.id),
+      name: event.target.innerText,
+    });
     dispatch(setPage(0));
     dispatch(setSection("categoria"));
     dispatch(getBooksByCategory(event.target.id));
