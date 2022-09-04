@@ -39,9 +39,10 @@ export default function Order() {
   return (
     <Box
       display={"flex"}
-      justifyContent={"center"}
+      justifyContent={"end"}
       alignItems={"center"}
       fontFamily="Quicksand"
+      // width={"20%"}
     >
       <Box fontWeight={"bold"}>
         <label> Ordenado por: </label>
@@ -52,8 +53,7 @@ export default function Order() {
         focusBorderColor="#01A86C"
         variant={"flushed"}
         icon={<BsChevronDown />}
-        width={"40%"}
-        pl={"3%"}
+        width={"59%"}
         fontWeight={"semibold"}
         cursor="pointer"
         onChange={handleChange}
