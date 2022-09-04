@@ -23,7 +23,7 @@ import { setItems } from "../../reducer/checkoutSlice";
 
 export default function BookDetail() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  let { id } = useParams();
   const bookDetail = useSelector((state) => state.bookDetail);
   const history = useHistory();
 
