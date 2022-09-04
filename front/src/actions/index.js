@@ -456,3 +456,20 @@ export function getActiveCart(userId, statusId) {
       });
   };
 }
+<<<<<<< HEAD
+
+export function getActiveCart(userId) {
+    return function (dispatch) {
+        axios
+        
+            .get(`/payments/${userId}`)
+                .then((response) => {
+                dispatch({ type: ACTIVE_CART, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("getActiveCart", error);
+            });
+    };
+}   
+=======
+>>>>>>> 563bb485fa4a02948073ea6a8ae437b514f81a19
