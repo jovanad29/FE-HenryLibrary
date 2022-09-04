@@ -18,7 +18,6 @@ import {
   getAllBooks,
   getAllFavorites,
   setSection,
-  addFavoriteBook,
   setPage,
   clearLoginError,
 } from "../../actions";
@@ -37,7 +36,7 @@ export default function NavBar() {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, []);
+  }, [dispatch]);
 
   const handleOnFavorites = () => {
     if (favorites.length > 0) {
