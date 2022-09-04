@@ -4,6 +4,7 @@ import {createStore, applyMiddleware} from 'redux';
 //import { configureStore } from "@reduxjs/toolkit";
 import {composeWithDevTools} from "redux-devtools-extension"
 import rootReducer from '../reducer';
+import checkoutReducer from '../reducer/checkoutSlice'
 import thunk from "redux-thunk";
 //import checkoutSlice from '../reducer/checkoutSlice';
 //import paymentsSlice from '../reducer/paymentsSlice'

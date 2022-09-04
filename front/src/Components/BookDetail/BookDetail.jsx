@@ -24,14 +24,15 @@ import { setItems } from "../../actions/checkoutActions";
 export default function BookDetail() {
   const dispatch = useDispatch();
   let { id } = useParams();
-  const bookDetail = useSelector((state) => state.bookDetail);
+  const { bookDetail, status, isAdmin } = useSelector((state) => ({
+    bookDetail: state.bookDetail,
+    // ESTADO DEL LOGIN
+    status: state.status,
+    isAdmin: state.isAdmin
+  }));
   const history = useHistory();
 
   const [isActive, setIsActive] = useState(true);
-
-
-  //ESTADO DE LOGIN
-  const { status, isAdmin } = useSelector((state) => state);
 
 
 
@@ -94,7 +95,7 @@ useEffect(() => {
   if (localTotal) {
     // setTotal(localTotal);
   }
-}, []);
+}, [id]);
 
 useEffect (() => {
   if (guestBook.id) {
@@ -159,11 +160,9 @@ function buyingBook(id) {
     const title = bookDetail.title;
     const image = bookDetail.image;
     const bookToAdd =[{ id, price, quantity, title, image}]  
-    alert("estoy en boton pago")
-    setItems(bookToAdd);
-   
-    console.log("bookToAdd desde bookdetail", bookToAdd)
-    
+    alert("estoy en boton pago", bookToAdd)
+    console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
+    dispatch(setItems(bookToAdd));    
     history.push("/checkout");
   
 }
