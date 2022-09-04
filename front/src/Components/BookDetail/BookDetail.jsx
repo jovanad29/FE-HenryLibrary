@@ -13,8 +13,10 @@ import EditBook from "../EditBook/EditBook";
 import styles from "./BookDetail.module.css";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { Button, Stack } from "@chakra-ui/react";
-
-
+//pago
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
+import { setItems } from "../../reducer/checkoutSlice";
 
 
 
@@ -23,7 +25,7 @@ export default function BookDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const bookDetail = useSelector((state) => state.bookDetail);
-
+  const history = useHistory();
 
   const [isActive, setIsActive] = useState(true);
 
@@ -62,9 +64,9 @@ export default function BookDetail() {
 
  //FUNCIONALIDADES PARA CARRITO
  const [modal, setModal] = useState(false);
- const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
+//  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
  const [guestBook, setGuestBook ] = useState({});//objeto de libro a guardar en local storage
- const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+//  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
 
 
@@ -85,11 +87,11 @@ export default function BookDetail() {
 useEffect(() => {
   const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
   if (localItems) {
-    setGuestCartBooks(localItems);
+    // setGuestCartBooks(localItems);
   } 
   const localTotal = JSON.parse(localStorage.getItem("total"));
   if (localTotal) {
-    setTotal(localTotal);
+    // setTotal(localTotal);
   }
 }, []);
 
@@ -105,20 +107,20 @@ useEffect (() => {
         }
         return item;
       });
-      setGuestCartBooks(items);
+      // setGuestCartBooks(items);
       console.log("items desde books", items)
       localStorage.setItem("guestCartBooks", JSON.stringify(items));
     } else {
       const items = [...itemsLS, guestBook];
-      setGuestCartBooks(items);
+      // setGuestCartBooks(items);
       localStorage.setItem("guestCartBooks", JSON.stringify(items));
     }
     totals.totalBooks += 1;
     totals.totalAmount += guestBook.price;
-    setTotal(totals);
+    // setTotal(totals);
     localStorage.setItem("total", JSON.stringify(totals));
   }
-}, [guestBook]);
+}, [guestBook, guestBook.id, bookDetail.id]);
 
 
 
@@ -133,7 +135,35 @@ useEffect (() => {
    
  })
 
-
+//funcion para el el PAGO 
+function buyingBook() {
+  if (status!=="authenticated") {
+    Swal.fire({
+      title: "Para comprar debe estar autenticado",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Go to Login",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        history.push("/home");
+      }
+    });
+  } else {
+    id = bookDetail.id;
+    const price = bookDetail.price;
+    const quantity = 1;
+    const title = bookDetail.title;
+    const image = bookDetail.image;
+    const bookToAdd = { id, price, quantity, title, image}
+    dispatch(setItems([bookToAdd]));
+    alert("has guardado tu libro en el carrito")
+    console.log("bookToAdd desde bookdetail", bookToAdd)
+    
+    history.push("/checkout");
+  }
+}
 
 
   return (
@@ -211,8 +241,13 @@ useEffect (() => {
                     Agregar al carrito
                   </Button>
                 </Stack>
+                
               </div>
+              <div className={styles.botones}>
 
+                 <button  onClick={()=>buyingBook()}> BUY BOOK </button>
+              </div>
+                   
 
 
       {/* BOTONES ADMIN */}
