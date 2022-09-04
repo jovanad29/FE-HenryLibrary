@@ -4,15 +4,15 @@ import { useHistory } from "react-router-dom";
 import {
   asyncConfirmPayment,
   asyncGetMP,
-} from "../../redux/actions/checkoutActions";
-import { clearPayment } from "../../redux/reducers/checkoutSlice";
+} from "../../actions/checkoutActions";
+import { clearPayment } from "../../reducer/checkoutSlice";
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
-import { asyncGetItemsCart } from "../../redux/actions/usersActions";
+//import { asyncGetItemsCart } from "../../redux/actions/usersActions";
 
-function SuccessMP() {
+export default function SuccessMP() {
   const dispatch = useDispatch();
-  const { userProfile, cart } = useSelector((state) => state.profile);
+ // const { userProfile, cart } = useSelector((state) => state.profile);
   const { mpID, order } = useSelector((state) => state.checkout);
   const { stack } = useSelector((state) => state.history);
   const history = useHistory();
@@ -50,25 +50,27 @@ function SuccessMP() {
       setOrder({ ...order });
     }
 
-    if (change && order.items.length > 0 && userProfile.ID) {
-      let obj = { ...order };
-      setChange(false);
-      dispatch(
-        asyncConfirmPayment({ ...obj, userID: parseInt(userProfile.ID) })
-      ).then((res) => {
-        if (res) {
-          dispatch(asyncGetItemsCart(userProfile.ID)).then((res2) => {
-            if (res2) {
-              setLoading(false);
-            }
-          });
-        }
-      });
-    }
+  //  // if (change && order.items.length > 0 && userProfile.ID) {
+  //     let obj = { ...order };
+  //     setChange(false);
+  //     dispatch(
+  //       asyncConfirmPayment({ ...obj, userID: parseInt(userProfile.ID) })
+  //     )
+  //     //.then((res) => {
+  //     //   if (res) { consolog
+  //     //     dispatch(asyncGetItemsCart(userProfile.ID)).then((res2) => {
+  //     //       if (res2) {
+  //     //         setLoading(false);
+  //     //       }
+  //     //     });
+  //     //   }
+  //     // });
+  //   //}
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, userProfile, change]);
-  useEffect(() => {}, [front, cart]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // //}
+     }, [order,/* userProfile,*/ change]);
+  // useEffect(() => {}, [front, cart]);
   function goBack() {
     var lastPath = [];
     for (let i = 1; i < stack.length; i++) {
@@ -119,4 +121,4 @@ function SuccessMP() {
   );
 }
 
-export default SuccessMP;
+

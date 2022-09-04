@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Redirect, useLocation } from "react-router-dom";
-import { setPayment } from "../../redux/reducers/checkoutSlice";
+import { setPayment } from "../../reducer/checkoutSlice";
 
 function ValidateMP() {
   const dispatch = useDispatch();

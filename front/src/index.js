@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { ChakraProvider } from "@chakra-ui/react";
-import store from "./store";
+import {store} from "./store";
 import dotenv from "dotenv";
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";

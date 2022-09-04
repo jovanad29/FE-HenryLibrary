@@ -6,7 +6,7 @@ axios.defaults.baseURL = heroku;
 export function asyncConfirmPayment(body) {
   return async function (dispatch) {
     try {
-      await axios.post(`/payments/create`, body);
+      //await axios.post(`/payments/create`, body);
       dispatch(clearPayment());
       return true;
     } catch (error) {

@@ -14,11 +14,11 @@ import ShoppingBook from "./Components/ShoppingBook/ShoppingBook";
 import PageError from "./Components/PageError/PageError.jsx";
 import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
 import Favorites from "./Components/Favorites/Favorites";
-import Success from "./components/MercadoPago/SuccessMP";
-
+import Success from "./Components/MercadoPago/SuccessMP";
+import Checkout from "./Components/Checkout/Checkout";
 import Rejected from "./Components/MercadoPago/RejectedMP";
 import Pending from "./Components/MercadoPago/PendingMP";
-import Validate from "./components/MercadoPago/ValidateMP";
+import Validate from "./Components/MercadoPago/ValidateMP";
 
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 
