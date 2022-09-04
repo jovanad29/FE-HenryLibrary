@@ -468,11 +468,11 @@ export function orderBySoldCopies(order) {
     };
 }
 
-export function getActiveCart(userId,statusId) {
+export function getActiveCart(userId) {
     return function (dispatch) {
         axios
-        // get /cart {userId, statusId}
-            .get(`/cart/${userId}/${statusId}`)
+        
+            .get(`/payments/${userId}`)
                 .then((response) => {
                 dispatch({ type: ACTIVE_CART, payload: response.data });
             })
