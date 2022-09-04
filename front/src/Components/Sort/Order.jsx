@@ -1,5 +1,5 @@
 import React from "react";
-import { orderByPrice, orderByRating, orderBySoldCopies } from "../../actions";
+// import { orderByPrice, orderByRating, orderBySoldCopies } from "../../actions";
 import { Box, Select } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 

@@ -10,13 +10,13 @@ import {
 
 //CSS
 import styles from "./Login.module.css";
-import { Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
-import { Button, ButtonGroup, Alert, AlertIcon } from "@chakra-ui/react";
-import { Stack, HStack, VStack } from "@chakra-ui/react";
-import { FiMail, FiEyeOff, FiEye } from "react-icons/fi";
+import { Button, Alert, AlertIcon } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
+import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
+import { checkearCarritoLocal } from "../../functions/carrito";
 
 function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
@@ -45,7 +45,11 @@ function Login({ HandleOpenLogin }) {
 
     const onGoogleSignIn = () => {
         dispatch(startGoogleSignIn());
-        // HandleOpenLogin();
+        if (isAuthenticated){
+            setCreateUser(false);
+            setLogin({ displayName: "", email: "", password: "" });
+            checkearCarritoLocal();
+        } 
     };
 
     const handleCloseSesion = () => {

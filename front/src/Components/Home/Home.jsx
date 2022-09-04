@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBooks, getAllFavorites, setPage } from "../../actions/index.js";
 
@@ -31,7 +31,6 @@ import {
   Tag,
   TagLabel,
   Grid,
-  GridItem,
 } from "@chakra-ui/react";
 
 import { FaFilter } from "react-icons/fa";
@@ -42,8 +41,8 @@ export default function Home() {
     (state) => state
   );
 
-  const location = useLocation();
-  const search = location.state ? location.state.search : null;
+  // const location = useLocation();
+  // const search = location.state ? location.state.search : null;
   const itemsPorPagina = 12;
   const offset = actualPage * itemsPorPagina;
   const limit = offset + itemsPorPagina;

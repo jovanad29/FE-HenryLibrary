@@ -63,6 +63,10 @@ export default function EditBook({ bookDetail, setModal }) {
 
   //ESTADO DE ERRORES
   const [errores, setErrores] = useState({});
+  useEffect(() => {
+    setErrores('');
+  }, [])
+  
 
   //FUNCION QUE MANIPULA LOS INPUTS
 
