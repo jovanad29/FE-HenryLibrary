@@ -56,7 +56,7 @@ body{
     width: 200rem;
     align-content: flex-end;
     align-self: flex-end;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: 1rem;
 }
 
