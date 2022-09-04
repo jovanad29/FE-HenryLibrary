@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, getBooksCount, setPage } from "../../actions";
+import { setPage } from "../../actions";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
 //CSS
