@@ -86,6 +86,36 @@ export default function Order() {
   };
 
   return (
+  <>
+    <Box
+      display={"flex"}
+      justifyContent={"end"}
+      alignItems={"center"}
+      fontFamily="Quicksand"
+      // width={"20%"}
+    >
+      <Box fontWeight={"bold"}>
+        <label> Ordenado por: </label>
+      </Box>
+      <Select
+        size="sm"
+        borderColor="#01A86C"
+        focusBorderColor="#01A86C"
+        variant={"flushed"}
+        icon={<BsChevronDown />}
+        width={"59%"}
+        fontWeight={"semibold"}
+        cursor="pointer"
+        onChange={handleChange}
+      >
+        {sorts.map((sort) => (
+          <option key={sort.id} value={sort.value}>
+            {sort.title}
+          </option>
+        ))}
+      </Select>
+    </Box>
+
     <section>
       <label>Ordenar por:</label>
       <select onChange={(e) => ordenByHandler(e)}>
@@ -98,5 +128,6 @@ export default function Order() {
         <option value="menosVendidos">Menos vendidos</option>
       </select>
     </section>
+</>
   );
 }
