@@ -6,10 +6,11 @@ import {
   signInWithGoogle,
   logoutFirebase,
 } from "../firebase/providers";
+import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
 
 dotenv.config();
 
-const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+// const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 export const GET_NAME_BOOKS = "GET_NAME_BOOKS";
@@ -381,6 +382,7 @@ export const startGoogleSignIn = () => {
     dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
     dispatch(getUserInfo(uid));
     dispatch(login(result));
+    await checkLocalShoppingBookExist();
   };
 };
 
@@ -417,9 +419,8 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
 
     if (!result.ok) return dispatch(logout(result));
 
-    const { photoURL: profilePic, uid, displayName: nameUser } = result;
+    const { uid} = result;
 
-    // dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
     dispatch(getUserInfo(uid));
     dispatch(login(result));
   };

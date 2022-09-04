@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  asyncConfirmPayment,
+  // asyncConfirmPayment,
   asyncGetMP,
 } from "../../actions/checkoutActions";
 import { clearPayment } from "../../reducer/checkoutSlice";
@@ -44,7 +44,8 @@ export default function SuccessMP() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const loading = false;
   useEffect(() => {
     if (!front.ID) {
       setOrder({ ...order });
@@ -69,7 +70,7 @@ export default function SuccessMP() {
 
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // //}
-     }, [order,/* userProfile,*/ change]);
+     }, [order,/* userProfile,*/ change, front.ID]);
   // useEffect(() => {}, [front, cart]);
   function goBack() {
     var lastPath = [];

@@ -23,7 +23,7 @@ import { setItems } from "../../actions/checkoutActions";
 
 export default function BookDetail() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  let { id } = useParams();
   const bookDetail = useSelector((state) => state.bookDetail);
   const history = useHistory();
 
@@ -31,7 +31,8 @@ export default function BookDetail() {
 
 
   //ESTADO DE LOGIN
-  const { status } = useSelector((state) => state);
+  const { status, isAdmin } = useSelector((state) => state);
+
 
 
 
@@ -64,9 +65,9 @@ export default function BookDetail() {
 
  //FUNCIONALIDADES PARA CARRITO
  const [modal, setModal] = useState(false);
- const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
+//  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
  const [guestBook, setGuestBook ] = useState({});//objeto de libro a guardar en local storage
- const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+//  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
 
 
 
@@ -87,11 +88,11 @@ export default function BookDetail() {
 useEffect(() => {
   const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
   if (localItems) {
-    setGuestCartBooks(localItems);
+    // setGuestCartBooks(localItems);
   } 
   const localTotal = JSON.parse(localStorage.getItem("total"));
   if (localTotal) {
-    setTotal(localTotal);
+    // setTotal(localTotal);
   }
 }, []);
 
@@ -107,20 +108,20 @@ useEffect (() => {
         }
         return item;
       });
-      setGuestCartBooks(items);
+      // setGuestCartBooks(items);
       console.log("items desde books", items)
       localStorage.setItem("guestCartBooks", JSON.stringify(items));
     } else {
       const items = [...itemsLS, guestBook];
-      setGuestCartBooks(items);
+      // setGuestCartBooks(items);
       localStorage.setItem("guestCartBooks", JSON.stringify(items));
     }
     totals.totalBooks += 1;
     totals.totalAmount += guestBook.price;
-    setTotal(totals);
+    // setTotal(totals);
     localStorage.setItem("total", JSON.stringify(totals));
   }
-}, [guestBook]);
+}, [guestBook, guestBook.id, bookDetail.id]);
 
 
 
@@ -253,7 +254,7 @@ function buyingBook(id) {
 
 
       {/* BOTONES ADMIN */}
-      {status=== "authenticated" && <div className={styles.borrados}>
+      {isAdmin === true && <div className={styles.borrados}>
                 <button onClick={() => {handleClickDeleteLogic(bookDetail.id)}}
                   className={
                     isActive
