@@ -5,7 +5,7 @@ import "./App.css";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import Home from "./Components/Home/Home";
 import BookDetail from "./Components/BookDetail/BookDetail";
-import NewBook from "./Components/NewBook/NewBook";
+// import NewBook from "./Components/NewBook/NewBook";
 import NewBookChakra from "./Components/NewBook/NewBookChakra";
 import AboutUs from "./Components/Extras/AboutUs/AboutUs";
 import PoliticaPrivacidad from "./Components/Extras/PoliticaPrivacidad/PoliticaPrivacidad";
@@ -13,16 +13,16 @@ import PoliticaDevolucion from "./Components/Extras/PoliticaDevolucion/PoliticaD
 import ShoppingBook from "./Components/ShoppingBook/ShoppingBook";
 import PageError from "./Components/PageError/PageError.jsx";
 import CardsAuthor from "./Components/CardsAuthor/CardsAuthor";
-import Favorites from "./Components/Favorites/Favorites";
+// import Favorites from "./Components/Favorites/Favorites";
 
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 
 function App() {
     const status = useCheckAuth();
 
-    // if (status === "checking") {
+    if (status === "checking") {
     //     return <div>Autenticando</div>;
-    // }
+    }
 
     return (
         <>
@@ -36,7 +36,7 @@ function App() {
                 <Route path="/home" component={Home} />
 
                 {/*Ruta Favoritos de Libros */}
-                <Route path="/favoritos" component={Favorites} />
+                {/* <Route path="/favoritos" component={Favorites} /> */}
 
                 {/*Ruta Catalogo de Libros */}
                 <Route path={"/carrito"} component={ShoppingBook} />
