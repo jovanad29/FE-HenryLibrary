@@ -9,7 +9,7 @@ import {
 
 dotenv.config();
 
-const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+// const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 export const GET_NAME_BOOKS = "GET_NAME_BOOKS";
@@ -417,9 +417,8 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
 
     if (!result.ok) return dispatch(logout(result));
 
-    const { photoURL: profilePic, uid, displayName: nameUser } = result;
+    const { uid} = result;
 
-    // dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
     dispatch(getUserInfo(uid));
     dispatch(login(result));
   };
@@ -456,3 +455,20 @@ export function getActiveCart(userId, statusId) {
       });
   };
 }
+<<<<<<< HEAD
+
+export function getActiveCart(userId) {
+    return function (dispatch) {
+        axios
+        
+            .get(`/payments/${userId}`)
+                .then((response) => {
+                dispatch({ type: ACTIVE_CART, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("getActiveCart", error);
+            });
+    };
+}   
+=======
+>>>>>>> 563bb485fa4a02948073ea6a8ae437b514f81a19
