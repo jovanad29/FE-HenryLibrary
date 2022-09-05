@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    clearCart,
     clearLoginError,
     startCreatingUserWithEmailPassword,
     startGoogleSignIn,
@@ -52,6 +53,8 @@ function Login({ HandleOpenLogin }) {
 
     const handleCloseSesion = () => {
         dispatch(startLogout());
+        dispatch(clearCart());
+        localStorage.setItem("guestCartBooks", JSON.stringify([]));
         setLogin({ displayName: "", email: "", password: "" });
     };
 
