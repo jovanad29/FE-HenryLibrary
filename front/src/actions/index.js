@@ -152,7 +152,7 @@ export function setPage(page) {
 export function bannedBook(id) {
   return function (dispatch) {
     axios
-      .put(`/catalog/banned/${id}`)
+      .put(`/catalogue/banned/${id}`)
       .then((response) => {
         dispatch({
           type: "BANNED_BOOK",
@@ -380,8 +380,6 @@ export const startGoogleSignIn = () => {
     const { email, photoURL: profilePic, uid, displayName: nameUser } = result;
 
     dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
-    dispatch(getUserInfo(uid));
-    dispatch(login(result));
     await checkLocalShoppingBookExist();
   };
 };
@@ -405,8 +403,6 @@ export const startCreatingUserWithEmailPassword = ({
     const { photoURL: profilePic, uid, displayName: nameUser } = result;
 
     dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
-    dispatch(getUserInfo(uid));
-    dispatch(login(result));
   };
 };
 
@@ -418,11 +414,6 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
     console.log(result);
 
     if (!result.ok) return dispatch(logout(result));
-
-    const { uid} = result;
-
-    dispatch(getUserInfo(uid));
-    dispatch(login(result));
   };
 };
 
