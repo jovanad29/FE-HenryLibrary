@@ -1,27 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, getBooksCount, setPage } from "../../actions";
+import { setPage } from "../../actions";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
 //CSS
 // import styles from "./Paginated.module.css";
 
 export default function Paginated(props) {
-    const { totalItems, itemsPorPagina, page: actualPage, setPage } = props;
-    // const dispatch = useDispatch();
-    // const { cantBooks, page: actualPage } = useSelector((state) => state);
+    const { totalItems, itemsPorPagina } = props;
+    const dispatch = useDispatch();
+    const { actualPage } = useSelector((state) => state);
     const cantPaginas = Math.ceil(totalItems / itemsPorPagina) - 1;
-    // console.log(totalItems, actualPage);
     const pageNumbers = [];
 
-    // useEffect(() => {
-    //     dispatch(getBooksCount());
-    // }, [dispatch, cantBooks]);
-
     function handleChangePage(page) {
-        // dispatch(setPage(page));
-        // getBooks(page);
-        setPage(page);
+        dispatch(setPage(page));
     }
 
     function paginate(pageActual, cantPaginas) {

@@ -14,23 +14,61 @@ import {
     GET_ALL_AUTHORS,
     GET_ALL_PUBLISHERS,
     EMPTY_AUTHORS,
+    PUT_BOOK,
+    ADD_FAVORITES,
+    SET_SECTION,
+    GET_ALL_FAVORITES,
+    DELETE_FAVORITES,
+    LOGIN,
+    LOGOUT,
+    CHECKING_CREDENTIALS,
+    ORDER_BY,
+    GET_USER_INFO,
+    CLEAR_LOGIN_ERROR,
+    GET_CART,
+    CLEAR_CART,
 } from "../actions/index";
+//mercado pago
+import {
+    CLEAR_PAYMENT,
+    SET_ITEMS,
+    SET_PAYMENT,
+    SET_ORDER,
+} from "../actions/checkoutActions";
 
 const initialState = {
     allBooks: [],
+    copyAllBooks: [],
     bookDetail: [],
     categories: [],
     authors: [],
     publishers: [],
     msg: [],
     createBooks: [],
-    page: 0,
-    status: "not-authenticated",
+    actualPage: 0,
+    status: "checking",
     uid: null,
     email: null,
     displayName: null,
     photoURL: null,
+    address: null,
+    isActive: true,
+    isAdmin: false,
+    isBanned: false,
     errorMessage: null,
+    favorites: [],
+    section: "",
+    activeCart: [],
+    activeCartAmount: 0,
+    mpID: "",
+    order: {
+        ID: "",
+        items: [],
+        status: "",
+        status_detail: "",
+        total: 0,
+    },
+    items: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -39,6 +77,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 allBooks: action.payload,
+                copyAllBooks: [...action.payload],
             };
 
         case GET_NAME_BOOKS:
@@ -77,10 +116,16 @@ function rootReducer(state = initialState, action) {
                 allBooks: [...state.allBooks, { ...action.payload }],
             };
 
+        case PUT_BOOK:
+            return {
+                ...state,
+                allBooks: [...state.allBooks, { ...action.payload }],
+            };
+
         case SET_PAGE:
             return {
                 ...state,
-                page: action.payload,
+                actualPage: action.payload,
             };
 
         case BANNED_BOOK:
@@ -125,9 +170,189 @@ function rootReducer(state = initialState, action) {
                 authors: [],
             };
 
+        case LOGIN:
+            return {
+                ...state,
+                status: "authenticated",
+                uid: action.payload.uid,
+                email: action.payload.email,
+                displayName: action.payload.displayName,
+                photoURL: action.payload.photoURL,
+                errorMessage: null,
+                // isActive: action.payload.isActive,
+                // isAdmin: action.payload.isAdmin,
+                // isBanned: action.payload.isBanned,
+                // address: action.payload.address,
+            };
+        case LOGOUT:
+            return {
+                ...state,
+                status: "not-authenticated",
+                uid: null,
+                email: null,
+                displayName: null,
+                photoURL: null,
+                errorMessage: action.payload,
+                isActive: true,
+                isAdmin: false,
+                isBanned: false,
+                address: null,
+            };
+        case CHECKING_CREDENTIALS:
+            return {
+                ...state,
+                status: "checking",
+            };
+
+        case CLEAR_LOGIN_ERROR:
+            return {
+                ...state,
+                errorMessage: null,
+            };
+
+        case ADD_FAVORITES:
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload],
+            };
+
+        case SET_SECTION:
+            return {
+                ...state,
+                section: action.payload,
+            };
+
+        case GET_ALL_FAVORITES:
+            const filtered = state.allBooks.filter((b) =>
+                state.favorites.includes(b.id)
+            );
+            return {
+                ...state,
+                allBooks: filtered,
+            };
+
+        case DELETE_FAVORITES:
+            const availableFavorites = state.favorites.filter(
+                (b) => b !== action.payload
+            );
+            // const filtereds = state.allBooks.filter((b) =>
+            //     availableFavorites.includes(b.id)
+            // );
+            return {
+                ...state,
+                favorites: availableFavorites,
+                // allBooks: filtereds,
+            };
+
+        //ORDENAMIENTOS
+        case ORDER_BY:
+            const order = action.payload;
+
+            const orderByPrice = ["menorPrecio", "mayorPrecio"];
+            const orderByRating = ["menorRating", "mayorRating"];
+            //const orderBySoldCopies = ["menosVendidos", "masVendidos"];
+            const less = ["menorPrecio", "menorRating", "menosVendidos"];
+
+            let type = "";
+            let orderedBy = "";
+
+            if (orderByPrice.indexOf(order) > -1) {
+                type = "price";
+            } else if (orderByRating.indexOf(order) > -1) {
+                type = "rating";
+            } else {
+                type = "soldCopies";
+            }
+
+            if (less.indexOf(order) > -1) {
+                orderedBy = state.allBooks.sort((el1, el2) => {
+                    return el1[type] > el2[type]
+                        ? 1
+                        : el1[type] < el2[type]
+                        ? -1
+                        : 0;
+                });
+            } else {
+                orderedBy = state.allBooks.sort((el1, el2) => {
+                    return el1[type] > el2[type]
+                        ? -1
+                        : el1[type] < el2[type]
+                        ? 1
+                        : 0;
+                });
+            }
+            return {
+                ...JSON.parse(JSON.stringify(state)),
+                allBooks: orderedBy,
+            };
+
+        case GET_USER_INFO:
+            return {
+                ...state,
+                isActive: action.payload.isActive,
+                isAdmin: action.payload.isAdmin,
+                isBanned: action.payload.isBanned,
+                address: action.payload.address,
+            };
+
+        case GET_CART:
+            return {
+                ...state,
+                activeCart: action.payload.payment_book,
+                activeCartAmount: action.payload.payment.totalAmount
+                    ? parseFloat(action.payload.payment.totalAmount).toFixed(2)
+                    : 0,
+            };
+
+        //mercado pago
+        case SET_PAYMENT:
+            return {
+                ...state,
+                mpID: action.payload.mpID,
+            };
+        case CLEAR_PAYMENT:
+            return {
+                mpID: "",
+                order: {
+                    ID: "",
+                    items: [],
+                    status: "",
+                    status_detail: "",
+                    total: 0,
+                },
+                items: [],
+            };
+        case SET_ORDER:
+            return {
+                ...state,
+                order: action.payload,
+            };
+        case SET_ITEMS:
+            console.log("Estoy en el reducer", action);
+            return {
+                ...state,
+                items: action.payload.length
+                    ? action.payload.map((i) => {
+                          return {
+                              id: i.id,
+                              unit_price: i.price,
+                              picture_url: i.image,
+                              quantity: 1,
+                              title: i.title,
+                          };
+                      })
+                    : [{ msg: "no hay datos" }],
+            };
+
+        case CLEAR_CART:
+            return {
+                ...state,
+                activeCart: [],
+                activeCartAmount: 0,
+            };
+
         default:
             return state;
     }
 }
-
 export default rootReducer;
