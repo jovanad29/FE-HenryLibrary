@@ -118,6 +118,11 @@ export default function EditBook({ bookDetail, setModal }) {
       text: "Se modifico el libro!",
       icon: "success",
     });
+
+    setTimeout(function(){
+      window.location.reload()
+  }, 1500);
+
   };
 
 
