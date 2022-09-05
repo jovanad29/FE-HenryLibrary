@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 // import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, getAllFavorites, setPage } from "../../actions/index.js";
+import {
+  getAllBooks,
+  getAllFavorites,
+  setPage,
+  getCategories,
+} from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -52,8 +57,8 @@ export default function Home() {
   const limit = offset + itemsPorPagina;
 
   //Labels con los filtros seleccionados
-  const [authors, setAuthors] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [author, setAuthor] = useState([]);
+  const [category, setCategory] = useState([]);
   const [clear, setClear] = useState(false);
 
   //=================================================
@@ -84,13 +89,17 @@ export default function Home() {
 
   useEffect(() => {
     if (section === "home") {
-      dispatch(getAllBooks());
+      // dispatch(getAllBooks());
       dispatch(setPage(0));
     } else if (section === "favoritos") {
       dispatch(getAllFavorites());
       // dispatch(setPage(0));
     }
   }, [dispatch, section, favorites]);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
 
   // useEffect(() => {
 
@@ -101,26 +110,34 @@ export default function Home() {
   const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
 
   const authorsFilter = (value) => {
-    setAuthors([...authors, value]);
+    setAuthor([value]);
   };
   const categoriesFilter = (value) => {
-    setCategories([...categories, value]);
+    setCategory([value]);
   };
 
   const handleClearFilter = (event) => {
     event.preventDefault();
-    setAuthors([]);
-    setCategories([]);
+    setAuthor([]);
+    setCategory([]);
     setClearAuthors({ clearKeyAuthors: clearKeyAuthors + 1 });
     setClearSort({ clearKeySort: clearKeySort + 1 });
     setClearCategories({ clearKeyCategories: clearKeyCategories + 1 });
     dispatch(getAllBooks());
   };
 
-  const handleClick = (event) => {
+  const handleClickAuthor = (event) => {
     event.preventDefault();
-    const id = Number(event.target.id);
-    setAuthors(authors.filter((author) => author.id !== id));
+    // const id = Number(event.target.id);
+    // setAuthors(authors.filter((author) => author.id !== id));
+    setAuthor([]);
+  };
+
+  const handleClickCategory = (event) => {
+    event.preventDefault();
+    // const id = Number(event.target.id);
+    // setAuthors(authors.filter((author) => author.id !== id));
+    setCategory([]);
   };
 
   return (
@@ -194,17 +211,17 @@ export default function Home() {
                         justifyContent={"center"}
                         width={"100%"}
                       >
-                        {categories.length !== 0 && (
+                        {category.length !== 0 && (
                           <TagLabel
                             textAlign={"center"}
-                            onClick={handleClick}
+                            onClick={handleClickCategory}
                             mb={"5%"}
                           >
                             Generos
                           </TagLabel>
                         )}
                         <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                          {categories.map((category) => (
+                          {category.map((category) => (
                             <Tag
                               size={"sm"}
                               key={category.id}
@@ -212,12 +229,12 @@ export default function Home() {
                               variant="solid"
                               bgColor="#01A86C"
                               cursor={"pointer"}
-                              onClick={handleClick}
+                              onClick={handleClickCategory}
                             >
                               <TagLabel
                                 textAlign={"center"}
                                 id={category.id}
-                                onClick={handleClick}
+                                onClick={handleClickCategory}
                               >
                                 {category.name}
                               </TagLabel>
@@ -232,7 +249,7 @@ export default function Home() {
                         justifyContent={"center"}
                         width={"100%"}
                       >
-                        {authors.length !== 0 && (
+                        {author.length !== 0 && (
                           <>
                             <Divider
                               colorScheme={"green"}
@@ -246,7 +263,7 @@ export default function Home() {
                         )}
 
                         <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                          {authors.map((author) => (
+                          {author.map((author) => (
                             <Tag
                               size={"sm"}
                               key={author.id}
@@ -254,14 +271,14 @@ export default function Home() {
                               variant="solid"
                               bgColor="#01A86C"
                               cursor={"pointer"}
-                              onClick={handleClick}
+                              onClick={handleClickAuthor}
                               display={"flex"}
                               justifyContent={"center"}
                             >
                               <TagLabel
                                 textAlign={"center"}
                                 id={author.id}
-                                onClick={handleClick}
+                                onClick={handleClickAuthor}
                               >
                                 {author.name}
                               </TagLabel>
@@ -273,10 +290,12 @@ export default function Home() {
                     <CategoryFilter
                       // key={clearKeyCategories}
                       categoriesFilter={categoriesFilter}
+                      author={author}
                     />
                     <AuthorFilter
                       key={clearKeyAuthors}
                       authorsFilter={authorsFilter}
+                      category={category}
                     />
                   </DrawerBody>
                 </DrawerContent>
