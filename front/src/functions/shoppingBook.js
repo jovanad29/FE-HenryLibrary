@@ -1,13 +1,18 @@
-// import React from 'react'
+// import { useDispatch, useSelector } from "react-redux";
+// import { saveLocalCartToDB } from "../actions";
 
 export const checkLocalShoppingBookExist = () => {
+    // const dispatch = useDispatch();
+    // const { uid } = useSelector((state) => state);
+
     const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
     const localTotal = JSON.parse(localStorage.getItem("total"));
 
-    //Aca debe llamar a a la funcion del back para guardar el carrito en la db
     if (localItems?.length) {
-        // dispatch
+        //dispatch(saveLocalCartToDB(uid, localItems));
+
         console.log(localItems, localTotal);
-        localStorage.setItem("guestCartBooks", JSON.stringify([]));
+        return localItems;
     }
+    return false;
 };
