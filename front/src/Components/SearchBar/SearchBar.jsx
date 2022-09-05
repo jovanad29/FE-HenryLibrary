@@ -63,8 +63,8 @@ export default function SearchBar() {
       <form onSubmit={handledSubmit}>
         <Box
           fontFamily="Quicksand"
-          mr="15rem"
-          pr="15rem"
+          mr="20rem"
+          pr="10rem"
           width="100%"
           position="relative"
         >
