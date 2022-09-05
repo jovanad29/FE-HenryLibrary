@@ -7,10 +7,11 @@ import s from "./Checkout.module.sass";
 
 function Checkout() {
   const [loading, setLoading] = useState(true);
-  const { items } = useSelector((state) => state.items);
+  const items  = useSelector((state) => state.items);
+  alert('estoy en checout tengo estos items',items)
   //const { stack } = useSelector((state) => state.history);
-  // const { status } = useSelector((state) => state.status);
-  const {uid} =useSelector(state=> state.uid)
+  const status  = useSelector((state) => state.status);
+  const uid =useSelector(state=> state.uid)
   const history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,10 +39,10 @@ function Checkout() {
     // } else {
       history.push("/home");
     }
-
+  
   return (
     <div className={s.container}>
-      {loading ? <Loading /> : null}
+      {/* {loading ? <Loading /> : null} */}
 
       <div className={s.ticket}>
         <div className={s.contTicket}>
@@ -80,7 +81,7 @@ function Checkout() {
             </span>
           </div>
           <div className={s.MPbutton}>
-            {items.length > 0 ? (
+            {items?.length > 0 ? (
               <MercadoPago
                 userID={uid}
                 setLoading={setLoading}

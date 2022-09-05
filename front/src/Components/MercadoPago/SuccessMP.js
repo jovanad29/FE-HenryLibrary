@@ -93,7 +93,7 @@ export default function SuccessMP() {
   }
   return (
     <div className={s.container}>
-      {loading ? <Loading /> : null}
+      {/* {loading ? <Loading /> : null} */}
       <div className={s.cont}>
         <div className={s.contGreen}>
           <h1>Payment successfully</h1>

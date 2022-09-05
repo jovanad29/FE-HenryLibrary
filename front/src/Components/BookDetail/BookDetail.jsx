@@ -16,7 +16,7 @@ import { Button, Stack } from "@chakra-ui/react";
 //pago
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-import { setItems } from "../../reducer/checkoutSlice";
+import { setItems } from "../../actions/checkoutActions";
 
 
 
@@ -24,14 +24,15 @@ import { setItems } from "../../reducer/checkoutSlice";
 export default function BookDetail() {
   const dispatch = useDispatch();
   let { id } = useParams();
-  const bookDetail = useSelector((state) => state.bookDetail);
+  const { bookDetail, status, isAdmin } = useSelector((state) => ({
+    bookDetail: state.bookDetail,
+    // ESTADO DEL LOGIN
+    status: state.status,
+    isAdmin: state.isAdmin
+  }));
   const history = useHistory();
 
   const [isActive, setIsActive] = useState(true);
-
-
-  //ESTADO DE LOGIN
-  const { status, isAdmin } = useSelector((state) => state);
 
 
 
@@ -94,7 +95,7 @@ useEffect(() => {
   if (localTotal) {
     // setTotal(localTotal);
   }
-}, []);
+}, [id]);
 
 useEffect (() => {
   if (guestBook.id) {
@@ -137,33 +138,33 @@ useEffect (() => {
  })
 
 //funcion para el el PAGO 
-function buyingBook() {
-  if (status!=="authenticated") {
-    Swal.fire({
-      title: "Para comprar debe estar autenticado",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Go to Login",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        history.push("/home");
-      }
-    });
-  } else {
-    id = bookDetail.id;
+function buyingBook(id) {
+  // if (status!=="authenticated") {
+  //   Swal.fire({
+  //     title: "Para comprar debe estar autenticado",
+  //     icon: "info",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "Go to Login",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       history.push("/home");
+  //     }
+  //   });
+  // } else
+   
+    //id = bookDetail.id;
     const price = bookDetail.price;
-    const quantity = 1;
+    const quantity = 1;  ///falta funcionalidad 
     const title = bookDetail.title;
     const image = bookDetail.image;
-    const bookToAdd = { id, price, quantity, title, image}
-    dispatch(setItems([bookToAdd]));
-    alert("has guardado tu libro en el carrito")
-    console.log("bookToAdd desde bookdetail", bookToAdd)
-    
+    const bookToAdd =[{ id, price, quantity, title, image}]  
+    alert("estoy en boton pago", bookToAdd)
+    console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
+    dispatch(setItems(bookToAdd));    
     history.push("/checkout");
-  }
+  
 }
 
 
@@ -244,9 +245,9 @@ function buyingBook() {
                 </Stack>
                 
               </div>
-              <div className={styles.botones}>
+              <div >
 
-                 <button  onClick={()=>buyingBook()}> BUY BOOK </button>
+                 <button  onClick={()=>buyingBook(id)}>   BUY BOOK   </button>
               </div>
                    
 

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mpID: "",
   order: {
-    ID: "",
+    id: "",
     items: [],
     status: "",
     status_detail: "",
@@ -22,7 +22,7 @@ const checkoutSlice = createSlice({
     clearPayment: (state) => {
       state.mpID = "";
       state.order = {
-        ID: "",
+        id: "",
         items: [],
         status: "",
         status_detail: "",
