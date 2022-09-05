@@ -1,19 +1,17 @@
-
-
-body{
-        margin: 0px;
-        padding: 0px;
-        box-sizing: border-box;
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
-.container{
+.container {
     display: flex;
     align-items: center;
     margin-top: 1rem;
     width: 88%;
 }
 
-.h1{
+.h1 {
     font-family: Quicksand;
     font-weight: bolder;
     font-size: 40px;
@@ -21,7 +19,7 @@ body{
     padding-left: 3rem;
 }
 
-.h1_1{
+.h1_1 {
     font-family: Quicksand;
     font-weight: bolder;
     font-size: 40px;
@@ -31,26 +29,27 @@ body{
 
 
 
-.iconos{
+.iconos {
     display: flex;
     justify-content: space-around;
     margin-right: 1rem;
     width: 8%;
 }
 
-.iconoFav{
+.iconoFav {
     visibility: visible;
+    color: #01A86C;
 }
 
-.iconoNoFav{
+.iconoNoFav {
     visibility: hidden;
 }
 
-.banderas{
+.banderas {
     display: flex;
 
 }
 
-.bandera{
+.bandera {
     margin-left: 0.5rem;
-}    
+}
