@@ -27,14 +27,9 @@ import {
   GET_USER_INFO,
   CLEAR_LOGIN_ERROR,
   ACTIVE_CART,
-  
-
 } from "../actions/index";
 //mercado pago
-import { CLEAR_PAYMENT, 
-   SET_ITEMS,
-  SET_PAYMENT,
-  SET_ORDER, } from "../actions/checkoutActions";
+import { CLEAR_PAYMENT, SET_ITEMS, SET_PAYMENT, SET_ORDER, } from "../actions/checkoutActions";
 
 const initialState = {
   allBooks: [],
@@ -318,20 +313,23 @@ function rootReducer(state = initialState, action) {
         };
         case SET_ORDER: 
         return {
+          ...state,
           order : action.payload,
-        }
-        case SET_ITEMS: 
-        return {
-           items : action.payload.map((i) => {
-            return {
-              id: i.ID,
-              unit_price: i.price,
-              picture_url: i.image,
-              quantity: 1,
-              title: i.title,
-            }
-          })
-        }
+        };
+        case SET_ITEMS:
+          console.log('Estoy en el reducer', action)
+          return {
+            ...state,
+            items: action.payload.length ? action.payload.map ( i => {
+              return {
+                id: i.id,
+                unit_price: i.price,
+                picture_url: i.image,
+                quantity: 1,
+                title: i.title,
+              }
+            }) : [{msg: 'no hay datos'}]
+          } 
       
     default:
       return state;
