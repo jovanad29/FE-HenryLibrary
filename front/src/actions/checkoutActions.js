@@ -8,6 +8,7 @@ export const CLEAR_PAYMENT='CLEAR_PAYMENT';
 // axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
 
 export function asyncConfirmPayment(body) {
+  //await axios.post(`/payments/create`, body)
     return {type:CLEAR_PAYMENT }
   };
 
@@ -18,7 +19,8 @@ export function asyncGetMP(mpID) {
       const response = (
         await axios.get(`https://api.mercadopago.com/v1/payments/${mpID}`, {
           headers: {
-            Authorization: `Bearer TEST-1348940567218445-090211-5c24fe1e622ae718ae0317624678eff0-64199374`,
+            Authorization: `Bearer TEST-304236252926467-071712-29f3115ab12dc5ed7152e3a819778937-1162304452`,
+            //`Bearer TEST-1348940567218445-090211-5c24fe1e622ae718ae0317624678eff0-64199374`,
           },
         })
       ).data;
