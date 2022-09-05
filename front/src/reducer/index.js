@@ -317,7 +317,7 @@ function rootReducer(state = initialState, action) {
           order : action.payload,
         };
         case SET_ITEMS:
-          console.log('Estoy en el reducer', action)
+         // console.log('Estoy en el reducer', action)
           return {
             ...state,
             items: action.payload.length ? action.payload.map ( i => {
