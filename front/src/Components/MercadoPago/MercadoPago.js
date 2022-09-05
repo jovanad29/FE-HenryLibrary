@@ -9,7 +9,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
   const history = useHistory();
   useEffect(() => {
     axios
-      .post("/payments", {
+      .post("/paymentsOrder", {
         items,
         base_url: process.env.REACT_APP_BASE_URL,
         ID: userID,
