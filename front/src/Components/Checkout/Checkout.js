@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Loading from "../Loading/Loading.jsx";
+//import Loading from "../Loading/Loading.jsx";
 import MercadoPago from "../MercadoPago/MercadoPago";
 import s from "./Checkout.module.sass";
 
@@ -10,7 +10,7 @@ function Checkout() {
   const items  = useSelector((state) => state.items);
   alert('estoy en checout tengo estos items',items)
   //const { stack } = useSelector((state) => state.history);
-  const status  = useSelector((state) => state.status);
+ // const status  = useSelector((state) => state.status);
   const uid =useSelector(state=> state.uid)
   const history = useHistory();
   useEffect(() => {

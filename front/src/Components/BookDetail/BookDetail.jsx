@@ -139,35 +139,35 @@ useEffect (() => {
 
 //funcion para el el PAGO 
 function buyingBook(id) {
-  // if (status!=="authenticated") {
-  //   Swal.fire({
-  //     title: "Para comprar debe estar autenticado",
-  //     icon: "info",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Go to Login",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       history.push("/home");
-  //     }
-  //   });
-  // } else
-   
+   if (status!=="authenticated") {
+    Swal.fire({
+      title: "Para comprar debe estar autenticado",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Go to Login",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        history.push("/home");
+      }
+    });
+  } else
+   {
     //id = bookDetail.id;
     const price = bookDetail.price;
-    const quantity = 1;  ///falta funcionalidad 
+    const quantity = 1;  ///falta funcionalidad elegit varios 
     const title = bookDetail.title;
     const image = bookDetail.image;
     const bookToAdd =[{ id, price, quantity, title, image}]  
-    alert("estoy en boton pago", bookToAdd)
+   // alert("estoy en boton pago", bookToAdd)
     console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
     dispatch(setItems(bookToAdd));    
     history.push("/checkout");
   
 }
 
-
+}
   return (
 
     <div className={styles.detail}>
