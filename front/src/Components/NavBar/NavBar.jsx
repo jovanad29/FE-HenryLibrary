@@ -77,6 +77,7 @@ export default function NavBar() {
                         />
                     </button>
                 ) : (
+                    <>
                     <button onClick={handleOnFavorites}>
                         <MdOutlineFavorite
                             className={
@@ -87,6 +88,8 @@ export default function NavBar() {
                             size="1.4rem"
                         />
                     </button>
+                    <h3 className={styles.cantidad}>{favorites.length}</h3>
+                    </>
                 )}
 
                 <button onClick={() => HandleOpenLogin()}>
