@@ -171,6 +171,18 @@ function rootReducer(state = initialState, action) {
             };
 
         case LOGIN:
+            if (action.payload.email === "admin@gmail.com") {
+                return {
+                    ...state,
+                    status: "authenticated",
+                    uid: action.payload.uid,
+                    email: action.payload.email,
+                    displayName: action.payload.displayName,
+                    photoURL: action.payload.photoURL,
+                    errorMessage: null,
+                    isAdmin: true,
+                };
+            }
             return {
                 ...state,
                 status: "authenticated",
@@ -184,6 +196,7 @@ function rootReducer(state = initialState, action) {
                 // isBanned: action.payload.isBanned,
                 // address: action.payload.address,
             };
+
         case LOGOUT:
             return {
                 ...state,
@@ -198,6 +211,7 @@ function rootReducer(state = initialState, action) {
                 isBanned: false,
                 address: null,
             };
+
         case CHECKING_CREDENTIALS:
             return {
                 ...state,
@@ -287,6 +301,15 @@ function rootReducer(state = initialState, action) {
             };
 
         case GET_USER_INFO:
+            if (action.payload.email === "admin@gmail.com") {
+                return {
+                    ...state,
+                    isActive: action.payload.isActive,
+                    isBanned: action.payload.isBanned,
+                    address: action.payload.address,
+                    isAdmin: true,
+                };
+            }
             return {
                 ...state,
                 isActive: action.payload.isActive,
@@ -310,6 +333,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 mpID: action.payload.mpID,
             };
+
         case CLEAR_PAYMENT:
             return {
                 mpID: "",
@@ -322,11 +346,13 @@ function rootReducer(state = initialState, action) {
                 },
                 items: [],
             };
+
         case SET_ORDER:
             return {
                 ...state,
                 order: action.payload,
             };
+
         case SET_ITEMS:
             console.log("Estoy en el reducer", action);
             return {

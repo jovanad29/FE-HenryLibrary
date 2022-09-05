@@ -305,7 +305,8 @@ export function deleteFavoriteBook(id) {
 export function login(user) {
     return function (dispatch) {
         dispatch({ type: LOGIN, payload: user });
-        dispatch(getUserInfo(user.uid));
+        // console.log("llega");
+        // dispatch(getUserInfo(user.uid));
     };
 }
 
@@ -328,11 +329,11 @@ export function clearLoginError() {
 }
 
 export function createOrFindUser(user) {
-    return function (dispatch) {
-        axios
+    return async function (dispatch) {
+        await axios
             .post(`/user`, user)
             .then((response) => {
-            
+                dispatch(getUserInfo(user.uid));
             })
             .catch((error) => {
                 console.log("createOrFindUser", error);
@@ -341,14 +342,13 @@ export function createOrFindUser(user) {
 }
 
 export function getUserInfo(uid) {
-    return function (dispatch) {
-        axios
+    return async function (dispatch) {
+        await axios
             .get(`/user/${uid}`)
             .then((response) => {
                 dispatch({ type: GET_USER_INFO, payload: response.data });
             })
             .catch((error) => {
-
                 console.log("getUserInfo", error);
             });
     };
@@ -361,6 +361,8 @@ export const startGoogleSignIn = () => {
         const result = await signInWithGoogle();
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
+        const { uid, photoURL, displayName, email } = result;
+        dispatch(login({ uid, email, displayName, photoURL }));
     };
 };
 
@@ -380,6 +382,8 @@ export const startCreatingUserWithEmailPassword = ({
 
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
+        const { uid, photoURL } = result;
+        dispatch(login({ uid, email, displayName, photoURL }));
     };
 };
 
@@ -388,9 +392,11 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
         dispatch(checkingCredentials());
 
         const result = await loginWithEmailPassword({ email, password });
-        console.log(result);
 
         if (!result.ok) return dispatch(logout(result));
+        
+        const { uid, photoURL, displayName } = result;
+        dispatch(login({ uid, email, displayName, photoURL }));
     };
 };
 
@@ -401,8 +407,6 @@ export const startLogout = () => {
         dispatch(logout());
     };
 };
-
-//ORDENAMIENTOS
 
 //ORDENAMIENTOS
 
@@ -429,5 +433,18 @@ export function saveLocalCartToDB(userId, body) {
 export function clearCart() {
     return (dispatch) => {
         dispatch({ type: CLEAR_CART });
+    };
+}
+
+export function getCartDB(userId) {
+    return function (dispatch) {
+        axios
+            .get(`/payments/${userId}`)
+            .then((response) => {
+                dispatch({ type: GET_CART, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("getCartDB", error);
+            });
     };
 }
