@@ -65,11 +65,9 @@ export default function NavBar() {
       </div>
 
       <div className={styles.iconos}>
-        <button onClick={handleOnFavorites}>
-          <MdOutlineFavoriteBorder
-            className={isAuthenticated ? styles.iconoFav : styles.iconoNoFav}
-            size="1.4rem"
-          />
+        <button onClick={handleOnFavorites}             
+        className={isAuthenticated ? styles.iconoFav : styles.iconoNoFav}>
+          <MdOutlineFavoriteBorder size="1.4rem" />
         </button>
 
         <button onClick={() => HandleOpenLogin()}>
