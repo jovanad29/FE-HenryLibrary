@@ -27,11 +27,13 @@ export default function MercadoPago({ items, setLoading, userID }) {
           history.push("/");
         });
       });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+      //setPreferenceId('1162304452-c681ce3b-6903-47c4-af4e-04fae0523ac3')
+    
+ 
   useEffect(() => {
-    alert('estoy en mercado pago ' + preferenceId)
+    console.log('estoy en mercado pago ' , preferenceId)
     if (preferenceId) {
       const script = document.createElement("script");
       script.type = "text/javascript";
