@@ -7,7 +7,6 @@ import {
     login,
     logout,
     createOrFindUser,
-    getUserInfo,
     saveLocalCartToDB,
 } from "../actions";
 import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
