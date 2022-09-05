@@ -4,6 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { FirebaseAuth } from "../firebase/config";
 import { login, logout, createOrFindUser, getUserInfo } from "../actions";
+import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
 
 export const useCheckAuth = () => {
     const { status } = useSelector((state) => state);
@@ -25,6 +26,7 @@ export const useCheckAuth = () => {
             );
             dispatch(login({ uid, email, displayName, photoURL }));
             dispatch(getUserInfo(uid));
+            await checkLocalShoppingBookExist();
         });
     }, [dispatch]);
 
