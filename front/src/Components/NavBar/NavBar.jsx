@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 //COMPONENTES
 import SearchBar from "../SearchBar/SearchBar";
@@ -24,6 +24,7 @@ import {
 
 export default function NavBar() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { status, favorites } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
@@ -43,6 +44,7 @@ export default function NavBar() {
             dispatch(setSection("favoritos"));
             dispatch(getAllFavorites());
             dispatch(setPage(0));
+            history.push("/home");
         } else {
             dispatch(setSection("home"));
             dispatch(getAllBooks());
