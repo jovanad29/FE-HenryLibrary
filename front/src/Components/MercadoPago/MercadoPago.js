@@ -16,6 +16,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
       })
       .then((order) => {
         setPreferenceId(order.data.preferenceId);
+        console.log('llegue a preferencias? '+ order.data.preferenceId)
       })
       .catch((error) => {
         Swal.fire({
@@ -30,6 +31,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
+    alert('estoy en mercado pago ' + preferenceId)
     if (preferenceId) {
       const script = document.createElement("script");
       script.type = "text/javascript";
