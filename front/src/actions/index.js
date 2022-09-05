@@ -27,7 +27,6 @@ export const GET_ALL_AUTHORS = "GET_ALL_AUTHORS";
 export const GET_ALL_PUBLISHERS = "GET_ALL_PUBLISHERS";
 export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
 export const PUT_BOOK = "PUT_BOOK";
-export const ADD_CARRITO = "ADD_CARRITO";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SET_SECTION = "SET_SECTION";
 export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
@@ -268,23 +267,6 @@ export function updateBook(id, body) {
     };
 }
 
-// export const addCart = () => {
-//     const miStorage = window.localStorage;
-//     let Productos = Object.values(miStorage);
-//     let objetos = Productos.map((producto) => {
-//         return JSON.parse(producto);
-//     });
-//     let productos = objetos.filter((producto) => producto.hasOwnProperty("product_id"));
-//     productos.reduce((acc, producto) => acc + producto.cantidad, 0);
-
-//     return (dispatch) => {
-//         return dispatch({
-//             type: "ADD_CARRITO",
-//             payload: productos,
-//         });
-//     };
-// };
-
 export function addFavoriteBook(id) {
     return function (dispatch) {
         dispatch({
@@ -323,6 +305,7 @@ export function deleteFavoriteBook(id) {
 export function login(user) {
     return function (dispatch) {
         dispatch({ type: LOGIN, payload: user });
+        dispatch(getUserInfo(user.uid));
     };
 }
 
@@ -349,7 +332,7 @@ export function createOrFindUser(user) {
         axios
             .post(`/user`, user)
             .then((response) => {
-                // console.log(response.data.isAdmin);
+            
             })
             .catch((error) => {
                 console.log("createOrFindUser", error);
@@ -365,6 +348,7 @@ export function getUserInfo(uid) {
                 dispatch({ type: GET_USER_INFO, payload: response.data });
             })
             .catch((error) => {
+
                 console.log("getUserInfo", error);
             });
     };
@@ -377,14 +361,6 @@ export const startGoogleSignIn = () => {
         const result = await signInWithGoogle();
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
-        const {
-            email,
-            photoURL: profilePic,
-            uid,
-            displayName: nameUser,
-        } = result;
-
-        dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
     };
 };
 
@@ -404,9 +380,6 @@ export const startCreatingUserWithEmailPassword = ({
 
         if (!result.ok) return dispatch(logout(result.errorMessage));
 
-        const { photoURL: profilePic, uid, displayName: nameUser } = result;
-
-        dispatch(createOrFindUser({ email, profilePic, uid, nameUser }));
     };
 };
 
@@ -439,26 +412,13 @@ export function orderBy(order) {
     };
 }
 
-// export function getActiveCart(userId, statusId) {
-//   return function (dispatch) {
-//     axios
-//       // get /cart {userId, statusId}
-//       .get(`/cart/${userId}/${statusId}`)
-//       .then((response) => {
-//         dispatch({ type: ACTIVE_CART, payload: response.data });
-//       })
-//       .catch((error) => {
-//         console.log("getActiveCart", error);
-//       });
-//   };
-// }
-
 export function saveLocalCartToDB(userId, body) {
     return function (dispatch) {
         axios
-            .post(`/shoppingbook/${userId}`, body)
+            .post(`/payments/mergecart/${userId}`, body)
             .then((response) => {
                 dispatch({ type: GET_CART, payload: response.data });
+                localStorage.setItem("guestCartBooks", JSON.stringify([]));
             })
             .catch((error) => {
                 console.log("saveLocalCartToDB", error);

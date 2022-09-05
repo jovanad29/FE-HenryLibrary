@@ -15,7 +15,6 @@ import {
     GET_ALL_PUBLISHERS,
     EMPTY_AUTHORS,
     PUT_BOOK,
-    ADD_CARRITO,
     ADD_FAVORITES,
     SET_SECTION,
     GET_ALL_FAVORITES,
@@ -57,10 +56,10 @@ const initialState = {
     isAdmin: false,
     isBanned: false,
     errorMessage: null,
-    carrito: [],
     favorites: [],
     section: "",
     activeCart: [],
+    activeCartAmount: 0,
     mpID: "",
     order: {
         ID: "",
@@ -180,10 +179,10 @@ function rootReducer(state = initialState, action) {
                 displayName: action.payload.displayName,
                 photoURL: action.payload.photoURL,
                 errorMessage: null,
-                isActive: true,
-                isAdmin: false,
-                isBanned: false,
-                address: null,
+                // isActive: action.payload.isActive,
+                // isAdmin: action.payload.isAdmin,
+                // isBanned: action.payload.isBanned,
+                // address: action.payload.address,
             };
         case LOGOUT:
             return {
@@ -209,12 +208,6 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 errorMessage: null,
-            };
-
-        case ADD_CARRITO:
-            return {
-                ...state,
-                carrito: [...state.carrito, action.payload],
             };
 
         case ADD_FAVORITES:
@@ -301,10 +294,14 @@ function rootReducer(state = initialState, action) {
                 isBanned: action.payload.isBanned,
                 address: action.payload.address,
             };
+
         case GET_CART:
             return {
                 ...state,
-                activeCart: action.payload,
+                activeCart: action.payload.payment_book,
+                activeCartAmount: action.payload.payment.totalAmount
+                    ? parseFloat(action.payload.payment.totalAmount).toFixed(2)
+                    : 0,
             };
 
         //mercado pago
@@ -351,6 +348,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 activeCart: [],
+                activeCartAmount: 0,
             };
 
         default:
