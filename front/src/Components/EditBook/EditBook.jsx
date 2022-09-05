@@ -8,7 +8,7 @@ import {
 } from "../../actions";
 
 
-// import validate from "../NewBook/validate.js";
+import validate from "../NewBook/validate.js";
 
 //CSS
 import styles from "./EditBook.module.css";
@@ -59,10 +59,11 @@ export default function EditBook({ bookDetail, setModal }) {
     categories: categories2,
   });
 
-  // const [checked, setChecked] = useState(true);
 
   //ESTADO DE ERRORES
   const [errores, setErrores] = useState({});
+
+
   useEffect(() => {
     setErrores('');
   }, [])
@@ -91,15 +92,16 @@ export default function EditBook({ bookDetail, setModal }) {
         [event.target.name]: event.target.value,
       });
 
-      // setErrores(
-      //   validate({
-      //     ...book,
-      //     [event.target.name]: event.target.value,
-      //   })
-      // );
 
-      // Object.keys(errores).length === 0 ? setChecked(false) : setChecked(true);
+      setErrores(
+        validate({
+          ...book,
+          [event.target.name]: event.target.value,
+        })
+      );
+
     }
+    
   }
 
 
@@ -153,7 +155,6 @@ export default function EditBook({ bookDetail, setModal }) {
 
 
 
-  console.log(book)
 
   return (
     <div className={styles.fondo}>
@@ -177,7 +178,7 @@ export default function EditBook({ bookDetail, setModal }) {
             />
 
             <div className={styles.danger}>
-              {errores.title && <p>{errores.title}</p>}
+              {errores.title && <span>{errores.title}</span>}
             </div>
           </div>
 
@@ -196,7 +197,7 @@ export default function EditBook({ bookDetail, setModal }) {
             />
 
             <div className={styles.danger}>
-              {errores.description && <p>{errores.description}</p>}
+              {errores.description && <span>{errores.description}</span>}
             </div>
           </div>
 
@@ -214,7 +215,7 @@ export default function EditBook({ bookDetail, setModal }) {
               onChange={handleInputsChange}
             />
             <div className={styles.danger}>
-              {errores.price && <p>{errores.price}</p>}
+              {errores.price && <span>{errores.price}</span>}
             </div>
           </div>
 
@@ -232,7 +233,7 @@ export default function EditBook({ bookDetail, setModal }) {
               onChange={handleInputsChange}
             />
             <div className={styles.danger}>
-              {errores.currentStock && <p>{errores.currentStock}</p>}
+              {errores.currentStock && <span>{errores.currentStock}</span>}
             </div>
           </div>
 
@@ -250,7 +251,7 @@ export default function EditBook({ bookDetail, setModal }) {
               onChange={handleInputsChange}
             />
             <div className={styles.danger}>
-              {errores.image && <p>{errores.image}</p>}
+              {errores.image && <span>{errores.image}</span>}
             </div>
           </div>
 
@@ -268,7 +269,7 @@ export default function EditBook({ bookDetail, setModal }) {
               onChange={handleInputsChange}
             />
             <div className={styles.danger}>
-              {errores.publishedDate && <p>{errores.publishedDate}</p>}
+              {errores.publishedDate && <span>{errores.publishedDate}</span>}
             </div>
           </div>
 
@@ -286,7 +287,7 @@ export default function EditBook({ bookDetail, setModal }) {
               onChange={handleInputsChange}
             />
             <div className={styles.danger}>
-              {errores.pageCount && <p>{errores.pageCount}</p>}
+              {errores.pageCount && <span>{errores.pageCount}</span>}
             </div>
           </div>
 
@@ -342,7 +343,7 @@ export default function EditBook({ bookDetail, setModal }) {
                 ))}
             </select>
             <div className={styles.danger}>
-              {errores.publisherId && <p>{errores.publisherId}</p>}
+              {errores.publisherId && <span>{errores.publisherId}</span>}
             </div>
           </div>
 
@@ -454,8 +455,8 @@ export default function EditBook({ bookDetail, setModal }) {
               <button
                 type="submit"
                 onClick={handleOnSubmit}
-                className={styles.buttonEnviar}
-                // disabled={checked}
+                className={ JSON.stringify(errores) === "{}" && book.title !== ""
+                ? styles.buttonEnviar  : styles.buttonEnviarDisabled}
               >
                 Enviar
               </button>
