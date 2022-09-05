@@ -328,12 +328,10 @@ export function clearLoginError() {
 }
 
 export function createOrFindUser(user) {
-    return function (dispatch) {
-        axios
+    return async function (dispatch) {
+        await axios
             .post(`/user`, user)
-            .then((response) => {
-            
-            })
+            .then((response) => {})
             .catch((error) => {
                 console.log("createOrFindUser", error);
             });
@@ -341,14 +339,13 @@ export function createOrFindUser(user) {
 }
 
 export function getUserInfo(uid) {
-    return function (dispatch) {
-        axios
+    return async function (dispatch) {
+        await axios
             .get(`/user/${uid}`)
             .then((response) => {
                 dispatch({ type: GET_USER_INFO, payload: response.data });
             })
             .catch((error) => {
-
                 console.log("getUserInfo", error);
             });
     };
@@ -360,7 +357,6 @@ export const startGoogleSignIn = () => {
 
         const result = await signInWithGoogle();
         if (!result.ok) return dispatch(logout(result.errorMessage));
-
     };
 };
 
@@ -379,7 +375,6 @@ export const startCreatingUserWithEmailPassword = ({
         });
 
         if (!result.ok) return dispatch(logout(result.errorMessage));
-
     };
 };
 
