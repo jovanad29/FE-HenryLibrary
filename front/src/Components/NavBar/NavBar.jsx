@@ -66,31 +66,26 @@ export default function NavBar() {
                 <SearchBar />
             </div>
 
-            <div className={styles.iconos}>
+            <div className={styles.iconos} >
                 {favorites.length === 0 ? (
-                    <button onClick={handleOnFavorites}>
+                    <button onClick={handleOnFavorites}
+                    className={isAuthenticated ? styles.iconoFav: styles.iconoNoFav }
+                    >
                         <MdOutlineFavoriteBorder
-                            className={
-                                isAuthenticated
-                                    ? styles.iconoFav
-                                    : styles.iconoNoFav
-                            }
                             size="1.4rem"
                         />
                     </button>
                 ) : (
                     <>
-                        <button onClick={handleOnFavorites}>
+                        <button 
+                        className={isAuthenticated ? styles.iconoFav : styles.iconoNoFav }
+                        onClick={handleOnFavorites} 
+                         >
                             <MdOutlineFavorite
-                                className={
-                                    isAuthenticated
-                                        ? styles.iconoFav
-                                        : styles.iconoNoFav
-                                }
                                 size="1.4rem"
                             />
                         </button>
-                        <h3 className={styles.cantidad}>{favorites.length}</h3>
+                        {favorites.length > 0 &&<h3 className={styles.cantidad}>{favorites.length}</h3>}
                     </>
                 )}
 
