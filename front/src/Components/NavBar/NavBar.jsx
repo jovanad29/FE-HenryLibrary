@@ -25,7 +25,7 @@ import {
 export default function NavBar() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { status, favorites } = useSelector((state) => state);
+    const { status, favorites, allBooks } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     const [loginModal, setLoginModal] = useState(false);
@@ -36,7 +36,7 @@ export default function NavBar() {
     }
 
     useEffect(() => {
-        dispatch(getAllBooks());
+        if (allBooks.length === 0) dispatch(getAllBooks());
     }, [dispatch]);
 
     const handleOnFavorites = () => {
@@ -80,17 +80,17 @@ export default function NavBar() {
                     </button>
                 ) : (
                     <>
-                    <button onClick={handleOnFavorites}>
-                        <MdOutlineFavorite
-                            className={
-                                isAuthenticated
-                                    ? styles.iconoFav
-                                    : styles.iconoNoFav
-                            }
-                            size="1.4rem"
-                        />
-                    </button>
-                    <h3 className={styles.cantidad}>{favorites.length}</h3>
+                        <button onClick={handleOnFavorites}>
+                            <MdOutlineFavorite
+                                className={
+                                    isAuthenticated
+                                        ? styles.iconoFav
+                                        : styles.iconoNoFav
+                                }
+                                size="1.4rem"
+                            />
+                        </button>
+                        <h3 className={styles.cantidad}>{favorites.length}</h3>
                     </>
                 )}
 
