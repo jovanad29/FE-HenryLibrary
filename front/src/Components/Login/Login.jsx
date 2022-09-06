@@ -26,7 +26,8 @@ function Login({ HandleOpenLogin }) {
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
     const isAuthenticating = useMemo(() => status === "checking", [status]);
 
-    const [createUser, setCreateUser] = useState(false);
+    //Estado interno para cambiar el login de ingresar a crear un nuevo usuario
+    const [createUser, setCreateUser] = useState(false); 
 
     const [login, setLogin] = useState({
         displayName: "",
@@ -120,7 +121,7 @@ function Login({ HandleOpenLogin }) {
                 {!isAuthenticated ? (
                     <>
                         <div>
-                            <FiMail className={styles.iconoEmail} />
+                            <FiMail className={!createUser ? styles.iconoEmail : styles.noIconoEmail} />
                             <input
                                 className={styles.input}
                                 type="text"
@@ -133,7 +134,7 @@ function Login({ HandleOpenLogin }) {
 
                         <div>
                             <MdNoEncryptionGmailerrorred
-                                className={styles.iconoContraseña}
+                                className={!createUser ?  styles.iconoContraseña : styles.noIconoContraseña}
                             />
 
                             {/* {login.hasOwnProperty("password") && (
