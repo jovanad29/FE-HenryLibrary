@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartDB } from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -8,19 +10,20 @@ import Footer from "../Footer/Footer.jsx";
 
 //CSS
 import styles from "./ShoppingBook.module.css";
-import { Button } from "@chakra-ui/react";
 import {ImCross} from "react-icons/im"
-import { useDispatch, useSelector } from "react-redux";
-import { getCartDB } from "../../actions/index.js";
+
+
 
 function ShoppingBook() {
     const dispatch = useDispatch();
     const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
     const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
 
-    const { activeCart, activeCartAmount, status, uid } = useSelector(
+    const { activeCart, activeCartAmount, status, displayName, uid } = useSelector(
         (state) => state
     );
+
+ 
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     let localItems = [];
@@ -91,15 +94,18 @@ function ShoppingBook() {
         const { id, title, image, quantity, price } = b;
         return (
             <div className={styles.item} key={id}>
-                <div className={styles.subItem} >
-                <img src={image} alt="" width={10} heigh={10} />
-                <h3>{title}</h3>
-                <h2>{id}</h2>
-                <h2>{quantity}</h2>
-                <h2>{price}</h2>
-                </div>
+            
+                   <img className={styles.img} src={image} alt="" width={10} heigh={10} />
 
-                <div><button onClick={() => deleteData(id)}><ImCross color="red"/></button></div>
+                   <div className={styles.info}>
+                     <h3 className={styles.title}>{title}</h3>
+                     {/* <h2>{id}</h2> */}
+                     <h2 className={styles.cantidad}>Cantidad: {quantity}</h2>
+                     <h2 className={styles.precio}>$ {price}</h2>
+                   </div>
+
+                   <div  className={styles.itemCancelar}><button onClick={() => deleteData(id)}><ImCross color="#01A86C" size="1rem"/></button></div>
+                
             </div>
         );
     });
@@ -107,39 +113,43 @@ function ShoppingBook() {
     const totalAmount = total.totalAmount;
 
     return (
+
         <div className={styles.shopping}>
-            <NavBar />
-            <NavBar2 />
+            
+          <NavBar />
+
+          <NavBar2 />
+
+          <div className={styles.carrito}> 
+
+            <h1 className={styles.titulo}>Bienvenido {displayName} al carrito de LibreríaHENRY</h1>
 
             <div className={styles.container}>
-                <div className={styles.containerItems}>
-                    <h3 className={styles.items}>N° Items:{totalBooks}</h3>
-                </div>
 
-                <h3 className={styles.continuarComprando}>
-                    <Link to="/home">Continuar Comprando</Link>
-                </h3>
+              <div className={styles.container1}>
+                  <h3 className={styles.continuarComprando}><Link to="/home">Continuar Comprando...</Link></h3>
+                  <div>{item}</div>
+              </div>
 
-                <div className={styles.productos}>
 
-                    <div >{item}</div>
+              <div className={styles.container2}>
+                    <h3 className={styles.itemTotales}>N° Items totales: {totalBooks}</h3>
+            
+                    <div className={styles.infoCompra}>
+                        <div className={styles.total}>
+                            <h3>Total</h3>
+                            <h3>${totalAmount}</h3>
+                        </div>
+                        <div className={styles.button}><button className={styles.comprar}>COMPRAR</button>
+                        </div>
+                    </div>
+              </div>
 
-                </div>
-                <div className={styles.containerItems}>
-                    <h3 className={styles.items}>Total: ${totalAmount}</h3>
-                </div>
-                <div className={styles.button}>
-                    <Button
-                        className={styles.comprar}
-                        colorScheme="#01A86C"
-                        variant="solid"
-                        height="50px"
-                        size="lg"
-                    > COMPRAR
-                    </Button>
-                </div>
             </div>
-            <Footer />
+
+          </div>
+
+          {/* <Footer /> */}
         </div>
     );
 }
