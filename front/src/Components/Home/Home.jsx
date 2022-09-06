@@ -145,7 +145,7 @@ export default function Home() {
 
   useEffect(() => {
     if (category.id && author.id) {
-      dispatch(getBooksByCategoryAuthor(category.id, author.id));
+      //   dispatch(getBooksByCategoryAuthor(category.id, author.id));
     } else {
       category.id && dispatch(getBooksByCategory(category.id));
       author.id && dispatch(getBooksByAuthor(author.id));
