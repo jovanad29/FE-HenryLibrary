@@ -25,7 +25,7 @@ import {
 export default function NavBar() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { status, favorites } = useSelector((state) => state);
+    const { status, favorites, allBooks, displayName } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     const [loginModal, setLoginModal] = useState(false);
@@ -36,7 +36,7 @@ export default function NavBar() {
     }
 
     useEffect(() => {
-        dispatch(getAllBooks());
+        if (allBooks.length === 0) dispatch(getAllBooks());
     }, [dispatch]);
 
     const handleOnFavorites = () => {
@@ -66,31 +66,32 @@ export default function NavBar() {
                 <SearchBar />
             </div>
 
-            <div className={styles.iconos}>
+            
+            <div className={status === "authenticated" ? styles.user : styles.notUser}>
+                <h4>Bienvenido, {displayName}</h4>
+            </div> 
+            
+
+            <div className={styles.iconos} >
                 {favorites.length === 0 ? (
-                    <button onClick={handleOnFavorites}>
+                    <button onClick={handleOnFavorites}
+                    className={isAuthenticated ? styles.iconoFav: styles.iconoNoFav }
+                    >
                         <MdOutlineFavoriteBorder
-                            className={
-                                isAuthenticated
-                                    ? styles.iconoFav
-                                    : styles.iconoNoFav
-                            }
                             size="1.4rem"
                         />
                     </button>
                 ) : (
                     <>
-                    <button onClick={handleOnFavorites}>
-                        <MdOutlineFavorite
-                            className={
-                                isAuthenticated
-                                    ? styles.iconoFav
-                                    : styles.iconoNoFav
-                            }
-                            size="1.4rem"
-                        />
-                    </button>
-                    <h3 className={styles.cantidad}>{favorites.length}</h3>
+                        <button 
+                        className={isAuthenticated ? styles.iconoFav : styles.iconoNoFav }
+                        onClick={handleOnFavorites} 
+                         >
+                            <MdOutlineFavorite
+                                size="1.4rem"
+                            />
+                        </button>
+                        {favorites.length > 0 &&<h3 className={styles.cantidad}>{favorites.length}</h3>}
                     </>
                 )}
 

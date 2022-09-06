@@ -6,6 +6,9 @@ import {
   getAllFavorites,
   setPage,
   getCategories,
+  getBooksByCategory,
+  getBooksByAuthor,
+  getBooksByCategoryAuthor,
 } from "../../actions/index.js";
 
 //COMPONENTES
@@ -57,8 +60,8 @@ export default function Home() {
   const limit = offset + itemsPorPagina;
 
   //Labels con los filtros seleccionados
-  const [author, setAuthor] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [author, setAuthor] = useState({});
+  const [category, setCategory] = useState({});
   const [clear, setClear] = useState(false);
 
   //=================================================
@@ -89,11 +92,11 @@ export default function Home() {
 
   useEffect(() => {
     if (section === "home") {
-      // dispatch(getAllBooks());
       dispatch(setPage(0));
+      dispatch(getAllBooks());
     } else if (section === "favoritos") {
+      dispatch(setPage(0));
       dispatch(getAllFavorites());
-      // dispatch(setPage(0));
     }
   }, [dispatch, section, favorites]);
 
@@ -110,16 +113,16 @@ export default function Home() {
   const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
 
   const authorsFilter = (value) => {
-    setAuthor([value]);
+    setAuthor(value);
   };
   const categoriesFilter = (value) => {
-    setCategory([value]);
+    setCategory(value);
   };
 
   const handleClearFilter = (event) => {
     event.preventDefault();
-    setAuthor([]);
-    setCategory([]);
+    setAuthor({});
+    setCategory({});
     setClearAuthors({ clearKeyAuthors: clearKeyAuthors + 1 });
     setClearSort({ clearKeySort: clearKeySort + 1 });
     setClearCategories({ clearKeyCategories: clearKeyCategories + 1 });
@@ -130,15 +133,27 @@ export default function Home() {
     event.preventDefault();
     // const id = Number(event.target.id);
     // setAuthors(authors.filter((author) => author.id !== id));
-    setAuthor([]);
+    setAuthor({});
   };
 
   const handleClickCategory = (event) => {
     event.preventDefault();
     // const id = Number(event.target.id);
     // setAuthors(authors.filter((author) => author.id !== id));
-    setCategory([]);
+    setCategory({});
   };
+
+  useEffect(() => {
+    if (category.id && author.id) {
+      dispatch(getBooksByCategoryAuthor(category.id, author.id));
+    } else if (category.id) {
+      dispatch(getBooksByCategory(category.id));
+    } else if (author.id) {
+      dispatch(getBooksByAuthor(author.id));
+    } else {
+      dispatch(getAllBooks());
+    }
+  }, [dispatch, category, author]);
 
   return (
     <div className={styles.home}>
@@ -186,7 +201,9 @@ export default function Home() {
                       ref={btnRef}
                       bgColor={"#01A86C"}
                       onClick={handleClearFilter}
-                      _focus={{ border: "2px solid #01A86C" }}
+                      _focus={{
+                        border: "2px solid #01A86C",
+                      }}
                       _hover={{
                         color: "#01A86C",
                         background: "transparent",
@@ -211,36 +228,37 @@ export default function Home() {
                         justifyContent={"center"}
                         width={"100%"}
                       >
-                        {category.length !== 0 && (
-                          <TagLabel
-                            textAlign={"center"}
-                            onClick={handleClickCategory}
-                            mb={"5%"}
-                          >
-                            Generos
-                          </TagLabel>
-                        )}
-                        <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                          {category.map((category) => (
-                            <Tag
-                              size={"sm"}
-                              key={category.id}
-                              borderRadius="full"
-                              variant="solid"
-                              bgColor="#01A86C"
-                              cursor={"pointer"}
+                        {category.id && (
+                          <>
+                            <TagLabel
+                              textAlign={"center"}
                               onClick={handleClickCategory}
+                              mb={"5%"}
                             >
-                              <TagLabel
-                                textAlign={"center"}
-                                id={category.id}
+                              Generos
+                            </TagLabel>
+
+                            <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                              <Tag
+                                size={"sm"}
+                                key={category.id}
+                                borderRadius="full"
+                                variant="solid"
+                                bgColor="#01A86C"
+                                cursor={"pointer"}
                                 onClick={handleClickCategory}
                               >
-                                {category.name}
-                              </TagLabel>
-                            </Tag>
-                          ))}
-                        </Grid>
+                                <TagLabel
+                                  textAlign={"center"}
+                                  id={category.id}
+                                  onClick={handleClickCategory}
+                                >
+                                  {category.name}
+                                </TagLabel>
+                              </Tag>
+                            </Grid>
+                          </>
+                        )}
                       </Flex>
 
                       {/* Labels por autor */}
@@ -249,7 +267,7 @@ export default function Home() {
                         justifyContent={"center"}
                         width={"100%"}
                       >
-                        {author.length !== 0 && (
+                        {author.id && (
                           <>
                             <Divider
                               colorScheme={"green"}
@@ -259,32 +277,30 @@ export default function Home() {
                             <TagLabel textAlign={"center"} mb={"5%"}>
                               Autores
                             </TagLabel>
+
+                            <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                              <Tag
+                                size={"sm"}
+                                key={author.id}
+                                borderRadius="full"
+                                variant="solid"
+                                bgColor="#01A86C"
+                                cursor={"pointer"}
+                                onClick={handleClickAuthor}
+                                display={"flex"}
+                                justifyContent={"center"}
+                              >
+                                <TagLabel
+                                  textAlign={"center"}
+                                  id={author.id}
+                                  onClick={handleClickAuthor}
+                                >
+                                  {author.name}
+                                </TagLabel>
+                              </Tag>
+                            </Grid>
                           </>
                         )}
-
-                        <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                          {author.map((author) => (
-                            <Tag
-                              size={"sm"}
-                              key={author.id}
-                              borderRadius="full"
-                              variant="solid"
-                              bgColor="#01A86C"
-                              cursor={"pointer"}
-                              onClick={handleClickAuthor}
-                              display={"flex"}
-                              justifyContent={"center"}
-                            >
-                              <TagLabel
-                                textAlign={"center"}
-                                id={author.id}
-                                onClick={handleClickAuthor}
-                              >
-                                {author.name}
-                              </TagLabel>
-                            </Tag>
-                          ))}
-                        </Grid>
                       </Flex>
                     </HStack>
                     <CategoryFilter

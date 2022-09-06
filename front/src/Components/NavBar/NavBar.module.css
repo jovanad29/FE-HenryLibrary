@@ -24,10 +24,27 @@ body {
     font-weight: bolder;
     font-size: 40px;
     color: #01A86C;
-    margin-right: 15rem;
+    margin-right: 18rem;
 }
 
+.search{
+    margin-right: 10rem;
+}
 
+.user{
+    width: 15%;
+    margin-right: 2rem;
+    font-family: Quicksand;
+    font-weight: bolder;
+    font-size: 18px;
+    color: #01A86C;
+}
+
+.notUser{
+    width: 15%;
+    margin-right: 2rem;
+    visibility: hidden 
+}
 
 .iconos {
     display: flex;
@@ -43,6 +60,7 @@ body {
 
 .iconoNoFav {
     visibility: hidden;
+    cursor: none;
 }
 
 .cantidad{
