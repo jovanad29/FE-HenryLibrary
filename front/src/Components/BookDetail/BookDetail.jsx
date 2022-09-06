@@ -248,7 +248,7 @@ function buyingBook(id) {
               {/*<div >
 
                  <button  onClick={()=>buyingBook(id)}>   BUY BOOK   </button>
-              </div>*/]
+              </div>*/}
                    
 
 
