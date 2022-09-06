@@ -5,7 +5,12 @@ body{
     box-sizing: border-box;
 }
 
-
+.LandingPage{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
 .carrusel{
     width: 80%;
