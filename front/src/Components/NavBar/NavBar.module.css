@@ -28,7 +28,6 @@ body {
 }
 
 
-
 .iconos {
     display: flex;
     justify-content: space-around;
@@ -43,6 +42,7 @@ body {
 
 .iconoNoFav {
     visibility: hidden;
+    cursor: none;
 }
 
 .cantidad{

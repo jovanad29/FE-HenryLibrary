@@ -87,10 +87,22 @@ p{
     top: 7.5rem;
     right: 13.5rem;
 }
+.noIconoEmail{
+    position: absolute;
+    top: 10.5rem;
+    right: 13.5rem;
+}
+
 
 .iconoContraseña{
     position: absolute;
     top: 10.5rem;
+    right: 13.5rem;
+}
+
+.noIconoContraseña{
+    position: absolute;
+    top: 13.3rem;
     right: 13.5rem;
 }
 
