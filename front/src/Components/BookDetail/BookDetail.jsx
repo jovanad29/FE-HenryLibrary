@@ -245,10 +245,10 @@ function buyingBook(id) {
                 </Stack>
                 
               </div>
-              <div >
+              {/*<div >
 
                  <button  onClick={()=>buyingBook(id)}>   BUY BOOK   </button>
-              </div>
+              </div>*/]
                    
 
 
