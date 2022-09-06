@@ -25,7 +25,7 @@ import {
 export default function NavBar() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { status, favorites, allBooks } = useSelector((state) => state);
+    const { status, favorites, allBooks, displayName } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     const [loginModal, setLoginModal] = useState(false);
@@ -65,6 +65,12 @@ export default function NavBar() {
             <div className={styles.search}>
                 <SearchBar />
             </div>
+
+            
+            <div className={status === "authenticated" ? styles.user : styles.notUser}>
+                <h4>Bienvenido, {displayName}</h4>
+            </div> 
+            
 
             <div className={styles.iconos} >
                 {favorites.length === 0 ? (
