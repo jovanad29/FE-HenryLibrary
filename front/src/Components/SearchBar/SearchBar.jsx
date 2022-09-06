@@ -63,16 +63,13 @@ export default function SearchBar() {
       <form onSubmit={handledSubmit}>
         <Box
           fontFamily="Quicksand"
-          mr="20rem"
-          pr="10rem"
-          width="100%"
           position="relative"
         >
           <Box display="flex">
             <Input
               value={title}
               onChange={handleChange}
-              width="50%"
+              width="90%"
               focusBorderColor="#01A86C"
               placeholder="Busca un Libro..."
             />
