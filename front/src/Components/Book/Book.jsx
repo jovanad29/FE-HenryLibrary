@@ -12,6 +12,11 @@ import {
 //CSS
 import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
+import swal from "sweetalert";
+
+
+
+
 
 export default function Book({
     id,
@@ -42,7 +47,10 @@ export default function Book({
         const title = bookDetail.title;
         const image = bookDetail.image;
         const bookToAdd = { id, price, quantity, title, image };
-        alert("has guardado tu libro en el carrito");
+        swal({
+            title: "Se agrego el libro al carrito",
+            icon: "success",
+        });
         console.log("bookToAdd desde bookdetail", bookToAdd);
         setGuestBook(bookToAdd);
     };
