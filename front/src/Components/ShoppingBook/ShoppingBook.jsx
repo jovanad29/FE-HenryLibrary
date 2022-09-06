@@ -9,6 +9,7 @@ import Footer from "../Footer/Footer.jsx";
 //CSS
 import styles from "./ShoppingBook.module.css";
 import { Button } from "@chakra-ui/react";
+import {ImCross} from "react-icons/im"
 import { useDispatch, useSelector } from "react-redux";
 import { getCartDB } from "../../actions/index.js";
 
@@ -89,13 +90,16 @@ function ShoppingBook() {
     const item = guestCartBooks.map((b) => {
         const { id, title, image, quantity, price } = b;
         return (
-            <div key={id}>
+            <div className={styles.item} key={id}>
+                <div className={styles.subItem} >
                 <img src={image} alt="" width={10} heigh={10} />
                 <h3>{title}</h3>
                 <h2>{id}</h2>
                 <h2>{quantity}</h2>
                 <h2>{price}</h2>
-                <button onClick={() => deleteData(id)}>X</button>
+                </div>
+
+                <div><button onClick={() => deleteData(id)}><ImCross color="red"/></button></div>
             </div>
         );
     });
@@ -117,9 +121,9 @@ function ShoppingBook() {
                 </h3>
 
                 <div className={styles.productos}>
-                    {/* <h2>{id}</h2>
-            <h2>{title}</h2> */}
-                    <div>{item}</div>
+
+                    <div >{item}</div>
+
                 </div>
                 <div className={styles.containerItems}>
                     <h3 className={styles.items}>Total: ${totalAmount}</h3>
@@ -131,8 +135,7 @@ function ShoppingBook() {
                         variant="solid"
                         height="50px"
                         size="lg"
-                    >
-                        COMPRAR
+                    > COMPRAR
                     </Button>
                 </div>
             </div>
