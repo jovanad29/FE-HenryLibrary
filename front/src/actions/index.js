@@ -255,11 +255,12 @@ export function emptyAuthors() {
 }
 
 export function updateBook(id, body) {
-    return function (dispatch) {
-        axios
+    return async function (dispatch) {
+        await axios
             .put(`/catalogue/${id}`, body)
             .then((response) => {
                 dispatch({ type: PUT_BOOK, payload: response.data });
+                dispatch(getBooksId(id));
             })
             .catch((error) => {
                 console.log("updateBook", error);
@@ -394,7 +395,7 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
         const result = await loginWithEmailPassword({ email, password });
 
         if (!result.ok) return dispatch(logout(result));
-        
+
         const { uid, photoURL, displayName } = result;
         dispatch(login({ uid, email, displayName, photoURL }));
     };
