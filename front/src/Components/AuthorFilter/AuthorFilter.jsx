@@ -7,6 +7,7 @@ import {
   getAllBooks,
   emptyAuthors,
   setPage,
+  getAllAuthors,
 } from "../../actions";
 
 export default function AuthorFilter({ authorsFilter, category }) {
@@ -14,6 +15,7 @@ export default function AuthorFilter({ authorsFilter, category }) {
     authors = useSelector((state) => state.authors),
     copyAllBooks = useSelector((state) => state.copyAllBooks),
     [author, setAuthor] = useState([]),
+    [input, setInput] = useState(""),
     [tempAuthors, setTempAuthors] = useState([authors]);
 
   useEffect(() => {
@@ -24,21 +26,37 @@ export default function AuthorFilter({ authorsFilter, category }) {
     };
   }, [dispatch, author.name]);
 
+  useEffect(() => {
+    dispatch(getAllAuthors());
+  }, [dispatch]);
+
   const handleChange = (event) => {
-    setAuthor({ ...author, name: event.target.value });
-    !event.target.value.length && dispatch(getAllBooks());
+    // setAuthor({ ...author, name: event.target.value });
+    // // !event.target.value.length && dispatch(getAllBooks());
+    const text = event.target.value;
+    setInput(text);
+    if (text) {
+      const result = authors.filter((a) =>
+        a.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setTempAuthors(result);
+    } else {
+      setTempAuthors([]);
+    }
   };
 
   const handledClick = (event) => {
-    setAuthor({
-      id: Number(event.target.id),
-      //   name: event.target.textContent,
-      name: event.target.innerText,
-    });
+    // setAuthor({
+    //   id: Number(event.target.id),
+    //   //   name: event.target.textContent,
+    //   name: event.target.innerText,
+    // });
     authorsFilter({
       id: Number(event.target.id),
       name: event.target.innerText,
     });
+    setTempAuthors([]);
+    setInput("");
     dispatch(setPage(0));
     dispatch(getBooksByAuthor(Number(event.target.id)));
   };
@@ -73,9 +91,10 @@ export default function AuthorFilter({ authorsFilter, category }) {
       );
       console.log(obj);
       setTempAuthors(obj);
-    } else {
-      setTempAuthors(authors);
     }
+    // } else {
+    //   setTempAuthors(authors);
+    // }
   }, [category]);
 
   return (
@@ -90,21 +109,20 @@ export default function AuthorFilter({ authorsFilter, category }) {
           Autor
         </Heading>
         <form onSubmit={handleSubmit}>
-          {tempAuthors.length === 0 && (
-            <Input
-              placeholder="Nombre del Autor"
-              focusBorderColor="#01A86C"
-              //   color="#01A86C"
-              background="fff"
-              fontFamily="Quicksand"
-              _placeholder={{
-                color: "#a3a1a1",
-                fontFamily: "Quicksand",
-              }}
-              onChange={handleChange}
-              value={author.name}
-            />
-          )}
+          <Input
+            placeholder="Nombre del Autor"
+            focusBorderColor="#01A86C"
+            //   color="#01A86C"
+            background="fff"
+            fontFamily="Quicksand"
+            _placeholder={{
+              color: "#a3a1a1",
+              fontFamily: "Quicksand",
+            }}
+            onChange={handleChange}
+            value={input}
+          />
+
           <List spacing={1} backgroundColor="white">
             {tempAuthors.map((author) => (
               <ListItem
