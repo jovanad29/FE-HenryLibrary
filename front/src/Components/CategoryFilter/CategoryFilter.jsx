@@ -28,7 +28,7 @@ export default function CategoryFilter({ categoriesFilter, author }) {
 
     dispatch(setPage(0));
 
-    dispatch(setSection("categoria"));
+    dispatch(setSection("filtros"));
 
     dispatch(getBooksByCategory(event.target.id));
 
@@ -66,7 +66,6 @@ export default function CategoryFilter({ categoriesFilter, author }) {
     } else {
       setCategories(allCategories);
     }
-    console.log(copyAllBooks[10].categories[0].id);
   };
 
   useEffect(() => {
