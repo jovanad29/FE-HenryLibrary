@@ -8,6 +8,7 @@ import NavBar from "../NavBar/NavBar";
 import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
 import EditBook from "../EditBook/EditBook";
+import Recomendados from "../recomendados/Recomendados";
 
 //CSS
 import styles from "./BookDetail.module.css";
@@ -21,10 +22,11 @@ import { setItems } from "../../actions/checkoutActions";
 
 
 
+
 export default function BookDetail() {
   const dispatch = useDispatch();
   let { id } = useParams();
-  const { bookDetail, status, isAdmin } = useSelector((state) => ({
+  const { bookDetail, isAdmin } = useSelector((state) => ({
     bookDetail: state.bookDetail,
     // ESTADO DEL LOGIN
     status: state.status,
@@ -72,6 +74,7 @@ export default function BookDetail() {
 
 
 
+
   const addItem = (id) => {
     id = bookDetail.id;
     const price = bookDetail.price;
@@ -79,7 +82,14 @@ export default function BookDetail() {
     const title = bookDetail.title;
     const image = bookDetail.image;
     const bookToAdd = { id, price, quantity, title, image };
-    alert("has guardado tu libro en el carrito")
+    
+    Swal.fire({
+      icon: "success",
+      title: "Se agrego el libro al carrito",
+      showConfirmButton: true, 
+      confirmButtonColor: '#01A86C',
+    });
+
     console.log("bookToAdd desde bookdetail", bookToAdd)
     setGuestBook(bookToAdd);
   }
@@ -271,9 +281,13 @@ function buyingBook(id) {
         </div>
       </div>
 
-      <div className={styles.recomendados}>REVIEWS</div>
+      <div className={styles.review}>REVIEWS</div>
 
-      <div className={styles.recomendados}>ACA VAN NUESTROS RECOMENDADOS </div>
+      {/* RECOMENDADOS */}
+
+      <div className={styles.recomendados}>
+        <Recomendados />
+      </div>
 
       <Footer />
 
