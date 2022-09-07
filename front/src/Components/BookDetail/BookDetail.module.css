@@ -253,11 +253,18 @@ body {
     color: white
 }
 
-.recomendados{
+.review{
     margin-top: 3rem;
     margin-left: 6rem;
     width: 80%;
     height: 20%;
     justify-content: center;
     border: 2px solid black;
+}
+
+.recomendados{
+    margin-top: 20rem;
+    margin-left: 8rem;
+    width: 75rem;
+    height: 25rem;
 }

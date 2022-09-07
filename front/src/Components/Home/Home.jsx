@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-// import { useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getAllBooks,
@@ -17,36 +16,14 @@ import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Book from "../Book/Book.jsx";
-import CategoryFilter from "../CategoryFilter/CategoryFilter";
-import AuthorFilter from "../AuthorFilter/AuthorFilter";
 import Paginated from "../Paginated/Paginated.jsx";
 import Order from "../Sort/Order.jsx";
+import Filters from "../Filters/Filters";
 
 //CSS
 import styles from "./Home.module.css";
 import banner from "./banner.jpg";
 import Loading from "../Loading/Loading.jsx";
-
-import {
-  Drawer,
-  DrawerBody,
-  DrawerOverlay,
-  DrawerContent,
-  Button,
-  useDisclosure,
-  HStack,
-  Tag,
-  TagLabel,
-  Grid,
-  Flex,
-  Divider,
-  TagCloseButton,
-  Box,
-  TagRightIcon,
-} from "@chakra-ui/react";
-
-import { FaFilter } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -54,42 +31,9 @@ export default function Home() {
     (state) => state
   );
 
-  // const location = useLocation();
-  // const search = location.state ? location.state.search : null;
   const itemsPorPagina = 12;
   const offset = actualPage * itemsPorPagina;
   const limit = offset + itemsPorPagina;
-
-  //Labels con los filtros seleccionados
-  const [author, setAuthor] = useState({});
-  const [category, setCategory] = useState({});
-  const [clear, setClear] = useState(false);
-
-  //=================================================
-  //Limpiar componentes hijos
-
-  const [clearAuthors, setClearAuthors] = useState({
-    clearKeyAuthors: 0,
-  });
-
-  const { clearKeyAuthors } = clearAuthors;
-
-  const [clearCategories, setClearCategories] = useState({
-    clearKeyCategories: 0,
-  });
-
-  const { clearKeyCategories } = clearCategories;
-
-  const [clearSort, setClearSort] = useState({
-    clearKeySort: 0,
-  });
-
-  const { clearKeySort } = clearSort;
-
-  //=================================================
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
 
   useEffect(() => {
     if (category.id && author.id) {
@@ -120,13 +64,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
-
-  // useEffect(() => {
-
-  // }, [actualPage])
-
-  // console.log(allBooks, actualPage);
+  }, [dispatch]);
 
   const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
 
@@ -166,8 +104,6 @@ export default function Home() {
     onOpen();
   }
 
-  
-
   return (
     <div className={styles.home}>
       <NavBar />
@@ -179,11 +115,7 @@ export default function Home() {
             <img src={banner} alt="banner" />
           </div>
 
-          {/* ORDENAMIENTOS */}
-          {/* <div>
-            <Order />
-          </div> */}
-
+          {/*Filtros - Paginado - Ordenamientos */}
           <div className={styles.paginado}>
             <>
               <Button
@@ -330,21 +262,15 @@ export default function Home() {
                 </DrawerContent>
               </Drawer>
             </>
+            <Filters />
             <Paginated
               totalItems={allBooks.length}
               itemsPorPagina={itemsPorPagina}
             />
-
-            <Order key={clearKeySort} />
+            <Order />
           </div>
 
           <div className={styles.cuerpo}>
-            {/* <div className={styles.filtro}>
-              <CategoryFilter />
-              <AuthorFilter />
-              
-            </div> */}
-
             <div className={styles.cards}>
               {currentBooks &&
                 currentBooks.map((b) => (

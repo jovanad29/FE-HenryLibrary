@@ -14,7 +14,7 @@ import reactImageSize from "react-image-size";
 //CSS
 import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 
 
@@ -49,10 +49,12 @@ export default function Book({
         const title = bookDetail.title;
         const image = bookDetail.image;
         const bookToAdd = { id, price, quantity, title, image };
-        swal({
-            title: "Se agrego el libro al carrito",
+        Swal.fire({
             icon: "success",
-        });
+            title: "Se agrego el libro al carrito",
+            showConfirmButton: true, 
+            confirmButtonColor: '#01A86C',
+          });
         console.log("bookToAdd desde bookdetail", bookToAdd);
         setGuestBook(bookToAdd);
     };
