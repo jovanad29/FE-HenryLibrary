@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { FirebaseAuth } from "../firebase/config";
-import { login, logout, createOrFindUser, saveLocalCartToDB } from "../actions";
+import {
+    login,
+    logout,
+    createOrFindUser,
+    saveLocalCartToDB,
+    getCartDB,
+} from "../actions";
 import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
 
 export const useCheckAuth = () => {
@@ -28,6 +34,8 @@ export const useCheckAuth = () => {
 
             const localCart = checkLocalShoppingBookExist();
             localCart && dispatch(saveLocalCartToDB(uid, localCart));
+            
+            dispatch(getCartDB(uid));
         });
     }, [dispatch]);
 
