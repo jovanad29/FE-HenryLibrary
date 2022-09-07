@@ -24,11 +24,11 @@ body {
     font-weight: bolder;
     font-size: 40px;
     color: #01A86C;
-    margin-right: 18rem;
+    margin-right: 14rem;
 }
 
 .search{
-    margin-right: 10rem;
+    margin-right: 5rem;
 }
 
 .user{
@@ -36,7 +36,7 @@ body {
     margin-right: 2rem;
     font-family: Quicksand;
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 15px;
     color: #01A86C;
 }
 
