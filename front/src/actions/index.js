@@ -41,6 +41,7 @@ export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
 export const GET_CART = "GET_CART";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
+export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -443,8 +444,8 @@ export function getCartDB(userId) {
         await axios
             .get(`/payments/${userId}`)
             .then((response) => {
-                console.log(response.data);
                 dispatch({ type: GET_CART, payload: response.data });
+                dispatch(getCartQuantity(userId));
             })
             .catch((error) => {
                 console.log("getCartDB", error);
@@ -463,6 +464,22 @@ export function getBooksByCategoryAuthor(categoryId, authorId) {
             })
             .catch((error) => {
                 console.log("getBooksByCategoryAuthor", error);
+            });
+    };
+}
+
+export function getCartQuantity(userId) {
+    return async function (dispatch) {
+        await axios
+            .get(`/payments/count/${userId}`)
+            .then((response) => {
+                dispatch({
+                    type: GET_CART_QUANTITY,
+                    payload: response.data.totalQuantity,
+                });
+            })
+            .catch((error) => {
+                console.log("getCartDB", error);
             });
     };
 }

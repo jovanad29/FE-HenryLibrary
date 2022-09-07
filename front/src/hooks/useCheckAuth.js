@@ -36,6 +36,7 @@ export const useCheckAuth = () => {
             localCart && dispatch(saveLocalCartToDB(uid, localCart));
             
             dispatch(getCartDB(uid));
+            
         });
     }, [dispatch]);
 

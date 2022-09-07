@@ -17,14 +17,23 @@ function ShoppingBook() {
     const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
     const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
 
-    const { activeCart, activeCartAmount, status, displayName } = useSelector(
-        (state) => state
-    );
+    const {
+        activeCart,
+        activeCartAmount,
+        status,
+        displayName,
+        activeCartQuantity,
+        uid,
+    } = useSelector((state) => state);
 
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     let localItems = [];
     let localTotal = [];
+
+    useEffect(() => {
+        if (uid) dispatch(getCartDB(uid));
+    }, [dispatch, uid]);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -40,7 +49,13 @@ function ShoppingBook() {
         if (localTotal) {
             setTotal(localTotal);
         }
-    }, [isAuthenticated, dispatch, activeCart, activeCartAmount]);
+    }, [
+        isAuthenticated,
+        dispatch,
+        activeCart,
+        activeCartAmount,
+        activeCartQuantity,
+    ]);
 
     // useEffect(() => {
     //   const item = JSON.parse(localStorage.getItem("book"));
@@ -85,10 +100,22 @@ function ShoppingBook() {
     }, [guestCartBooks]);
 
     const item = guestCartBooks.map((b) => {
-        const { bookId, title, image, quantity, price } = b;
-        console.log(bookId);
+        let id, title, image, quantity, price;
+        if (isAuthenticated) {
+            id = b.id;
+            title = b.title;
+            image = b.image;
+            quantity = b.payment_book.quantity;
+            price = b.payment_book.price;
+        } else {
+            id = b.id;
+            title = b.title;
+            image = b.image;
+            quantity = b.quantity;
+            price = b.price;
+        }
         return (
-            <div className={styles.item} key={bookId}>
+            <div className={styles.item} key={id}>
                 <img
                     className={styles.img}
                     src={image}
@@ -105,7 +132,7 @@ function ShoppingBook() {
                 </div>
 
                 <div className={styles.itemCancelar}>
-                    <button onClick={() => deleteData(bookId)}>
+                    <button onClick={() => deleteData(id)}>
                         <ImCross color="#01A86C" size="1rem" />
                     </button>
                 </div>
@@ -113,7 +140,6 @@ function ShoppingBook() {
         );
     });
     const totalBooks = total.totalBooks;
-    const totalAmount = total.totalAmount;
 
     return (
         <div className={styles.shopping}>
@@ -136,13 +162,19 @@ function ShoppingBook() {
 
                     <div className={styles.container2}>
                         <h3 className={styles.itemTotales}>
-                            N° Items totales: {totalBooks}
+                            N° Items totales:{" "}
+                            {isAuthenticated ? activeCartQuantity : totalBooks}
                         </h3>
 
                         <div className={styles.infoCompra}>
                             <div className={styles.total}>
                                 <h3>Total</h3>
-                                <h3>${totalAmount}</h3>
+                                <h3>
+                                    $
+                                    {isAuthenticated
+                                        ? activeCartAmount
+                                        : localTotal}
+                                </h3>
                             </div>
                             <div className={styles.button}>
                                 <button className={styles.comprar}>

@@ -55,7 +55,6 @@ export default function Book({
             showConfirmButton: true, 
             confirmButtonColor: '#01A86C',
           });
-        console.log("bookToAdd desde bookdetail", bookToAdd);
         setGuestBook(bookToAdd);
     };
 
