@@ -5,6 +5,10 @@ import {
   getAllFavorites,
   setPage,
   getCategories,
+  getBooksByCategory,
+  getBooksByAuthor,
+  getBooksByCategoryAuthor,
+  setSection,
 } from "../../actions/index.js";
 
 //COMPONENTES
@@ -32,12 +36,29 @@ export default function Home() {
   const limit = offset + itemsPorPagina;
 
   useEffect(() => {
+    if (category.id && author.id) {
+      dispatch(getBooksByCategoryAuthor(category.id, author.id));
+    } else if (category.id) {
+      dispatch(getBooksByCategory(category.id));
+    } else if (author.id) {
+      dispatch(getBooksByAuthor(author.id));
+    } else if (section === "filtros") {
+      dispatch(setSection("home"));
+    }
+    // else {
+    //   dispatch(getAllBooks());
+    // }
+  }, [dispatch, category, author]);
+
+  useEffect(() => {
     if (section === "home") {
       dispatch(setPage(0));
       dispatch(getAllBooks());
     } else if (section === "favoritos") {
       dispatch(setPage(0));
       dispatch(getAllFavorites());
+    } else if (section === "search") {
+
     }
   }, [dispatch, section, favorites]);
 
@@ -46,6 +67,42 @@ export default function Home() {
   }, [dispatch]);
 
   const currentBooks = allBooks.length > 0 && allBooks.slice(offset, limit);
+
+  const authorsFilter = (value) => {
+    setAuthor(value);
+  };
+  const categoriesFilter = (value) => {
+    setCategory(value);
+  };
+
+  const handleClearFilter = (event) => {
+    event.preventDefault();
+    setAuthor({});
+    setCategory({});
+    setClearAuthors({ clearKeyAuthors: clearKeyAuthors + 1 });
+    setClearSort({ clearKeySort: clearKeySort + 1 });
+    setClearCategories({ clearKeyCategories: clearKeyCategories + 1 });
+    dispatch(setSection("home"));
+  };
+
+  const handleClickAuthor = (event) => {
+    event.preventDefault();
+    // const id = Number(event.target.id);
+    // setAuthors(authors.filter((author) => author.id !== id));
+    setAuthor({});
+  };
+
+  const handleClickCategory = (event) => {
+    event.preventDefault();
+    // const id = Number(event.target.id);
+    // setAuthors(authors.filter((author) => author.id !== id));
+    setCategory({});
+  };
+
+  const handleOpenFilters = () => {
+    dispatch(setSection("Filtros"));
+    onOpen();
+  }
 
   return (
     <div className={styles.home}>
@@ -60,6 +117,151 @@ export default function Home() {
 
           {/*Filtros - Paginado - Ordenamientos */}
           <div className={styles.paginado}>
+            <>
+              <Button
+                leftIcon={<FaFilter />}
+                ref={btnRef}
+                bgColor={"#01A86C"}
+                onClick={handleOpenFilters}
+                _focus={{ border: "2px solid #01A86C" }}
+                _hover={{
+                  color: "#01A86C",
+                  background: "transparent",
+                  border: "2px solid #01A86C",
+                }}
+                fontFamily="Quicksand"
+              >
+                Filtros
+              </Button>
+              <Drawer
+                isOpen={isOpen}
+                placement="left"
+                onClose={onClose}
+                finalFocusRef={btnRef}
+              >
+                <DrawerOverlay />
+                <DrawerContent>
+                  <Flex pt={"10%"} justifyContent={"center"}>
+                    <Button
+                      ref={btnRef}
+                      bgColor={"#01A86C"}
+                      onClick={handleClearFilter}
+                      _focus={{
+                        border: "2px solid #01A86C",
+                      }}
+                      _hover={{
+                        color: "#01A86C",
+                        background: "transparent",
+                        border: "2px solid #01A86C",
+                      }}
+                      fontFamily="Quicksand"
+                    >
+                      Limpiar Filtros
+                    </Button>
+                  </Flex>
+
+                  <DrawerBody pt={"10%"}>
+                    <HStack
+                      fontFamily="Quicksand"
+                      spacing={4}
+                      display={"flex"}
+                      flexDir={"column"}
+                    >
+                      {/* Labels por categoria */}
+                      <Flex
+                        flexDir={"column"}
+                        justifyContent={"center"}
+                        width={"100%"}
+                      >
+                        {category.id && (
+                          <>
+                            <TagLabel
+                              textAlign={"center"}
+                              onClick={handleClickCategory}
+                              mb={"5%"}
+                            >
+                              Generos
+                            </TagLabel>
+
+                            <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                              <Tag
+                                size={"sm"}
+                                key={category.id}
+                                borderRadius="full"
+                                variant="solid"
+                                bgColor="#01A86C"
+                                cursor={"pointer"}
+                                onClick={handleClickCategory}
+                              >
+                                <TagLabel
+                                  textAlign={"center"}
+                                  id={category.id}
+                                  onClick={handleClickCategory}
+                                >
+                                  {category.name}
+                                </TagLabel>
+                              </Tag>
+                            </Grid>
+                          </>
+                        )}
+                      </Flex>
+
+                      {/* Labels por autor */}
+                      <Flex
+                        flexDir={"column"}
+                        justifyContent={"center"}
+                        width={"100%"}
+                      >
+                        {author.id && (
+                          <>
+                            <Divider
+                              colorScheme={"green"}
+                              variant={"solid"}
+                              pt={"5%"}
+                            />
+                            <TagLabel textAlign={"center"} mb={"5%"}>
+                              Autores
+                            </TagLabel>
+
+                            <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                              <Tag
+                                size={"sm"}
+                                key={author.id}
+                                borderRadius="full"
+                                variant="solid"
+                                bgColor="#01A86C"
+                                cursor={"pointer"}
+                                onClick={handleClickAuthor}
+                                display={"flex"}
+                                justifyContent={"center"}
+                              >
+                                <TagLabel
+                                  textAlign={"center"}
+                                  id={author.id}
+                                  onClick={handleClickAuthor}
+                                >
+                                  {author.name}
+                                </TagLabel>
+                              </Tag>
+                            </Grid>
+                          </>
+                        )}
+                      </Flex>
+                    </HStack>
+                    <CategoryFilter
+                      // key={clearKeyCategories}
+                      categoriesFilter={categoriesFilter}
+                      author={author}
+                    />
+                    <AuthorFilter
+                      key={clearKeyAuthors}
+                      authorsFilter={authorsFilter}
+                      category={category}
+                    />
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+            </>
             <Filters />
             <Paginated
               totalItems={allBooks.length}
