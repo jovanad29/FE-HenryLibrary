@@ -9,6 +9,7 @@ import {
   getBooksByCategory,
   getBooksByAuthor,
   getBooksByCategoryAuthor,
+  setSection,
 } from "../../actions/index.js";
 
 //COMPONENTES
@@ -91,12 +92,29 @@ export default function Home() {
   const btnRef = React.useRef();
 
   useEffect(() => {
+    if (category.id && author.id) {
+      dispatch(getBooksByCategoryAuthor(category.id, author.id));
+    } else if (category.id) {
+      dispatch(getBooksByCategory(category.id));
+    } else if (author.id) {
+      dispatch(getBooksByAuthor(author.id));
+    } else if (section === "filtros") {
+      dispatch(setSection("home"));
+    }
+    // else {
+    //   dispatch(getAllBooks());
+    // }
+  }, [dispatch, category, author]);
+
+  useEffect(() => {
     if (section === "home") {
       dispatch(setPage(0));
       dispatch(getAllBooks());
     } else if (section === "favoritos") {
       dispatch(setPage(0));
       dispatch(getAllFavorites());
+    } else if (section === "search") {
+
     }
   }, [dispatch, section, favorites]);
 
@@ -126,7 +144,7 @@ export default function Home() {
     setClearAuthors({ clearKeyAuthors: clearKeyAuthors + 1 });
     setClearSort({ clearKeySort: clearKeySort + 1 });
     setClearCategories({ clearKeyCategories: clearKeyCategories + 1 });
-    dispatch(getAllBooks());
+    dispatch(setSection("home"));
   };
 
   const handleClickAuthor = (event) => {
@@ -143,17 +161,12 @@ export default function Home() {
     setCategory({});
   };
 
-  useEffect(() => {
-    if (category.id && author.id) {
-      dispatch(getBooksByCategoryAuthor(category.id, author.id));
-    } else if (category.id) {
-      dispatch(getBooksByCategory(category.id));
-    } else if (author.id) {
-      dispatch(getBooksByAuthor(author.id));
-    } else {
-      dispatch(getAllBooks());
-    }
-  }, [dispatch, category, author]);
+  const handleOpenFilters = () => {
+    dispatch(setSection("Filtros"));
+    onOpen();
+  }
+
+  
 
   return (
     <div className={styles.home}>
@@ -177,7 +190,7 @@ export default function Home() {
                 leftIcon={<FaFilter />}
                 ref={btnRef}
                 bgColor={"#01A86C"}
-                onClick={onOpen}
+                onClick={handleOpenFilters}
                 _focus={{ border: "2px solid #01A86C" }}
                 _hover={{
                   color: "#01A86C",

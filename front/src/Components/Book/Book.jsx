@@ -9,10 +9,12 @@ import {
     deleteFavoriteBook,
 } from "../../actions/index.js";
 
+import reactImageSize from "react-image-size";
+
 //CSS
 import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 
 
@@ -47,10 +49,12 @@ export default function Book({
         const title = bookDetail.title;
         const image = bookDetail.image;
         const bookToAdd = { id, price, quantity, title, image };
-        swal({
-            title: "Se agrego el libro al carrito",
+        Swal.fire({
             icon: "success",
-        });
+            title: "Se agrego el libro al carrito",
+            showConfirmButton: true, 
+            confirmButtonColor: '#01A86C',
+          });
         console.log("bookToAdd desde bookdetail", bookToAdd);
         setGuestBook(bookToAdd);
     };
@@ -120,13 +124,73 @@ export default function Book({
 
     const isFavorite = favorites?.filter((f) => f === id);
 
+    // const loadImage = (setImageDimensions, imageUrl) => {
+    //     const img = new Image();
+    //     img.src = imageUrl;
+
+    //     img.onload = () => {
+    //         setImageDimensions({
+    //             height: img.height,
+    //             width: img.width,
+    //         });
+    //     };
+    //     img.onerror = (err) => {
+    //         console.log("img error");
+    //         console.error(err);
+    //     };
+    // };
+
+    // const [imageDimensions, setImageDimensions] = useState({});
+    // const imageUrl = "https://picsum.photos/200/300";
+
+    // useEffect(() => {
+    //     loadImage(setImageDimensions, imageUrl);
+    //     console.log(imageDimensions);
+    // }, []);
+    // const onImgLoad = ({ target: img }) => {
+    //     const { offsetHeight, offsetWidth } = img;
+    //     console.log(offsetHeight, offsetWidth);
+    //     console.log(img);
+    // };
+
+    // reactImageSize(image)
+    //     .then(({ width, height }) => {
+    //         if (width < 100) {
+    //             console.log(width);
+    //             image =
+    //                 "https://inmobiliariabernardi.com/wp-content/themes/realestate-7/images/no-image.png";
+    //         }
+    //     })
+    //     .catch((errorMessage) => console.log(errorMessage));
+
+    const [imgSrc, setImgSrc] = useState('');
+
+    const loadImage = async () => {
+        try {
+            const { width, height } = await reactImageSize(image);
+            if (width < 100) {
+                setImgSrc('https://t3.ftcdn.net/jpg/00/54/90/30/360_F_54903050_NC9KIF3PjpPHEIX66oWlJFs9nqgipnR2.jpg');
+            } else {
+                setImgSrc(image);
+            }
+        } catch {
+            setImgSrc(image);
+        }
+    };
+
+    useEffect(() => {
+        loadImage();
+    }, []);
+
     return (
         <div className={styles.book}>
             <div className={styles.imagenes}>
                 <NavLink to={`/catalog/detail/${id}`}>
                     <img
                         className={styles.img}
-                        src={image}
+                        // onLoad={loadImage}
+                        src={imgSrc}
+                        key={imgSrc}
                         alt="imagenDelLibro"
                     />
                 </NavLink>
