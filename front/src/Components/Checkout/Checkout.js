@@ -8,7 +8,7 @@ import s from "./Checkout.module.sass";
 function Checkout() {
   const [loading, setLoading] = useState(true);
   const items  = useSelector((state) => state.items);
-  alert('estoy en checout tengo estos items',items)
+ // alert('estoy en checout tengo estos items',items)
   //const { stack } = useSelector((state) => state.history);
  // const status  = useSelector((state) => state.status);
   const uid =useSelector(state=> state.uid)
@@ -18,10 +18,10 @@ function Checkout() {
     if (items.length <= 0) {
       history.push("/");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [loading]);
   function goBack() {
     // var lastPath = [];

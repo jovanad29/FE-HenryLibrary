@@ -26,7 +26,7 @@ import { setItems } from "../../actions/checkoutActions";
 export default function BookDetail() {
   const dispatch = useDispatch();
   let { id } = useParams();
-  const { bookDetail, isAdmin } = useSelector((state) => ({
+  const { bookDetail, isAdmin , status} = useSelector((state) => ({
     bookDetail: state.bookDetail,
     // ESTADO DEL LOGIN
     status: state.status,
@@ -255,10 +255,28 @@ function buyingBook(id) {
                 </Stack>
                 
               </div>
-              <div >
+              <div className={styles.carrito}>
 
-                 <button  onClick={()=>buyingBook(id)}>   BUY BOOK   </button>
+                <Stack direction="row" spacing={10}>
+                  <Button
+                   // rightIcon={<RiShoppingCart2Fill />}
+                    colorScheme="#01A86C"
+                    variant="solid"
+                    height= "60px"
+                    className={
+                        bookDetail.currentStock > 0
+                          ? styles.boton
+                          : styles.boton + " " + styles.botonDisabled
+                      }
+                      disabled={bookDetail.currentStock === 0}
+                      onClick={()=>buyingBook(id)}
+                  >
+                   Comprar
+                  </Button>
+                </Stack>
+                
               </div>
+              
                    
 
 
