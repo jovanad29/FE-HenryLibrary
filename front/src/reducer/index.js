@@ -30,6 +30,7 @@ import {
     SET_FILTERS,
     GET_CART_QUANTITY,
     GET_ALL_CART_BY_USER,
+    GET_ID_FAVORITES,
 } from "../actions/index";
 //mercado pago
 import {
@@ -229,9 +230,10 @@ function rootReducer(state = initialState, action) {
             };
 
         case ADD_FAVORITES:
+            const bookId = action.payload.books[0].id;
             return {
                 ...state,
-                favorites: [...state.favorites, action.payload],
+                favorites: [...state.favorites, bookId],
             };
 
         case SET_SECTION:
@@ -241,12 +243,19 @@ function rootReducer(state = initialState, action) {
             };
 
         case GET_ALL_FAVORITES:
-            const filtered = state.allBooks.filter((b) =>
-                state.favorites.includes(b.id)
-            );
+            console.log("Estoy en el reducer");
+            console.log("reducer", action.payload);
+            const filtered = action.payload;
             return {
                 ...state,
                 allBooks: filtered,
+            };
+
+        case GET_ID_FAVORITES:
+            const idFavorites = action.payload.books.map(b => b.id);
+            return {
+                ...state,
+                favorites: idFavorites,
             };
 
         case DELETE_FAVORITES:

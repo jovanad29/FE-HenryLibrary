@@ -43,6 +43,8 @@ export const GET_ALL_CART_BY_USER = "GET_ALL_CART_BY_USER";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
+export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
+
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -295,15 +297,16 @@ export function setSection(section) {
 }
 
 export function getAllFavorites(uid) {
-//   return function (dispatch) {
+  return async function (dispatch) {
 //     dispatch({
 //       type: GET_ALL_FAVORITES,
 //     });
 //   };
-	return async (dispatch) => {
+	// return async (dispatch) => {
+    console.log("entra");
 		try {
-			const { data } = axios.get(`/user/${uid}/favorites`)
-			console.log("action", data.books)
+			const { data } = await axios.get(`/user/${uid}/favorites`)
+			console.log("action", data)
 			return dispatch({
 				type: GET_ALL_FAVORITES,
 				payload: data.books
@@ -311,8 +314,39 @@ export function getAllFavorites(uid) {
 		} catch (error) {
 			
 		}
+
+    //
+  //   await axios
+  //     .get(`/user/${uid}/favorites`)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       dispatch({ type: GET_ALL_FAVORITES, payload: response.data.books });
+  //     })
+  //     .catch((error) => {
+  //       console.log("getAllFavorites", error);
+  //     });
 	}
 }
+
+export function getIdFavorites(uid) {
+  return function (dispatch) {
+    axios
+      .get(`/user/${uid}/favorites`)
+      .then((response) => {
+        dispatch({
+          type: GET_ID_FAVORITES,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log("getIdFavorites", error);
+      });
+  };
+}
+
+
+
+
 
 export function deleteFavoriteBook(uid,bid) {
 	return async (dispatch) => {
