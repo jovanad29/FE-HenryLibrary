@@ -26,6 +26,7 @@ import {
   GET_USER_INFO,
   CLEAR_LOGIN_ERROR,
   GET_CART,
+  GET_ALL_CART_BY_USER,
   CLEAR_CART,
   SET_FILTERS,
 } from "../actions/index";
@@ -61,6 +62,7 @@ const initialState = {
   section: "",
   activeCart: [],
   activeCartAmount: 0,
+  allCartByUser: [],
   mpID: "",
   order: {
     ID: "",
@@ -318,6 +320,12 @@ function rootReducer(state = initialState, action) {
         activeCartAmount: action.payload.payment.totalAmount
           ? parseFloat(action.payload.payment.totalAmount).toFixed(2)
           : 0,
+      };
+
+    case GET_ALL_CART_BY_USER:
+      return {
+        ...state,
+        allCartByUser: action.payload,
       };
 
     //mercado pago
