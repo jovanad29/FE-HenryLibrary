@@ -271,13 +271,18 @@ export function updateBook(id, body) {
     };
 }
 
-export function addFavoriteBook(id) {
-    return function (dispatch) {
-        dispatch({
-            type: ADD_FAVORITES,
-            payload: id,
-        });
-    };
+export function addFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			const { data } = await axios.post(`/user/${uid}/favorites/${bid}`)
+			return dispatch({
+				type: ADD_FAVORITES,
+				payload: data
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function setSection(section) {
@@ -289,21 +294,39 @@ export function setSection(section) {
     };
 }
 
-export function getAllFavorites() {
-    return function (dispatch) {
-        dispatch({
-            type: GET_ALL_FAVORITES,
-        });
-    };
+export function getAllFavorites(uid) {
+//   return function (dispatch) {
+//     dispatch({
+//       type: GET_ALL_FAVORITES,
+//     });
+//   };
+	return async (dispatch) => {
+		try {
+			const { data } = axios.get(`/user/${uid}/favorites`)
+			console.log("action", data.books)
+			return dispatch({
+				type: GET_ALL_FAVORITES,
+				payload: data.books
+			})
+		} catch (error) {
+			
+		}
+	}
 }
 
-export function deleteFavoriteBook(id) {
-    return function (dispatch) {
-        dispatch({
-            type: DELETE_FAVORITES,
-            payload: id,
-        });
-    };
+export function deleteFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			await axios.delete(`/user/${uid}/favorites/${bid}`)
+			return dispatch({
+				type: DELETE_FAVORITES,
+				payload: bid
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 }
 
 export function login(user) {
