@@ -301,13 +301,18 @@ export function getAllFavorites() {
   };
 }
 
-export function deleteFavoriteBook(id) {
-  return function (dispatch) {
-    dispatch({
-      type: DELETE_FAVORITES,
-      payload: id,
-    });
-  };
+export function deleteFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			const { data } = await axios.delete(`/user/${uid}/favorites/${bid}`)
+			return dispatch({
+				type: DELETE_FAVORITES,
+				payload: bid
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function login(user) {
