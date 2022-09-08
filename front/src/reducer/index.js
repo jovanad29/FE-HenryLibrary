@@ -243,8 +243,6 @@ function rootReducer(state = initialState, action) {
             };
 
         case GET_ALL_FAVORITES:
-            console.log("Estoy en el reducer");
-            console.log("reducer", action.payload);
             const filtered = action.payload;
             return {
                 ...state,
@@ -252,7 +250,7 @@ function rootReducer(state = initialState, action) {
             };
 
         case GET_ID_FAVORITES:
-            const idFavorites = action.payload.books.map(b => b.id);
+            const idFavorites = action.payload.map(b => b.id);
             return {
                 ...state,
                 favorites: idFavorites,
@@ -373,7 +371,6 @@ function rootReducer(state = initialState, action) {
             };
 
         case SET_ITEMS:
-            console.log("Estoy en el reducer", action);
             return {
                 ...state,
                 items: action.payload.length

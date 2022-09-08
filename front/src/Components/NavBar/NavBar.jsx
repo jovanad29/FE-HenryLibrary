@@ -25,7 +25,7 @@ import {
 export default function NavBar() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { status, favorites, allBooks, displayName } = useSelector((state) => state);
+    const { status, favorites, allBooks, displayName, uid } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     const [loginModal, setLoginModal] = useState(false);
@@ -42,7 +42,7 @@ export default function NavBar() {
     const handleOnFavorites = () => {
         if (favorites.length > 0) {
             dispatch(setSection("favoritos"));
-            dispatch(getAllFavorites());
+            dispatch(getAllFavorites(uid));
             dispatch(setPage(0));
             history.push("/home");
         } else {

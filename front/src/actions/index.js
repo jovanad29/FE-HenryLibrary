@@ -298,33 +298,15 @@ export function setSection(section) {
 
 export function getAllFavorites(uid) {
   return async function (dispatch) {
-//     dispatch({
-//       type: GET_ALL_FAVORITES,
-//     });
-//   };
-	// return async (dispatch) => {
-    console.log("entra");
 		try {
 			const { data } = await axios.get(`/user/${uid}/favorites`)
-			console.log("action", data)
 			return dispatch({
 				type: GET_ALL_FAVORITES,
-				payload: data.books
+				payload: data
 			})
 		} catch (error) {
 			
 		}
-
-    //
-  //   await axios
-  //     .get(`/user/${uid}/favorites`)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       dispatch({ type: GET_ALL_FAVORITES, payload: response.data.books });
-  //     })
-  //     .catch((error) => {
-  //       console.log("getAllFavorites", error);
-  //     });
 	}
 }
 
