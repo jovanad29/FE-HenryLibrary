@@ -239,9 +239,9 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_ALL_FAVORITES:
-      const filtered = state.allBooks.filter((b) =>
-        state.favorites.includes(b.id)
-      );
+      console.log("Estoy en el reducer")
+      console.log("reducer", action.payload)
+      const filtered = action.payload
       return {
         ...state,
         allBooks: filtered,

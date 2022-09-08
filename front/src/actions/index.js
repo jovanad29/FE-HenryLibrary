@@ -273,7 +273,6 @@ export function addFavoriteBook(uid,bid) {
 	return async (dispatch) => {
 		try {
 			const { data } = await axios.post(`/user/${uid}/favorites/${bid}`)
-			console.log(data)
 			return dispatch({
 				type: ADD_FAVORITES,
 				payload: data
@@ -293,18 +292,30 @@ export function setSection(section) {
   };
 }
 
-export function getAllFavorites() {
-  return function (dispatch) {
-    dispatch({
-      type: GET_ALL_FAVORITES,
-    });
-  };
+export function getAllFavorites(uid) {
+//   return function (dispatch) {
+//     dispatch({
+//       type: GET_ALL_FAVORITES,
+//     });
+//   };
+	return async (dispatch) => {
+		try {
+			const { data } = axios.get(`/user/${uid}/favorites`)
+			console.log("action", data.books)
+			return dispatch({
+				type: GET_ALL_FAVORITES,
+				payload: data.books
+			})
+		} catch (error) {
+			
+		}
+	}
 }
 
 export function deleteFavoriteBook(uid,bid) {
 	return async (dispatch) => {
 		try {
-			const { data } = await axios.delete(`/user/${uid}/favorites/${bid}`)
+			await axios.delete(`/user/${uid}/favorites/${bid}`)
 			return dispatch({
 				type: DELETE_FAVORITES,
 				payload: bid
