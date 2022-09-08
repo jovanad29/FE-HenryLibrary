@@ -424,7 +424,7 @@ export function saveLocalCartToDB(userId, body) {
         axios
             .post(`/payments/mergecart/${userId}`, body)
             .then((response) => {
-                dispatch({ type: GET_CART, payload: response.data });
+                // dispatch({ type: GET_CART, payload: response.data });
                 localStorage.setItem("guestCartBooks", JSON.stringify([]));
             })
             .catch((error) => {
@@ -479,7 +479,20 @@ export function getCartQuantity(userId) {
                 });
             })
             .catch((error) => {
-                console.log("getCartDB", error);
+                console.log("getCartQuantity", error);
+            });
+    };
+}
+
+export function editCartItem(userId, id, quantity, price) {
+    return async function (dispatch) {
+        await axios
+            .put(`/payments/update/${userId}`, { id, quantity, price })
+            .then((response) => {
+                dispatch(getCartDB(userId));
+            })
+            .catch((error) => {
+                console.log("editCartItem", error);
             });
     };
 }

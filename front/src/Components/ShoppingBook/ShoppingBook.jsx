@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartDB } from "../../actions/index.js";
+import { editCartItem, getCartDB } from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -31,18 +31,22 @@ function ShoppingBook() {
     let localItems = [];
     let localTotal = [];
 
-    useEffect(() => {
-        if (uid) dispatch(getCartDB(uid));
-    }, [dispatch, uid]);
+    // useEffect(() => {
+    //     if (uid) dispatch(getCartDB(uid));
+    // }, [dispatch, uid]);
 
     useEffect(() => {
         if (isAuthenticated) {
             localItems = activeCart;
-            localTotal = activeCartAmount;
+            localTotal = {
+                totalAmount: activeCartAmount,
+                totalBooks: activeCartQuantity,
+            };
         } else {
             localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
             localTotal = JSON.parse(localStorage.getItem("total"));
         }
+        console.log(localTotal);
         if (localItems) {
             setGuestCartBooks(localItems);
         }
@@ -75,9 +79,10 @@ function ShoppingBook() {
     //     }
     // }, []);
 
-    function deleteData(id) {
+    function handleOnDelete(id, quantity, price) {
         let newItems = guestCartBooks.filter((item) => item.id !== id);
         setGuestCartBooks(newItems);
+        dispatch(editCartItem(uid, id, quantity, price));
     }
 
     useEffect(() => {
@@ -105,8 +110,8 @@ function ShoppingBook() {
             id = b.id;
             title = b.title;
             image = b.image;
-            quantity = b.payment_book.quantity;
-            price = b.payment_book.price;
+            quantity = b.payment_book?.quantity;
+            price = b.payment_book?.price;
         } else {
             id = b.id;
             title = b.title;
@@ -132,7 +137,7 @@ function ShoppingBook() {
                 </div>
 
                 <div className={styles.itemCancelar}>
-                    <button onClick={() => deleteData(id)}>
+                    <button onClick={() => handleOnDelete(id, 0, 0)}>
                         <ImCross color="#01A86C" size="1rem" />
                     </button>
                 </div>
@@ -140,6 +145,7 @@ function ShoppingBook() {
         );
     });
     const totalBooks = total.totalBooks;
+    const totalAmount = total.totalAmount;
 
     return (
         <div className={styles.shopping}>
@@ -162,19 +168,13 @@ function ShoppingBook() {
 
                     <div className={styles.container2}>
                         <h3 className={styles.itemTotales}>
-                            N° Items totales:{" "}
-                            {isAuthenticated ? activeCartQuantity : totalBooks}
+                            N° Items totales: {totalBooks}
                         </h3>
 
                         <div className={styles.infoCompra}>
                             <div className={styles.total}>
                                 <h3>Total</h3>
-                                <h3>
-                                    $
-                                    {isAuthenticated
-                                        ? activeCartAmount
-                                        : localTotal}
-                                </h3>
+                                <h3>${totalAmount}</h3>
                             </div>
                             <div className={styles.button}>
                                 <button className={styles.comprar}>
