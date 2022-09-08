@@ -39,6 +39,7 @@ export const ORDER_BY = "ORDER_BY";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
 export const GET_CART = "GET_CART";
+export const GET_ALL_CART_BY_USER = "GET_ALL_CART_BY_USER";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 
@@ -451,6 +452,18 @@ export function getCartDB(userId) {
   };
 }
 
+export function getAllCartDB(userId) {
+  return function (dispatch) {
+    axios
+      .get(`/payments/all/${userId}`)
+      .then((response) => {
+        dispatch({ type: GET_ALL_CART_BY_USER, payload: response.data });
+      })
+      .catch((error) => {
+        console.log("getAllCartDB", error);
+      });
+  };
+}
 export function getBooksByCategoryAuthor(categoryId, authorId) {
   return function (dispatch) {
     axios
