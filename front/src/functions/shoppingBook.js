@@ -5,7 +5,6 @@ export const checkLocalShoppingBookExist = () => {
     const localTotal = JSON.parse(localStorage.getItem("total"));
 
     if (localItems?.length) {
-        console.log(localItems, localTotal);
         return localItems;
     }
     return false;
