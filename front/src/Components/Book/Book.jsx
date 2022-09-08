@@ -33,7 +33,7 @@ export default function Book({
     const favorites = useSelector((state) => state.favorites);
 
     const section = useSelector((state) => state.section);
-    const { status } = useSelector((state) => state);
+    const { status, uid } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
     // const { uid } = useSelector((state) => state.user);
     const bookToCarrito = allBooks.filter((b) => b.id === id);
@@ -110,11 +110,11 @@ export default function Book({
     // }
 
     const handleOnFavorite = (id) => {
-        dispatch(addFavoriteBook(id));
+        dispatch(addFavoriteBook(uid,id));
     };
 
     const handleDeleteFavorite = (id) => {
-        dispatch(deleteFavoriteBook(id));
+        dispatch(deleteFavoriteBook(uid,id));
         if (favorites.length === 1 && section === "favoritos") {
             dispatch(getAllBooks());
             dispatch(setPage(0));

@@ -269,13 +269,19 @@ export function updateBook(id, body) {
   };
 }
 
-export function addFavoriteBook(id) {
-  return function (dispatch) {
-    dispatch({
-      type: ADD_FAVORITES,
-      payload: id,
-    });
-  };
+export function addFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			const { data } = await axios.post(`/user/${uid}/favorites/${bid}`)
+			console.log(data)
+			return dispatch({
+				type: ADD_FAVORITES,
+				payload: data
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function setSection(section) {

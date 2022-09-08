@@ -228,7 +228,7 @@ function rootReducer(state = initialState, action) {
     case ADD_FAVORITES:
       return {
         ...state,
-        favorites: [...state.favorites, action.payload],
+        favorites: [...state.favorites, parseInt(action.payload.bookId)],
       };
 
     case SET_SECTION:
