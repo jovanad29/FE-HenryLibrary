@@ -31,10 +31,6 @@ function ShoppingBook() {
     let localItems = [];
     let localTotal = [];
 
-    // useEffect(() => {
-    //     if (uid) dispatch(getCartDB(uid));
-    // }, [dispatch, uid]);
-
     useEffect(() => {
         if (isAuthenticated) {
             localItems = activeCart;
@@ -46,7 +42,6 @@ function ShoppingBook() {
             localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
             localTotal = JSON.parse(localStorage.getItem("total"));
         }
-        console.log(localTotal);
         if (localItems) {
             setGuestCartBooks(localItems);
         }
@@ -60,24 +55,6 @@ function ShoppingBook() {
         activeCartAmount,
         activeCartQuantity,
     ]);
-
-    // useEffect(() => {
-    //   const item = JSON.parse(localStorage.getItem("book"));
-    //   if (item) {
-    //     setItems(item);
-    //   }
-    // }, []);
-    //traer el localstorage cuando carga el componente
-    // useEffect(() => {
-    //     const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
-    //     if (localItems) {
-    //         setGuestCartBooks(localItems);
-    //     }
-    //     const localTotal = JSON.parse(localStorage.getItem("total"));
-    //     if (localTotal) {
-    //         setTotal(localTotal);
-    //     }
-    // }, []);
 
     function handleOnDelete(id, quantity, price) {
         let newItems = guestCartBooks.filter((item) => item.id !== id);
@@ -144,51 +121,78 @@ function ShoppingBook() {
             </div>
         );
     });
+
     const totalBooks = total.totalBooks;
     const totalAmount = total.totalAmount;
 
-    return (
-        <div className={styles.shopping}>
-            <NavBar />
+    if (guestCartBooks?.length > 0) {
+        return (
+            <div className={styles.shopping}>
+                <NavBar />
 
-            <NavBar2 />
+                <NavBar2 />
 
-            <div className={styles.carrito}>
-                <h1 className={styles.titulo}>
-                    Bienvenido {displayName} al carrito de LibreríaHENRY
-                </h1>
+                <div className={styles.carrito}>
+                    <h1 className={styles.titulo}>
+                        Bienvenido {displayName} al carrito de LibreríaHENRY
+                    </h1>
 
-                <div className={styles.container}>
-                    <div className={styles.container1}>
-                        <h3 className={styles.continuarComprando}>
-                            <Link to="/home">Continuar Comprando...</Link>
-                        </h3>
-                        <div>{item}</div>
-                    </div>
+                    <div className={styles.container}>
+                        <div className={styles.container1}>
+                            <h3 className={styles.continuarComprando}>
+                                <Link to="/home">Continuar Comprando...</Link>
+                            </h3>
+                            <div>{item}</div>
+                        </div>
 
-                    <div className={styles.container2}>
-                        <h3 className={styles.itemTotales}>
-                            N° Items totales: {totalBooks}
-                        </h3>
+                        <div className={styles.container2}>
+                            <h3 className={styles.itemTotales}>
+                                N° Items totales: {totalBooks}
+                            </h3>
 
-                        <div className={styles.infoCompra}>
-                            <div className={styles.total}>
-                                <h3>Total</h3>
-                                <h3>${totalAmount}</h3>
-                            </div>
-                            <div className={styles.button}>
-                                <button className={styles.comprar}>
-                                    COMPRAR
-                                </button>
+                            <div className={styles.infoCompra}>
+                                <div className={styles.total}>
+                                    <h3>Total</h3>
+                                    <h3>${totalAmount}</h3>
+                                </div>
+                                <div className={styles.button}>
+                                    <button className={styles.comprar}>
+                                        COMPRAR
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* <Footer /> */}
-        </div>
-    );
+                {/* <Footer /> */}
+            </div>
+        );
+    } else {
+        return (
+            <div className={styles.shopping}>
+                <NavBar />
+
+                <NavBar2 />
+
+                <div className={styles.carrito}>
+                    <h1 className={styles.titulo}>
+                        Bienvenido {displayName} al carrito de LibreríaHENRY
+                    </h1>
+
+                    <div className={styles.container}>
+                        
+
+                        {console.log("vacio")}
+                        <h2>Tu carrito está vacío</h2>
+                        <h4>
+                            ¿No sabés qué comprar? ¡Miles de libros te esperan!{" "}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default ShoppingBook;
