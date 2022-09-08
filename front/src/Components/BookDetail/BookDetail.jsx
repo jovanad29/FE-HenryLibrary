@@ -9,15 +9,18 @@ import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
 import EditBook from "../EditBook/EditBook";
 import Recomendados from "../recomendados/Recomendados";
+import Reviews from "../Reviews/Reviews";
 
 //CSS
 import styles from "./BookDetail.module.css";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { Button, Stack } from "@chakra-ui/react";
+
 //pago
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import { setItems } from "../../actions/checkoutActions";
+
 
 
 
@@ -281,13 +284,17 @@ function buyingBook(id) {
         </div>
       </div>
 
-      <div className={styles.review}>REVIEWS</div>
+       {/* REVIEWS */}
+      <div className={styles.review}>
+       <Reviews />
+      </div>
 
+        
       {/* RECOMENDADOS */}
-
       <div className={styles.recomendados}>
         <Recomendados />
       </div>
+
 
       <Footer />
 
