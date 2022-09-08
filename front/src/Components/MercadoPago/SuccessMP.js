@@ -7,7 +7,7 @@ import {
 } from "../../actions/checkoutActions";
 import { clearPayment } from "../../reducer/checkoutSlice";
 import s from "./MercadoPago.module.sass";
-import Loading from "../Loading/Loading";
+//import Loading from "../Loading/Loading";
 //import { asyncGetItemsCart } from "../../redux/actions/usersActions";
 
 export default function SuccessMP() {
@@ -45,7 +45,7 @@ export default function SuccessMP() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // const [loading, setLoading] = useState(false);
-  const loading = false;
+//  const loading = false;
   useEffect(() => {
     if (!front.ID) {
       setOrder({ ...order });
