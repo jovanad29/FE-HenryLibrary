@@ -19,7 +19,7 @@ import Checkout from "./Components/Checkout/Checkout";
 import Rejected from "./Components/MercadoPago/RejectedMP";
 import Pending from "./Components/MercadoPago/PendingMP";
 import Validate from "./Components/MercadoPago/ValidateMP";
-
+import PurchaseOrders from "./Components/PurchaseOrders/PurchaseOrders";
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 
 function App() {
@@ -80,6 +80,7 @@ function App() {
                 />
 
                 {/*Rutas Error*/}
+            <Route exact path={"/purchaseOrders"} component={PurchaseOrders} />
                 <Route path="*" component={PageError} />
             </Switch>
         </>

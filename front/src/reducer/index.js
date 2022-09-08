@@ -330,6 +330,12 @@ function rootReducer(state = initialState, action) {
                     : 0,
             };
 
+        case GET_ALL_CART_BY_USER:
+            return {
+                ...state,
+                allCartByUser: action.payload,
+            };
+
         //mercado pago
         case SET_PAYMENT:
             return {
