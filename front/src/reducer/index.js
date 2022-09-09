@@ -76,6 +76,7 @@ const initialState = {
         total: 0,
     },
     items: [],
+    reviews: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -407,7 +408,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 allBooks: action.payload,
             };
-            
+
         // REVIEWS
         case GET_ALL_REVIEWS:
             return{
