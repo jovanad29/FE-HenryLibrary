@@ -56,6 +56,7 @@ export default function Book({
             confirmButtonColor: '#01A86C',
           });
         setGuestBook(bookToAdd);
+
     };
 
     //traer el localstorage cuando carga el componente

@@ -573,3 +573,17 @@ export function createReviewByBook(id, body) {
             });
     };
 }
+
+export function addCartItem(userId, id, price) {
+  return async function (dispatch) {
+      await axios
+          .put(`payments/addItem/${userId}`, { id, price })
+          .then((response) => {
+              dispatch(getCartDB(userId));
+          })
+          .catch((error) => {
+              console.log("addCartItem", error);
+          });
+  };
+}
+
