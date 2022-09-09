@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { editCartItem, getCartDB } from "../../actions/index.js";
+import { editCartItem } from "../../actions/index.js";
+import reactImageSize from "react-image-size";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
-import Footer from "../Footer/Footer.jsx";
 
 //CSS
 import styles from "./ShoppingBook.module.css";
@@ -83,16 +83,13 @@ function ShoppingBook() {
 
     const item = guestCartBooks.map((b) => {
         let id, title, image, quantity, price;
+        id = b.id;
+        title = b.title;
+        image = b.image;
         if (isAuthenticated) {
-            id = b.id;
-            title = b.title;
-            image = b.image;
             quantity = b.payment_book?.quantity;
             price = b.payment_book?.price;
         } else {
-            id = b.id;
-            title = b.title;
-            image = b.image;
             quantity = b.quantity;
             price = b.price;
         }
