@@ -179,11 +179,7 @@ function ShoppingBook() {
                     <h1 className={styles.titulo}>
                         Bienvenido {displayName} al carrito de LibreríaHENRY
                     </h1>
-
                     <div className={styles.container}>
-                        
-
-                        {console.log("vacio")}
                         <h2>Tu carrito está vacío</h2>
                         <h4>
                             ¿No sabés qué comprar? ¡Miles de libros te esperan!{" "}
