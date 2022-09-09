@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  // asyncConfirmPayment,
+  asyncConfirmPayment,
   asyncGetMP,
-} from "../../actions/checkoutActions";
-import { clearPayment } from "../../reducer/checkoutSlice";
+  clearPayment
+} from "../../actions/checkoutActions.js";
+//import { clearPayment } from "../../reducer/checkoutSlice";
 import s from "./MercadoPago.module.sass";
-//import Loading from "../Loading/Loading";
-//import { asyncGetItemsCart } from "../../redux/actions/usersActions";
+import Loading from "../Loading/Loading";
+import { getCartDB } from "../../actions/index";//  Traer los items de carrito
 
 export default function SuccessMP() {
   const dispatch = useDispatch();
- // const { userProfile, cart } = useSelector((state) => state.profile);
-  const { mpID, order } = useSelector((state) => state.checkout);
-  const { stack } = useSelector((state) => state.history);
+ // const {  cart } = useSelector((state) => state.profile);
+  const { mpID, order , isBanned, uid} = useSelector((state) => state);
+ // const { stack } = useSelector((state) => state.stack);
   const history = useHistory();
   const [change, setChange] = useState(true);
   const [front, setOrder] = useState({
@@ -44,59 +45,61 @@ export default function SuccessMP() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // const [loading, setLoading] = useState(false);
+   const [loading, setLoading] = useState(false);
 //  const loading = false;
   useEffect(() => {
     if (!front.ID) {
       setOrder({ ...order });
     }
 
-  //  // if (change && order.items.length > 0 && userProfile.ID) {
-  //     let obj = { ...order };
-  //     setChange(false);
-  //     dispatch(
-  //       asyncConfirmPayment({ ...obj, userID: parseInt(userProfile.ID) })
-  //     )
-  //     //.then((res) => {
-  //     //   if (res) { consolog
-  //     //     dispatch(asyncGetItemsCart(userProfile.ID)).then((res2) => {
-  //     //       if (res2) {
-  //     //         setLoading(false);
-  //     //       }
-  //     //     });
-  //     //   }
-  //     // });
-  //   //}
+   if (change && order.items.length > 0 && uid) {
+      let obj = { ...order };
+      setChange(false);
+      dispatch(
+        asyncConfirmPayment({ ...obj, userID: uid })
+      )
+      .then((res) => {
+        if (res) {
+          dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!!
+            if (res2) {
+              setLoading(false);
+            }
+          });
+        }
+      });
+    }
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // //}
-     }, [order,/* userProfile,*/ change, front.ID]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  //}
+     }, [order,uid, change, front.ID]);
   // useEffect(() => {}, [front, cart]);
-  function goBack() {
-    var lastPath = [];
-    for (let i = 1; i < stack.length; i++) {
-      if (
-        stack[i] !== "/register" &&
-        stack[i] !== "/login" &&
-        stack[i] !== "/profile" &&
-        stack[i] !== "/favourites" &&
-        !stack[i].includes("checkout")
-      ) {
-        lastPath.push(stack[i]);
-      }
-    }
-    if (lastPath.length > 0) {
-      history.push(lastPath[0]);
-    } else {
-      history.push("/");
-    }
+  function goBack(e) {
+  
+    //var lastPath = [];
+    // for (let i = 1; i < stack.length; i++) {
+    //   if (
+    //     stack[i] !== "/register" &&
+    //     stack[i] !== "/login" &&
+    //     stack[i] !== "/profile" &&
+    //     stack[i] !== "/favourites" &&
+    //     !stack[i].includes("checkout")
+    //   ) {
+    //     lastPath.push(stack[i]);
+    //   }
+    // }
+    // if (lastPath.length > 0) {
+    //   history.push(lastPath[0]);
+    // } else {
+      e.preventDefault();
+      history.push("/home");
+   // }
   }
   return (
     <div className={s.container}>
-      {/* {loading ? <Loading /> : null} */}
+       {loading ? <Loading /> : null} 
       <div className={s.cont}>
         <div className={s.contGreen}>
-          <h1>Payment successfully</h1>
+          <h1>Pago existoso</h1>
           <span className={s.pID}>
             Payment ID: <span>{front.ID}</span>
           </span>

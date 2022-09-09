@@ -5,10 +5,10 @@ export const SET_ORDER='SET_ORDER';
 export const CLEAR_PAYMENT='CLEAR_PAYMENT';
 
 // const heroku = `https://db-proyecto-final.herokuapp.com`;//cambiar al nuestro cuando funcione!!
-// axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
+axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
 
-export function asyncConfirmPayment(body) {
-  //await axios.post(`/payments/create`, body)HACERRRRRR
+export async function asyncConfirmPayment(body) {
+  await axios.post(`/payments/create`, body)  //crea el pago Mercado Pago en su API
     return {type:CLEAR_PAYMENT }
   };
 
@@ -20,7 +20,7 @@ export function asyncGetMP(mpID) {
         await axios.get(`https://api.mercadopago.com/v1/payments/${mpID}`, {
           headers: {
             Authorization: `Bearer TEST-6623451607855904-111502-83c610c2165674e9bba665cfb4aa6b0c-672708410`,
-            //`Bearer TEST-1348940567218445-090211-5c24fe1e622ae718ae0317624678eff0-64199374`,
+            //`Bearer TEST-1348940567218445-090211-5c24fe1e622ae718ae0317624678eff0-64199374`,//al cliente?
           },
         })
       ).data;
@@ -71,4 +71,18 @@ export function setItems(items) {
     type: SET_ITEMS,
     payload: items
   };
+}
+
+  export function clearPayment ()  {
+    return{
+    type: CLEAR_PAYMENT,
+    payload : null,
+}}
+
+export function setPayment ( mpID)  {
+  
+  return{
+    type: SET_PAYMENT,
+    payload :mpID,
+}
 }
