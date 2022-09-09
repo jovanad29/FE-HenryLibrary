@@ -258,7 +258,6 @@ function buyingBook(id) {
                 </Stack>
                 
               </div>
-              
               <div className={styles.carrito}>
 
                 <Stack direction="row" spacing={10}>
@@ -279,7 +278,9 @@ function buyingBook(id) {
                   </Button>
                 </Stack>
                 
-              </div>                  
+              </div>
+              
+                   
 
 
       {/* BOTONES ADMIN */}
