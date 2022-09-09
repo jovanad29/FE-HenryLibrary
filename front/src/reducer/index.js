@@ -31,6 +31,8 @@ import {
     GET_CART_QUANTITY,
     GET_ALL_CART_BY_USER,
     GET_ID_FAVORITES,
+    GET_ALL_REVIEWS,
+    POST_ALL_REVIEWS
 } from "../actions/index";
 //mercado pago
 import {
@@ -405,6 +407,19 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 allBooks: action.payload,
             };
+            
+        // REVIEWS
+        case GET_ALL_REVIEWS:
+            return{
+                ...state,
+                reviews: action.payload
+            }
+
+        case POST_ALL_REVIEWS:
+            return{
+                ...state,
+                reviews: [...state.reviews, { ...action.payload }],
+            } 
 
         default:
             return state;
