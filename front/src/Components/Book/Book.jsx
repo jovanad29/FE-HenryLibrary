@@ -71,28 +71,18 @@ export default function Book({
     //traer el localstorage cuando carga el componente
     useEffect(() => {
         if (isAuthenticated) {
-            localItems = activeCart;
-            localTotal = {
+            setGuestCartBooks(activeCart);
+            setTotal({
                 totalAmount: activeCartAmount,
                 totalBooks: activeCartQuantity,
-            };
+            });
         } else {
-            localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
-            localTotal = JSON.parse(localStorage.getItem("total"));
+            setGuestCartBooks(
+                JSON.parse(localStorage.getItem("guestCartBooks"))
+            );
+            setTotal(JSON.parse(localStorage.getItem("total")));
         }
-        if (localItems) {
-            setGuestCartBooks(localItems);
-        }
-        if (localTotal) {
-            setTotal(localTotal);
-        }
-    }, [
-        isAuthenticated,
-        dispatch,
-        activeCart,
-        activeCartAmount,
-        activeCartQuantity,
-    ]);
+    }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -111,7 +101,7 @@ export default function Book({
                 JSON.stringify(guestCartBooks)
             );
         }
-    }, [guestCartBooks]);
+    }, [guestCartBooks, isAuthenticated]);
 
     const handleOnFavorite = (id) => {
         dispatch(addFavoriteBook(uid, id));
