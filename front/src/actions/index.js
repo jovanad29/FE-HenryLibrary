@@ -29,7 +29,7 @@ export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
 export const PUT_BOOK = "PUT_BOOK";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SET_SECTION = "SET_SECTION";
-export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
+export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_FAVORITES = "DELETE_FAVORITES";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
@@ -43,15 +43,9 @@ export const GET_ALL_CART_BY_USER = "GET_ALL_CART_BY_USER";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
-export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS"
+export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
-
-
-
-
-
-
-
 
 
 export function getAllBooks(pagina = 0, items = 10) {
@@ -281,13 +275,18 @@ export function updateBook(id, body) {
     };
 }
 
-export function addFavoriteBook(id) {
-    return function (dispatch) {
-        dispatch({
-            type: ADD_FAVORITES,
-            payload: id,
-        });
-    };
+export function addFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			const { data } = await axios.post(`/user/${uid}/favorites/${bid}`)
+			return dispatch({
+				type: ADD_FAVORITES,
+				payload: data
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function setSection(section) {
@@ -299,21 +298,46 @@ export function setSection(section) {
     };
 }
 
-export function getAllFavorites() {
-    return function (dispatch) {
-        dispatch({
-            type: GET_ALL_FAVORITES,
-        });
-    };
+export function getUserFavorites(uid) {
+  return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`/user/${uid}/favorites`)
+			return dispatch({
+				type: GET_USER_FAVORITES,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
-export function deleteFavoriteBook(id) {
-    return function (dispatch) {
-        dispatch({
-            type: DELETE_FAVORITES,
-            payload: id,
-        });
-    };
+export function getIdFavorites(uid) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`/user/${uid}/favorites`)
+			return dispatch({
+				type: GET_ID_FAVORITES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	};
+}
+
+export function deleteFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			await axios.delete(`/user/${uid}/favorites/${bid}`)
+			return dispatch({
+				type: DELETE_FAVORITES,
+				payload: bid
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function login(user) {
@@ -520,14 +544,7 @@ export function editCartItem(userId, id, quantity, price) {
     };
 }
 
-
-
-
-
-
-
 //REVIEWS
-
 export function getAllReviews(id) {
     return function (dispatch) {
         axios
@@ -544,7 +561,6 @@ export function getAllReviews(id) {
     };
 }
 
-
 export function createReviewByBook(id, body) {
     return function (dispatch) {
         axios
@@ -557,4 +573,3 @@ export function createReviewByBook(id, body) {
             });
     };
 }
-

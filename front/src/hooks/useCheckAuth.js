@@ -9,6 +9,7 @@ import {
     createOrFindUser,
     saveLocalCartToDB,
     getCartDB,
+    getIdFavorites,
 } from "../actions";
 import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
 
@@ -34,9 +35,10 @@ export const useCheckAuth = () => {
 
             const localCart = checkLocalShoppingBookExist();
             localCart && dispatch(saveLocalCartToDB(uid, localCart));
-            
+
             dispatch(getCartDB(uid));
-            
+
+            dispatch(getIdFavorites(uid));
         });
     }, [dispatch]);
 
