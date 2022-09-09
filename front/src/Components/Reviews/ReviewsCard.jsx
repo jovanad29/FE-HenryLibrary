@@ -13,14 +13,19 @@ import {
 
 
 
+
 function ReviewsCard({ reviews }) {
+  
+
+
   return (
     <div>
-        
+      {reviews.length > 0 ? 
     <Flex flexWrap='wrap' w='100%' height='auto'>
       {reviews?.map((r) => {
+        
         return (
-          <Accordion p="0.5rem" defaultIndex={[0]} allowMultiple>
+          <Accordion p="0.5rem" allowMultiple >
             <AccordionItem >
               <div key={r.id}>
                 <h2>
@@ -36,7 +41,7 @@ function ReviewsCard({ reviews }) {
                         })}
                      </Flex> 
 
-                      <Flex m="0.2rem"> <h2>{r.rating} aca van estrellitas</h2>
+                      <Flex m="0.2rem"> <h2>{r.rating} aca van las estrellitas</h2>
                     </Flex>
                     <AccordionIcon color="#01A86C"/>
                   </AccordionButton>
@@ -51,7 +56,7 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex>
+    </Flex> : <h2>Todavia no hay ningun comentario, dejanos uno</h2> }  
       
     </div>
   );
@@ -60,58 +65,3 @@ function ReviewsCard({ reviews }) {
 export default ReviewsCard;
 
 
-// import React from "react";
-
-// import {
-//   Accordion,
-//   AccordionItem,
-//   AccordionButton,
-//   AccordionPanel,
-//   AccordionIcon,
-//   Box,
-// } from "@chakra-ui/react";
-
-
-
-
-
-// function ReviewsCard({ reviews }) {
-//   return (
-//     <div>
-
-//       {reviews?.map((r) => {
-//         return (
-//           <Accordion defaultIndex={[0]} allowMultiple>
-//             <AccordionItem>
-//               <div key={r.id}>
-//                 <h2>
-//                   <AccordionButton>
-//                     <Box flex="1" textAlign="left">
-//                       {r.users &&
-//                         r.users.map((u) => {
-//                           return (
-//                             <div key={u.uid}>
-//                               <h3>{u.nameUser}</h3>
-//                             </div>
-//                           );
-//                         })}
-//                       <h2>{r.rating}</h2>
-//                     </Box>
-//                     <AccordionIcon />
-//                   </AccordionButton>
-//                 </h2>
-
-//                 <AccordionPanel pb={4}>
-//                   <p>{r.descrption}</p>
-//                 </AccordionPanel>
-//               </div>
-//             </AccordionItem>
-//           </Accordion>
-//         );
-//       })}
-
-//     </div>
-//   );
-// }
-
-// export default ReviewsCard;
