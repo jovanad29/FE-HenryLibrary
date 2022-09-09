@@ -90,7 +90,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
         </Flex>
 
         {status === "authenticated" && (
-        <Flex >
+        <Flex className={styles.formularioContainer}>
 
           <FormControl isRequired isInvalid={validateReview} className={styles.formulario}>
             
