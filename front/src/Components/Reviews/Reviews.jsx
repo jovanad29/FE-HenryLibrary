@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
-import {getAllReviews} from "../../actions/index.js"
+import {getAllReviews, createReviewByBook} from "../../actions/index.js"
 import ReviewsCard from "./ReviewsCard.jsx";
 
 
@@ -12,7 +12,6 @@ import {
   FormLabel,
   Textarea,
   Flex,
-//   Spacer,
   FormErrorMessage,
   Button,
 } from "@chakra-ui/react";
@@ -27,7 +26,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
     const dispatch = useDispatch();
 
-    const {status, displayName, email, reviews, uid} = useSelector (state => state)
+    const {status, displayName, email, reviews} = useSelector (state => state)
 
     const [input, setInput] = useState({
         uid: 0,
@@ -40,7 +39,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
         useEffect(() => {
             setErrores("");
-            dispatch(getAllReviews(id))
+            dispatch(getAllReviews(id));
         }, []);
     
 
@@ -61,10 +60,10 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        // dispatch(updateBook(bookDetail.id, book));
+        dispatch(createReviewByBook(id, input));
     };
 
-    console.log(reviews)
+
 
     const contadorDescription = input.descrption.length //Contador para ir monstrando los caracteres consumidos
 
@@ -106,6 +105,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
               onChange={handleInputsChange}
               placeholder="escribe tu opinion"
               w="90%" h="70%"
+              outlineColor='none'
             />
             {errores.descrption && (<FormErrorMessage>{errores.descrption}</FormErrorMessage>)}
 
