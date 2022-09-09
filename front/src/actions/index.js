@@ -546,6 +546,7 @@ export function editCartItem(userId, id, quantity, price) {
 
 //REVIEWS
 export function getAllReviews(id) {
+    console.log(id)
     return function (dispatch) {
         axios
             .get(`/reviews/byBook/${id}`)
