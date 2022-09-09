@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
-import {getAllReviews, createReviewByBook} from "../../actions/index.js"
+import {getUserInfo, login, getAllReviews, createReviewByBook} from "../../actions/index.js"
 import ReviewsCard from "./ReviewsCard.jsx";
 
 
@@ -26,22 +26,31 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
     const dispatch = useDispatch();
 
-    const {status, displayName, email, reviews} = useSelector (state => state)
+    const {status, displayName, email, reviews, uid} = useSelector (state => state)
 
+    useEffect(() => {
+      setErrores("");
+      dispatch(getAllReviews(id));
+  }, [dispatch,id]);
+
+
+    //ESTADO DE ERRORES
+     const [errores, setErrores] = useState({});
+
+    //ESTADO DEL FORMULARIO 
     const [input, setInput] = useState({
-        uid: 0,
+        uid: uid, //id user
         descrption:"",
         rating: 1
     })
 
-     //ESTADO DE ERRORES
-    const [errores, setErrores] = useState({});
 
-        useEffect(() => {
-            setErrores("");
-            dispatch(getAllReviews(id));
-        }, []);
-    
+    useEffect(() => {
+      setInput({...input, 
+                uid:uid
+              })
+  }, [uid]);
+
 
     function handleInputsChange(event) {
             setInput({
@@ -70,14 +79,13 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
   return (
     <div className={styles.reviews}>
-      <h2 className={styles.titulo}> Alguna de las opiniones de nuestro clientes </h2>
+      <h2 className={styles.titulo}> Opiniones de nuestros clientes </h2>
 
       <Flex className={styles.conteiner}>
         <Flex className={styles.review}>
 
           {/* Aca renderizo cada review */}
-          <ReviewsCard reviews={reviews}/> 
-
+          <ReviewsCard reviews={reviews}/>
 
         </Flex>
 
