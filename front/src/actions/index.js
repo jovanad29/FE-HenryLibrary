@@ -29,7 +29,7 @@ export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
 export const PUT_BOOK = "PUT_BOOK";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SET_SECTION = "SET_SECTION";
-export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
+export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_FAVORITES = "DELETE_FAVORITES";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
@@ -296,39 +296,33 @@ export function setSection(section) {
     };
 }
 
-export function getAllFavorites(uid) {
+export function getUserFavorites(uid) {
   return async function (dispatch) {
 		try {
 			const { data } = await axios.get(`/user/${uid}/favorites`)
 			return dispatch({
-				type: GET_ALL_FAVORITES,
+				type: GET_USER_FAVORITES,
 				payload: data
 			})
 		} catch (error) {
-			
+			console.log(error)
 		}
 	}
 }
 
 export function getIdFavorites(uid) {
-  return function (dispatch) {
-    axios
-      .get(`/user/${uid}/favorites`)
-      .then((response) => {
-        dispatch({
-          type: GET_ID_FAVORITES,
-          payload: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log("getIdFavorites", error);
-      });
-  };
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`/user/${uid}/favorites`)
+			return dispatch({
+				type: GET_ID_FAVORITES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	};
 }
-
-
-
-
 
 export function deleteFavoriteBook(uid,bid) {
 	return async (dispatch) => {
@@ -342,7 +336,6 @@ export function deleteFavoriteBook(uid,bid) {
 			console.log(error)
 		}
 	}
-
 }
 
 export function login(user) {

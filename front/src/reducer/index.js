@@ -17,7 +17,7 @@ import {
     PUT_BOOK,
     ADD_FAVORITES,
     SET_SECTION,
-    GET_ALL_FAVORITES,
+    GET_USER_FAVORITES,
     DELETE_FAVORITES,
     LOGIN,
     LOGOUT,
@@ -242,7 +242,7 @@ function rootReducer(state = initialState, action) {
                 section: action.payload,
             };
 
-        case GET_ALL_FAVORITES:
+        case GET_USER_FAVORITES:
             const filtered = action.payload;
             return {
                 ...state,
