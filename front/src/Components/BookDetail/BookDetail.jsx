@@ -304,7 +304,7 @@ function buyingBook(id) {
 
        {/* REVIEWS */}
       <div className={styles.review}>
-        <Reviews id={id}/>
+       <Reviews id={id}/>
       </div>
 
         
