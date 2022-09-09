@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
-import {getAllReviews, createReviewByBook} from "../../actions/index.js"
+import {getUserInfo, login, getAllReviews, createReviewByBook} from "../../actions/index.js"
 import ReviewsCard from "./ReviewsCard.jsx";
 
 
@@ -25,22 +25,32 @@ import {
 function Reviews({id}) { //Este id me lo traigo del componente BookDetail para traer los reviews por cada libro
 
     const dispatch = useDispatch();
-    const {status, displayName, email, reviews} = useSelector (state => state)
 
+    const {status, displayName, email, reviews, uid} = useSelector (state => state)
+
+    useEffect(() => {
+      setErrores("");
+      dispatch(getAllReviews(id));
+  }, [dispatch,id]);
+
+
+    //ESTADO DE ERRORES
+     const [errores, setErrores] = useState({});
+
+    //ESTADO DEL FORMULARIO 
     const [input, setInput] = useState({
-        uid: 0,
+        uid: uid, //id user
         descrption:"",
         rating: 1
     })
 
-     //ESTADO DE ERRORES
-    const [errores, setErrores] = useState({});
 
-        useEffect(() => {
-            setErrores("");
-            dispatch(getAllReviews(id));
-        }, []);
-    
+    useEffect(() => {
+      setInput({...input, 
+                uid:uid
+              })
+  }, [uid]);
+
 
     function handleInputsChange(event) {
             setInput({
