@@ -25,7 +25,6 @@ import {
 function Reviews({id}) { //Este id me lo traigo del componente BookDetail para traer los reviews por cada libro
 
     const dispatch = useDispatch();
-
     const {status, displayName, email, reviews} = useSelector (state => state)
 
     const [input, setInput] = useState({
@@ -70,14 +69,13 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
   return (
     <div className={styles.reviews}>
-      <h2 className={styles.titulo}> Alguna de las opiniones de nuestro clientes </h2>
+      <h2 className={styles.titulo}> Opiniones de nuestros clientes </h2>
 
       <Flex className={styles.conteiner}>
         <Flex className={styles.review}>
 
           {/* Aca renderizo cada review */}
-          <ReviewsCard reviews={reviews}/> 
-
+          <ReviewsCard reviews={reviews}/>
 
         </Flex>
 
