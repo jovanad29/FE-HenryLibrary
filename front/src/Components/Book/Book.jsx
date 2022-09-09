@@ -66,7 +66,7 @@ export default function Book({
             }
         } else {
             id = bookDetail.id;
-            const price = parseFloat(bookDetail.price).toFixed(2);
+            const price = bookDetail.price;
             const quantity = 1;
             const title = bookDetail.title;
             const image = bookDetail.image;
@@ -146,7 +146,6 @@ export default function Book({
             }
             totals.totalBooks += 1;
             totals.totalAmount += guestBook.price;
-            totals.totalAmount = parseFloat(totals.totalAmount).toFixed(2);
             setTotal(totals);
             localStorage.setItem("total", JSON.stringify(totals));
         }

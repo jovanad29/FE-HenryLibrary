@@ -36,9 +36,9 @@ function ShoppingBook() {
             });
         } else {
             setGuestCartBooks(
-                JSON.parse(localStorage.getItem("guestCartBooks"))
+                JSON.parse(localStorage.getItem("guestCartBooks")) || []
             );
-            setTotal(JSON.parse(localStorage.getItem("total")));
+            setTotal(JSON.parse(localStorage.getItem("total")) || []);
         }
     }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
 
@@ -50,25 +50,25 @@ function ShoppingBook() {
         }
     }
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            // recorrer el estado items y sumar los precios
-            let totalBooks = 0;
-            let totalAmount = 0;
-            guestCartBooks.forEach((item) => {
-                totalBooks += item.quantity;
-                totalAmount += item.price * item.quantity;
-                totalAmount = parseFloat(totalAmount).toFixed(2);
-            });
-            const total = { totalBooks, totalAmount };
-            setTotal(total);
-            localStorage.setItem("total", JSON.stringify(total));
-            localStorage.setItem(
-                "guestCartBooks",
-                JSON.stringify(guestCartBooks)
-            );
-        }
-    }, [guestCartBooks, isAuthenticated]);
+    // useEffect(() => {
+    //     if (!isAuthenticated) {
+    //         // recorrer el estado items y sumar los precios
+    //         let totalBooks = 0;
+    //         let totalAmount = 0;
+    //         guestCartBooks.forEach((item) => {
+    //             totalBooks += item.quantity;
+    //             totalAmount += item.price * item.quantity;
+    //             totalAmount = parseFloat(totalAmount).toFixed(2);
+    //         });
+    //         const total = { totalBooks, totalAmount };
+    //         setTotal(total);
+    //         localStorage.setItem("total", JSON.stringify(total));
+    //         localStorage.setItem(
+    //             "guestCartBooks",
+    //             JSON.stringify(guestCartBooks)
+    //         );
+    //     }
+    // }, [guestCartBooks, isAuthenticated]);
 
     const item = guestCartBooks.map((b) => {
         let id, title, image, quantity, price;
@@ -139,7 +139,7 @@ function ShoppingBook() {
                             <div className={styles.infoCompra}>
                                 <div className={styles.total}>
                                     <h3>Total</h3>
-                                    <h3>${totalAmount}</h3>
+                                    <h3>${parseFloat(totalAmount).toFixed(2)}</h3>
                                 </div>
                                 <div className={styles.button}>
                                     <button className={styles.comprar}>
