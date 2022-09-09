@@ -113,7 +113,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
               onChange={handleInputsChange}
               placeholder="escribe tu opinion"
               w="90%" h="70%"
-              outlineColor='none'
+              _focus={{borderColor:'#01A86C'}}
             />
             {errores.descrption && (<FormErrorMessage>{errores.descrption}</FormErrorMessage>)}
 
