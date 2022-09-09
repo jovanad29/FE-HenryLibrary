@@ -47,26 +47,43 @@ export default function Book({
     const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
 
     function handleOnAdd(id, price) {
-        try {
-            dispatch(addCartItem(uid, id, price));
+        if (isAuthenticated) {
+            try {
+                dispatch(addCartItem(uid, id, price));
+                Swal.fire({
+                    icon: "success",
+                    title: "Se agrego el libro al carrito",
+                    showConfirmButton: true,
+                    confirmButtonColor: "#01A86C",
+                });
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "El libro no se pudo agregar al carrito",
+                    showConfirmButton: true,
+                    confirmButtonColor: "#01A86C",
+                });
+            }
+        } else {
+            id = bookDetail.id;
+            const price = parseFloat(bookDetail.price).toFixed(2);
+            const quantity = 1;
+            const title = bookDetail.title;
+            const image = bookDetail.image;
+            const bookToAdd = { id, price, quantity, title, image };
+            setGuestBook(bookToAdd);
+
             Swal.fire({
                 icon: "success",
                 title: "Se agrego el libro al carrito",
                 showConfirmButton: true,
                 confirmButtonColor: "#01A86C",
             });
-        } catch (error) {
-            Swal.fire({
-                icon: "error",
-                title: "El libro no se pudo agregar al carrito",
-                showConfirmButton: true,
-                confirmButtonColor: "#01A86C",
-            });
         }
     }
 
-    let localItems = [];
-    let localTotal = [];
+    // let localItems = [];
+    // let localTotal = [];
 
     //traer el localstorage cuando carga el componente
     useEffect(() => {
@@ -84,24 +101,56 @@ export default function Book({
         }
     }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
 
+    // useEffect(() => {
+    //     if (!isAuthenticated) {
+    //         // recorrer el estado items y sumar los precios
+    //         let totalBooks = 0;
+    //         let totalAmount = 0;
+    //         guestCartBooks.forEach((item) => {
+    //             totalBooks += item.quantity;
+    //             totalAmount += item.price * item.quantity;
+    //         });
+    //         const total = { totalBooks, totalAmount };
+    //         setTotal(total);
+    //         localStorage.setItem("total", JSON.stringify(total));
+    //         localStorage.setItem(
+    //             "guestCartBooks",
+    //             JSON.stringify(guestCartBooks)
+    //         );
+    //     }
+    // }, [guestCartBooks, isAuthenticated]);
+
     useEffect(() => {
-        if (!isAuthenticated) {
-            // recorrer el estado items y sumar los precios
-            let totalBooks = 0;
-            let totalAmount = 0;
-            guestCartBooks.forEach((item) => {
-                totalBooks += item.quantity;
-                totalAmount += item.price * item.quantity;
-            });
-            const total = { totalBooks, totalAmount };
-            setTotal(total);
-            localStorage.setItem("total", JSON.stringify(total));
-            localStorage.setItem(
-                "guestCartBooks",
-                JSON.stringify(guestCartBooks)
-            );
+        if (guestBook.id) {
+            const totals = JSON.parse(localStorage.getItem("total")) || {
+                totalBooks: 0,
+                totalAmount: 0,
+            };
+            const itemsLS =
+                JSON.parse(localStorage.getItem("guestCartBooks")) || [];
+            const itemExist = itemsLS.find((item) => item.id === id);
+            if (itemExist) {
+                const items = itemsLS.map((item) => {
+                    if (item.id === id) {
+                        item.quantity += 1;
+                    }
+                    return item;
+                });
+                setGuestCartBooks(items);
+                // console.log("items desde books", items);
+                localStorage.setItem("guestCartBooks", JSON.stringify(items));
+            } else {
+                const items = [...itemsLS, guestBook];
+                setGuestCartBooks(items);
+                localStorage.setItem("guestCartBooks", JSON.stringify(items));
+            }
+            totals.totalBooks += 1;
+            totals.totalAmount += guestBook.price;
+            totals.totalAmount = parseFloat(totals.totalAmount).toFixed(2);
+            setTotal(totals);
+            localStorage.setItem("total", JSON.stringify(totals));
         }
-    }, [guestCartBooks, isAuthenticated]);
+    }, [guestBook, guestBook.id, id]);
 
     const handleOnFavorite = (id) => {
         dispatch(addFavoriteBook(uid, id));

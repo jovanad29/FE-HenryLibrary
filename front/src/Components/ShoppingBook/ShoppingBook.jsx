@@ -45,7 +45,9 @@ function ShoppingBook() {
     function handleOnDelete(id, quantity, price) {
         let newItems = guestCartBooks.filter((item) => item.id !== id);
         setGuestCartBooks(newItems);
-        dispatch(editCartItem(uid, id, quantity, price));
+        if (isAuthenticated) {
+            dispatch(editCartItem(uid, id, quantity, price));
+        }
     }
 
     useEffect(() => {
@@ -56,6 +58,7 @@ function ShoppingBook() {
             guestCartBooks.forEach((item) => {
                 totalBooks += item.quantity;
                 totalAmount += item.price * item.quantity;
+                totalAmount = parseFloat(totalAmount).toFixed(2);
             });
             const total = { totalBooks, totalAmount };
             setTotal(total);
