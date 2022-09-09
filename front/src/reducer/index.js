@@ -17,7 +17,7 @@ import {
     PUT_BOOK,
     ADD_FAVORITES,
     SET_SECTION,
-    GET_ALL_FAVORITES,
+    GET_USER_FAVORITES,
     DELETE_FAVORITES,
     LOGIN,
     LOGOUT,
@@ -30,6 +30,7 @@ import {
     SET_FILTERS,
     GET_CART_QUANTITY,
     GET_ALL_CART_BY_USER,
+    GET_ID_FAVORITES,
 } from "../actions/index";
 //mercado pago
 import {
@@ -229,9 +230,10 @@ function rootReducer(state = initialState, action) {
             };
 
         case ADD_FAVORITES:
+            const bookId = action.payload.books[0].id;
             return {
                 ...state,
-                favorites: [...state.favorites, action.payload],
+                favorites: [...state.favorites, bookId],
             };
 
         case SET_SECTION:
@@ -240,13 +242,18 @@ function rootReducer(state = initialState, action) {
                 section: action.payload,
             };
 
-        case GET_ALL_FAVORITES:
-            const filtered = state.allBooks.filter((b) =>
-                state.favorites.includes(b.id)
-            );
+        case GET_USER_FAVORITES:
+            const filtered = action.payload;
             return {
                 ...state,
                 allBooks: filtered,
+            };
+
+        case GET_ID_FAVORITES:
+            const idFavorites = action.payload.map(b => b.id);
+            return {
+                ...state,
+                favorites: idFavorites,
             };
 
         case DELETE_FAVORITES:
@@ -364,7 +371,6 @@ function rootReducer(state = initialState, action) {
             };
 
         case SET_ITEMS:
-            console.log("Estoy en el reducer", action);
             return {
                 ...state,
                 items: action.payload.length
