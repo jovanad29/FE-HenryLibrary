@@ -16,7 +16,7 @@ import banderaEeuu from "./eeuu.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getAllBooks,
-    getAllFavorites,
+    getUserFavorites,
     setSection,
     setPage,
     clearLoginError,
@@ -42,7 +42,7 @@ export default function NavBar() {
     const handleOnFavorites = () => {
         if (favorites.length > 0) {
             dispatch(setSection("favoritos"));
-            dispatch(getAllFavorites(uid));
+            dispatch(getUserFavorites(uid));
             dispatch(setPage(0));
             history.push("/home");
         } else {

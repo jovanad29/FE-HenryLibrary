@@ -3,14 +3,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     getAllBooks,
-    getAllFavorites,
+    getUserFavorites,
     setPage,
     getCategories,
     getBooksByCategory,
     getBooksByAuthor,
     getBooksByCategoryAuthor,
     setSection,
-    getIdFavorites,
+    getIdFavorites
 } from "../../actions/index.js";
 
 //COMPONENTES
@@ -51,7 +51,7 @@ import { MdClose } from "react-icons/md";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { status,  actualPage, allBooks, section, favorites, uid } = useSelector(
+    const { status, actualPage, allBooks, section, favorites, uid } = useSelector(
         (state) => state
     );
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
@@ -115,8 +115,9 @@ export default function Home() {
             isAuthenticated && dispatch(getIdFavorites(uid));
         } else if (section === "favoritos") {
             dispatch(setPage(0));
-            if (uid !== undefined) dispatch(getAllFavorites(uid));
+            if (uid !== undefined) dispatch(getUserFavorites(uid));
         } else if (section === "search") {
+          console.log("El estado es 'search'")
         }
     }, [dispatch, section, favorites]);
 
