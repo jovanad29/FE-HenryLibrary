@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editCartItem } from "../../actions/index.js";
-import reactImageSize from "react-image-size";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -28,33 +27,20 @@ function ShoppingBook() {
 
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
-    let localItems = [];
-    let localTotal = [];
-
     useEffect(() => {
         if (isAuthenticated) {
-            localItems = activeCart;
-            localTotal = {
+            setGuestCartBooks(activeCart);
+            setTotal({
                 totalAmount: activeCartAmount,
                 totalBooks: activeCartQuantity,
-            };
+            });
         } else {
-            localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
-            localTotal = JSON.parse(localStorage.getItem("total"));
+            setGuestCartBooks(
+                JSON.parse(localStorage.getItem("guestCartBooks"))
+            );
+            setTotal(JSON.parse(localStorage.getItem("total")));
         }
-        if (localItems) {
-            setGuestCartBooks(localItems);
-        }
-        if (localTotal) {
-            setTotal(localTotal);
-        }
-    }, [
-        isAuthenticated,
-        dispatch,
-        activeCart,
-        activeCartAmount,
-        activeCartQuantity,
-    ]);
+    }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
 
     function handleOnDelete(id, quantity, price) {
         let newItems = guestCartBooks.filter((item) => item.id !== id);
@@ -79,7 +65,7 @@ function ShoppingBook() {
                 JSON.stringify(guestCartBooks)
             );
         }
-    }, [guestCartBooks]);
+    }, [guestCartBooks, isAuthenticated]);
 
     const item = guestCartBooks.map((b) => {
         let id, title, image, quantity, price;
