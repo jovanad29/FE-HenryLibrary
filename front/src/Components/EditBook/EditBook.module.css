@@ -12,6 +12,7 @@ body {
     height: 170%;
     backdrop-filter: blur(4px);
     background-color: #ababab99;
+    font-family: Quicksand;
 }
 
 .container {
