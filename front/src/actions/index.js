@@ -29,7 +29,7 @@ export const EMPTY_AUTHORS = "EMPTY_AUTHORS";
 export const PUT_BOOK = "PUT_BOOK";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SET_SECTION = "SET_SECTION";
-export const GET_ALL_FAVORITES = "GET_ALL_FAVORITES";
+export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_FAVORITES = "DELETE_FAVORITES";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
@@ -43,6 +43,8 @@ export const GET_ALL_CART_BY_USER = "GET_ALL_CART_BY_USER";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
+export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
+
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -294,24 +296,32 @@ export function setSection(section) {
     };
 }
 
-export function getAllFavorites(uid) {
-//   return function (dispatch) {
-//     dispatch({
-//       type: GET_ALL_FAVORITES,
-//     });
-//   };
-	return async (dispatch) => {
+export function getUserFavorites(uid) {
+  return async function (dispatch) {
 		try {
-			const { data } = axios.get(`/user/${uid}/favorites`)
-			console.log("action", data.books)
+			const { data } = await axios.get(`/user/${uid}/favorites`)
 			return dispatch({
-				type: GET_ALL_FAVORITES,
-				payload: data.books
+				type: GET_USER_FAVORITES,
+				payload: data
 			})
 		} catch (error) {
-			
+			console.log(error)
 		}
 	}
+}
+
+export function getIdFavorites(uid) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`/user/${uid}/favorites`)
+			return dispatch({
+				type: GET_ID_FAVORITES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	};
 }
 
 export function deleteFavoriteBook(uid,bid) {
@@ -326,7 +336,6 @@ export function deleteFavoriteBook(uid,bid) {
 			console.log(error)
 		}
 	}
-
 }
 
 export function login(user) {
