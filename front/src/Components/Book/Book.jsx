@@ -33,7 +33,7 @@ export default function Book({
     const favorites = useSelector((state) => state.favorites);
 
     const section = useSelector((state) => state.section);
-    const { status } = useSelector((state) => state);
+    const { status, uid } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
     // const { uid } = useSelector((state) => state.user);
     const bookToCarrito = allBooks.filter((b) => b.id === id);
@@ -55,7 +55,6 @@ export default function Book({
             showConfirmButton: true, 
             confirmButtonColor: '#01A86C',
           });
-        console.log("bookToAdd desde bookdetail", bookToAdd);
         setGuestBook(bookToAdd);
     };
 
@@ -110,11 +109,11 @@ export default function Book({
     // }
 
     const handleOnFavorite = (id) => {
-        dispatch(addFavoriteBook(id));
+        dispatch(addFavoriteBook(uid,id));
     };
 
     const handleDeleteFavorite = (id) => {
-        dispatch(deleteFavoriteBook(id));
+        dispatch(deleteFavoriteBook(uid,id));
         if (favorites.length === 1 && section === "favoritos") {
             dispatch(getAllBooks());
             dispatch(setPage(0));
@@ -124,50 +123,11 @@ export default function Book({
 
     const isFavorite = favorites?.filter((f) => f === id);
 
-    // const loadImage = (setImageDimensions, imageUrl) => {
-    //     const img = new Image();
-    //     img.src = imageUrl;
-
-    //     img.onload = () => {
-    //         setImageDimensions({
-    //             height: img.height,
-    //             width: img.width,
-    //         });
-    //     };
-    //     img.onerror = (err) => {
-    //         console.log("img error");
-    //         console.error(err);
-    //     };
-    // };
-
-    // const [imageDimensions, setImageDimensions] = useState({});
-    // const imageUrl = "https://picsum.photos/200/300";
-
-    // useEffect(() => {
-    //     loadImage(setImageDimensions, imageUrl);
-    //     console.log(imageDimensions);
-    // }, []);
-    // const onImgLoad = ({ target: img }) => {
-    //     const { offsetHeight, offsetWidth } = img;
-    //     console.log(offsetHeight, offsetWidth);
-    //     console.log(img);
-    // };
-
-    // reactImageSize(image)
-    //     .then(({ width, height }) => {
-    //         if (width < 100) {
-    //             console.log(width);
-    //             image =
-    //                 "https://inmobiliariabernardi.com/wp-content/themes/realestate-7/images/no-image.png";
-    //         }
-    //     })
-    //     .catch((errorMessage) => console.log(errorMessage));
-
     const [imgSrc, setImgSrc] = useState('');
 
     const loadImage = async () => {
         try {
-            const { width, height } = await reactImageSize(image);
+            const { width } = await reactImageSize(image);
             if (width < 100) {
                 setImgSrc('https://t3.ftcdn.net/jpg/00/54/90/30/360_F_54903050_NC9KIF3PjpPHEIX66oWlJFs9nqgipnR2.jpg');
             } else {

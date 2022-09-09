@@ -254,10 +254,10 @@ body {
 }
 
 .review{
-    margin-top: 3rem;
+    margin-top: 5rem;
     margin-left: 6rem;
-    width: 80%;
-    height: 20%;
+    max-width: 80%;
+    height: 60%;
     justify-content: center;
     border: 2px solid black;
 }

@@ -9,11 +9,13 @@ import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
 import EditBook from "../EditBook/EditBook";
 import Recomendados from "../recomendados/Recomendados";
+import Reviews from "../Reviews/Reviews";
 
 //CSS
 import styles from "./BookDetail.module.css";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { Button, Stack } from "@chakra-ui/react";
+
 //pago
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
@@ -23,10 +25,11 @@ import { setItems } from "../../actions/checkoutActions";
 
 
 
+
 export default function BookDetail() {
   const dispatch = useDispatch();
   let { id } = useParams();
-  const { bookDetail, isAdmin } = useSelector((state) => ({
+  const { bookDetail, isAdmin , status} = useSelector((state) => ({
     bookDetail: state.bookDetail,
     // ESTADO DEL LOGIN
     status: state.status,
@@ -149,35 +152,35 @@ useEffect (() => {
 
 //funcion para el el PAGO 
 function buyingBook(id) {
-  // if (status!=="authenticated") {
-  //   Swal.fire({
-  //     title: "Para comprar debe estar autenticado",
-  //     icon: "info",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Go to Login",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       history.push("/home");
-  //     }
-  //   });
-  // } else
-   
+   if (status!=="authenticated") {
+    Swal.fire({
+      title: "Para comprar debe estar autenticado",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Go to Login",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        history.push("/home");
+      }
+    });
+  } else
+   {
     //id = bookDetail.id;
     const price = bookDetail.price;
-    const quantity = 1;  ///falta funcionalidad 
+    const quantity = 1;  ///falta funcionalidad elegit varios 
     const title = bookDetail.title;
     const image = bookDetail.image;
     const bookToAdd =[{ id, price, quantity, title, image}]  
-    alert("estoy en boton pago", bookToAdd)
+   // alert("estoy en boton pago", bookToAdd)
     console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
     dispatch(setItems(bookToAdd));    
     history.push("/checkout");
   
 }
 
-
+}
   return (
 
     <div className={styles.detail}>
@@ -255,11 +258,28 @@ function buyingBook(id) {
                 </Stack>
                 
               </div>
-              {/*<div >
+              
+              <div className={styles.carrito}>
 
-                 <button  onClick={()=>buyingBook(id)}>   BUY BOOK   </button>
-              </div>*/}
-                   
+                <Stack direction="row" spacing={10}>
+                  <Button
+                   // rightIcon={<RiShoppingCart2Fill />}
+                    colorScheme="#01A86C"
+                    variant="solid"
+                    height= "60px"
+                    className={
+                        bookDetail.currentStock > 0
+                          ? styles.boton
+                          : styles.boton + " " + styles.botonDisabled
+                      }
+                      disabled={bookDetail.currentStock === 0}
+                      onClick={()=>buyingBook(id)}
+                  >
+                   Comprar
+                  </Button>
+                </Stack>
+                
+              </div>                  
 
 
       {/* BOTONES ADMIN */}
@@ -281,13 +301,17 @@ function buyingBook(id) {
         </div>
       </div>
 
-      <div className={styles.review}>REVIEWS</div>
+       {/* REVIEWS */}
+      <div className={styles.review}>
+       <Reviews />
+      </div>
 
+        
       {/* RECOMENDADOS */}
-
       <div className={styles.recomendados}>
         <Recomendados />
       </div>
+
 
       <Footer />
 

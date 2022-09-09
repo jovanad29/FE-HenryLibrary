@@ -185,6 +185,10 @@ export default function NewBookChakra() {
     history.push("/"); // ---> esta ruta debe volver al catalogo
   };
 
+  //=======================================================================================
+  //FUNCIONES PARA NO REPETIR CODIGO
+
+  //INPUTS SENCILLOS
   const elementInput = (label, validate, value, name, placeholder = null) => {
     return (
       <FormControl isRequired isInvalid={validate}>
@@ -215,6 +219,7 @@ export default function NewBookChakra() {
     );
   };
 
+  //TEXT AREA
   const elementTestArea = (
     label,
     validate,
@@ -331,7 +336,7 @@ export default function NewBookChakra() {
     arr
   ) => {
     return (
-      <FormControl>
+      <FormControl isRequired isInvalid={validate}>
         <FormLabel fontWeight="bold">{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <Select
@@ -362,6 +367,7 @@ export default function NewBookChakra() {
             )}
           </Box>
         </Box>
+        {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
       </FormControl>
     );
   };
@@ -549,7 +555,7 @@ export default function NewBookChakra() {
             error.publisherId,
             book.publisherId,
             "publisherId",
-            "Selecione una opcion",
+            "Seleccione una opcion",
             handleInputsChange,
             allPublishers
           )}
@@ -590,7 +596,7 @@ export default function NewBookChakra() {
             book.categories,
             "categories",
             "category",
-            "Selecione una opcion",
+            "Seleccione una opcion",
             handleInputsChange,
             allCategories
           )}
@@ -600,7 +606,7 @@ export default function NewBookChakra() {
             book.authors,
             "authors",
             "author",
-            "Selecione una opcion",
+            "Seleccione una opcion",
             handleInputsChange,
             allAuthors
           )}
