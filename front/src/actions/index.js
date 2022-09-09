@@ -44,6 +44,7 @@ export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS"
+export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 
 
 
@@ -542,3 +543,18 @@ export function getAllReviews(id) {
             });
     };
 }
+
+
+export function createReviewByBook(id, body) {
+    return function (dispatch) {
+        axios
+            .post(`/reviews//byBook/${id}`, body)
+            .then((response) => {
+                dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("saveLocalCartToDB", error);
+            });
+    };
+}
+
