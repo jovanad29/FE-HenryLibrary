@@ -43,6 +43,15 @@ export const GET_ALL_CART_BY_USER = "GET_ALL_CART_BY_USER";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS"
+
+
+
+
+
+
+
+
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -506,6 +515,30 @@ export function editCartItem(userId, id, quantity, price) {
             })
             .catch((error) => {
                 console.log("editCartItem", error);
+            });
+    };
+}
+
+
+
+
+
+
+
+//REVIEWS
+
+export function getAllReviews(id) {
+    return function (dispatch) {
+        axios
+            .get(`/reviews/byBook/${id}`)
+            .then((response) => {
+                dispatch({
+                    type: GET_ALL_REVIEWS,
+                    payload: response.data,
+                });
+            })
+            .catch((error) => {
+                console.log("getAllReviews", error);
             });
     };
 }
