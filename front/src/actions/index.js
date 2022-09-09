@@ -564,7 +564,7 @@ export function getAllReviews(id) {
 export function createReviewByBook(id, body) {
     return function (dispatch) {
         axios
-            .post(`/reviews//byBook/${id}`, body)
+            .post(`/reviews/byBook/${id}`, body)
             .then((response) => {
                 dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
             })

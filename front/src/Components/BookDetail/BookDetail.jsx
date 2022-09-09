@@ -28,7 +28,7 @@ import { setItems } from "../../actions/checkoutActions";
 
 export default function BookDetail() {
   const dispatch = useDispatch();
-  let { id } = useParams();
+  const { id } = useParams();
   const { bookDetail, isAdmin , status} = useSelector((state) => ({
     bookDetail: state.bookDetail,
     // ESTADO DEL LOGIN
@@ -304,7 +304,7 @@ function buyingBook(id) {
 
        {/* REVIEWS */}
       <div className={styles.review}>
-       <Reviews />
+        <Reviews id={id}/>
       </div>
 
         

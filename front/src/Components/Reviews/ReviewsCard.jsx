@@ -25,7 +25,7 @@ function ReviewsCard({ reviews }) {
               <div key={r.id}>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
-                    <Flex textAlign="left" w="8rem" fontWeight="bolder" font-family= "Quicksand" >
+                    <Flex textAlign="left" w="8rem" fontWeight="bolder" fontFamily= "Quicksand" >
                       {r.users &&
                         r.users.map((u) => {
                           return (
@@ -42,7 +42,7 @@ function ReviewsCard({ reviews }) {
                   </AccordionButton>
                 </h2>
 
-                <AccordionPanel pb={4} font-family= "Quicksand">
+                <AccordionPanel pb={4} fontFamily= "Quicksand">
                   <p>{r.descrption}</p>
                 </AccordionPanel>
               </div>
@@ -58,3 +58,60 @@ function ReviewsCard({ reviews }) {
 }
 
 export default ReviewsCard;
+
+
+// import React from "react";
+
+// import {
+//   Accordion,
+//   AccordionItem,
+//   AccordionButton,
+//   AccordionPanel,
+//   AccordionIcon,
+//   Box,
+// } from "@chakra-ui/react";
+
+
+
+
+
+// function ReviewsCard({ reviews }) {
+//   return (
+//     <div>
+
+//       {reviews?.map((r) => {
+//         return (
+//           <Accordion defaultIndex={[0]} allowMultiple>
+//             <AccordionItem>
+//               <div key={r.id}>
+//                 <h2>
+//                   <AccordionButton>
+//                     <Box flex="1" textAlign="left">
+//                       {r.users &&
+//                         r.users.map((u) => {
+//                           return (
+//                             <div key={u.uid}>
+//                               <h3>{u.nameUser}</h3>
+//                             </div>
+//                           );
+//                         })}
+//                       <h2>{r.rating}</h2>
+//                     </Box>
+//                     <AccordionIcon />
+//                   </AccordionButton>
+//                 </h2>
+
+//                 <AccordionPanel pb={4}>
+//                   <p>{r.descrption}</p>
+//                 </AccordionPanel>
+//               </div>
+//             </AccordionItem>
+//           </Accordion>
+//         );
+//       })}
+
+//     </div>
+//   );
+// }
+
+// export default ReviewsCard;
