@@ -92,9 +92,17 @@ body{
     margin-bottom: 1rem; 
 }
 
+.textarea:active{
+    outline-color: #01A86C;
+}
 
+.textarea:focus{
+    outline-color: #01A86C;
+}
 
-
+.textarea:hover{
+    outline-color: #01A86C;
+}
 
 /* .buttonEnviar{
 
