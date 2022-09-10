@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { editCartItem } from "../../actions/index.js";
+import { editCartItem, getCartDB } from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
+import Footer from "../Footer/Footer.jsx";
 
 //CSS
 import styles from "./ShoppingBook.module.css";
@@ -27,58 +28,71 @@ function ShoppingBook() {
 
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
+    let localItems = [];
+    let localTotal = [];
+
     useEffect(() => {
         if (isAuthenticated) {
-            setGuestCartBooks(activeCart);
-            setTotal({
+            localItems = activeCart;
+            localTotal = {
                 totalAmount: activeCartAmount,
                 totalBooks: activeCartQuantity,
-            });
+            };
         } else {
-            setGuestCartBooks(
-                JSON.parse(localStorage.getItem("guestCartBooks")) || []
-            );
-            setTotal(JSON.parse(localStorage.getItem("total")) || []);
+            localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
+            localTotal = JSON.parse(localStorage.getItem("total"));
         }
-    }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
+        if (localItems) {
+            setGuestCartBooks(localItems);
+        }
+        if (localTotal) {
+            setTotal(localTotal);
+        }
+    }, [
+        isAuthenticated,
+        dispatch,
+        activeCart,
+        activeCartAmount,
+        activeCartQuantity,
+    ]);
 
     function handleOnDelete(id, quantity, price) {
         let newItems = guestCartBooks.filter((item) => item.id !== id);
         setGuestCartBooks(newItems);
-        if (isAuthenticated) {
-            dispatch(editCartItem(uid, id, quantity, price));
-        }
+        dispatch(editCartItem(uid, id, quantity, price));
     }
 
-    // useEffect(() => {
-    //     if (!isAuthenticated) {
-    //         // recorrer el estado items y sumar los precios
-    //         let totalBooks = 0;
-    //         let totalAmount = 0;
-    //         guestCartBooks.forEach((item) => {
-    //             totalBooks += item.quantity;
-    //             totalAmount += item.price * item.quantity;
-    //             totalAmount = parseFloat(totalAmount).toFixed(2);
-    //         });
-    //         const total = { totalBooks, totalAmount };
-    //         setTotal(total);
-    //         localStorage.setItem("total", JSON.stringify(total));
-    //         localStorage.setItem(
-    //             "guestCartBooks",
-    //             JSON.stringify(guestCartBooks)
-    //         );
-    //     }
-    // }, [guestCartBooks, isAuthenticated]);
+    useEffect(() => {
+        if (!isAuthenticated) {
+            // recorrer el estado items y sumar los precios
+            let totalBooks = 0;
+            let totalAmount = 0;
+            guestCartBooks.forEach((item) => {
+                totalBooks += item.quantity;
+                totalAmount += item.price * item.quantity;
+            });
+            const total = { totalBooks, totalAmount };
+            setTotal(total);
+            localStorage.setItem("total", JSON.stringify(total));
+            localStorage.setItem(
+                "guestCartBooks",
+                JSON.stringify(guestCartBooks)
+            );
+        }
+    }, [guestCartBooks]);
 
     const item = guestCartBooks.map((b) => {
         let id, title, image, quantity, price;
-        id = b.id;
-        title = b.title;
-        image = b.image;
         if (isAuthenticated) {
+            id = b.id;
+            title = b.title;
+            image = b.image;
             quantity = b.payment_book?.quantity;
             price = b.payment_book?.price;
         } else {
+            id = b.id;
+            title = b.title;
+            image = b.image;
             quantity = b.quantity;
             price = b.price;
         }
@@ -139,7 +153,7 @@ function ShoppingBook() {
                             <div className={styles.infoCompra}>
                                 <div className={styles.total}>
                                     <h3>Total</h3>
-                                    <h3>${parseFloat(totalAmount).toFixed(2)}</h3>
+                                    <h3>${totalAmount}</h3>
                                 </div>
                                 <div className={styles.button}>
                                     <button className={styles.comprar}>
@@ -165,7 +179,11 @@ function ShoppingBook() {
                     <h1 className={styles.titulo}>
                         Bienvenido {displayName} al carrito de LibreríaHENRY
                     </h1>
+
                     <div className={styles.container}>
+                        
+
+                        {console.log("vacio")}
                         <h2>Tu carrito está vacío</h2>
                         <h4>
                             ¿No sabés qué comprar? ¡Miles de libros te esperan!{" "}
