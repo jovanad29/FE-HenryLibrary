@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Redirect, useLocation } from "react-router-dom";
-import { setPayment } from "../../reducer/checkoutSlice";
+import { setPayment } from "../../actions/checkoutActions";
 
 function ValidateMP() {
   const dispatch = useDispatch();
@@ -14,10 +14,7 @@ function ValidateMP() {
   let status = query.get("status");
   let mpID = query.get("payment_id");
   dispatch(
-    setPayment({
-      mpID,
-      status,
-    })
+    setPayment(mpID)
   );
   return (
     <Redirect
