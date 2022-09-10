@@ -7,6 +7,7 @@ import {
     setPage,
     setSection,
     deleteFavoriteBook,
+    addCartItem,
 } from "../../actions/index.js";
 
 import reactImageSize from "react-image-size";
@@ -15,10 +16,6 @@ import reactImageSize from "react-image-size";
 import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import Swal from "sweetalert2";
-
-
-
-
 
 export default function Book({
     id,
@@ -33,14 +30,21 @@ export default function Book({
     const favorites = useSelector((state) => state.favorites);
 
     const section = useSelector((state) => state.section);
-    const { status, uid } = useSelector((state) => state);
+    const {
+        activeCart,
+        activeCartAmount,
+        status,
+        displayName,
+        activeCartQuantity,
+        uid,
+    } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
     // const { uid } = useSelector((state) => state.user);
     const bookToCarrito = allBooks.filter((b) => b.id === id);
     const bookDetail = bookToCarrito[0];
-    // const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
+    const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
     const [guestBook, setGuestBook] = useState({}); //objeto de libro a guardar en local storage
-    // const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
+    const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
 
     function handleOnAdd(id, price) {
         if (isAuthenticated) {
@@ -238,7 +242,7 @@ export default function Book({
                     <div className={styles.pago}>
                         <button
                             className={styles.boton}
-                            onClick={() => addItem(id)}
+                            onClick={() => handleOnAdd(id, price)}
                         >
                             Agregar al carrito
                         </button>
