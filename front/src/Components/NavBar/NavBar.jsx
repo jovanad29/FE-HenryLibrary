@@ -37,7 +37,7 @@ export default function NavBar() {
 
     useEffect(() => {
         if (allBooks.length === 0) dispatch(getAllBooks());
-    }, [dispatch, allBooks.length]);
+    }, [dispatch]);
 
     const handleOnFavorites = () => {
         if (favorites.length > 0) {
