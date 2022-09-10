@@ -119,7 +119,7 @@ export default function Home() {
         } else if (section === "search") {
           console.log("El estado es 'search'")
         }
-    }, [dispatch, section]);
+    }, [dispatch, section, favorites]);
 
     useEffect(() => {
         dispatch(getCategories());
