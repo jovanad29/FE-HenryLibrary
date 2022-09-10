@@ -15,10 +15,11 @@ export default function SuccessMP() {
   const dispatch = useDispatch();
  // const {  cart } = useSelector((state) => state.profile);
   const { mpID, order , isBanned, uid} = useSelector((state) => state);
+  console.log(mpID, order)
  // const { stack } = useSelector((state) => state.stack);
   const history = useHistory();
   const [change, setChange] = useState(true);
-  const [front, setOrder] = useState({
+  const [front, setOrder1] = useState({
     ID: mpID,
     items: order.items,
     status: order.status,
@@ -27,14 +28,17 @@ export default function SuccessMP() {
   });
   useEffect(() => {
     if (mpID) {
-      dispatch(asyncGetMP(mpID));
-      setOrder({ ...order });
-    } else {
-      history.push("/");
+      dispatch(asyncGetMP(mpID)); ////MIRAR
+alert ('en succes xon mpID'+ mpID)
+
+      setOrder1(order);
     }
+    //  else {
+    //   history.push("/");
+    // }
     return () => {
       dispatch(clearPayment());
-      setOrder({
+      setOrder1({
         ID: "",
         items: [],
         status: "",
@@ -44,27 +48,29 @@ export default function SuccessMP() {
       setChange(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [mpID]);
    const [loading, setLoading] = useState(false);
 //  const loading = false;
   useEffect(() => {
     if (!front.ID) {
-      setOrder({ ...order });
+      setOrder1({ ...order });
     }
 
    if (change && order.items.length > 0 && uid) {
       let obj = { ...order };
+
+      console.log('esto tiene obj:', obj)
       setChange(false);
       dispatch(
-        asyncConfirmPayment({ ...obj, userID: uid })
+        asyncConfirmPayment({ ...obj, userID: uid })//mirar si esta OK ?????
       )
       .then((res) => {
         if (res) {
-          dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!!
-            if (res2) {
+         // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!!
+          //  if (res2) {
               setLoading(false);
-            }
-          });
+          //  }
+        //  });
         }
       });
     }
@@ -99,7 +105,7 @@ export default function SuccessMP() {
        {loading ? <Loading /> : null} 
       <div className={s.cont}>
         <div className={s.contGreen}>
-          <h1>Pago existoso</h1>
+          <h1>Pago exitoso</h1>
           <span className={s.pID}>
             Payment ID: <span>{front.ID}</span>
           </span>

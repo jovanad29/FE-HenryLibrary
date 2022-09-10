@@ -351,7 +351,7 @@ function rootReducer(state = initialState, action) {
         case SET_PAYMENT:
             return {
                 ...state,
-                mpID: action.payload.mpID,
+                mpID: action.payload,
             };
 
         case CLEAR_PAYMENT:
@@ -368,6 +368,7 @@ function rootReducer(state = initialState, action) {
             };
 
         case SET_ORDER:
+        alert('estoy en order '+ action.payload)
             return {
                 ...state,
                 order: action.payload,
@@ -382,7 +383,7 @@ function rootReducer(state = initialState, action) {
                               id: i.id,
                               unit_price: i.price,
                               picture_url: i.image,
-                              quantity: 1,
+                              quantity: i.quantity,
                               title: i.title,
                           };
                       })
