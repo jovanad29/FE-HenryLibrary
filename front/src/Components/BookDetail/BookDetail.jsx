@@ -8,7 +8,7 @@ import NavBar from "../NavBar/NavBar";
 import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
 import EditBook from "../EditBook/EditBook";
-import Recomendados from "../Recomendados/Recomendados";
+import Recomendados from "../recomendados/Recomendados";
 import Reviews from "../Reviews/Reviews";
 
 //CSS
@@ -28,7 +28,7 @@ import { setItems } from "../../actions/checkoutActions";
 
 export default function BookDetail() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  let { id } = useParams();
   const { bookDetail, isAdmin , status} = useSelector((state) => ({
     bookDetail: state.bookDetail,
     // ESTADO DEL LOGIN
@@ -258,6 +258,7 @@ function buyingBook(id) {
                 </Stack>
                 
               </div>
+              
               <div className={styles.carrito}>
 
                 <Stack direction="row" spacing={10}>
@@ -278,9 +279,7 @@ function buyingBook(id) {
                   </Button>
                 </Stack>
                 
-              </div>
-              
-                   
+              </div>                  
 
 
       {/* BOTONES ADMIN */}
@@ -304,7 +303,7 @@ function buyingBook(id) {
 
        {/* REVIEWS */}
       <div className={styles.review}>
-       <Reviews id={id}/>
+       <Reviews />
       </div>
 
         
