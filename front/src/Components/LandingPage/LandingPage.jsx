@@ -16,7 +16,7 @@ import { Imagenes } from "./Carrusel/Imagenes.js";
 
 //CSS
 import styles from "./landingPage.module.css";
-import Recomendados from "../Recomendados/Recomendados.jsx";
+import Recomendados from "../recomendados/Recomendados.jsx";
 
 export default function LandingPage() {
     
@@ -35,7 +35,7 @@ export default function LandingPage() {
             </div>
 
             <div className={styles.recomendados}>
-
+                <h3 className={styles.h3}> NUESTROS RECOMENDADOS DEL MES</h3>
                 <div className={styles.recomendadosCards}>
                    <Recomendados />
                 </div>

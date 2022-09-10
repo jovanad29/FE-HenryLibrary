@@ -11,14 +11,12 @@ import {
 
 //CSS
 import styles from "./Login.module.css";
-import { Button, Alert, AlertIcon, CloseButton, Avatar, Stack } from "@chakra-ui/react";
+import { Avatar } from "@chakra-ui/react";
+import { Button, Alert, AlertIcon } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-
-
-
-
 
 function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
@@ -93,14 +91,9 @@ function Login({ HandleOpenLogin }) {
         setCreateUser(false);
     };
 
-    const cerrarLogin = () => {
-        HandleOpenLogin();
-    };
-
     return (
         <div className={styles.container}>
             <div className={styles.containerItems}>
-                 <CloseButton className={styles.cerrar} size='md' onClick={cerrarLogin}/>
                 <div className={styles.img}>
                     {isAuthenticated ? (
                         <Avatar name={displayName} src={photoURL} />
