@@ -10,15 +10,10 @@ function Recomendados() {
 
   const allBooks  = useSelector( (state) => state.allBooks );
 
-  const recomendados = allBooks.slice(96,103)
+  const recomendados = allBooks.slice(0,10)
 
   return (
-
-    <div>
-
-      <h3 className={styles.h3}> NUESTROS RECOMENDADOS DEL MES</h3>
-
-      <div className={styles.recomendados}>
+    <div className={styles.recomendados}>
 
       {recomendados.map((r) => {
         const { id, title, image } = r;
@@ -33,7 +28,6 @@ function Recomendados() {
         );
       })}
 
-    </div>
     </div>
   );
 }

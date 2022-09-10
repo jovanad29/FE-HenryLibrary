@@ -1,8 +1,6 @@
 import React,{useState, useEffect} from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
-import {getUserInfo, login, getAllReviews, createReviewByBook} from "../../actions/index.js"
-import ReviewsCard from "./ReviewsCard.jsx";
 
 
 //CSS
@@ -12,8 +10,9 @@ import {
   FormLabel,
   Textarea,
   Flex,
+//   Spacer,
   FormErrorMessage,
-  Button,
+  Button
 } from "@chakra-ui/react";
 
 
@@ -22,35 +21,23 @@ import {
 
 
 
-function Reviews({id}) { //Este id me lo traigo del componente BookDetail para traer los reviews por cada libro
+function Reviews() {
 
-    const dispatch = useDispatch();
+    const {status, displayName, email} = useSelector (state => state)
 
-    const {status, displayName, email, reviews, uid} = useSelector (state => state)
-
-    useEffect(() => {
-      setErrores("");
-      dispatch(getAllReviews(id));
-  }, [dispatch,id]);
-
-
-    //ESTADO DE ERRORES
-     const [errores, setErrores] = useState({});
-
-    //ESTADO DEL FORMULARIO 
     const [input, setInput] = useState({
-        uid: uid, //id user
+        uid: 0,
         descrption:"",
         rating: 1
     })
 
+     //ESTADO DE ERRORES
+    const [errores, setErrores] = useState({});
 
-    useEffect(() => {
-      setInput({...input, 
-                uid:uid
-              })
-  }, [uid]);
-
+        useEffect(() => {
+            setErrores("");
+        }, []);
+    
 
     function handleInputsChange(event) {
             setInput({
@@ -69,42 +56,37 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        dispatch(createReviewByBook(id, input));
+        // dispatch(updateBook(bookDetail.id, book));
     };
 
-
-
-    const contadorDescription = input.descrption.length //Contador para ir monstrando los caracteres consumidos
+    const contador = input.descrption.length //Contador para ir monstrando los caracteres consumidos
 
 
   return (
     <div className={styles.reviews}>
-      <h2 className={styles.titulo}> Opiniones de nuestros clientes </h2>
+      <h2 className={styles.titulo}>Algunas opiniones de nuestros clientes</h2>
 
       <Flex className={styles.conteiner}>
         <Flex className={styles.review}>
-
-          {/* Aca renderizo cada review */}
-          <ReviewsCard reviews={reviews}/>
-
+            ACA VAN LOS REVIEW PUBLICADOS
         </Flex>
 
         {status === "authenticated" && (
-        <Flex className={styles.formularioContainer}>
+        <Flex >
 
           <FormControl isRequired isInvalid={validateReview} className={styles.formulario}>
             
             <div className={styles.info}>
             <FormLabel className={styles.texto}>Nombre de usuario: {displayName}</FormLabel>
             <FormLabel className={styles.texto}>Mail: {email}</FormLabel>
-
+            
             <Flex className={styles.texto}>aca van estrellitas de rating</Flex>
             </div>
 
             <div className={styles.descripcion}>
 
-            <span className={contadorDescription > 90 ? styles.contadorError : styles.contador}>
-                {contadorDescription} de 100 caracteres
+            <span className={contador > 90 ? styles.contadorError : styles.contador}>
+                {contador} de 100 caracteres
             </span>
             <Textarea 
               className={styles.textarea}
@@ -113,13 +95,12 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
               onChange={handleInputsChange}
               placeholder="escribe tu opinion"
               w="90%" h="70%"
-              _focus={{borderColor:'#01A86C'}}
             />
             {errores.descrption && (<FormErrorMessage>{errores.descrption}</FormErrorMessage>)}
 
 
             <Button  margin-bottom="1rem" bg='#01A86C' w="90%" h="30%" onClick={handleOnSubmit}                                 
-            className={JSON.stringify(errores) === "{}" &&  input.descrption !== "" && contadorDescription < 100
+            className={JSON.stringify(errores) === "{}" &&  input.descrption !== "" && contador < 100
                        ? styles.buttonEnviar
                         : styles.buttonEnviarDisabled }>ENVIAR</Button>
             </div>

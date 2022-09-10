@@ -44,8 +44,7 @@ export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
 export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
-export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
-export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
+
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -274,18 +273,18 @@ export function updateBook(id, body) {
     };
 }
 
-export function addFavoriteBook(uid, bid) {
-    return async (dispatch) => {
-        try {
-            const { data } = await axios.post(`/user/${uid}/favorites/${bid}`);
-            return dispatch({
-                type: ADD_FAVORITES,
-                payload: data,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+export function addFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			const { data } = await axios.post(`/user/${uid}/favorites/${bid}`)
+			return dispatch({
+				type: ADD_FAVORITES,
+				payload: data
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function setSection(section) {
@@ -298,45 +297,45 @@ export function setSection(section) {
 }
 
 export function getUserFavorites(uid) {
-    return async function (dispatch) {
-        try {
-            const { data } = await axios.get(`/user/${uid}/favorites`);
-            return dispatch({
-                type: GET_USER_FAVORITES,
-                payload: data,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`/user/${uid}/favorites`)
+			return dispatch({
+				type: GET_USER_FAVORITES,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function getIdFavorites(uid) {
-    return async function (dispatch) {
-        try {
-            const { data } = await axios.get(`/user/${uid}/favorites`);
-            return dispatch({
-                type: GET_ID_FAVORITES,
-                payload: data,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`/user/${uid}/favorites`)
+			return dispatch({
+				type: GET_ID_FAVORITES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	};
 }
 
-export function deleteFavoriteBook(uid, bid) {
-    return async (dispatch) => {
-        try {
-            await axios.delete(`/user/${uid}/favorites/${bid}`);
-            return dispatch({
-                type: DELETE_FAVORITES,
-                payload: bid,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+export function deleteFavoriteBook(uid,bid) {
+	return async (dispatch) => {
+		try {
+			await axios.delete(`/user/${uid}/favorites/${bid}`)
+			return dispatch({
+				type: DELETE_FAVORITES,
+				payload: bid
+			})			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 }
 
 export function login(user) {
@@ -454,20 +453,12 @@ export function orderBy(order) {
 }
 
 export function saveLocalCartToDB(userId, body) {
-    return async function (dispatch) {
-        await axios
+    return function (dispatch) {
+        axios
             .post(`/payments/mergecart/${userId}`, body)
             .then((response) => {
                 // dispatch({ type: GET_CART, payload: response.data });
                 localStorage.setItem("guestCartBooks", JSON.stringify([]));
-                localStorage.setItem(
-                    "total",
-                    JSON.stringify({
-                        totalBooks: 0,
-                        totalAmount: 0,
-                    })
-                );
-                dispatch(getCartDB(userId));
             })
             .catch((error) => {
                 console.log("saveLocalCartToDB", error);
@@ -496,19 +487,16 @@ export function getCartDB(userId) {
 }
 
 export function getAllCartDB(userId) {
-    return function (dispatch) {
-        axios
-            .get(`/payments/all/${userId}`)
-            .then((response) => {
-                dispatch({
-                    type: GET_ALL_CART_BY_USER,
-                    payload: response.data,
-                });
-            })
-            .catch((error) => {
-                console.log("getAllCartDB", error);
-            });
-    };
+  return function (dispatch) {
+    axios
+      .get(`/payments/all/${userId}`)
+      .then((response) => {
+        dispatch({ type: GET_ALL_CART_BY_USER, payload: response.data });
+      })
+      .catch((error) => {
+        console.log("getAllCartDB", error);
+      });
+  };
 }
 export function getBooksByCategoryAuthor(categoryId, authorId) {
     return function (dispatch) {
