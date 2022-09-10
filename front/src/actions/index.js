@@ -541,3 +541,46 @@ export function editCartItem(userId, id, quantity, price) {
             });
     };
 }
+
+//REVIEWS
+export function getAllReviews(id) {
+    return function (dispatch) {
+        axios
+            .get(`/catalogue/${id}/reviews`)
+            .then((response) => {
+                dispatch({
+                    type: GET_ALL_REVIEWS,
+                    payload: response.data,
+                });
+            })
+            .catch((error) => {
+                console.log("getAllReviews", error);
+            });
+    };
+}
+
+export function createReviewByBook(id, body) {
+    return function (dispatch) {
+        axios
+            .post(`/reviews/byBook/${id}`, body)
+            .then((response) => {
+                dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
+            })
+            .catch((error) => {
+                console.log("saveLocalCartToDB", error);
+            });
+    };
+}
+
+export function addCartItem(userId, id, price) {
+    return async function (dispatch) {
+        await axios
+            .put(`payments/addItem/${userId}`, { id, price })
+            .then((response) => {
+                dispatch(getCartDB(userId));
+            })
+            .catch((error) => {
+                console.log("addCartItem", error);
+            });
+    };
+}
