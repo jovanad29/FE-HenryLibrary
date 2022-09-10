@@ -7,6 +7,7 @@ import {
     setPage,
     setSection,
     deleteFavoriteBook,
+    addCartItem,
 } from "../../actions/index.js";
 
 import reactImageSize from "react-image-size";
@@ -15,10 +16,6 @@ import reactImageSize from "react-image-size";
 import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import Swal from "sweetalert2";
-
-
-
-
 
 export default function Book({
     id,
@@ -33,42 +30,95 @@ export default function Book({
     const favorites = useSelector((state) => state.favorites);
 
     const section = useSelector((state) => state.section);
-    const { status, uid } = useSelector((state) => state);
+    const {
+        activeCart,
+        activeCartAmount,
+        status,
+        displayName,
+        activeCartQuantity,
+        uid,
+    } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
     // const { uid } = useSelector((state) => state.user);
     const bookToCarrito = allBooks.filter((b) => b.id === id);
     const bookDetail = bookToCarrito[0];
-    // const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
+    const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
     const [guestBook, setGuestBook] = useState({}); //objeto de libro a guardar en local storage
-    // const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
+    const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
 
-    const addItem = (id) => {
-        id = bookDetail.id;
-        const price = bookDetail.price;
-        const quantity = 1;
-        const title = bookDetail.title;
-        const image = bookDetail.image;
-        const bookToAdd = { id, price, quantity, title, image };
-        Swal.fire({
-            icon: "success",
-            title: "Se agrego el libro al carrito",
-            showConfirmButton: true, 
-            confirmButtonColor: '#01A86C',
-          });
-        setGuestBook(bookToAdd);
-    };
+    function handleOnAdd(id, price) {
+        if (isAuthenticated) {
+            try {
+                dispatch(addCartItem(uid, id, price));
+                Swal.fire({
+                    icon: "success",
+                    title: "Se agrego el libro al carrito",
+                    showConfirmButton: true,
+                    confirmButtonColor: "#01A86C",
+                });
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "El libro no se pudo agregar al carrito",
+                    showConfirmButton: true,
+                    confirmButtonColor: "#01A86C",
+                });
+            }
+        } else {
+            id = bookDetail.id;
+            const price = bookDetail.price;
+            const quantity = 1;
+            const title = bookDetail.title;
+            const image = bookDetail.image;
+            const bookToAdd = { id, price, quantity, title, image };
+            setGuestBook(bookToAdd);
+
+            Swal.fire({
+                icon: "success",
+                title: "Se agrego el libro al carrito",
+                showConfirmButton: true,
+                confirmButtonColor: "#01A86C",
+            });
+        }
+    }
+
+    // let localItems = [];
+    // let localTotal = [];
 
     //traer el localstorage cuando carga el componente
     useEffect(() => {
-        const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
-        if (localItems) {
-            // setGuestCartBooks(localItems);
+        if (isAuthenticated) {
+            setGuestCartBooks(activeCart);
+            setTotal({
+                totalAmount: activeCartAmount,
+                totalBooks: activeCartQuantity,
+            });
+        } else {
+            setGuestCartBooks(
+                JSON.parse(localStorage.getItem("guestCartBooks"))
+            );
+            setTotal(JSON.parse(localStorage.getItem("total")));
         }
-        const localTotal = JSON.parse(localStorage.getItem("total"));
-        if (localTotal) {
-            // setTotal(localTotal);
-        }
-    }, []);
+    }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
+
+    // useEffect(() => {
+    //     if (!isAuthenticated) {
+    //         // recorrer el estado items y sumar los precios
+    //         let totalBooks = 0;
+    //         let totalAmount = 0;
+    //         guestCartBooks.forEach((item) => {
+    //             totalBooks += item.quantity;
+    //             totalAmount += item.price * item.quantity;
+    //         });
+    //         const total = { totalBooks, totalAmount };
+    //         setTotal(total);
+    //         localStorage.setItem("total", JSON.stringify(total));
+    //         localStorage.setItem(
+    //             "guestCartBooks",
+    //             JSON.stringify(guestCartBooks)
+    //         );
+    //     }
+    // }, [guestCartBooks, isAuthenticated]);
 
     useEffect(() => {
         if (guestBook.id) {
@@ -86,34 +136,27 @@ export default function Book({
                     }
                     return item;
                 });
-                // setGuestCartBooks(items);
-                console.log("items desde books", items);
+                setGuestCartBooks(items);
+                // console.log("items desde books", items);
                 localStorage.setItem("guestCartBooks", JSON.stringify(items));
             } else {
                 const items = [...itemsLS, guestBook];
-                // setGuestCartBooks(items);
+                setGuestCartBooks(items);
                 localStorage.setItem("guestCartBooks", JSON.stringify(items));
             }
             totals.totalBooks += 1;
             totals.totalAmount += guestBook.price;
-            // setTotal(totals);
+            setTotal(totals);
             localStorage.setItem("total", JSON.stringify(totals));
         }
     }, [guestBook, guestBook.id, id]);
 
-    // function saveData(){
-    //   localStorage.setItem("book", JSON.stringify(bookToCarrito))
-    //                        //key , value
-    //   console.log(typeof bookToCarrito)
-    //   alert("has guardado tu libro en el carrito")
-    // }
-
     const handleOnFavorite = (id) => {
-        dispatch(addFavoriteBook(uid,id));
+        dispatch(addFavoriteBook(uid, id));
     };
 
     const handleDeleteFavorite = (id) => {
-        dispatch(deleteFavoriteBook(uid,id));
+        dispatch(deleteFavoriteBook(uid, id));
         if (favorites.length === 1 && section === "favoritos") {
             dispatch(getAllBooks());
             dispatch(setPage(0));
@@ -123,13 +166,15 @@ export default function Book({
 
     const isFavorite = favorites?.filter((f) => f === id);
 
-    const [imgSrc, setImgSrc] = useState('');
+    const [imgSrc, setImgSrc] = useState("");
 
     const loadImage = async () => {
         try {
             const { width } = await reactImageSize(image);
             if (width < 100) {
-                setImgSrc('https://t3.ftcdn.net/jpg/00/54/90/30/360_F_54903050_NC9KIF3PjpPHEIX66oWlJFs9nqgipnR2.jpg');
+                setImgSrc(
+                    "https://t3.ftcdn.net/jpg/00/54/90/30/360_F_54903050_NC9KIF3PjpPHEIX66oWlJFs9nqgipnR2.jpg"
+                );
             } else {
                 setImgSrc(image);
             }
@@ -197,7 +242,7 @@ export default function Book({
                     <div className={styles.pago}>
                         <button
                             className={styles.boton}
-                            onClick={() => addItem(id)}
+                            onClick={() => handleOnAdd(id, price)}
                         >
                             Agregar al carrito
                         </button>
