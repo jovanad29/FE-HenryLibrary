@@ -44,7 +44,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
       form.appendChild(script);
       setTimeout(() => {
         const button = document.querySelector(".mercadopago-button");
-        button.innerHTML = "PAY (Mercado Pago)";
+        button.innerHTML = "Pagar (Mercado Pago)";
       }, 1000);
       setTimeout(() => {
         setLoading(false);
