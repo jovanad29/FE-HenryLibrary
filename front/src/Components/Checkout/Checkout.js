@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-//import Loading from "../Loading/Loading.jsx";
+import Loading from "../Loading/Loading.jsx";
 import MercadoPago from "../MercadoPago/MercadoPago";
 import s from "./Checkout.module.sass";
 
@@ -42,7 +42,7 @@ function Checkout() {
   
   return (
     <div className={s.container}>
-      {/* {loading ? <Loading /> : null} */}
+     {loading ? <Loading /> : null} 
 
       <div className={s.ticket}>
         <div className={s.contTicket}>
@@ -51,7 +51,7 @@ function Checkout() {
               Back
             </button>
           </div>
-          <h1>Purchase order</h1>
+          <h1>Orden de Compra</h1>
           <div className={s.itemsCont}>
             {items?.map((i, key) => (
               <div key={key} className={s.item}>
@@ -75,7 +75,7 @@ function Checkout() {
             <span>
               ARS $
               {items
-                ?.map((item) => item.unit_price)
+                ?.map((item) => item.unit_price * item.quantity)
                 .reduce((prev, curr) => prev + curr, 0)
                 .toFixed(2)}
             </span>
