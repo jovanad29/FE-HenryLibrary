@@ -9,7 +9,7 @@ import {
 
 dotenv.config();
 
-// const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 export const GET_NAME_BOOKS = "GET_NAME_BOOKS";
@@ -50,7 +50,7 @@ export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
         axios
-            .get(`/catalogue?pagina=${pagina}&items=${items}`)
+            .get(`${baseURL}/catalogue?pagina=${pagina}&items=${items}`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_BOOKS,
@@ -66,7 +66,7 @@ export function getAllBooks(pagina = 0, items = 10) {
 export function getNameBooks(title) {
     return function (dispatch) {
         axios
-            .get(`/catalogue?title=${title}`)
+            .get(`${baseURL}/catalogue?title=${title}`)
             .then((response) => {
                 dispatch({
                     type: GET_NAME_BOOKS,
@@ -82,7 +82,7 @@ export function getNameBooks(title) {
 export function getBooksId(id) {
     return function (dispatch) {
         axios
-            .get(`/catalogue/${id}`)
+            .get(`${baseURL}/catalogue/${id}`)
             .then((response) => {
                 dispatch({
                     type: GET_BOOKS_ID,
@@ -106,7 +106,7 @@ export function deleteBookDetail(id) {
 export function uploadBook(book) {
     return function (dispatch) {
         axios
-            .post(`/catalogue`, book)
+            .post(`${baseURL}/catalogue`, book)
             .then((response) => {
                 dispatch({ type: POST_BOOK, payload: response.data });
             })
@@ -119,7 +119,7 @@ export function uploadBook(book) {
 export function getCategories() {
     return function (dispatch) {
         axios
-            .get(`/categories`)
+            .get(`${baseURL}/categories`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_CATEGORIES,
@@ -135,7 +135,7 @@ export function getCategories() {
 export function getBooksByCategory(idCategory) {
     return function (dispatch) {
         axios
-            .get(`/categories/${idCategory}/books`)
+            .get(`${baseURL}/categories/${idCategory}/books`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_BOOKS_BY_CATEGORY,
@@ -157,7 +157,7 @@ export function setPage(page) {
 export function bannedBook(id) {
     return function (dispatch) {
         axios
-            .put(`/catalogue/banned/${id}`)
+            .put(`${baseURL}/catalogue/banned/${id}`)
             .then((response) => {
                 dispatch({
                     type: "BANNED_BOOK",
@@ -173,7 +173,7 @@ export function bannedBook(id) {
 export function deleteLogicBook(id) {
     return function (dispatch) {
         axios
-            .delete(`/catalogue/${id}`)
+            .delete(`${baseURL}/catalogue/${id}`)
             .then((response) => {
                 dispatch({
                     type: DELETE_LOGICO_BOOK,
@@ -189,7 +189,7 @@ export function deleteLogicBook(id) {
 export function getBooksByAuthor(idAutor) {
     return function (dispatch) {
         axios
-            .get(`/authors/${idAutor}/books`)
+            .get(`${baseURL}/authors/${idAutor}/books`)
             .then((response) => {
                 dispatch({
                     type: SET_ALL_BOOKS_BY_AUTHOR,
@@ -205,7 +205,7 @@ export function getBooksByAuthor(idAutor) {
 export function getAuthorByName(name) {
     return function (dispatch) {
         axios
-            .get(`/authors?name=${name}`)
+            .get(`${baseURL}/authors?name=${name}`)
             .then((response) => {
                 dispatch({
                     type: SET_AUTHOR_BY_NAME,
@@ -225,7 +225,7 @@ export function getAuthorByName(name) {
 export function getAllAuthors() {
     return function (dispatch) {
         axios
-            .get(`/authors`)
+            .get(`${baseURL}/authors`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_AUTHORS,
@@ -241,7 +241,7 @@ export function getAllAuthors() {
 export function getAllPublishers() {
     return function (dispatch) {
         axios
-            .get(`/publisher`)
+            .get(`${baseURL}/publisher`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_PUBLISHERS,
@@ -263,7 +263,7 @@ export function emptyAuthors() {
 export function updateBook(id, body) {
     return async function (dispatch) {
         await axios
-            .put(`/catalogue/${id}`, body)
+            .put(`${baseURL}/catalogue/${id}`, body)
             .then((response) => {
                 dispatch({ type: PUT_BOOK, payload: response.data });
                 dispatch(getBooksId(id));
@@ -277,7 +277,7 @@ export function updateBook(id, body) {
 export function addFavoriteBook(uid, bid) {
     return async (dispatch) => {
         try {
-            const { data } = await axios.post(`/user/${uid}/favorites/${bid}`);
+            const { data } = await axios.post(`${baseURL}/user/${uid}/favorites/${bid}`);
             return dispatch({
                 type: ADD_FAVORITES,
                 payload: data,
@@ -300,7 +300,7 @@ export function setSection(section) {
 export function getUserFavorites(uid) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.get(`/user/${uid}/favorites`);
+            const { data } = await axios.get(`${baseURL}/user/${uid}/favorites`);
             return dispatch({
                 type: GET_USER_FAVORITES,
                 payload: data,
@@ -314,7 +314,7 @@ export function getUserFavorites(uid) {
 export function getIdFavorites(uid) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.get(`/user/${uid}/favorites`);
+            const { data } = await axios.get(`${baseURL}/user/${uid}/favorites`);
             return dispatch({
                 type: GET_ID_FAVORITES,
                 payload: data,
@@ -328,7 +328,7 @@ export function getIdFavorites(uid) {
 export function deleteFavoriteBook(uid, bid) {
     return async (dispatch) => {
         try {
-            await axios.delete(`/user/${uid}/favorites/${bid}`);
+            await axios.delete(`${baseURL}/user/${uid}/favorites/${bid}`);
             return dispatch({
                 type: DELETE_FAVORITES,
                 payload: bid,
@@ -368,7 +368,7 @@ export function clearLoginError() {
 export function createOrFindUser(user) {
     return async function (dispatch) {
         await axios
-            .post(`/user`, user)
+            .post(`${baseURL}/user`, user)
             .then((response) => {
                 dispatch(getUserInfo(user.uid));
             })
@@ -381,7 +381,7 @@ export function createOrFindUser(user) {
 export function getUserInfo(uid) {
     return async function (dispatch) {
         await axios
-            .get(`/user/${uid}`)
+            .get(`${baseURL}/user/${uid}`)
             .then((response) => {
                 dispatch({ type: GET_USER_INFO, payload: response.data });
             })
@@ -456,7 +456,7 @@ export function orderBy(order) {
 export function saveLocalCartToDB(userId, body) {
     return async function (dispatch) {
         await axios
-            .post(`/payments/mergecart/${userId}`, body)
+            .post(`${baseURL}/payments/mergecart/${userId}`, body)
             .then((response) => {
                 // dispatch({ type: GET_CART, payload: response.data });
                 localStorage.setItem("guestCartBooks", JSON.stringify([]));
@@ -484,7 +484,7 @@ export function clearCart() {
 export function getCartDB(userId) {
     return async function (dispatch) {
         await axios
-            .get(`/payments/${userId}`)
+            .get(`${baseURL}/payments/${userId}`)
             .then((response) => {
                 dispatch({ type: GET_CART, payload: response.data });
                 dispatch(getCartQuantity(userId));
@@ -498,7 +498,7 @@ export function getCartDB(userId) {
 export function getAllCartDB(userId) {
     return function (dispatch) {
         axios
-            .get(`/payments/all/${userId}`)
+            .get(`${baseURL}/payments/all/${userId}`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_CART_BY_USER,
@@ -514,7 +514,7 @@ export function getBooksByCategoryAuthor(categoryId, authorId) {
     return function (dispatch) {
         axios
             .get(
-                `/catalogue/filter?categoryId=${categoryId}&authorId=${authorId}`
+                `${baseURL}/catalogue/filter?categoryId=${categoryId}&authorId=${authorId}`
             )
             .then((response) => {
                 dispatch({ type: SET_FILTERS, payload: response.data });
@@ -528,7 +528,7 @@ export function getBooksByCategoryAuthor(categoryId, authorId) {
 export function getCartQuantity(userId) {
     return async function (dispatch) {
         await axios
-            .get(`/payments/count/${userId}`)
+            .get(`${baseURL}/payments/count/${userId}`)
             .then((response) => {
                 dispatch({
                     type: GET_CART_QUANTITY,
@@ -544,7 +544,7 @@ export function getCartQuantity(userId) {
 export function editCartItem(userId, id, quantity, price) {
     return async function (dispatch) {
         await axios
-            .put(`/payments/update/${userId}`, { id, quantity, price })
+            .put(`${baseURL}/payments/update/${userId}`, { id, quantity, price })
             .then((response) => {
                 dispatch(getCartDB(userId));
             })
@@ -558,7 +558,7 @@ export function editCartItem(userId, id, quantity, price) {
 export function getAllReviews(id) {
     return function (dispatch) {
         axios
-            .get(`/catalogue/${id}/reviews`)
+            .get(`${baseURL}/catalogue/${id}/reviews`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_REVIEWS,
@@ -574,7 +574,7 @@ export function getAllReviews(id) {
 export function createReviewByBook(id, body) {
     return function (dispatch) {
         axios
-            .post(`/reviews/byBook/${id}`, body)
+            .post(`${baseURL}/reviews/byBook/${id}`, body)
             .then((response) => {
                 dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
             })
@@ -587,7 +587,7 @@ export function createReviewByBook(id, body) {
 export function addCartItem(userId, id, price) {
     return async function (dispatch) {
         await axios
-            .put(`payments/addItem/${userId}`, { id, price })
+            .put(`${baseURL}/payments/addItem/${userId}`, { id, price })
             .then((response) => {
                 dispatch(getCartDB(userId));
             })
