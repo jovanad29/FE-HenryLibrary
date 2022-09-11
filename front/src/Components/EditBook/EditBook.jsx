@@ -16,9 +16,7 @@ import {
   elementInputDate,
   elementInputImage,
   elementInputValidate,
-  elementNumber,
   elementNumberValidate,
-  elementSelect,
   elementSelectOthers,
   elementSelectValidate,
   elementTestArea,
@@ -73,6 +71,12 @@ export default function EditBook({ bookDetail, setModal }) {
     categories: categories2,
   });
 
+  const copyInitialBook = JSON.stringify({
+    ...book,
+    authors: [...authors2],
+    categories: [...categories2],
+  });
+
   //ESTADO DE ERRORES
   const [errores, setErrores] = useState({});
 
@@ -84,14 +88,14 @@ export default function EditBook({ bookDetail, setModal }) {
 
   function handleInputsChange(event) {
     if (event.target.name === "authors") {
-      if (!book.authors.includes(event.target.value)) {
+      if (!book.authors.includes(Number(event.target.value))) {
         setBook({
           ...book,
           authors: [...book.authors, parseInt(event.target.value)],
         });
       }
     } else if (event.target.name === "categories") {
-      if (!book.categories.includes(event.target.value)) {
+      if (!book.categories.includes(Number(event.target.value))) {
         setBook({
           ...book,
           categories: [...book.categories, parseInt(event.target.value)],
@@ -119,10 +123,12 @@ export default function EditBook({ bookDetail, setModal }) {
 
     setModal(false);
 
-    swal({
+    swal.fire({
       title: "Buen Trabajo!",
-      text: "Se modifico el libro!",
+      text: "Se Modificó el libro!",
       icon: "success",
+      iconColor: "#01A86C",
+      confirmButtonColor: "#01A86C",
     });
 
     //   setTimeout(function(){
@@ -252,6 +258,7 @@ export default function EditBook({ bookDetail, setModal }) {
               {errores.title && <span>{errores.title}</span>}
             </div>
           </div> */}
+
           {/* TITULO CHAKRA */}
           {elementInputValidate(
             "Nombre del Libro",
@@ -456,9 +463,9 @@ export default function EditBook({ bookDetail, setModal }) {
           </div> */}
 
           {/* LENGUAJES CHAKRA*/}
-
-          {elementSelect(
+          {elementSelectValidate(
             "Idioma",
+            errores.language,
             book.language,
             "language",
             "Seleccione una opcion",
@@ -485,8 +492,9 @@ export default function EditBook({ bookDetail, setModal }) {
           </div> */}
 
           {/* STOCK  CHAKRA*/}
-          {elementNumber(
+          {elementNumberValidate(
             "Stock",
+            errores.currentStock,
             book.currentStock,
             "currentStock",
             null,
@@ -667,7 +675,13 @@ export default function EditBook({ bookDetail, setModal }) {
             </div>
           </div> */}
 
-          {elementButton(handleOnSubmit, handleBackSubmit, errores, book)}
+          {elementButton(
+            handleOnSubmit,
+            handleBackSubmit,
+            errores,
+            book,
+            copyInitialBook
+          )}
         </form>
       </div>
     </div>
