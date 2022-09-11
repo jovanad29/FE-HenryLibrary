@@ -35,7 +35,6 @@ export default function LandingPage() {
             </div>
 
             <div className={styles.recomendados}>
-
                 <div className={styles.recomendadosCards}>
                    <Recomendados />
                 </div>
