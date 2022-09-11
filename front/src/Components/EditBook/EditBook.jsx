@@ -5,6 +5,7 @@ import {
   getAllAuthors,
   getCategories,
   getAllPublishers,
+  uploadImage,
 } from "../../actions";
 
 import validate from "../NewBook/validate.js";
@@ -13,6 +14,7 @@ import {
   elementButton,
   elementInput,
   elementInputDate,
+  elementInputImage,
   elementInputValidate,
   elementNumber,
   elementNumberValidate,
@@ -25,7 +27,8 @@ import {
 //CSS
 import styles from "./EditBook.module.css";
 import swal from "sweetalert2";
-import { ImCross } from "react-icons/im";
+// import { ImCross } from "react-icons/im";
+import { useToast } from "@chakra-ui/react";
 
 export default function EditBook({ bookDetail, setModal }) {
   const dispatch = useDispatch();
@@ -151,6 +154,84 @@ export default function EditBook({ bookDetail, setModal }) {
     });
   };
 
+  //======================= CLOUDINARY =======================
+
+  //MENSAJES INFORMATIVOS
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+
+  //VENTANA DE INFORMACION
+  const toast = useToast();
+
+  //FUCION PARA SETAR LA URL RESULTANTE Y VALIDAR SI ES CORRECTA
+  const setImage = (value) => {
+    setBook({
+      ...book,
+      image: value,
+    });
+
+    setErrores(
+      validate({
+        ...book,
+        image: value,
+      })
+    );
+  };
+
+  //FUNCION PARA SETEAR EL MENSAJE SATISFACTORIO
+  const successMessage = () => {
+    setSuccessMsg("La imagen se cargó correctamente");
+  };
+
+  //FUNCION PARA SETEAR EL MENSAJE ERRONEO
+  const errorMessage = () => {
+    setErrMsg("Error al cargar la imagen!");
+  };
+
+  //FLOW COMPLETO
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setSuccessMsg("");
+    setErrMsg("");
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      dispatch(
+        uploadImage(reader.result, setImage, successMessage, errorMessage)
+      );
+    };
+  };
+
+  //PARA MOSTRAR VENTANAS EMERGENTES, NO PASAR AL ARREGLO LA FUNCION setImage GENERA UN BUCLE INFINITO
+  useEffect(() => {
+    if (successMsg) {
+      let temp = successMsg;
+      setSuccessMsg("");
+
+      return toast({
+        title: "Imagen",
+        description: temp,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+
+    if (errMsg) {
+      let temp = errMsg;
+      setErrMsg("");
+      setImage("");
+
+      return toast({
+        title: "Imagen",
+        description: temp,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }, [successMsg, errMsg, toast]);
+
   return (
     <div className={styles.fondo}>
       <div className={styles.container}>
@@ -256,14 +337,15 @@ export default function EditBook({ bookDetail, setModal }) {
             </div>
           </div> */}
 
-          {/* IMAGEN CHAKRA */}
-          {elementInputValidate(
+          {/* IMAGEN DEL LIBRO */}
+          {elementInputImage(
             "Imagen",
             errores.image,
             book.image,
             "image",
             null,
-            handleInputsChange
+            handleInputsChange,
+            handleFileInputChange
           )}
 
           {/* =============================================================== */}
