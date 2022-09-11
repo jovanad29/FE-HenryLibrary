@@ -8,6 +8,7 @@ import {
     startGoogleSignIn,
     startLoginWithEmailPassword,
     startLogout,
+    startResetPasswordEmail,
 } from "../../actions";
 
 //CSS
@@ -72,18 +73,17 @@ function Login({ HandleOpenLogin }) {
     };
 
     const handleCreateUser = () => {
-        // console.log({login});
-        // const user = {
-        //   displayName: "Pepe Hongo",
-        //   password: "123456",
-        //   email: "yoyo@gmail.com",
-        // };
         if (
             login.displayName.trim() === "" ||
             login.password.trim() === "" ||
             login.email.trim() === ""
         ) {
-            dispatch(logout("Necesita completa todos los campos!"));
+            dispatch(
+                logout({
+                    ok: false,
+                    errorMessage: "Necesita completa todos los campos!",
+                })
+            );
         } else dispatch(startCreatingUserWithEmailPassword(login));
         if (isAuthenticated) {
             setCreateUser(false);
@@ -105,6 +105,17 @@ function Login({ HandleOpenLogin }) {
 
     const cerrarLogin = () => {
         HandleOpenLogin();
+    };
+
+    const handleResetPassword = () => {
+        if (login.email.trim() === "") {
+            dispatch(
+                logout({
+                    ok: false,
+                    errorMessage: "Necesita completar el mail a resetear!",
+                })
+            );
+        } else dispatch(startResetPasswordEmail(login));
     };
 
     return (
@@ -247,7 +258,10 @@ function Login({ HandleOpenLogin }) {
                                 <button onClick={handleVolver}>volver</button>
                             )}
                             {!createUser && (
-                                <button> Olvido la contraseña </button>
+                                <button onClick={handleResetPassword}>
+                                    {" "}
+                                    Olvido la contraseña{" "}
+                                </button>
                             )}
                         </div>
                     </div>
