@@ -43,6 +43,7 @@ export const GET_ALL_CART_BY_USER = "GET_ALL_CART_BY_USER";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
+export const GET_CANT_ITEMS_BY_CART = "GET_CANT_ITEMS_BY_CART";
 export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
@@ -537,6 +538,21 @@ export function getCartQuantity(userId) {
             })
             .catch((error) => {
                 console.log("getCartQuantity", error);
+            });
+    };
+}
+export function getCantItemsByCart(userUid) {
+    return async function (dispatch) {
+        await axios
+            .get(`${baseURL}/payments/allCount/${userUid}`)
+            .then((response) => {
+                dispatch({
+                    type: GET_CANT_ITEMS_BY_CART,
+                    payload: response.data.totalQuantity,
+                });
+            })
+            .catch((error) => {
+                console.log("getCantItemsByCart", error);
             });
     };
 }
