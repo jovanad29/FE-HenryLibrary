@@ -7,6 +7,7 @@ import {
   getAllAuthors,
   getCategories,
   getAllPublishers,
+  uploadImage,
 } from "../../actions";
 import validate from "./validate.js";
 
@@ -24,9 +25,13 @@ import {
   Flex,
   Select,
   Box,
+  InputGroup,
+  InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
 
 import { CgCheck } from "react-icons/cg";
+import { TbBookUpload } from "react-icons/tb";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -188,7 +193,7 @@ export default function NewBookChakra() {
   //=======================================================================================
   //FUNCIONES PARA NO REPETIR CODIGO
 
-  //INPUTS SENCILLOS
+  //INPUT SENCILLO CONTROLADO
   const elementInput = (label, validate, value, name, placeholder = null) => {
     return (
       <FormControl isRequired isInvalid={validate}>
@@ -219,7 +224,7 @@ export default function NewBookChakra() {
     );
   };
 
-  //TEXT AREA
+  //TEXT AREA CONTROLADO
   const elementTestArea = (
     label,
     validate,
@@ -256,6 +261,7 @@ export default function NewBookChakra() {
     );
   };
 
+  // INPUT DE TIPO NUMERO VALIDADO
   const elementNumberInputValidate = (
     label,
     validate = null,
@@ -296,6 +302,7 @@ export default function NewBookChakra() {
     );
   };
 
+  // INPUT DE TIPO NUMERO
   const elementNumberInput = (label, value, name, handle) => {
     return (
       <FormControl isInvalid={false}>
@@ -326,6 +333,7 @@ export default function NewBookChakra() {
     );
   };
 
+  //SELECT VALIDADO
   const elementSelectValidate = (
     label,
     validate,
@@ -372,6 +380,7 @@ export default function NewBookChakra() {
     );
   };
 
+  //SELECT
   const elementSelect = (
     label,
     value,
@@ -416,6 +425,7 @@ export default function NewBookChakra() {
     );
   };
 
+  //SELECT PARA AUTORES Y CATEGORIAS
   const elementSelectOthers = (
     label,
     value,
@@ -476,6 +486,7 @@ export default function NewBookChakra() {
     );
   };
 
+  //INPUT DE TIPO FECHA
   const elementInputDate = (type, label, value, name) => {
     return (
       <>
@@ -503,11 +514,144 @@ export default function NewBookChakra() {
     );
   };
 
+  //INPUT TIPO ARCHIVO CONTROLADO
+  const elementInputImage = (
+    label,
+    validate,
+    value,
+    name,
+    placeholder = null,
+    handle
+  ) => {
+    return (
+      <FormControl isRequired isInvalid={validate}>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <InputGroup>
+            <Input
+              value={value}
+              name={name}
+              onChange={handleInputsChange}
+              focusBorderColor="#01A86C"
+              placeholder={placeholder}
+              boxShadow="lg"
+              rounded="lg"
+            />
+            <InputRightElement>
+              <Input
+                type="file"
+                height="100%"
+                width="100%"
+                position="absolute"
+                top="0"
+                left="0"
+                opacity="0"
+                aria-hidden="true"
+                cursor={"pointer"}
+                onChange={handle}
+              ></Input>
+              <TbBookUpload size={"70%"} color="green" />
+            </InputRightElement>
+          </InputGroup>
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === ""
+              ? null
+              : !validate && <CgCheck size="30px" color="#01A86C" />}
+          </Box>
+        </Box>
+        {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
+      </FormControl>
+    );
+  };
+
   useEffect(() => {
     dispatch(getAllAuthors());
     dispatch(getCategories());
     dispatch(getAllPublishers());
   }, [dispatch]);
+
+  //======================= CLOUDINARY =======================
+
+  //MENSAJES INFORMATIVOS
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+
+  //VENTANA DE INFORMACION
+  const toast = useToast();
+
+  //FUCION PARA SETAR LA URL RESULTANTE Y VALIDAR SI ES CORRECTA
+  const setImage = (value) => {
+    setBook({
+      ...book,
+      image: value,
+    });
+
+    setError(
+      validate({
+        ...book,
+        image: value,
+      })
+    );
+  };
+
+  //FUNCION PARA SETEAR EL MENSAJE SATISFACTORIO
+  const successMessage = () => {
+    setSuccessMsg("La imagen se cargó correctamente");
+  };
+
+  //FUNCION PARA SETEAR EL MENSAJE ERRONEO
+  const errorMessage = () => {
+    setErrMsg("Error al cargar la imagen!");
+  };
+
+  //FLOW COMPLETO
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setSuccessMsg("");
+    setErrMsg("");
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      dispatch(
+        uploadImage(reader.result, setImage, successMessage, errorMessage)
+      );
+    };
+  };
+
+  //PARA MOSTRAR VENTANAS EMERGENTES, NO PASAR AL ARREGLO LA FUNCION setImage GENERA UN BUCLE INFINITO
+  useEffect(() => {
+    if (successMsg) {
+      let temp = successMsg;
+      setSuccessMsg("");
+
+      return toast({
+        title: "Imagen",
+        description: temp,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+
+    if (errMsg) {
+      let temp = errMsg;
+      setErrMsg("");
+      setImage("");
+
+      return toast({
+        title: "Imagen",
+        description: temp,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }, [successMsg, errMsg, toast]);
 
   return (
     <>
@@ -531,8 +675,10 @@ export default function NewBookChakra() {
           boxShadow="lg"
           rounded="2xl"
         >
+          {/* NOMBRE DEL LIBRO */}
           {elementInput("Nombre del Libro", error.title, book.title, "title")}
 
+          {/* DESCRIPCION DEL LIBRO */}
           {elementTestArea(
             "Descripcion",
             error.description,
@@ -540,6 +686,7 @@ export default function NewBookChakra() {
             "description"
           )}
 
+          {/* PRECIO DEL LIBRO */}
           {elementNumberInputValidate(
             "Precio",
             error.price,
@@ -548,8 +695,17 @@ export default function NewBookChakra() {
             handleChangePrice
           )}
 
-          {elementInput("Imagen", error.image, book.image, "image")}
+          {/* IMAGEN DEL LIBRO */}
+          {elementInputImage(
+            "Imagen",
+            error.image,
+            book.image,
+            "image",
+            null,
+            handleFileInputChange
+          )}
 
+          {/* EDITORIAL DEL LIBRO */}
           {elementSelectValidate(
             "Editorial",
             error.publisherId,
@@ -560,6 +716,7 @@ export default function NewBookChakra() {
             allPublishers
           )}
 
+          {/* FECHA DE PUBLICACION DEL LIBRO */}
           {elementInputDate(
             "date",
             "Fecha de Publicacion",
@@ -567,6 +724,7 @@ export default function NewBookChakra() {
             "publishedDate"
           )}
 
+          {/* NUMERO DE PAGINAS DEL LIBRO */}
           {elementNumberInputValidate(
             "Numero de Paginas",
             error.pageCount,
@@ -575,6 +733,7 @@ export default function NewBookChakra() {
             handleChangePage
           )}
 
+          {/* IDIOMA DEL LIBRO */}
           {elementSelect(
             "Idioma",
             book.language,
@@ -584,6 +743,7 @@ export default function NewBookChakra() {
             languages
           )}
 
+          {/* STOCK DEL LIBRO */}
           {elementNumberInput(
             "Stock",
             book.currentStock,
@@ -591,6 +751,7 @@ export default function NewBookChakra() {
             handleChangeStock
           )}
 
+          {/* CATEGORIAS DEL LIBRO */}
           {elementSelectOthers(
             "Categoria",
             book.categories,
@@ -601,6 +762,7 @@ export default function NewBookChakra() {
             allCategories
           )}
 
+          {/* AUTORES DEL LIBRO */}
           {elementSelectOthers(
             "Autor",
             book.authors,
@@ -611,6 +773,7 @@ export default function NewBookChakra() {
             allAuthors
           )}
 
+          {/* BOTONES DE INTERACCION */}
           <Flex justifyContent="space-around">
             <Button
               w="30%"
