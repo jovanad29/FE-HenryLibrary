@@ -11,7 +11,7 @@ import {
 
 //CSS
 import styles from "./Login.module.css";
-import { Button, Alert, AlertIcon, CloseButton, Avatar, Stack } from "@chakra-ui/react";
+import { Avatar, Button, Alert, AlertIcon, CloseButton, Stack } from "@chakra-ui/react"; 
 import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
