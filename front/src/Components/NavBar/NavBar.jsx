@@ -91,7 +91,7 @@ export default function NavBar() {
                                 size="1.4rem"
                             />
                         </button>
-                        {favorites.length > 0 &&<h3 className={styles.cantidad}>{favorites.length}</h3>}
+                        {favorites.length > 0 && isAuthenticated && <h3 className={styles.cantidad}>{favorites.length}</h3>}
                     </>
                 )}
 
