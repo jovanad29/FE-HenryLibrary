@@ -16,6 +16,10 @@ import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 
+
+
+
+
 function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
     const { status, displayName, photoURL, errorMessage } = useSelector(
@@ -93,13 +97,10 @@ function Login({ HandleOpenLogin }) {
         HandleOpenLogin();
     };
 
-
     return (
         <div className={styles.container}>
             <div className={styles.containerItems}>
-                
                  <CloseButton className={styles.cerrar} size='md' onClick={cerrarLogin}/>
-
                 <div className={styles.img}>
                     {isAuthenticated ? (
                         <Avatar name={displayName} src={photoURL} />

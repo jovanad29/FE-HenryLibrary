@@ -12,7 +12,14 @@ import Footer from "../Footer/Footer.jsx"
 import styles from "./ShoppingBook.module.css";
 import { ImCross } from "react-icons/im";
 
+//pago
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
+import { setItems } from "../../actions/checkoutActions";
+
 function ShoppingBook() {
+
+    const history = useHistory(); //para ir al  checkout del pago 
     const dispatch = useDispatch();
     const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
     const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
@@ -50,6 +57,42 @@ function ShoppingBook() {
             dispatch(editCartItem(uid, id, quantity, price));
         }
     }
+// boton pagar handle 
+function handleBuyingBooks(e) {
+    e.preventDefault();
+    if (!isAuthenticated) {
+     Swal.fire({
+       title: "Para comprar debe estar autenticado",
+       icon: "info",
+       showCancelButton: true,
+       confirmButtonColor: "#3085d6",
+       cancelButtonColor: "#d33",
+       confirmButtonText: "Go to Login",
+     }).then((result) => {
+       if (result.isConfirmed) {
+         history.push("/home");
+       }
+     });
+   } else {
+        const booksBuy = guestCartBooks.map((b) => { 
+             
+            return {
+                id:b.id,
+                title:b.title,
+                image:b.image,
+                quantity: isAuthenticated ?  b.payment_book?.quantity : b.quantity,
+                price : isAuthenticated ? b.payment_book?.price : b.price
+            }
+
+   })
+        console.log("estoy en boton pago carrito ", booksBuy)
+       
+        dispatch(setItems(booksBuy));    
+        history.push("/checkout");
+   }
+ }
+
+// fin handle boton pagar 
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -141,9 +184,10 @@ function ShoppingBook() {
                                     </h3>
                                 </div>
                                 <div className={styles.button}>
-                                    <button className={styles.comprar}>
-                                        COMPRAR
-                                    </button>
+                                <button className={styles.comprar}  
+                                        onClick={(e)=>handleBuyingBooks(e)}>                
+                                        Comprar
+                                </button>
                                 </div>
                             </div>
                         </div>

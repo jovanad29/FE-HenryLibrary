@@ -1,0 +1,14 @@
+.containerRating{
+    margin-top: 15px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    /* border: 2px solid black; */
+    justify-content: center;
+    width: 17rem;
+    justify-content: space-evenly;
+}
+
+.star{
+    font-size: 2rem;
+}

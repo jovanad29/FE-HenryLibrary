@@ -11,13 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 
-
-
-
 function ReviewsCard({ reviews }) {
-  
-
-
   return (
     <div>
       {reviews.length > 0 ? 
@@ -56,12 +50,10 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex> : <h2>Todavia no hay ningun comentario, dejanos uno</h2> }  
+    </Flex> : <h2>Todavia no hay ningun comentario, sé el primero</h2> }  
       
     </div>
   );
 }
 
 export default ReviewsCard;
-
-
