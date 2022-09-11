@@ -3,22 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     clearCart,
     clearLoginError,
+    logout,
     startCreatingUserWithEmailPassword,
     startGoogleSignIn,
     startLoginWithEmailPassword,
     startLogout,
+    startResetPasswordEmail,
 } from "../../actions";
 
 //CSS
 import styles from "./Login.module.css";
-import { Avatar, Button, Alert, AlertIcon, CloseButton, Stack } from "@chakra-ui/react"; 
+import {
+    Avatar,
+    Button,
+    Alert,
+    AlertIcon,
+    CloseButton,
+    Stack,
+} from "@chakra-ui/react";
 import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-
-
-
-
 
 function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
@@ -29,7 +34,7 @@ function Login({ HandleOpenLogin }) {
     const isAuthenticating = useMemo(() => status === "checking", [status]);
 
     //Estado interno para cambiar el login de ingresar a crear un nuevo usuario
-    const [createUser, setCreateUser] = useState(false); 
+    const [createUser, setCreateUser] = useState(false);
 
     const [login, setLogin] = useState({
         displayName: "",
@@ -48,10 +53,10 @@ function Login({ HandleOpenLogin }) {
 
     const onGoogleSignIn = () => {
         dispatch(startGoogleSignIn());
-        if (isAuthenticated){
+        if (isAuthenticated) {
             setCreateUser(false);
             setLogin({ displayName: "", email: "", password: "" });
-        } 
+        }
     };
 
     const handleCloseSesion = () => {
@@ -68,23 +73,28 @@ function Login({ HandleOpenLogin }) {
     };
 
     const handleCreateUser = () => {
-        // console.log({login});
-        // const user = {
-        //   displayName: "Pepe Hongo",
-        //   password: "123456",
-        //   email: "yoyo@gmail.com",
-        // };
-        dispatch(startCreatingUserWithEmailPassword(login));
-        if (isAuthenticated){
+        if (
+            login.displayName.trim() === "" ||
+            login.password.trim() === "" ||
+            login.email.trim() === ""
+        ) {
+            dispatch(
+                logout({
+                    ok: false,
+                    errorMessage: "Necesita completa todos los campos!",
+                })
+            );
+        } else dispatch(startCreatingUserWithEmailPassword(login));
+        if (isAuthenticated) {
             setCreateUser(false);
             setLogin({ displayName: "", email: "", password: "" });
-        } 
+        }
     };
 
     const handleLoginUserPass = () => {
         dispatch(startLoginWithEmailPassword(login));
         setCreateUser(false);
-        if (isAuthenticated){
+        if (isAuthenticated) {
             setLogin({ displayName: "", email: "", password: "" });
         }
     };
@@ -97,10 +107,25 @@ function Login({ HandleOpenLogin }) {
         HandleOpenLogin();
     };
 
+    const handleResetPassword = () => {
+        if (login.email.trim() === "") {
+            dispatch(
+                logout({
+                    ok: false,
+                    errorMessage: "Necesita completar el mail a resetear!",
+                })
+            );
+        } else dispatch(startResetPasswordEmail(login));
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.containerItems}>
-                 <CloseButton className={styles.cerrar} size='md' onClick={cerrarLogin}/>
+                <CloseButton
+                    className={styles.cerrar}
+                    size="md"
+                    onClick={cerrarLogin}
+                />
                 <div className={styles.img}>
                     {isAuthenticated ? (
                         <Avatar name={displayName} src={photoURL} />
@@ -128,7 +153,13 @@ function Login({ HandleOpenLogin }) {
                 {!isAuthenticated ? (
                     <>
                         <div>
-                            <FiMail className={!createUser ? styles.iconoEmail : styles.noIconoEmail} />
+                            <FiMail
+                                className={
+                                    !createUser
+                                        ? styles.iconoEmail
+                                        : styles.noIconoEmail
+                                }
+                            />
                             <input
                                 className={styles.input}
                                 type="text"
@@ -141,7 +172,11 @@ function Login({ HandleOpenLogin }) {
 
                         <div>
                             <MdNoEncryptionGmailerrorred
-                                className={!createUser ?  styles.iconoContraseña : styles.noIconoContraseña}
+                                className={
+                                    !createUser
+                                        ? styles.iconoContraseña
+                                        : styles.noIconoContraseña
+                                }
                             />
 
                             {/* {login.hasOwnProperty("password") && (
@@ -223,7 +258,10 @@ function Login({ HandleOpenLogin }) {
                                 <button onClick={handleVolver}>volver</button>
                             )}
                             {!createUser && (
-                                <button> Olvido la contraseña </button>
+                                <button onClick={handleResetPassword}>
+                                    {" "}
+                                    Olvido la contraseña{" "}
+                                </button>
                             )}
                         </div>
                     </div>
