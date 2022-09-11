@@ -43,20 +43,27 @@ export default function validate(input) {
     errores.pageCount = " El numero de paginas debe ser mayor a 0";
   } 
 
+  if (!input.language) {
+    errores.language = " Se requiere un idioma";
+  }
+
+  if (!input.currentStock) {
+    errores.currentStock = "Se requiere una cantidad en Stock";
+  } else if (input.currentStock < 1) {
+    errores.currentStock = "El valor minimo requerido es 1";
+  }
 
   return errores;
 }
 
-
-export function validateReview (input){
-
+export function validateReview(input) {
   let errores = {};
 
   if (!input.descrption) {
     errores.descrption = "Se requiere una descripcion";
-  } else if(input.descrption.length > 100){
+  } else if (input.descrption.length > 100) {
     errores.descrption = "supero el maximo de 100 caracteres";
-  } 
+  }
 
   return errores;
 }
