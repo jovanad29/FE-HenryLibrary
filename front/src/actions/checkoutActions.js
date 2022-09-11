@@ -38,7 +38,7 @@ export function asyncGetMP(mpID) {
         })
       ).data;
       console.log(response)
-      alert('estoy en asyncGetMP')
+      //alert('estoy en asyncGetMP')
       
       var items = response.additional_info.items.map((i) => {
         return {
