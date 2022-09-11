@@ -595,6 +595,7 @@ export function createReviewByBook(id, body) {
       .post(`${baseURL}/reviews/byBook/${id}`, body)
       .then((response) => {
         dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
+        dispatch(getAllReviews(id));
       })
       .catch((error) => {
         console.log("saveLocalCartToDB", error);
