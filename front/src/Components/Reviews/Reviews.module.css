@@ -49,6 +49,7 @@ body{
     border: 2px solid #adadad;
     border-radius: 20px;
     justify-content: center;
+    padding-bottom: 1.5rem;
 }
 
 .info{
@@ -89,7 +90,8 @@ body{
 }
 
 .textarea{
-    margin-bottom: 1rem; 
+    margin-bottom: 1rem;
+    border-color: #01A86C;
 }
 
 
