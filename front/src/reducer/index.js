@@ -215,7 +215,7 @@ function rootReducer(state = initialState, action) {
                 email: null,
                 displayName: null,
                 photoURL: null,
-                errorMessage: action.payload?.errorMessage,
+                errorMessage: action.payload,
                 isActive: true,
                 isAdmin: false,
                 isBanned: false,
