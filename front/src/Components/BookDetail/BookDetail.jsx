@@ -8,7 +8,7 @@ import NavBar from "../NavBar/NavBar";
 import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
 import EditBook from "../EditBook/EditBook";
-import Recomendados from "../recomendados/Recomendados";
+import Recomendados from "../Recomendados/Recomendados";
 import Reviews from "../Reviews/Reviews";
 
 //CSS

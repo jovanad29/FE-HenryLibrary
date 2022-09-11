@@ -8,22 +8,27 @@ body {
 .recomendados{
     margin-top: 3rem;
     display: flex;
-    /* background-color: bisque; */
     flex-direction: row;
     width: 100%;
     height: 100%;
+}
+
+.h3 {
+    display: flex;
+    margin-top: 1rem;
+    color:  #01A86C;  
+    font-family: Quicksand;
+    font-weight: bolder;
+    font-size: 25px;
+    text-align: center;
 }
 
 .recomendadosContainer{
     display: flex;
     width: 20%;
     height: 100%;
-    /* flex-wrap: wrap; */
-    gap: 20px;
-    /* background-color: blue; */
-
+    gap: 20px
 }
-
 
 
 .image{
