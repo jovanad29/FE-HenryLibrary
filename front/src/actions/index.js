@@ -43,6 +43,7 @@ export const GET_ALL_CART_BY_USER = "GET_ALL_CART_BY_USER";
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_FILTERS = "SET_FILTERS";
 export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
+export const GET_CANT_ITEMS_BY_CART = "GET_CANT_ITEMS_BY_CART";
 export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
@@ -542,6 +543,21 @@ export function getCartQuantity(userId) {
       });
   };
 }
+export function getCantItemsByCart(userUid) {
+    return async function (dispatch) {
+        await axios
+            .get(`${baseURL}/payments/allCount/${userUid}`)
+            .then((response) => {
+                dispatch({
+                    type: GET_CANT_ITEMS_BY_CART,
+                    payload: response.data.totalQuantity,
+                });
+            })
+            .catch((error) => {
+                console.log("getCantItemsByCart", error);
+            });
+    };
+}
 
 export function editCartItem(userId, id, quantity, price) {
   return async function (dispatch) {
@@ -558,19 +574,19 @@ export function editCartItem(userId, id, quantity, price) {
 
 //REVIEWS
 export function getAllReviews(id) {
-  return function (dispatch) {
-    axios
-      .get(`${baseURL}/catalogue/${id}/reviews`)
-      .then((response) => {
-        dispatch({
-          type: GET_ALL_REVIEWS,
-          payload: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log("getAllReviews", error);
-      });
-  };
+    return function (dispatch) {
+        axios
+            .get(`${baseURL}/reviews/${id}`)
+            .then((response) => {
+                dispatch({
+                    type: GET_ALL_REVIEWS,
+                    payload: response.data,
+                });
+            })
+            .catch((error) => {
+                console.log("getAllReviews", error);
+            });
+    };
 }
 
 export function createReviewByBook(id, body) {

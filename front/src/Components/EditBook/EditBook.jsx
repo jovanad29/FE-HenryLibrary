@@ -24,7 +24,7 @@ import {
 
 //CSS
 import styles from "./EditBook.module.css";
-import swal from "sweetalert";
+import swal from "sweetalert2";
 import { ImCross } from "react-icons/im";
 
 export default function EditBook({ bookDetail, setModal }) {
