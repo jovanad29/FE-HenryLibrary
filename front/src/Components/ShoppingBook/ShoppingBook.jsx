@@ -6,6 +6,7 @@ import { editCartItem } from "../../actions/index.js";
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
+import Footer from "../Footer/Footer.jsx"
 
 //CSS
 import styles from "./ShoppingBook.module.css";
@@ -150,17 +151,17 @@ function handleBuyingBooks(e) {
     const totalBooks = total.totalBooks;
     const totalAmount = total.totalAmount;
 
-    if (guestCartBooks?.length > 0) {
-        return (
+
+
+
+    return (
+
             <div className={styles.shopping}>
                 <NavBar />
-
                 <NavBar2 />
 
+                {guestCartBooks?.length > 0 ?(
                 <div className={styles.carrito}>
-                    <h1 className={styles.titulo}>
-                        Bienvenido {displayName} al carrito de LibreríaHENRY
-                    </h1>
 
                     <div className={styles.container}>
                         <div className={styles.container1}>
@@ -191,32 +192,22 @@ function handleBuyingBooks(e) {
                             </div>
                         </div>
                     </div>
+                </div>) 
+                
+                : (
+
+                 <div className={styles.containerVacio}>
+                    <h2>Tu carrito está vacío</h2>
+                    <h4> ¿No sabés qué comprar? ¡Miles de libros te esperan!</h4>
                 </div>
 
-                {/* <Footer /> */}
-            </div>
-        );
-    } else {
-        return (
-            <div className={styles.shopping}>
-                <NavBar />
+                )}
 
-                <NavBar2 />
-
-                <div className={styles.carrito}>
-                    <h1 className={styles.titulo}>
-                        Bienvenido {displayName} al carrito de LibreríaHENRY
-                    </h1>
-                    <div className={styles.container}>
-                        <h2>Tu carrito está vacío</h2>
-                        <h4>
-                            ¿No sabés qué comprar? ¡Miles de libros te esperan!{" "}
-                        </h4>
-                    </div>
-                </div>
+                <Footer /> 
             </div>
-        );
-    }
+
+);
 }
+
 
 export default ShoppingBook;

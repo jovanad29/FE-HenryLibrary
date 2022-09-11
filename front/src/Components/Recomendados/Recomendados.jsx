@@ -13,6 +13,11 @@ function Recomendados() {
   const recomendados = allBooks.slice(0,10)
 
   return (
+
+    <div>
+
+    <h3 className={styles.h3}> NUESTROS RECOMENDADOS DEL MES</h3>
+
     <div className={styles.recomendados}>
 
       {recomendados.map((r) => {
@@ -27,7 +32,7 @@ function Recomendados() {
           </div>
         );
       })}
-
+    </div>
     </div>
   );
 }
