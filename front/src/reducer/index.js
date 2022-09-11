@@ -29,6 +29,7 @@ import {
     CLEAR_CART,
     SET_FILTERS,
     GET_CART_QUANTITY,
+    GET_CANT_ITEMS_BY_CART,
     GET_ALL_CART_BY_USER,
     GET_ID_FAVORITES,
     GET_ALL_REVIEWS,
@@ -76,6 +77,7 @@ const initialState = {
         total: 0,
     },
     items: [],
+    cantItemsByCart: 0,
     reviews: []
 };
 
@@ -345,6 +347,12 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 allCartByUser: action.payload,
+            };
+
+        case GET_CANT_ITEMS_BY_CART:
+            return {
+                ...state,
+                cantItemsByCart: action.payload,
             };
 
         //mercado pago
