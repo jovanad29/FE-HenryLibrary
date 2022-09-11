@@ -85,7 +85,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
         <Flex className={styles.review}>
 
           {/* Aca renderizo cada review */}
-          <ReviewsCard reviews={reviews}/>
+          <ReviewsCard reviews={reviews}/> 
 
         </Flex>
 
