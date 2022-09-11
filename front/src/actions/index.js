@@ -558,7 +558,7 @@ export function editCartItem(userId, id, quantity, price) {
 export function getAllReviews(id) {
     return function (dispatch) {
         axios
-            .get(`${baseURL}/catalogue/${id}/reviews`)
+            .get(`${baseURL}/reviews/${id}`)
             .then((response) => {
                 dispatch({
                     type: GET_ALL_REVIEWS,
