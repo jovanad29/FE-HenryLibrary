@@ -22,7 +22,7 @@ function ReviewsCard({ reviews }) {
               <div key={r.id}>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
-                    <Flex textAlign="left" w="8rem" fontWeight="bolder" font-family= "Quicksand" >
+                    <Flex textAlign="left" w="8rem" fontWeight="bolder" fontFamily= "Quicksand" >
                       {r.users &&
                         r.users.map((u) => {
                           return (
@@ -39,7 +39,7 @@ function ReviewsCard({ reviews }) {
                   </AccordionButton>
                 </h2>
 
-                <AccordionPanel pb={4} font-family= "Quicksand">
+                <AccordionPanel pb={4} fontFamily= "Quicksand">
                   <p>{r.descrption}</p>
                 </AccordionPanel>
               </div>
