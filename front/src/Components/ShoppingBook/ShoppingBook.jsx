@@ -1,18 +1,24 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { editCartItem, getCartDB } from "../../actions/index.js";
+import { editCartItem } from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
-import Footer from "../Footer/Footer.jsx";
 
 //CSS
 import styles from "./ShoppingBook.module.css";
 import { ImCross } from "react-icons/im";
 
+//pago
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
+import { setItems } from "../../actions/checkoutActions";
+
 function ShoppingBook() {
+
+    const history = useHistory(); //para ir al  checkout del pago 
     const dispatch = useDispatch();
     const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
     const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
@@ -28,39 +34,64 @@ function ShoppingBook() {
 
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
-    let localItems = [];
-    let localTotal = [];
-
     useEffect(() => {
         if (isAuthenticated) {
-            localItems = activeCart;
-            localTotal = {
+            setGuestCartBooks(activeCart || []);
+            setTotal({
                 totalAmount: activeCartAmount,
                 totalBooks: activeCartQuantity,
-            };
+            });
         } else {
-            localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
-            localTotal = JSON.parse(localStorage.getItem("total"));
+            setGuestCartBooks(
+                JSON.parse(localStorage.getItem("guestCartBooks")) || []
+            );
+            setTotal(JSON.parse(localStorage.getItem("total")) || []);
         }
-        if (localItems) {
-            setGuestCartBooks(localItems);
-        }
-        if (localTotal) {
-            setTotal(localTotal);
-        }
-    }, [
-        isAuthenticated,
-        dispatch,
-        activeCart,
-        activeCartAmount,
-        activeCartQuantity,
-    ]);
+    }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
 
     function handleOnDelete(id, quantity, price) {
         let newItems = guestCartBooks.filter((item) => item.id !== id);
         setGuestCartBooks(newItems);
-        dispatch(editCartItem(uid, id, quantity, price));
+        if (isAuthenticated) {
+            dispatch(editCartItem(uid, id, quantity, price));
+        }
     }
+// boton pagar handle 
+function handleBuyingBooks(e) {
+    e.preventDefault();
+    if (!isAuthenticated) {
+     Swal.fire({
+       title: "Para comprar debe estar autenticado",
+       icon: "info",
+       showCancelButton: true,
+       confirmButtonColor: "#3085d6",
+       cancelButtonColor: "#d33",
+       confirmButtonText: "Go to Login",
+     }).then((result) => {
+       if (result.isConfirmed) {
+         history.push("/home");
+       }
+     });
+   } else {
+        const booksBuy = guestCartBooks.map((b) => { 
+             
+            return {
+                id:b.id,
+                title:b.title,
+                image:b.image,
+                quantity: isAuthenticated ?  b.payment_book?.quantity : b.quantity,
+                price : isAuthenticated ? b.payment_book?.price : b.price
+            }
+
+   })
+        console.log("estoy en boton pago carrito ", booksBuy)
+       
+        dispatch(setItems(booksBuy));    
+        history.push("/checkout");
+   }
+ }
+
+// fin handle boton pagar 
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -73,26 +104,20 @@ function ShoppingBook() {
             });
             const total = { totalBooks, totalAmount };
             setTotal(total);
-            localStorage.setItem("total", JSON.stringify(total));
-            localStorage.setItem(
-                "guestCartBooks",
-                JSON.stringify(guestCartBooks)
-            );
+            localStorage.setItem("total", JSON.stringify(total) || []);
+            // localStorage.setItem("guestCartBooks", JSON.stringify(guestCartBooks) || []);
         }
-    }, [guestCartBooks]);
+    }, [guestCartBooks, isAuthenticated]);
 
-    const item = guestCartBooks.map((b) => {
+    const item = guestCartBooks?.map((b) => {
         let id, title, image, quantity, price;
+        id = b.id;
+        title = b.title;
+        image = b.image;
         if (isAuthenticated) {
-            id = b.id;
-            title = b.title;
-            image = b.image;
             quantity = b.payment_book?.quantity;
             price = b.payment_book?.price;
         } else {
-            id = b.id;
-            title = b.title;
-            image = b.image;
             quantity = b.quantity;
             price = b.price;
         }
@@ -153,12 +178,15 @@ function ShoppingBook() {
                             <div className={styles.infoCompra}>
                                 <div className={styles.total}>
                                     <h3>Total</h3>
-                                    <h3>${totalAmount}</h3>
+                                    <h3>
+                                        ${parseFloat(totalAmount).toFixed(2)}
+                                    </h3>
                                 </div>
                                 <div className={styles.button}>
-                                    <button className={styles.comprar}>
-                                        COMPRAR
-                                    </button>
+                                <button className={styles.comprar}  
+                                        onClick={(e)=>handleBuyingBooks(e)}>                
+                                        Comprar
+                                </button>
                                 </div>
                             </div>
                         </div>
@@ -179,11 +207,7 @@ function ShoppingBook() {
                     <h1 className={styles.titulo}>
                         Bienvenido {displayName} al carrito de LibreríaHENRY
                     </h1>
-
                     <div className={styles.container}>
-                        
-
-                        {console.log("vacio")}
                         <h2>Tu carrito está vacío</h2>
                         <h4>
                             ¿No sabés qué comprar? ¡Miles de libros te esperan!{" "}

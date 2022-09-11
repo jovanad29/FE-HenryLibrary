@@ -16,21 +16,28 @@ p{
     display: flex;
     justify-content: center;
     text-align: center;
-    z-index: 100
+    z-index: 100;
 }
 
 .containerItems {
     width: 18rem;
     height: 25rem;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     box-shadow: 5px 5px 10px 3px #ABABAB;
     padding-top: 30px;
+    padding-bottom: 3rem;
     background-color: rgba(255, 255, 255, 0.964);
 }
 
+.cerrar{
+    position: absolute;
+    top: 5px;
+    right: 7px;
+}
 
 .img {
     width: 3.3rem;
