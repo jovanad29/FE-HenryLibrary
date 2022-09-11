@@ -5,21 +5,21 @@ import {
   Input,
   FormErrorMessage,
   Textarea,
-  NumberInput,
-  NumberInputField,
   Button,
-  Stack,
   Flex,
   Select,
   Box,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 
 import { CgCheck } from "react-icons/cg";
+import { TbBookUpload } from "react-icons/tb";
 
 //=======================================================================================
 //FUNCIONES PARA NO REPETIR CODIGO
 
-//INPUTS SENCILLOS
+//INPUT SENCILLO CONTROLADO
 export const elementInputValidate = (
   label,
   validate,
@@ -58,6 +58,7 @@ export const elementInputValidate = (
   );
 };
 
+//TEXT AREA CONTROLADO
 export const elementTestArea = (
   label,
   validate,
@@ -96,6 +97,7 @@ export const elementTestArea = (
   );
 };
 
+// INPUT DE TIPO NUMERO VALIDADO
 export const elementNumberValidate = (
   label,
   validate,
@@ -135,6 +137,7 @@ export const elementNumberValidate = (
   );
 };
 
+//SELECT VALIDADO
 export const elementSelectValidate = (
   label,
   validate,
@@ -182,6 +185,7 @@ export const elementSelectValidate = (
   );
 };
 
+//INPUT DE TIPO FECHA
 export const elementInputDate = (type, label, value, name, handle) => {
   return (
     <Box pl={"2%"}>
@@ -210,6 +214,7 @@ export const elementInputDate = (type, label, value, name, handle) => {
   );
 };
 
+//SELECT
 export const elementSelect = (
   label,
   value,
@@ -254,6 +259,7 @@ export const elementSelect = (
   );
 };
 
+// INPUT DE TIPO NUMERO
 export const elementNumber = (
   label,
   value,
@@ -289,6 +295,7 @@ export const elementNumber = (
   );
 };
 
+//INPUT SENCILLO
 export const elementInput = (
   label,
   value,
@@ -323,6 +330,7 @@ export const elementInput = (
   );
 };
 
+//SELECT PARA AUTORES Y CATEGORIAS
 export const elementSelectOthers = (
   label,
   value,
@@ -396,6 +404,7 @@ export const elementSelectOthers = (
   );
 };
 
+//BOTONES
 export const elementButton = (
   handleOnSubmit,
   handleBackSubmit,
@@ -425,5 +434,61 @@ export const elementButton = (
         Cancelar
       </Button>
     </Flex>
+  );
+};
+
+//INPUT TIPO ARCHIVO CONTROLADO
+export const elementInputImage = (
+  label,
+  validate,
+  value,
+  name,
+  placeholder = null,
+  handle,
+  handleFile
+) => {
+  return (
+    <FormControl isRequired isInvalid={validate}>
+      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <Box display="flex" justifyContent="space-between" pr="2%">
+        <InputGroup>
+          <Input
+            value={value}
+            name={name}
+            onChange={handle}
+            focusBorderColor="#01A86C"
+            placeholder={placeholder}
+            boxShadow="lg"
+            rounded="lg"
+          />
+          <InputRightElement>
+            <Input
+              type="file"
+              height="100%"
+              width="100%"
+              position="absolute"
+              top="0"
+              left="0"
+              opacity="0"
+              aria-hidden="true"
+              cursor={"pointer"}
+              onChange={handleFile}
+            ></Input>
+            <TbBookUpload size={"70%"} color="green" />
+          </InputRightElement>
+        </InputGroup>
+        <Box
+          paddingLeft="3%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {value === ""
+            ? null
+            : !validate && <CgCheck size="30px" color="#01A86C" />}
+        </Box>
+      </Box>
+      {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
+    </FormControl>
   );
 };

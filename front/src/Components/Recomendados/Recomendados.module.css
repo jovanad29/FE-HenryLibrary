@@ -13,6 +13,17 @@ body {
     height: 100%;
 }
 
+.h3 {
+    display: flex;
+    margin-top: 1rem;
+    color:  #01A86C;  
+    font-family: Quicksand;
+    font-weight: bolder;
+    font-size: 25px;
+    text-align: center;
+}
+
+
 .recomendadosContainer{
     display: flex;
     width: 20%;
