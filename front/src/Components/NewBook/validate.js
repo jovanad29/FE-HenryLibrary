@@ -41,9 +41,7 @@ export default function validate(input) {
     errores.pageCount = " Se requiere el numero de pagina";
   } else if (input.pageCount < 1) {
     errores.pageCount = " El numero de paginas debe ser mayor a 0";
-  } else if (!typeof input.pageCount === "number") {
-    errores.pageCount = " El precio debe ser un numero";
-  }
+  } 
 
 
   return errores;
