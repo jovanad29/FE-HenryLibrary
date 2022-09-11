@@ -235,6 +235,7 @@ export const elementSelect = (
           placeholder={placeholder}
           boxShadow="lg"
           rounded="lg"
+          color="#01A86C"
         >
           {arr.map((elemen) => {
             return (
@@ -355,6 +356,7 @@ export const elementSelectOthers = (
           placeholder={placeholder}
           boxShadow="lg"
           rounded="lg"
+          color="#01A86C"
         >
           {arr.map((elemen) => {
             return (
@@ -394,6 +396,7 @@ export const elementSelectOthers = (
               width="88%"
               ml={"2%"}
               mt={"2%"}
+              color="#01A86C"
             >
               {genero}
             </FormLabel>
@@ -409,8 +412,12 @@ export const elementButton = (
   handleOnSubmit,
   handleBackSubmit,
   error,
-  book
+  book,
+  copyInitialBook
 ) => {
+  console.log(JSON.stringify(error).length === 0);
+  console.log(JSON.stringify(error) === "{}");
+  console.log(JSON.stringify(book) !== copyInitialBook);
   return (
     <Flex justifyContent="space-around">
       <Button
@@ -419,7 +426,11 @@ export const elementButton = (
         variant="solid"
         onClick={handleOnSubmit}
         disabled={
-          JSON.stringify(error) === "{}" && book.title !== "" ? false : true
+          JSON.stringify(error) === "{}"
+            ? false
+            : JSON.stringify(book) !== copyInitialBook
+            ? false
+            : true
         }
       >
         Enviar
@@ -448,47 +459,50 @@ export const elementInputImage = (
   handleFile
 ) => {
   return (
-    <FormControl isRequired isInvalid={validate}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
-      <Box display="flex" justifyContent="space-between" pr="2%">
-        <InputGroup>
-          <Input
-            value={value}
-            name={name}
-            onChange={handle}
-            focusBorderColor="#01A86C"
-            placeholder={placeholder}
-            boxShadow="lg"
-            rounded="lg"
-          />
-          <InputRightElement>
+    <Box pl={"2%"}>
+      <FormControl isRequired isInvalid={validate}>
+        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <Box display="flex" justifyContent="space-between" pr="2%">
+          <InputGroup>
             <Input
-              type="file"
-              height="100%"
-              width="100%"
-              position="absolute"
-              top="0"
-              left="0"
-              opacity="0"
-              aria-hidden="true"
-              cursor={"pointer"}
-              onChange={handleFile}
-            ></Input>
-            <TbBookUpload size={"70%"} color="green" />
-          </InputRightElement>
-        </InputGroup>
-        <Box
-          paddingLeft="3%"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          {value === ""
-            ? null
-            : !validate && <CgCheck size="30px" color="#01A86C" />}
+              value={value}
+              name={name}
+              onChange={handle}
+              focusBorderColor="#01A86C"
+              placeholder={placeholder}
+              boxShadow="lg"
+              rounded="lg"
+              color="#01A86C"
+            />
+            <InputRightElement>
+              <Input
+                type="file"
+                height="100%"
+                width="100%"
+                position="absolute"
+                top="0"
+                left="0"
+                opacity="0"
+                aria-hidden="true"
+                cursor={"pointer"}
+                onChange={handleFile}
+              ></Input>
+              <TbBookUpload size={"70%"} color="green" />
+            </InputRightElement>
+          </InputGroup>
+          <Box
+            paddingLeft="3%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {value === ""
+              ? null
+              : !validate && <CgCheck size="30px" color="#01A86C" />}
+          </Box>
         </Box>
-      </Box>
-      {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
-    </FormControl>
+        {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
+      </FormControl>
+    </Box>
   );
 };
