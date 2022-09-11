@@ -254,16 +254,16 @@ body {
 }
 
 .review{
-    margin-top: 5rem;
+    margin-top: 6rem;
     margin-left: 6rem;
-    max-width: 80%;
-    height: 60%;
+    width: 80%;
+    height: auto;
     justify-content: center;
-    border: 2px solid black;
+    border: 2px solid #adadad;
 }
 
 .recomendados{
-    margin-top: 20rem;
+    margin-top: 10rem;
     margin-left: 8rem;
     width: 75rem;
     height: 25rem;
