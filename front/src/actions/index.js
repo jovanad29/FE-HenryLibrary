@@ -574,19 +574,19 @@ export function editCartItem(userId, id, quantity, price) {
 
 //REVIEWS
 export function getAllReviews(id) {
-  return function (dispatch) {
-    axios
-      .get(`${baseURL}/catalogue/${id}/reviews`)
-      .then((response) => {
-        dispatch({
-          type: GET_ALL_REVIEWS,
-          payload: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log("getAllReviews", error);
-      });
-  };
+    return function (dispatch) {
+        axios
+            .get(`${baseURL}/reviews/${id}`)
+            .then((response) => {
+                dispatch({
+                    type: GET_ALL_REVIEWS,
+                    payload: response.data,
+                });
+            })
+            .catch((error) => {
+                console.log("getAllReviews", error);
+            });
+    };
 }
 
 export function createReviewByBook(id, body) {
