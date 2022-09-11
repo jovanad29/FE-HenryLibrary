@@ -29,7 +29,7 @@ export default function SuccessMP() {
   useEffect(() => {
     if (mpID) {
       dispatch(asyncGetMP(mpID)); ////MIRAR
-alert ('en succes xon mpID'+ mpID)
+      console.log('en succes con mpID'+ mpID)
 
       setOrder1(order);
     }
@@ -66,7 +66,7 @@ alert ('en succes xon mpID'+ mpID)
       )
       .then((res) => {
         if (res) {
-         // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!!
+         // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
           //  if (res2) {
               setLoading(false);
           //  }
@@ -81,22 +81,7 @@ alert ('en succes xon mpID'+ mpID)
   // useEffect(() => {}, [front, cart]);
   function goBack(e) {
   
-    //var lastPath = [];
-    // for (let i = 1; i < stack.length; i++) {
-    //   if (
-    //     stack[i] !== "/register" &&
-    //     stack[i] !== "/login" &&
-    //     stack[i] !== "/profile" &&
-    //     stack[i] !== "/favourites" &&
-    //     !stack[i].includes("checkout")
-    //   ) {
-    //     lastPath.push(stack[i]);
-    //   }
-    // }
-    // if (lastPath.length > 0) {
-    //   history.push(lastPath[0]);
-    // } else {
-      e.preventDefault();
+         e.preventDefault();
       history.push("/home");
    // }
   }
@@ -115,7 +100,7 @@ alert ('en succes xon mpID'+ mpID)
             Total: <span className={s.price}> ${front.total}</span>
           </span>
           <div className={s.keep} onClick={goBack}>
-            Keep buying
+           Seguir Comprando 
           </div>
         </div>
         <div className={s.successCheckmark}>
