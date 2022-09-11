@@ -29,15 +29,6 @@ body {
     margin-bottom: 5rem;
 }
 
-.h3 {
-    display: flex;
-    margin-top: 1rem;
-    color:  #01A86C;  
-    font-family: Quicksand;
-    font-weight: bolder;
-    font-size: 25px;
-}
-
 
 .recomendadosCards {
     margin-top: 3rem;
