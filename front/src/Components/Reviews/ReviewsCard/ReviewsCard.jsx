@@ -10,6 +10,8 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
+import styles from "./ReviewsCard.module.css"
+
 
 function ReviewsCard({ reviews }) {
   return (
@@ -50,7 +52,7 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex> : <h2>Todavia no hay ningun comentario. ¡Cuentános tu experiencia! </h2> }  
+    </Flex> : <h2 className={styles.mensajeVacio}>Todavia no hay ningun comentario. ¡Cuentános tu experiencia! </h2> }  
       
     </div>
   );
