@@ -29,14 +29,18 @@ import {
   InputRightElement,
   useToast,
 } from "@chakra-ui/react";
-
 import { CgCheck } from "react-icons/cg";
 import { TbBookUpload } from "react-icons/tb";
+
+//CSS
+import styles from "./NewBookChakra.module.css";
+
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
+
 
 export default function NewBookChakra() {
   const dispatch = useDispatch();
@@ -587,7 +591,7 @@ export default function NewBookChakra() {
   }, [successMsg, errMsg, toast]);
 
   return (
-    <>
+    <div className={styles.newbook}>
       <NavBar />
 
       <NavBar2 />
@@ -736,6 +740,6 @@ export default function NewBookChakra() {
         </Stack>
       </Box>
       <Footer />
-    </>
+    </div>
   );
 }
