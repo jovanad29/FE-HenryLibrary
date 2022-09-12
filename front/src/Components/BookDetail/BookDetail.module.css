@@ -10,6 +10,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: var(--bg);
 }
 
 .container{
@@ -78,6 +79,7 @@ body {
     justify-items: center;
     margin-bottom: 1rem;   
     margin-top: 1rem;
+    color: #01A86C
 }
 
 
@@ -85,6 +87,7 @@ body {
     font-family: Quicksand;
     font-size: 13px;
     margin-bottom: 0.5rem;
+    color: var(--text)
 } 
 
 .active{
@@ -103,6 +106,7 @@ body {
     text-overflow: ellipsis;  
     white-space: wrap;
     overflow: hidden;
+    color: var(--text)
 }
 
 .compra{
@@ -126,6 +130,7 @@ body {
     font-family: Quicksand;
     font-weight: bolder;
     font-size: 43px;
+    color: var(--text)
 }
 
 .stockItems{
@@ -137,6 +142,7 @@ body {
     font-weight: bolder;
     font-size: 20px;
     margin-right: 0.5rem;
+    color: var(--text)
 }
 
 .NumeroStock{
