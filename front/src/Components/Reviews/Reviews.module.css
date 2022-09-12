@@ -13,11 +13,13 @@ body{
 }
 
 .titulo{
-    text-align: center;
+    /* text-align: center; */
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 28px;
     font-family: Quicksand;
     margin-bottom: 4rem;
+    margin-left: 4rem;
+    color: #01A86C;
 }
 
 .conteiner{
@@ -51,6 +53,7 @@ body{
     border: 2px solid #adadad;
     border-radius: 20px;
     justify-content: center;
+    padding-bottom: 1.5rem;
 }
 
 .info{
@@ -60,6 +63,7 @@ body{
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
+    color: var(--text)
 }
 
 .texto{
@@ -69,7 +73,7 @@ body{
 
 .descripcion{
     width: 60%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
@@ -79,6 +83,7 @@ body{
     font-weight: bolder;
     font-size: 12px;
     font-family: Quicksand;
+    color: var(--text)
 }
 
 .contadorError{
@@ -89,13 +94,3 @@ body{
     color: red
 }
 
-.textarea{
-    margin-bottom: 1rem; 
-}
-
-
-
-
-
-/* .buttonEnviar{
-} */

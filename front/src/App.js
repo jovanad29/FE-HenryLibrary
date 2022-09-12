@@ -21,6 +21,7 @@ import Pending from "./Components/MercadoPago/PendingMP";
 import Validate from "./Components/MercadoPago/ValidateMP";
 import PurchaseOrders from "./Components/PurchaseOrders/PurchaseOrders";
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
+import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
 
 function App() {
     const status = useCheckAuth();
@@ -56,8 +57,9 @@ function App() {
                 {/*Ruta Detalles de Libro */}
                 <Route path="/catalog/detail/:id" component={BookDetail} />
 
-                {/*Ruta Inicio de Sesion */}
-                {/* <Route path={"/login"} component={} /> */}
+                {/*Ruta Panel de usuario */}
+                <Route path={"/dashboard/user"} component={DashboardUser} />
+
                 <Route path="/catalog/author/:id" component={CardsAuthor} />
 
                 {/*Ruta administrador*/}

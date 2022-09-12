@@ -1,8 +1,8 @@
 import React,{useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
-import {getUserInfo, login, getAllReviews, createReviewByBook} from "../../actions/index.js"
-import ReviewsCard from "./ReviewsCard.jsx";
+import {getAllReviews, createReviewByBook} from "../../actions/index.js"
+import ReviewsCard from "./ReviewsCard/ReviewsCard.jsx";
 
 
 //CSS
@@ -15,6 +15,7 @@ import {
   FormErrorMessage,
   Button,
 } from "@chakra-ui/react";
+import Rating from "./Rating.jsx";
 
 
 
@@ -33,7 +34,8 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
       dispatch(getAllReviews(id));
   }, [dispatch,id]);
 
-
+  const setReviews = (value) =>{ setInput({...input, rating:value}) }
+  
     //ESTADO DE ERRORES
      const [errores, setErrores] = useState({});
 
@@ -44,6 +46,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
         rating: 1
     })
 
+   
 
     useEffect(() => {
       setInput({...input, 
@@ -70,6 +73,11 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
     const handleOnSubmit = (e) => {
         e.preventDefault();
         dispatch(createReviewByBook(id, input));
+        setInput({
+          uid: uid, //id user
+          descrption:"",
+          rating: 1
+      })
     };
 
 
@@ -79,7 +87,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
   return (
     <div className={styles.reviews}>
-      <h2 className={styles.titulo}> Opiniones de nuestros clientes </h2>
+      <h2 className={styles.titulo}> OPINIONES DE NUESTROS CLIENTES </h2>
 
       <Flex className={styles.conteiner}>
         <Flex className={styles.review}>
@@ -98,7 +106,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
             <FormLabel className={styles.texto}>Nombre de usuario: {displayName}</FormLabel>
             <FormLabel className={styles.texto}>Mail: {email}</FormLabel>
 
-            <Flex className={styles.texto}>aca van estrellitas de rating</Flex>
+            <Flex> <Rating setReviews={setReviews} rating={input.rating}/></Flex>
             </div>
 
             <div className={styles.descripcion}>
@@ -112,16 +120,21 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
               name="descrption"
               onChange={handleInputsChange}
               placeholder="escribe tu opinion"
-              w="90%" h="70%"
-              _focus={{borderColor:'#01A86C'}}
+              w="90%" h='60%'
+              outlineColor='none'
+              focusBorderColor='#01A86C'
+              borderColor='#01A86C'
             />
             {errores.descrption && (<FormErrorMessage>{errores.descrption}</FormErrorMessage>)}
 
 
-            <Button  margin-bottom="1rem" bg='#01A86C' w="90%" h="30%" onClick={handleOnSubmit}                                 
-            className={JSON.stringify(errores) === "{}" &&  input.descrption !== "" && contadorDescription < 100
-                       ? styles.buttonEnviar
-                        : styles.buttonEnviarDisabled }>ENVIAR</Button>
+            <Button  marginTop='1rem' bg='#01A86C' w="90%" h="40%" onClick={handleOnSubmit}
+                          disabled={
+                            JSON.stringify(errores) === "{}" && contadorDescription < 100
+                              ? false
+                              : true
+                          }
+                        >ENVIAR</Button>
             </div>
           </FormControl>
         </Flex>

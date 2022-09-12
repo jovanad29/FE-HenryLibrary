@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
+import swal from "sweetalert2";
 import {
   uploadBook,
   getAllAuthors,
@@ -29,14 +29,18 @@ import {
   InputRightElement,
   useToast,
 } from "@chakra-ui/react";
-
 import { CgCheck } from "react-icons/cg";
 import { TbBookUpload } from "react-icons/tb";
+
+//CSS
+import styles from "./NewBookChakra.module.css";
+
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
+
 
 export default function NewBookChakra() {
   const dispatch = useDispatch();
@@ -51,7 +55,7 @@ export default function NewBookChakra() {
     description: "",
     price: 0,
     image: "",
-    publisherId: null,
+    publisherId: "",
     publishedDate: "",
     pageCount: 0,
     language: "",
@@ -69,15 +73,14 @@ export default function NewBookChakra() {
 
   function handleInputsChange(event) {
     if (event.target.name === "authors") {
-      console.log(event.target.value);
-      if (!book.authors.includes(event.target.value)) {
+      if (!book.authors.includes(Number(event.target.value))) {
         setBook({
           ...book,
           authors: [...book.authors, parseInt(event.target.value)],
         });
       }
     } else if (event.target.name === "categories") {
-      if (!book.categories.includes(event.target.value)) {
+      if (!book.categories.includes(Number(event.target.value))) {
         setBook({
           ...book,
           categories: [...book.categories, parseInt(event.target.value)],
@@ -132,12 +135,12 @@ export default function NewBookChakra() {
       currentStock: value,
     });
 
-    // setError(
-    //   validate({
-    //     ...book,
-    //     currentStock: value,
-    //   })
-    // );
+    setError(
+      validate({
+        ...book,
+        currentStock: value,
+      })
+    );
   };
 
   const filterOptions = (event) => {
@@ -169,7 +172,7 @@ export default function NewBookChakra() {
       description: "",
       price: 0,
       image: "",
-      publisherId: null,
+      publisherId: "",
       publishedDate: "",
       pageCount: 0,
       language: "",
@@ -178,10 +181,12 @@ export default function NewBookChakra() {
       authors: [],
     });
 
-    swal({
+    swal.fire({
       title: "Buen Trabajo!",
       text: "Se Creo el libro!",
       icon: "success",
+      iconColor: "#01A86C",
+      confirmButtonColor: "#01A86C",
     });
   };
 
@@ -207,6 +212,7 @@ export default function NewBookChakra() {
             placeholder={placeholder}
             boxShadow="lg"
             rounded="lg"
+            color="#01A86C"
           />
           <Box
             paddingLeft="3%"
@@ -244,6 +250,7 @@ export default function NewBookChakra() {
             placeholder={placeholder}
             boxShadow="lg"
             rounded="lg"
+            color="#01A86C"
           />
           <Box
             paddingLeft="3%"
@@ -283,6 +290,7 @@ export default function NewBookChakra() {
             boxShadow="lg"
             rounded="lg"
             width="97.5%"
+            color="#01A86C"
           >
             <NumberInputField />
           </NumberInput>
@@ -298,37 +306,6 @@ export default function NewBookChakra() {
           </Box>
         </Box>
         {validate && <FormErrorMessage>{validate}</FormErrorMessage>}
-      </FormControl>
-    );
-  };
-
-  // INPUT DE TIPO NUMERO
-  const elementNumberInput = (label, value, name, handle) => {
-    return (
-      <FormControl isInvalid={false}>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
-        <Box display="flex" justifyContent="space-between" pr="2%">
-          <NumberInput
-            min={1}
-            value={value}
-            name={name}
-            onChange={handle}
-            focusBorderColor="#01A86C"
-            boxShadow="lg"
-            rounded="lg"
-            width="97.5%"
-          >
-            <NumberInputField />
-          </NumberInput>
-          <Box
-            paddingLeft="3%"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            {value === 0 ? null : <CgCheck size="30px" color="#01A86C" />}
-          </Box>
-        </Box>
       </FormControl>
     );
   };
@@ -355,6 +332,7 @@ export default function NewBookChakra() {
             placeholder={placeholder}
             boxShadow="lg"
             rounded="lg"
+            color="#01A86C"
           >
             {arr.map((elemen) => {
               return (
@@ -380,51 +358,6 @@ export default function NewBookChakra() {
     );
   };
 
-  //SELECT
-  const elementSelect = (
-    label,
-    value,
-    name,
-    placeholder = null,
-    handle,
-    arr
-  ) => {
-    return (
-      <>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
-        <Box display="flex" justifyContent="space-between" pr="2%">
-          <Select
-            value={value}
-            name={name}
-            onChange={handle}
-            focusBorderColor="#01A86C"
-            placeholder={placeholder}
-            boxShadow="lg"
-            rounded="lg"
-          >
-            {arr.map((elemen) => {
-              return (
-                <option key={elemen.id} value={elemen.value}>
-                  {elemen.name}
-                </option>
-              );
-            })}
-          </Select>
-          <Box
-            paddingLeft="3%"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            {value === null || value === "" ? null : (
-              <CgCheck size="30px" color="#01A86C" />
-            )}
-          </Box>
-        </Box>
-      </>
-    );
-  };
-
   //SELECT PARA AUTORES Y CATEGORIAS
   const elementSelectOthers = (
     label,
@@ -447,6 +380,7 @@ export default function NewBookChakra() {
             placeholder={placeholder}
             boxShadow="lg"
             rounded="lg"
+            color="#01A86C"
           >
             {arr.map((elemen) => {
               return (
@@ -478,6 +412,7 @@ export default function NewBookChakra() {
             rounded="lg"
             textAlign="center"
             width="91%"
+            color="#01A86C"
           >
             {arr.filter((e) => e.id === Number(element))[0].name}
           </FormLabel>
@@ -500,6 +435,7 @@ export default function NewBookChakra() {
             focusBorderColor="#01A86C"
             boxShadow="lg"
             rounded="lg"
+            color="#01A86C"
           />
           <Box
             paddingLeft="3%"
@@ -536,6 +472,7 @@ export default function NewBookChakra() {
               placeholder={placeholder}
               boxShadow="lg"
               rounded="lg"
+              color="#01A86C"
             />
             <InputRightElement>
               <Input
@@ -654,7 +591,7 @@ export default function NewBookChakra() {
   }, [successMsg, errMsg, toast]);
 
   return (
-    <>
+    <div className={styles.newbook}>
       <NavBar />
 
       <NavBar2 />
@@ -734,8 +671,9 @@ export default function NewBookChakra() {
           )}
 
           {/* IDIOMA DEL LIBRO */}
-          {elementSelect(
+          {elementSelectValidate(
             "Idioma",
+            error.language,
             book.language,
             "language",
             "Seleccione una opcion",
@@ -744,8 +682,9 @@ export default function NewBookChakra() {
           )}
 
           {/* STOCK DEL LIBRO */}
-          {elementNumberInput(
+          {elementNumberInputValidate(
             "Stock",
+            error.currentStock,
             book.currentStock,
             "currentStock",
             handleChangeStock
@@ -801,6 +740,6 @@ export default function NewBookChakra() {
         </Stack>
       </Box>
       <Footer />
-    </>
+    </div>
   );
 }

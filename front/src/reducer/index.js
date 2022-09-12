@@ -32,7 +32,7 @@ import {
     GET_ALL_CART_BY_USER,
     GET_ID_FAVORITES,
     GET_ALL_REVIEWS,
-    POST_ALL_REVIEWS
+    POST_ALL_REVIEWS,
 } from "../actions/index";
 //mercado pago
 import {
@@ -67,6 +67,7 @@ const initialState = {
     activeCart: [],
     activeCartAmount: 0,
     activeCartQuantity: 0,
+    activeCartPaymentId: null,
     mpID: "",
     order: {
         ID: "",
@@ -76,7 +77,7 @@ const initialState = {
         total: 0,
     },
     items: [],
-    reviews: []
+    reviews: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -218,6 +219,7 @@ function rootReducer(state = initialState, action) {
                 isAdmin: false,
                 isBanned: false,
                 address: null,
+                favorites: [],
             };
 
         case CHECKING_CREDENTIALS:
@@ -253,7 +255,7 @@ function rootReducer(state = initialState, action) {
             };
 
         case GET_ID_FAVORITES:
-            const idFavorites = action.payload.map(b => b.id);
+            const idFavorites = action.payload.map((b) => b.id);
             return {
                 ...state,
                 favorites: idFavorites,
@@ -339,6 +341,7 @@ function rootReducer(state = initialState, action) {
                 activeCartAmount: action.payload.totalAmount
                     ? parseFloat(action.payload.totalAmount).toFixed(2)
                     : 0,
+                activeCartPaymentId: action.payload.id,
             };
 
         case GET_ALL_CART_BY_USER:
@@ -354,7 +357,7 @@ function rootReducer(state = initialState, action) {
                 mpID: action.payload,
             };
 
-        case CLEAR_PAYMENT:
+        case CLEAR_PAYMENT: // esta action borra el order después de setearlo y no da chance a nada
             return {
                 mpID: "",
                 order: {
@@ -368,7 +371,8 @@ function rootReducer(state = initialState, action) {
             };
 
         case SET_ORDER:
-        alert('estoy en order '+ action.payload)
+            // por alguna razón, se reinicia la página después de setear
+            console.log("estoy en el reducer SET_ORDER " + action.payload);
             return {
                 ...state,
                 order: action.payload,
@@ -412,16 +416,16 @@ function rootReducer(state = initialState, action) {
 
         // REVIEWS
         case GET_ALL_REVIEWS:
-            return{
+            return {
                 ...state,
-                reviews: action.payload
-            }
+                reviews: action.payload,
+            };
 
         case POST_ALL_REVIEWS:
-            return{
+            return {
                 ...state,
                 reviews: [...state.reviews, { ...action.payload }],
-            } 
+            };
 
         default:
             return state;
