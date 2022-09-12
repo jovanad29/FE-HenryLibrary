@@ -259,7 +259,7 @@ body {
     width: 80%;
     height: auto;
     justify-content: center;
-    border: 2px solid #adadad;
+    /* border: 2px solid #adadad; */
 }
 
 .recomendados{
