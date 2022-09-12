@@ -45,4 +45,5 @@ body {
     text-align: center;
     text-overflow: ellipsis;
     align-content: center;
+    color: var(--text)
 }

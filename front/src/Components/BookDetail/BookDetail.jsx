@@ -255,6 +255,7 @@ function buyingBook(id) {
                   <Button
                     rightIcon={<RiShoppingCart2Fill />}
                     colorScheme="#01A86C"
+                    color="black"
                     variant="solid"
                     height= "60px"
                     className={
@@ -275,6 +276,7 @@ function buyingBook(id) {
                 <Stack direction="row" spacing={10}>
                   <Button
                    // rightIcon={<RiShoppingCart2Fill />}
+                    color="black"
                     colorScheme="#01A86C"
                     variant="solid"
                     height= "60px"
