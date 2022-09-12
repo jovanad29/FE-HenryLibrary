@@ -11,15 +11,7 @@ import { FiSearch } from "react-icons/fi";
 // import styles from "./SearchBar.module.css";
 
 //Componentes Chakra
-import {
-  FormLabel,
-  Input,
-  Button,
-  Box,
-  Flex,
-  chakra,
-  Center,
-} from "@chakra-ui/react";
+import { Box, Flex, chakra, Center } from "@chakra-ui/react";
 import SearchResults from "./SearchResults";
 
 export default function SearchBar() {
@@ -27,7 +19,6 @@ export default function SearchBar() {
   const dispatch = useDispatch();
   const copyAllBooks = useSelector((state) => state.copyAllBooks);
   const [title, setTitle] = useState("");
-  const [hidden, setHidden] = useState(false);
   const [result, setResult] = useState([]);
 
   const clearTitle = () => setTitle("");
@@ -40,7 +31,6 @@ export default function SearchBar() {
         book.title.toLowerCase().includes(query.toLowerCase())
       )
     );
-    setHidden(false);
   };
 
   const handledSubmit = (event) => {
@@ -49,7 +39,6 @@ export default function SearchBar() {
     dispatch(setPage(0));
     dispatch(getNameBooks(title));
     setTitle("");
-    setHidden(true);
     history.push("/home");
   };
 
@@ -119,7 +108,8 @@ export default function SearchBar() {
               rounded: "lg",
               overflow: "hidden",
               bg: "transparent",
-              shadow: "lg",
+              // shadow: "lg",
+              boxShadow: "3px 3px 3px #01A86C",
               maxW: "600px",
               width: "100%",
               mt: "1rem",
@@ -137,16 +127,17 @@ export default function SearchBar() {
                   w: "100%",
                   h: "48px",
                   pl: "68px",
-                  fontWeight: "medium",
+                  fontWeight: "bold",
                   outline: 0,
                 }}
                 placeholder="Buscar Libro"
+                _placeholder={{ color: "#01A86C", opacity: 0.3 }}
                 value={title}
                 onChange={handleChange}
               />
 
               <Center pos="absolute" left={7} bottom={-2} h="68px">
-                <FiSearch color="teal.500" boxSize="20px" />
+                <FiSearch color="#01A86C" boxSize="20px" />
               </Center>
             </Flex>
 
@@ -165,19 +156,6 @@ export default function SearchBar() {
           </Box>
         </Box>
       </form>
-
-      <Box pos={"absolute"} right={-14} top={-10}>
-        <Button
-          title="Search"
-          onClick={handledSubmit}
-          bgColor="#01A86C"
-          pos="relative"
-          bottom={-5}
-          right={-2}
-        >
-          <FiSearch size="2rem" />
-        </Button>
-      </Box>
     </>
   );
 }
