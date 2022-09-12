@@ -10,26 +10,13 @@ import axios from "axios";
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
 
-import { getCartDB, getUserInfo } from "../../actions/index" ; //  Traer los items de carrito
+//import { getCartDB } from "../../actions/index";//  Traer los items de carrito
 
 export default function SuccessMP() {
   const dispatch = useDispatch();
 
-  const mpID = useSelector(state => state.mpID);
-  const order =  useSelector((state) => state.order);
-  const uid = useSelector((state) => state.uid)
-  const activeCart = useSelector(state=>state.activeCart);
-
-  console.log(mpID, order, activeCart, uid )
-
-  // useEffect(()=>{
-   
-  //   dispatch(getCartDB(uid))
-  //   },[dispatch]
-  //   )
-  
-
-
+  const { mpID, order ,  activeCart, uid} = useSelector((state) => state);
+  console.log(mpID, order)
  // const { stack } = useSelector((state) => state.stack);
   const history = useHistory();
   const [change, setChange] = useState(true);
@@ -40,20 +27,11 @@ export default function SuccessMP() {
     status_detail: order.status_detail,
     total: order.total,
   });
-  // console.log(activeCart)
-  // console.log(activeCart[0].payment_book.paymentId)
-  // const  idCart= activeCart[0].payment_book.paymentId;
-
-  console.log('este el esl ID CART lo saca bien??')
-
   useEffect(() => {
     if (mpID) {
-      
-      const  idCart= activeCart[0].payment_book.paymentId;
-      dispatch(asyncGetMP(mpID,idCart)); ////MIRAR
+      dispatch(asyncGetMP(mpID,activeCart)); ////MIRAR
       console.log("se hace algo después del asyncGetMP?")
       // console.log('en success con mpID'+ mpID)
-      
       setOrder1(order);
     }
     //  else {
@@ -91,7 +69,7 @@ export default function SuccessMP() {
          // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
           //  if ( activeCart) {
               // setLoading(false);
-
+          
         //  }
          //);
         // }

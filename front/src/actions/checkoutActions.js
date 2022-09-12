@@ -1,12 +1,10 @@
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 export const SET_ITEMS='SET_ITEMS';
 export const SET_PAYMENT='SET_PAYMENT';
 export const SET_ORDER='SET_ORDER';
 export const CLEAR_PAYMENT='CLEAR_PAYMENT';
 //pagos
 export const PUT_USER_CARTS_STATUS = "PUT_USERS_CARTS_STATUS";
-
 
 // const heroku = `https://db-proyecto-final.herokuapp.com`;//cambiar al nuestro cuando funcione!!
 //axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
@@ -65,7 +63,7 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       console.log("se envía a guardar la orden de compra si status === 'approved'") // si esto se imprime,
        
       console.log('este es el id del CART:', idCart);
-      const status = {'approved': 4}     
+        const status = {'approved': 4}
       console.log(`/${idCart}/status/${status[response.status]}`)                                                                   // hacer el cambio de estado en el cart debajo
       try {
        

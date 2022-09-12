@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { asyncGetMP, clearPayment
-} from "../../actions/checkoutActions";
-
+import { asyncGetMP } from "../../actions/checkoutActions";
+import { clearPayment } from "../../reducer/checkoutSlice";
 import s from "./MercadoPago.module.sass";
 
 function RejectedMP() {
