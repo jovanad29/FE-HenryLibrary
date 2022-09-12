@@ -15,8 +15,8 @@ import Loading from "../Loading/Loading";
 export default function SuccessMP() {
   const dispatch = useDispatch();
 
-  const { mpID, order ,  activeCart, uid} = useSelector((state) => state);
-  console.log(mpID, order)
+  const { mpID, order, activeCartPaymentId, uid} = useSelector((state) => state);
+  console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
  // const { stack } = useSelector((state) => state.stack);
   const history = useHistory();
   const [change, setChange] = useState(true);
@@ -27,9 +27,12 @@ export default function SuccessMP() {
     status_detail: order.status_detail,
     total: order.total,
   });
+  // const [paymentId, setPaymentId] = useState(activeCartPaymentId)
+  // useEffect(() => {
+  // }, [activeCartPaymentId])
   useEffect(() => {
-    if (mpID) {
-      dispatch(asyncGetMP(mpID,activeCart)); ////MIRAR
+    if (mpID && activeCartPaymentId) {
+      dispatch(asyncGetMP(mpID,activeCartPaymentId)); ////MIRAR
       console.log("se hace algo después del asyncGetMP?")
       // console.log('en success con mpID'+ mpID)
       setOrder1(order);
@@ -49,7 +52,7 @@ export default function SuccessMP() {
       setChange(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mpID]);
+  }, [mpID, activeCartPaymentId]);
    const [loading, setLoading] = useState(false);
 //  const loading = false;
   useEffect(() => {
