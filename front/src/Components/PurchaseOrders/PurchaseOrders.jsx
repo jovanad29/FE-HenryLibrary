@@ -89,7 +89,9 @@ export default function PurchaseOrders() {
     function handleDetailView(id, statusId) {
         if(statusId === 1){
             history.push(`/carrito`);
-        }else{} 
+        }else{
+            history.push(`/purchaseOrdersDetail/${id}`);
+        } 
         // 
 
     }
