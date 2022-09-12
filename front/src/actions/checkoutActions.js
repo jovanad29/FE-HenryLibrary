@@ -3,15 +3,19 @@ export const SET_ITEMS='SET_ITEMS';
 export const SET_PAYMENT='SET_PAYMENT';
 export const SET_ORDER='SET_ORDER';
 export const CLEAR_PAYMENT='CLEAR_PAYMENT';
+//pagos
+export const PUT_USER_CARTS_STATUS = "PUT_USERS_CARTS_STATUS";
 
 // const heroku = `https://db-proyecto-final.herokuapp.com`;//cambiar al nuestro cuando funcione!!
-axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
+//axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
+//axios.defaults.baseURL='http://localhost:3000/'
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 export async function asyncConfirmPayment(body) {
   try {
       const response= await axios.post(`/paymentsOrder/create`, body).data  //Aqui se crea el pago en la base !!!!
     //return {type:CLEAR_PAYMENT }
-    console.log(' Se creo en paymente con esto datos :', response)
+    console.log(' Se creo en paymentOrder con esto datos :', response)
     return response
   } catch (error) {
     console.log(error);
@@ -89,3 +93,6 @@ export function setPayment (mpID)  {
     payload :mpID,
 }
 }
+
+
+

@@ -6,15 +6,16 @@ import {
   asyncGetMP,
   clearPayment
 } from "../../actions/checkoutActions.js";
-//import { clearPayment } from "../../reducer/checkoutSlice";
+
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
-import { getCartDB } from "../../actions/index";//  Traer los items de carrito
+
+//import { getCartDB } from "../../actions/index";//  Traer los items de carrito
 
 export default function SuccessMP() {
   const dispatch = useDispatch();
- // const {  cart } = useSelector((state) => state.profile);
-  const { mpID, order , isBanned, uid} = useSelector((state) => state);
+
+  const { mpID, order ,  activeCart, uid} = useSelector((state) => state);
   console.log(mpID, order)
  // const { stack } = useSelector((state) => state.stack);
   const history = useHistory();
@@ -67,10 +68,11 @@ export default function SuccessMP() {
       .then((res) => {
         if (res) {
          // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
-          //  if (res2) {
+           if ( activeCart) {
               setLoading(false);
-          //  }
-        //  });
+          
+         }
+         //);
         }
       });
     }
@@ -78,7 +80,7 @@ export default function SuccessMP() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   //}
      }, [order,uid, change, front.ID]);
-  // useEffect(() => {}, [front, cart]);
+   useEffect(() => {}, [front, activeCart]);
   function goBack(e) {
   
          e.preventDefault();
@@ -92,7 +94,7 @@ export default function SuccessMP() {
         <div className={s.contGreen}>
           <h1>Pago exitoso</h1>
           <span className={s.pID}>
-            Payment ID: <span>{front.ID}</span>
+            Numero transacción: <span>{front.ID}</span>
           </span>
           <span className={s.pID}>{front.status_detail}</span>
           <span>Total items: {front.items.length}</span>
