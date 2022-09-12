@@ -8,9 +8,9 @@ import s from "./Checkout.module.sass";
 function Checkout() {
   const [loading, setLoading] = useState(true);
   const items  = useSelector((state) => state.items);
-  alert('estoy en checout tengo estos items',items)
+ // alert('estoy en checout tengo estos items',items)
   //const { stack } = useSelector((state) => state.history);
-  const status  = useSelector((state) => state.status);
+ // const status  = useSelector((state) => state.status);
   const uid =useSelector(state=> state.uid)
   const history = useHistory();
   useEffect(() => {
@@ -18,10 +18,10 @@ function Checkout() {
     if (items.length <= 0) {
       history.push("/");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [loading]);
   function goBack() {
     // var lastPath = [];
@@ -42,7 +42,7 @@ function Checkout() {
   
   return (
     <div className={s.container}>
-      {/* {loading ? <Loading /> : null} */}
+     {loading ? <Loading /> : null} 
 
       <div className={s.ticket}>
         <div className={s.contTicket}>
@@ -51,7 +51,7 @@ function Checkout() {
               Back
             </button>
           </div>
-          <h1>Purchase order</h1>
+          <h1>Orden de Compra</h1>
           <div className={s.itemsCont}>
             {items?.map((i, key) => (
               <div key={key} className={s.item}>
@@ -75,7 +75,7 @@ function Checkout() {
             <span>
               ARS $
               {items
-                ?.map((item) => item.unit_price)
+                ?.map((item) => item.unit_price * item.quantity)
                 .reduce((prev, curr) => prev + curr, 0)
                 .toFixed(2)}
             </span>

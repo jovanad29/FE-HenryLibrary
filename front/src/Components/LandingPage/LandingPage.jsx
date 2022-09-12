@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import {
-    startCreatingUserWithEmailPassword,
-    startLoginWithEmailPassword,
-} from "../../actions/index.js";
+import React  from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import {
+//     startCreatingUserWithEmailPassword,
+//     startLoginWithEmailPassword,
+// } from "../../actions/index.js";
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -16,8 +16,15 @@ import { Imagenes } from "./Carrusel/Imagenes.js";
 
 //CSS
 import styles from "./landingPage.module.css";
+import Recomendados from "../Recomendados/Recomendados.jsx";
 
 export default function LandingPage() {
+    
+
+
+
+    
+
     return (
         <div className={styles.LandingPage}>
             <NavBar />
@@ -28,9 +35,8 @@ export default function LandingPage() {
             </div>
 
             <div className={styles.recomendados}>
-                <h3 className={styles.h3}> NUESTROS RECOMENDADOS DEL MES</h3>
-                <div className={styles.recomendados_cards}>
-                    ACA VAN LAS CARDS DE LOS RECOMENDADOS
+                <div className={styles.recomendadosCards}>
+                   <Recomendados />
                 </div>
             </div>
 

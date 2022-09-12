@@ -16,7 +16,7 @@ import banderaEeuu from "./eeuu.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getAllBooks,
-    getAllFavorites,
+    getUserFavorites,
     setSection,
     setPage,
     clearLoginError,
@@ -25,7 +25,7 @@ import {
 export default function NavBar() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { status, favorites, allBooks, displayName } = useSelector((state) => state);
+    const { status, favorites, allBooks, displayName, uid } = useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     const [loginModal, setLoginModal] = useState(false);
@@ -42,7 +42,7 @@ export default function NavBar() {
     const handleOnFavorites = () => {
         if (favorites.length > 0) {
             dispatch(setSection("favoritos"));
-            dispatch(getAllFavorites());
+            dispatch(getUserFavorites(uid));
             dispatch(setPage(0));
             history.push("/home");
         } else {
@@ -91,7 +91,7 @@ export default function NavBar() {
                                 size="1.4rem"
                             />
                         </button>
-                        {favorites.length > 0 &&<h3 className={styles.cantidad}>{favorites.length}</h3>}
+                        {favorites.length > 0 && isAuthenticated && <h3 className={styles.cantidad}>{favorites.length}</h3>}
                     </>
                 )}
 

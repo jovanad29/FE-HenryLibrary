@@ -2,22 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  // asyncConfirmPayment,
+  asyncConfirmPayment,
   asyncGetMP,
-} from "../../actions/checkoutActions";
-import { clearPayment } from "../../reducer/checkoutSlice";
+  clearPayment
+} from "../../actions/checkoutActions.js";
+//import { clearPayment } from "../../reducer/checkoutSlice";
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
-//import { asyncGetItemsCart } from "../../redux/actions/usersActions";
+import { getCartDB } from "../../actions/index";//  Traer los items de carrito
 
 export default function SuccessMP() {
   const dispatch = useDispatch();
- // const { userProfile, cart } = useSelector((state) => state.profile);
-  const { mpID, order } = useSelector((state) => state.checkout);
-  const { stack } = useSelector((state) => state.history);
+ // const {  cart } = useSelector((state) => state.profile);
+  const { mpID, order , isBanned, uid} = useSelector((state) => state);
+  console.log(mpID, order)
+ // const { stack } = useSelector((state) => state.stack);
   const history = useHistory();
   const [change, setChange] = useState(true);
-  const [front, setOrder] = useState({
+  const [front, setOrder1] = useState({
     ID: mpID,
     items: order.items,
     status: order.status,
@@ -26,14 +28,17 @@ export default function SuccessMP() {
   });
   useEffect(() => {
     if (mpID) {
-      dispatch(asyncGetMP(mpID));
-      setOrder({ ...order });
-    } else {
-      history.push("/");
+      dispatch(asyncGetMP(mpID)); ////MIRAR
+      console.log('en succes con mpID'+ mpID)
+
+      setOrder1(order);
     }
+    //  else {
+    //   history.push("/");
+    // }
     return () => {
       dispatch(clearPayment());
-      setOrder({
+      setOrder1({
         ID: "",
         items: [],
         status: "",
@@ -43,60 +48,49 @@ export default function SuccessMP() {
       setChange(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // const [loading, setLoading] = useState(false);
-  const loading = false;
+  }, [mpID]);
+   const [loading, setLoading] = useState(false);
+//  const loading = false;
   useEffect(() => {
     if (!front.ID) {
-      setOrder({ ...order });
+      setOrder1({ ...order });
     }
 
-  //  // if (change && order.items.length > 0 && userProfile.ID) {
-  //     let obj = { ...order };
-  //     setChange(false);
-  //     dispatch(
-  //       asyncConfirmPayment({ ...obj, userID: parseInt(userProfile.ID) })
-  //     )
-  //     //.then((res) => {
-  //     //   if (res) { consolog
-  //     //     dispatch(asyncGetItemsCart(userProfile.ID)).then((res2) => {
-  //     //       if (res2) {
-  //     //         setLoading(false);
-  //     //       }
-  //     //     });
-  //     //   }
-  //     // });
-  //   //}
+   if (change && order.items.length > 0 && uid) {
+      let obj = { ...order };
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // //}
-     }, [order,/* userProfile,*/ change, front.ID]);
+      console.log('esto tiene obj:', obj)
+      setChange(false);
+      dispatch(
+        asyncConfirmPayment({ ...obj, userID: uid })//mirar si esta OK ?????
+      )
+      .then((res) => {
+        if (res) {
+         // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
+          //  if (res2) {
+              setLoading(false);
+          //  }
+        //  });
+        }
+      });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  //}
+     }, [order,uid, change, front.ID]);
   // useEffect(() => {}, [front, cart]);
-  function goBack() {
-    var lastPath = [];
-    for (let i = 1; i < stack.length; i++) {
-      if (
-        stack[i] !== "/register" &&
-        stack[i] !== "/login" &&
-        stack[i] !== "/profile" &&
-        stack[i] !== "/favourites" &&
-        !stack[i].includes("checkout")
-      ) {
-        lastPath.push(stack[i]);
-      }
-    }
-    if (lastPath.length > 0) {
-      history.push(lastPath[0]);
-    } else {
-      history.push("/");
-    }
+  function goBack(e) {
+  
+         e.preventDefault();
+      history.push("/home");
+   // }
   }
   return (
     <div className={s.container}>
-      {/* {loading ? <Loading /> : null} */}
+       {loading ? <Loading /> : null} 
       <div className={s.cont}>
         <div className={s.contGreen}>
-          <h1>Payment successfully</h1>
+          <h1>Pago exitoso</h1>
           <span className={s.pID}>
             Payment ID: <span>{front.ID}</span>
           </span>
@@ -106,7 +100,7 @@ export default function SuccessMP() {
             Total: <span className={s.price}> ${front.total}</span>
           </span>
           <div className={s.keep} onClick={goBack}>
-            Keep buying
+           Seguir Comprando 
           </div>
         </div>
         <div className={s.successCheckmark}>

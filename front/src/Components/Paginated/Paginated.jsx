@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setPage } from "../../actions";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
-//CSS
-// import styles from "./Paginated.module.css";
+
 
 export default function Paginated(props) {
     const { totalItems, itemsPorPagina } = props;
@@ -50,6 +49,8 @@ export default function Paginated(props) {
         <div>
             <ButtonGroup variant="outline" spacing="2">
                 <Button
+                    borderColor="#01A86C"
+                    color="#01A86C"
                     colorScheme="teal"
                     size="xs"
                     onClick={() => handleChangePage(actualPage - 1)}
@@ -62,6 +63,8 @@ export default function Paginated(props) {
                     paginasVisibles.map((p, i) => {
                         return (
                             <Button
+                                borderColor="#01A86C"
+                                color="#01A86C"
                                 colorScheme="teal"
                                 size="xs"
                                 onClick={() => handleChangePage(p)}
@@ -74,6 +77,8 @@ export default function Paginated(props) {
                     })}
 
                 <Button
+                    borderColor="#01A86C"
+                    color="#01A86C"
                     colorScheme="teal"
                     size="xs"
                     onClick={() => handleChangePage(actualPage + 1)}

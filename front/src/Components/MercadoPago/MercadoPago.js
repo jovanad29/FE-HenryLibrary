@@ -9,14 +9,14 @@ export default function MercadoPago({ items, setLoading, userID }) {
   const history = useHistory();
   useEffect(() => {
     axios
-      .post("/payments", {
+      .post("/paymentsOrder", {
         items,
         base_url: process.env.REACT_APP_BASE_URL,
         ID: userID,
       })
       .then((order) => {
         setPreferenceId(order.data.preferenceId);
-        console.log('llegue a preferencias? '+ order.data.preferenceId)
+      //  console.log('llegue a preferencias? '+ order.data.preferenceId)
       })
       .catch((error) => {
         Swal.fire({
@@ -33,7 +33,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
     
  
   useEffect(() => {
-    console.log('estoy en mercado pago ' , preferenceId)
+   // console.log('estoy en mercado pago ' , preferenceId)
     if (preferenceId) {
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -44,7 +44,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
       form.appendChild(script);
       setTimeout(() => {
         const button = document.querySelector(".mercadopago-button");
-        button.innerHTML = "PAY (Mercado Pago)";
+        button.innerHTML = "Pagar (Mercado Pago)";
       }, 1000);
       setTimeout(() => {
         setLoading(false);

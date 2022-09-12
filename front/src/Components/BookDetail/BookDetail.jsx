@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooksId, deleteBookDetail, deleteLogicBook } from "../../actions";
+import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem } from "../../actions";
 import { Link, useParams } from "react-router-dom";
 
 //COMPONENTES
@@ -8,11 +8,14 @@ import NavBar from "../NavBar/NavBar";
 import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
 import EditBook from "../EditBook/EditBook";
+import Recomendados from "../Recomendados/Recomendados";
+import Reviews from "../Reviews/Reviews";
 
 //CSS
 import styles from "./BookDetail.module.css";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { Button, Stack } from "@chakra-ui/react";
+
 //pago
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
@@ -21,15 +24,12 @@ import { setItems } from "../../actions/checkoutActions";
 
 
 
+
+
 export default function BookDetail() {
   const dispatch = useDispatch();
-  let { id } = useParams();
-  const { bookDetail, status, isAdmin } = useSelector((state) => ({
-    bookDetail: state.bookDetail,
-    // ESTADO DEL LOGIN
-    status: state.status,
-    isAdmin: state.isAdmin
-  }));
+  const { id } = useParams();
+  const { bookDetail, isAdmin , status, uid} = useSelector((state) => state);
   const history = useHistory();
 
   const [isActive, setIsActive] = useState(true);
@@ -69,20 +69,45 @@ export default function BookDetail() {
 //  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
  const [guestBook, setGuestBook ] = useState({});//objeto de libro a guardar en local storage
 //  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
 
 
-  const addItem = (id) => {
-    id = bookDetail.id;
-    const price = bookDetail.price;
-    const quantity = 1;
-    const title = bookDetail.title;
-    const image = bookDetail.image;
-    const bookToAdd = { id, price, quantity, title, image };
-    alert("has guardado tu libro en el carrito")
-    console.log("bookToAdd desde bookdetail", bookToAdd)
-    setGuestBook(bookToAdd);
+function handleOnAdd(id, price) {
+  if (isAuthenticated) {
+      try {
+          dispatch(addCartItem(uid, id, price));
+          Swal.fire({
+              icon: "success",
+              title: "Se agrego el libro al carrito",
+              showConfirmButton: true,
+              confirmButtonColor: "#01A86C",
+          });
+      } catch (error) {
+          Swal.fire({
+              icon: "error",
+              title: "El libro no se pudo agregar al carrito",
+              showConfirmButton: true,
+              confirmButtonColor: "#01A86C",
+          });
+      }
+  } else {
+      id = bookDetail.id;
+      const price = bookDetail.price;
+      const quantity = 1;
+      const title = bookDetail.title;
+      const image = bookDetail.image;
+      const bookToAdd = { id, price, quantity, title, image };
+      setGuestBook(bookToAdd);
+
+      Swal.fire({
+          icon: "success",
+          title: "Se agrego el libro al carrito",
+          showConfirmButton: true,
+          confirmButtonColor: "#01A86C",
+      });
   }
+}
 
 
 //traer el localstorage cuando carga el componente
@@ -110,7 +135,6 @@ useEffect (() => {
         return item;
       });
       // setGuestCartBooks(items);
-      console.log("items desde books", items)
       localStorage.setItem("guestCartBooks", JSON.stringify(items));
     } else {
       const items = [...itemsLS, guestBook];
@@ -139,35 +163,35 @@ useEffect (() => {
 
 //funcion para el el PAGO 
 function buyingBook(id) {
-  // if (status!=="authenticated") {
-  //   Swal.fire({
-  //     title: "Para comprar debe estar autenticado",
-  //     icon: "info",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Go to Login",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       history.push("/home");
-  //     }
-  //   });
-  // } else
-   
+   if (status!=="authenticated") {
+    Swal.fire({
+      title: "Para comprar debe estar autenticado",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Go to Login",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        history.push("/home");
+      }
+    });
+  } else
+   {
     //id = bookDetail.id;
     const price = bookDetail.price;
-    const quantity = 1;  ///falta funcionalidad 
+    const quantity = 1;  ///falta funcionalidad elegit varios 
     const title = bookDetail.title;
     const image = bookDetail.image;
     const bookToAdd =[{ id, price, quantity, title, image}]  
-    alert("estoy en boton pago", bookToAdd)
+   // alert("estoy en boton pago", bookToAdd)
     console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
     dispatch(setItems(bookToAdd));    
     history.push("/checkout");
   
 }
 
-
+}
   return (
 
     <div className={styles.detail}>
@@ -230,6 +254,7 @@ function buyingBook(id) {
                   <Button
                     rightIcon={<RiShoppingCart2Fill />}
                     colorScheme="#01A86C"
+                    color="black"
                     variant="solid"
                     height= "60px"
                     className={
@@ -238,17 +263,36 @@ function buyingBook(id) {
                           : styles.boton + " " + styles.botonDisabled
                       }
                       disabled={bookDetail.currentStock === 0}
-                      onClick={() => addItem(id)}
+                      onClick={() => handleOnAdd(bookDetail.id, bookDetail.price)}
                   >
                     Agregar al carrito
                   </Button>
                 </Stack>
                 
               </div>
-              <div >
+              <div className={styles.carrito}>
 
-                 <button  onClick={()=>buyingBook(id)}>   BUY BOOK   </button>
+                <Stack direction="row" spacing={10}>
+                  <Button
+                   // rightIcon={<RiShoppingCart2Fill />}
+                    color="black"
+                    colorScheme="#01A86C"
+                    variant="solid"
+                    height= "60px"
+                    className={
+                        bookDetail.currentStock > 0
+                          ? styles.boton
+                          : styles.boton + " " + styles.botonDisabled
+                      }
+                      disabled={bookDetail.currentStock === 0}
+                      onClick={()=>buyingBook(id)}
+                  >
+                   Comprar
+                  </Button>
+                </Stack>
+                
               </div>
+              
                    
 
 
@@ -271,9 +315,17 @@ function buyingBook(id) {
         </div>
       </div>
 
-      <div className={styles.recomendados}>REVIEWS</div>
+       {/* REVIEWS */}
+      <div className={styles.review}>
+       <Reviews id={id}/>
+      </div>
 
-      <div className={styles.recomendados}>ACA VAN NUESTROS RECOMENDADOS </div>
+        
+      {/* RECOMENDADOS */}
+      <div className={styles.recomendados}>
+        <Recomendados />
+      </div>
+
 
       <Footer />
 
