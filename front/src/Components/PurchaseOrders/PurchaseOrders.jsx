@@ -1,27 +1,24 @@
 import React, { useState, useEffect,  useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getAllCartDB,getCantItemsByCart} from "../../actions/index.js";
+import { getAllCartDB} from "../../actions/index.js";
 
 import NavBar from "../NavBar/NavBar.jsx";
 
 
 export default function PurchaseOrders() {
+    const history = useHistory();
     const dispatch = useDispatch();  
     //definir un estados local para guardar todas las ordenes de un cliente
     const [orders, setOrders] = useState([]);
-    //definir un estado local para guardar el total de items comprados en todas las ordenes
-    const [totalItemsByUser, setTotalItemsByUser] = useState(0);
-    //definir un estado local para guardar la fecha de cada orden
-    const [dateByOrder, setDateByOrder] = useState([]);
-    //definir un estado local para guardar la cantidad de ordens de un cliente
-    const [totalOrders, setTotalOrders] = useState(0);
+    // //definir un estado local para guardar la cantidad de ordens de un cliente
+    // const [totalOrders, setTotalOrders] = useState(0);
 
     const { 
         status, 
         uid,
         allCartByUser,
-        cantItemsByCart,
+
     } = useSelector((state) => state);
     //traer del estado allCartByUser
 
@@ -39,18 +36,16 @@ export default function PurchaseOrders() {
     useEffect(() => {
         if (isAuthenticated) {
             setOrders(allCartByUser);
-            dispatch(getCantItemsByCart(uid))        
+            // dispatch(getCantItemsByCart(uid))        
   }}, [allCartByUser]);
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            let totalItems = orders.length;
-            setTotalOrders(totalItems);
-            setTotalItemsByUser(cantItemsByCart)
-        }
-    }, [cantItemsByCart]);
-
-   console.log("orders", orders)
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         let totalItems = orders.length;
+    //         setTotalOrders(totalItems);
+    //         setTotalItemsByUser(cantItemsByCart)
+    //     }
+    // }, [cantItemsByCart]);
 
    const itemToPrint = orders?.map((b) => {
     let id, items, mont, state, purchaseMetod, date;
@@ -60,6 +55,7 @@ export default function PurchaseOrders() {
     for (let i = 0; i <b.books.length; i++) {    
             items = items + b.books[i].payment_book.quantity; 
     }
+    
     
     mont = parseFloat(b.totalAmount).toFixed(2);
     state = (b.statusId === 1) ? "Pendiente" : "Completado";
@@ -79,10 +75,21 @@ export default function PurchaseOrders() {
                 </div>
     );
 });
+    let totalOrders = orders.length;
+    let totalItemsByUser = 0;
+    // sumar la cantidad total que hay en todas las propiedades quantity de payment_book
+    for (let i = 0; i < orders.length; i++) {
+        for (let j = 0; j < orders[i].books.length; j++) {
+            totalItemsByUser = totalItemsByUser + orders[i].books[j].payment_book.quantity;
+        }
+    }   
 
-    let item = [];
+    // let item = [];
     // let cantItems = allCartByUser.length;
     function handleDetailView(id, statusId) {
+        if(statusId === 1){
+            history.push(`/carrito`);
+        }else{} 
         // 
 
     }

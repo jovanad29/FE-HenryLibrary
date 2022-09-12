@@ -211,7 +211,7 @@ function Login({ HandleOpenLogin }) {
 
                     </>
                 ) : (
-                    <p>{displayName}</p>
+                    <h3 className={styles.nombre}>{displayName}</h3>
                 )}
                 {!isAuthenticated && (
                     <div>
