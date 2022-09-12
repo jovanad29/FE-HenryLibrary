@@ -10,13 +10,26 @@ import axios from "axios";
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
 
-//import { getCartDB } from "../../actions/index";//  Traer los items de carrito
+import { getCartDB, getUserInfo } from "../../actions/index" ; //  Traer los items de carrito
 
 export default function SuccessMP() {
   const dispatch = useDispatch();
 
-  const { mpID, order ,  activeCart, uid} = useSelector((state) => state);
-  console.log(mpID, order)
+  const mpID = useSelector(state => state.mpID);
+  const order =  useSelector((state) => state.order);
+  const uid = useSelector((state) => state.uid)
+  const activeCart = useSelector(state=>state.activeCart);
+
+  console.log(mpID, order, activeCart, uid )
+
+  // useEffect(()=>{
+   
+  //   dispatch(getCartDB(uid))
+  //   },[dispatch]
+  //   )
+  
+
+
  // const { stack } = useSelector((state) => state.stack);
   const history = useHistory();
   const [change, setChange] = useState(true);
@@ -27,11 +40,20 @@ export default function SuccessMP() {
     status_detail: order.status_detail,
     total: order.total,
   });
+  // console.log(activeCart)
+  // console.log(activeCart[0].payment_book.paymentId)
+  // const  idCart= activeCart[0].payment_book.paymentId;
+
+  console.log('este el esl ID CART lo saca bien??')
+
   useEffect(() => {
     if (mpID) {
-      dispatch(asyncGetMP(mpID)); ////MIRAR
+      
+      const  idCart= activeCart[0].payment_book.paymentId;
+      dispatch(asyncGetMP(mpID,idCart)); ////MIRAR
       console.log("se hace algo después del asyncGetMP?")
       // console.log('en success con mpID'+ mpID)
+      
       setOrder1(order);
     }
     //  else {
@@ -69,7 +91,7 @@ export default function SuccessMP() {
          // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
           //  if ( activeCart) {
               // setLoading(false);
-          
+
         //  }
          //);
         // }
@@ -83,7 +105,7 @@ export default function SuccessMP() {
   //}
   }, [order,uid, change, front.ID]);
 
-  useEffect(() => {}, [front, activeCart]); // para qué es que era esto?
+  //useEffect(() => {}, [front, activeCart]); // para qué es que era esto?
     function goBack(e) {  
        e.preventDefault();
       history.push("/home");

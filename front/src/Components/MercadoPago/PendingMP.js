@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   // asyncConfirmPayment,
-  asyncGetMP,
+  asyncGetMP,clearPayment
 } from "../../actions/checkoutActions";
-import { clearPayment } from '../../reducer/checkoutSlice';
 import Loading from "../Loading/Loading";
 import s from "./MercadoPago.module.sass";
 
