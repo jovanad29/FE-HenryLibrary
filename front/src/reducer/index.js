@@ -67,6 +67,7 @@ const initialState = {
     activeCart: [],
     activeCartAmount: 0,
     activeCartQuantity: 0,
+    activeCartPaymentId: null,
     mpID: "",
     order: {
         ID: "",
@@ -340,6 +341,7 @@ function rootReducer(state = initialState, action) {
                 activeCartAmount: action.payload.totalAmount
                     ? parseFloat(action.payload.totalAmount).toFixed(2)
                     : 0,
+                activeCartPaymentId: action.payload.id,
             };
 
         case GET_ALL_CART_BY_USER:
