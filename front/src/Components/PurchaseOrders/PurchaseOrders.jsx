@@ -5,6 +5,8 @@ import { getAllCartDB} from "../../actions/index.js";
 
 import NavBar from "../NavBar/NavBar.jsx";
 
+//CSS
+import styles from "../ShoppingBook/ShoppingBook.module.css";
 
 export default function PurchaseOrders() {
     const history = useHistory();
@@ -97,14 +99,16 @@ export default function PurchaseOrders() {
     }
 
   return (
-    <div>PurchaseOrders
-        <NavBar />
-            <h2> Estado </h2>
-        <div>
+    <div>
+              <div className={styles.container}>
+              <div className={styles.container1}>
+        
+                <div>
 
        
-                 {itemToPrint}
-                
+                     {itemToPrint}
+                </div>
+                </div>
         
         </div>
 
