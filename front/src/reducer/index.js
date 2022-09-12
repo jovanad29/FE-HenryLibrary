@@ -36,9 +36,12 @@ import {
   SET_PAYMENT,
   SET_ORDER,
 } from "../actions/checkoutActions";
+//DASHBOARD
+import { GET_ALL_USERS } from "../actions/dashboardActions";
 
 const initialState = {
   allBooks: [],
+  allUsers: [],
   copyAllBooks: [],
   bookDetail: [],
   categories: [],
@@ -374,6 +377,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allBooks: action.payload,
+      };
+
+    //DASHBOARD
+    case GET_ALL_USERS:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allUsers: action.payload,
       };
 
     default:
