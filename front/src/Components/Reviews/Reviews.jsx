@@ -15,6 +15,7 @@ import {
   FormErrorMessage,
   Button,
 } from "@chakra-ui/react";
+import Rating from "./Rating.jsx";
 
 
 
@@ -33,7 +34,8 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
       dispatch(getAllReviews(id));
   }, [dispatch,id]);
 
-
+  const setReviews = (value) =>{ setInput({...input, rating:value}) }
+  
     //ESTADO DE ERRORES
      const [errores, setErrores] = useState({});
 
@@ -98,7 +100,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
             <FormLabel className={styles.texto}>Nombre de usuario: {displayName}</FormLabel>
             <FormLabel className={styles.texto}>Mail: {email}</FormLabel>
 
-            <Flex className={styles.texto}>aca van estrellitas de rating</Flex>
+            <Flex> <Rating setReviews={setReviews}/></Flex>
             </div>
 
             <div className={styles.descripcion}>

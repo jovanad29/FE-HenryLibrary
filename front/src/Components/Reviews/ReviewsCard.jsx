@@ -1,5 +1,5 @@
 import React from "react";
-
+import RatingNoEditable from "./RatingNoEditable.jsx";
 //CSS
 import {
   Accordion,
@@ -35,7 +35,7 @@ function ReviewsCard({ reviews }) {
                         })}
                      </Flex> 
 
-                      <Flex m="0.2rem"> <h2>{r.rating} aca van las estrellitas</h2>
+                     <Flex m="0.2rem"><h2>{<RatingNoEditable value={r.rating}/>} </h2>
                     </Flex>
                     <AccordionIcon color="#01A86C"/>
                   </AccordionButton>

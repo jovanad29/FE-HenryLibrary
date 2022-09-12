@@ -24,7 +24,7 @@ class Rating extends React.Component {
     
     return (                
       <div className={styles.containerRating}>
-               <StarRatingComponent 
+      <StarRatingComponent 
           name="rate1" 
           starCount={5}
           value={rating}
