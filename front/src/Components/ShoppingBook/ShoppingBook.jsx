@@ -112,14 +112,15 @@ function ShoppingBook() {
     const handleChangeQuantity = (e, id, price) => {
         // let newItems = guestCartBooks.filter((item) => item.id !== id);
         let newItems = guestCartBooks.map((item) => {
-            if (item.id === id)
-                item.payment_book.quantity =
-                    e.target.value > 0 ? e.target.value : 0;
+            if (item.id === id){
+              if (isAuthenticated) item.payment_book.quantity = e.target.value > 0 ? e.target.value : 0;
+              else item.quantity = e.target.value > 0 ? Number(e.target.value) : 0;
+            }
+                
             return item;
         });
 
         setGuestCartBooks(newItems);
-        console.log(newItems);
         if (isAuthenticated) {
             dispatch(
                 editCartItem(
