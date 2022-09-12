@@ -11,17 +11,14 @@ body {
   box-sizing: border-box;
 
   /* temas */
-  --titulos: #01A86C;
   --text: black;
   --bg: white;
-  --colorlinks: #01A86C;
   background-color: var(--bg);
 
 
 }
 
 .dark {
-  --titulos: #01A86C;
   --text: white;
   --bg: #1B1B1B;
 }
