@@ -110,26 +110,21 @@ function ShoppingBook() {
     }, [guestCartBooks, isAuthenticated]);
 
     const handleChangeQuantity = (e, id, price) => {
-        // let newItems = guestCartBooks.filter((item) => item.id !== id);
-        let newItems = guestCartBooks.map((item) => {
-            if (item.id === id){
-              if (isAuthenticated) item.payment_book.quantity = e.target.value > 0 ? e.target.value : 0;
-              else item.quantity = e.target.value > 0 ? Number(e.target.value) : 0;
-            }
-                
-            return item;
-        });
+        if (e.target.value > 0) {
+            let newItems = guestCartBooks.map((item) => {
+                if (item.id === id) {
+                    if (isAuthenticated)
+                        item.payment_book.quantity = e.target.value;
+                    else item.quantity = e.target.value;
+                }
 
-        setGuestCartBooks(newItems);
-        if (isAuthenticated) {
-            dispatch(
-                editCartItem(
-                    uid,
-                    id,
-                    e.target.value > 0 ? e.target.value : 0,
-                    price
-                )
-            );
+                return item;
+            });
+
+            setGuestCartBooks(newItems);
+            if (isAuthenticated) {
+                dispatch(editCartItem(uid, id, e.target.value, price));
+            }
         }
     };
 
@@ -160,7 +155,7 @@ function ShoppingBook() {
                         <h3 className={styles.title}>{title}</h3>
                     </div>
                     <div className={styles.infoItem2}>
-                        <h2 className={styles.precio}>Precio: $ {price}</h2>
+                        <h2 className={styles.precio}>Precio: $ {parseFloat(price).toFixed(2)}</h2>
                         <div className={styles.cantidadContainer}>
                             <label className={styles.cantidad}>
                                 Cantidad:{" "}
@@ -178,7 +173,7 @@ function ShoppingBook() {
                             {/*quantity*/}
                         </div>
                         <h2 className={styles.precio}>
-                            Total: $ {price * quantity}
+                            Total: $ {parseFloat(price * quantity).toFixed(2)}
                         </h2>
                         <button
                             className={styles.itemCancelar}
