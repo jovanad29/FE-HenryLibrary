@@ -172,7 +172,7 @@ export default function SearchBar() {
           onClick={handledSubmit}
           bgColor="#01A86C"
           pos="relative"
-          bottom={-6}
+          bottom={-5}
           right={-2}
         >
           <FiSearch size="2rem" />
