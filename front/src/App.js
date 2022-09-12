@@ -21,11 +21,8 @@ import Pending from "./Components/MercadoPago/PendingMP";
 import Validate from "./Components/MercadoPago/ValidateMP";
 import PurchaseOrders from "./Components/PurchaseOrders/PurchaseOrders";
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
-<<<<<<< HEAD
 import Dashboard from "./Components/Admin/Dashboard";
-=======
 import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
->>>>>>> 7725d5edb216b6ed01b3b5107fa8885608cd228e
 
 function App() {
   const status = useCheckAuth();
@@ -60,16 +57,13 @@ function App() {
         {/*Ruta Detalles de Libro */}
         <Route path="/catalog/detail/:id" component={BookDetail} />
 
-<<<<<<< HEAD
         {/*Ruta Inicio de Sesion */}
         {/* <Route path={"/login"} component={} /> */}
         <Route path="/catalog/author/:id" component={CardsAuthor} />
-=======
-                {/*Ruta Panel de usuario */}
-                <Route path={"/dashboard/user"} component={DashboardUser} />
+        {/*Ruta Panel de usuario */}
+        <Route path={"/dashboard/user"} component={DashboardUser} />
 
-                <Route path="/catalog/author/:id" component={CardsAuthor} />
->>>>>>> 7725d5edb216b6ed01b3b5107fa8885608cd228e
+        <Route path="/catalog/author/:id" component={CardsAuthor} />
 
         {/*Ruta administrador*/}
         <Route path={"/user/admin"} component={Dashboard} />
@@ -84,20 +78,12 @@ function App() {
         <Route exact path={"/checkout"} component={Checkout} />
         <Route path="/politicaDevolucion" component={PoliticaDevolucion} />
 
-<<<<<<< HEAD
         {/*Rutas Error*/}
+        <Route exact path={"/purchaseOrders"} component={PurchaseOrders} />
         <Route path="*" component={PageError} />
       </Switch>
     </>
   );
-=======
-                {/*Rutas Error*/}
-            <Route exact path={"/purchaseOrders"} component={PurchaseOrders} />
-                <Route path="*" component={PageError} />
-            </Switch>
-        </>
-    );
->>>>>>> 7725d5edb216b6ed01b3b5107fa8885608cd228e
 }
 
 export default App;
