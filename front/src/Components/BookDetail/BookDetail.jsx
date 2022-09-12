@@ -135,7 +135,6 @@ useEffect (() => {
         return item;
       });
       // setGuestCartBooks(items);
-      console.log("items desde books", items)
       localStorage.setItem("guestCartBooks", JSON.stringify(items));
     } else {
       const items = [...itemsLS, guestBook];
