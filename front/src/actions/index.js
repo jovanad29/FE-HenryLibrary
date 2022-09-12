@@ -601,16 +601,17 @@ export function getAllReviews(id) {
 }
 
 export function createReviewByBook(id, body) {
-    return function (dispatch) {
-        axios
-            .post(`${baseURL}/reviews/byBook/${id}`, body)
-            .then((response) => {
-                dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
-            })
-            .catch((error) => {
-                console.log("saveLocalCartToDB", error);
-            });
-    };
+  return function (dispatch) {
+    axios
+      .post(`${baseURL}/reviews/byBook/${id}`, body)
+      .then((response) => {
+        dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
+        dispatch(getAllReviews(id));
+      })
+      .catch((error) => {
+        console.log("saveLocalCartToDB", error);
+      });
+  };
 }
 
 export function addCartItem(userId, id, price) {

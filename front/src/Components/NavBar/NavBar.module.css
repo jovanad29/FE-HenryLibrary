@@ -29,6 +29,9 @@ body {
 
 .search{
     margin-right: 5rem;
+    width: 30%;
+    position: relative;
+    font-family: Quicksand;
 }
 
 .user{
