@@ -30,7 +30,8 @@ p{
     box-shadow: 5px 5px 10px 3px #ABABAB;
     padding-top: 30px;
     padding-bottom: 3rem;
-    background-color: rgba(255, 255, 255, 0.964);
+    background-color: var(--bg);
+
 }
 
 .cerrar{
@@ -117,4 +118,11 @@ p{
     position: absolute;
     top: 10.5rem;
     right: 3.5rem; 
+}
+
+.nombre{
+    margin-bottom: 3rem;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: bolder;
 }
