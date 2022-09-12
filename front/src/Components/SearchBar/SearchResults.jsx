@@ -1,14 +1,11 @@
 import React from "react";
-
 import { Box, Image, Grid, Text, VStack } from "@chakra-ui/react";
-import { nanoid } from "nanoid";
 import { NavLink } from "react-router-dom";
 
 const SearchResults = ({ searchResults, clearTitle }) => {
   const handleClick = (e) => clearTitle();
   return (
     <Grid gridRowGap="1rem" onClick={handleClick}>
-      {console.log(searchResults)}
       {searchResults.map(({ title, description, image, id }) => (
         <NavLink to={`/catalog/detail/${Number(id)}`}>
           <Box
