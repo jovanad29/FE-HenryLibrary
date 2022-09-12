@@ -165,6 +165,19 @@ export default function SearchBar() {
           </Box>
         </Box>
       </form>
+
+      <Box pos={"absolute"} right={-14} top={-10}>
+        <Button
+          title="Search"
+          onClick={handledSubmit}
+          bgColor="#01A86C"
+          pos="relative"
+          bottom={-5}
+          right={-2}
+        >
+          <FiSearch size="2rem" />
+        </Button>
+      </Box>
     </>
   );
 }
