@@ -1,0 +1,6 @@
+
+.newbook{
+    background-color: var(--bg);
+    display: flex;
+    flex-direction: column;
+}
