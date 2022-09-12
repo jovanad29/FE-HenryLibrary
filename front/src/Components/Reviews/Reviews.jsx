@@ -46,6 +46,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
         rating: 1
     })
 
+   
 
     useEffect(() => {
       setInput({...input, 
@@ -72,6 +73,11 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
     const handleOnSubmit = (e) => {
         e.preventDefault();
         dispatch(createReviewByBook(id, input));
+        setInput({
+          uid: uid, //id user
+          descrption:"",
+          rating: 1
+      })
     };
 
 
@@ -100,7 +106,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
             <FormLabel className={styles.texto}>Nombre de usuario: {displayName}</FormLabel>
             <FormLabel className={styles.texto}>Mail: {email}</FormLabel>
 
-            <Flex> <Rating setReviews={setReviews}/></Flex>
+            <Flex> <Rating setReviews={setReviews} rating={input.rating}/></Flex>
             </div>
 
             <div className={styles.descripcion}>

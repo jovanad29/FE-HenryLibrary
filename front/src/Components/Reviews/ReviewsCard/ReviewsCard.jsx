@@ -1,5 +1,5 @@
 import React from "react";
-import RatingNoEditable from "./RatingNoEditable.jsx";
+import RatingNoEditable from "../RatingNoEditable.jsx";
 //CSS
 import {
   Accordion,
