@@ -2,7 +2,7 @@ import React,{useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
 import {getAllReviews, createReviewByBook} from "../../actions/index.js"
-import ReviewsCard from "./ReviewsCard.jsx";
+import ReviewsCard from "./ReviewsCard/ReviewsCard.jsx";
 
 
 //CSS
@@ -79,7 +79,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
   return (
     <div className={styles.reviews}>
-      <h2 className={styles.titulo}> Opiniones de nuestros clientes </h2>
+      <h2 className={styles.titulo}> OPINIONES DE NUESTROS CLIENTES </h2>
 
       <Flex className={styles.conteiner}>
         <Flex className={styles.review}>

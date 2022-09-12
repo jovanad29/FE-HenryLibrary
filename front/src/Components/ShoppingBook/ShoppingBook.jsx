@@ -198,8 +198,8 @@ function ShoppingBook() {
             <div className={styles.carrito}>
                 <div className={styles.containerGeneral}>
                     <div className={styles.tituloPrincipal}>
-                        <h3>CARRITO</h3>
-                        <h3>N° Items totales: {totalBooks}</h3>
+                        <h3 className={styles.titulo}>CARRITO</h3>
+                        <h3 className={styles.titulo}>N° Items totales: {totalBooks}</h3>
                     </div>
 
                     <div className={styles.container}>

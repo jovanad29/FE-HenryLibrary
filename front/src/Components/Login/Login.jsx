@@ -279,15 +279,10 @@ function Login({ HandleOpenLogin }) {
                 {isAuthenticated && (
                     <>
 
-                    {isAdmin ?                     
-                    (<Button leftIcon={<AiFillSetting />} bg='#01A86C' variant='solid' marginBottom='1rem' color='white'
-                    // onClick={}
-                    >Panel de Administrador</Button>) 
-                    :
-
-                    (<Button leftIcon={<AiFillSetting />} bg='#01A86C' variant='solid' marginBottom='1rem' color='white'
-                    onClick={goToDashboardUser}
-                    >Mi cuenta</Button>) 
+                    {!isAdmin &&  (<Button leftIcon={<AiFillSetting />} bg='#01A86C' variant='solid' 
+                                                                        marginBottom='1rem' color='white'
+                                                                        onClick={goToDashboardUser}
+                                                                        >Mi cuenta</Button>) 
                     }
                 
                     <Button colorScheme="pink" width="200px" height="2rem" onClick={handleCloseSesion}
