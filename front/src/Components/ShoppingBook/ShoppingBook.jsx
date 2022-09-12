@@ -96,7 +96,7 @@ function ShoppingBook() {
             let totalBooks = 0;
             let totalAmount = 0;
             guestCartBooks.forEach((item) => {
-                totalBooks += item.quantity;
+                totalBooks += Number(item.quantity);
                 totalAmount += item.price * item.quantity;
             });
             const total = { totalBooks, totalAmount };
