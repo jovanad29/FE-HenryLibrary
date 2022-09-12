@@ -9,12 +9,13 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: var(--bg);
 }
 
 .carrusel {
     width: 80%;
     height: 30%;
-    margin-top: 7rem;
+    margin-top: 9rem;
     margin-left: 11rem;
     justify-content: center;
 }
@@ -25,7 +26,7 @@ body {
     align-items: center;
     align-content: center;
     justify-content: center;
-    margin-top: 15rem;
+    margin-top: 9rem;
     margin-bottom: 5rem;
 }
 

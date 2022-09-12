@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooksId, deleteBookDetail, deleteLogicBook } from "../../actions";
+import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem } from "../../actions";
 import { Link, useParams } from "react-router-dom";
 
 //COMPONENTES
@@ -29,12 +29,7 @@ import { setItems } from "../../actions/checkoutActions";
 export default function BookDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { bookDetail, isAdmin , status} = useSelector((state) => ({
-    bookDetail: state.bookDetail,
-    // ESTADO DEL LOGIN
-    status: state.status,
-    isAdmin: state.isAdmin
-  }));
+  const { bookDetail, isAdmin , status, uid} = useSelector((state) => state);
   const history = useHistory();
 
   const [isActive, setIsActive] = useState(true);
@@ -74,28 +69,45 @@ export default function BookDetail() {
 //  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
  const [guestBook, setGuestBook ] = useState({});//objeto de libro a guardar en local storage
 //  const [ total, setTotal ] = useState({});//total de libros y monto total en el carrito
+const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
 
 
+function handleOnAdd(id, price) {
+  if (isAuthenticated) {
+      try {
+          dispatch(addCartItem(uid, id, price));
+          Swal.fire({
+              icon: "success",
+              title: "Se agrego el libro al carrito",
+              showConfirmButton: true,
+              confirmButtonColor: "#01A86C",
+          });
+      } catch (error) {
+          Swal.fire({
+              icon: "error",
+              title: "El libro no se pudo agregar al carrito",
+              showConfirmButton: true,
+              confirmButtonColor: "#01A86C",
+          });
+      }
+  } else {
+      id = bookDetail.id;
+      const price = bookDetail.price;
+      const quantity = 1;
+      const title = bookDetail.title;
+      const image = bookDetail.image;
+      const bookToAdd = { id, price, quantity, title, image };
+      setGuestBook(bookToAdd);
 
-  const addItem = (id) => {
-    id = bookDetail.id;
-    const price = bookDetail.price;
-    const quantity = 1;
-    const title = bookDetail.title;
-    const image = bookDetail.image;
-    const bookToAdd = { id, price, quantity, title, image };
-    
-    Swal.fire({
-      icon: "success",
-      title: "Se agrego el libro al carrito",
-      showConfirmButton: true, 
-      confirmButtonColor: '#01A86C',
-    });
-
-    console.log("bookToAdd desde bookdetail", bookToAdd)
-    setGuestBook(bookToAdd);
+      Swal.fire({
+          icon: "success",
+          title: "Se agrego el libro al carrito",
+          showConfirmButton: true,
+          confirmButtonColor: "#01A86C",
+      });
   }
+}
 
 
 //traer el localstorage cuando carga el componente
@@ -123,7 +135,6 @@ useEffect (() => {
         return item;
       });
       // setGuestCartBooks(items);
-      console.log("items desde books", items)
       localStorage.setItem("guestCartBooks", JSON.stringify(items));
     } else {
       const items = [...itemsLS, guestBook];
@@ -243,6 +254,7 @@ function buyingBook(id) {
                   <Button
                     rightIcon={<RiShoppingCart2Fill />}
                     colorScheme="#01A86C"
+                    color="black"
                     variant="solid"
                     height= "60px"
                     className={
@@ -251,7 +263,7 @@ function buyingBook(id) {
                           : styles.boton + " " + styles.botonDisabled
                       }
                       disabled={bookDetail.currentStock === 0}
-                      onClick={() => addItem(id)}
+                      onClick={() => handleOnAdd(bookDetail.id, bookDetail.price)}
                   >
                     Agregar al carrito
                   </Button>
@@ -263,6 +275,7 @@ function buyingBook(id) {
                 <Stack direction="row" spacing={10}>
                   <Button
                    // rightIcon={<RiShoppingCart2Fill />}
+                    color="black"
                     colorScheme="#01A86C"
                     variant="solid"
                     height= "60px"

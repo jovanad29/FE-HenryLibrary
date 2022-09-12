@@ -29,6 +29,9 @@ body {
 
 .search{
     margin-right: 5rem;
+    width: 30%;
+    position: relative;
+    font-family: Quicksand;
 }
 
 .user{
@@ -51,6 +54,7 @@ body {
     justify-content: space-around;
     margin-right: 1rem;
     width: 8%;
+    color: var(--text)
 }
 
 .iconoFav {
