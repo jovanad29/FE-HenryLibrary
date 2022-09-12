@@ -357,7 +357,7 @@ function rootReducer(state = initialState, action) {
                 mpID: action.payload,
             };
 
-        case CLEAR_PAYMENT:
+        case CLEAR_PAYMENT: // esta action borra el order después de setearlo y no da chance a nada
             return {
                 mpID: "",
                 order: {
@@ -371,7 +371,8 @@ function rootReducer(state = initialState, action) {
             };
 
         case SET_ORDER:
-            alert("estoy en order " + action.payload);
+            // por alguna razón, se reinicia la página después de setear
+            console.log("estoy en el reducer SET_ORDER " + action.payload);
             return {
                 ...state,
                 order: action.payload,

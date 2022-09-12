@@ -3,29 +3,34 @@ export const SET_ITEMS='SET_ITEMS';
 export const SET_PAYMENT='SET_PAYMENT';
 export const SET_ORDER='SET_ORDER';
 export const CLEAR_PAYMENT='CLEAR_PAYMENT';
+//pagos
+export const PUT_USER_CARTS_STATUS = "PUT_USERS_CARTS_STATUS";
 
 // const heroku = `https://db-proyecto-final.herokuapp.com`;//cambiar al nuestro cuando funcione!!
-axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
+//axios.defaults.baseURL = 'https://api.mercadopago.com/v1';
+//axios.defaults.baseURL='http://localhost:3000/'
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
-export async function asyncConfirmPayment(body) {
-  try {
-      const response= await axios.post(`/paymentsOrder/create`, body).data  //Aqui se crea el pago en la base !!!!
-    //return {type:CLEAR_PAYMENT }
-    console.log(' Se creo en paymente con esto datos :', response)
-    return response
-  } catch (error) {
-    console.log(error);
-  }
+// export async function asyncConfirmPayment(body) { // está dando problemas
+//   try {
+//       const response= await axios.post(`/paymentsOrder/create`, body).data  //Aqui se crea el pago en la base !!!!
+//     //return {type:CLEAR_PAYMENT }
+//     // console.log(' Se creo en paymentOrder con esto datos :', response)
+//     // return response
+//   } catch (error) {
+//     console.log(error);
+//   }
 
-  };
+//   };
 
 export function setOrder(order) {
+    console.log("estoy en la action setOrder: ", order)
     return   {
           type: SET_ORDER,
           payload: order
         }
     }
-export function asyncGetMP(mpID) {
+export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
   return async function (dispatch) {
     try {
       const response = (
@@ -37,10 +42,9 @@ export function asyncGetMP(mpID) {
           },
         })
       ).data;
-      console.log(response)
-      //alert('estoy en asyncGetMP')
+      console.log("estoy en la action asyncGetMP: ", response)
       
-      var items = response.additional_info.items.map((i) => {
+      const items = response.additional_info.items.map((i) => {
         return {
           id: i.id,
           quantity: i.quantity,
@@ -55,10 +59,21 @@ export function asyncGetMP(mpID) {
             status: response.status,
             status_detail: response.status_detail,
             total: parseFloat(response.transaction_details.total_paid_amount)}
-    dispatch( setOrder(orderobj));
-                  
-      
-      
+      dispatch( setOrder(orderobj));
+      console.log("se envía a guardar la orden de compra si status === 'approved'") // si esto se imprime,
+       
+      console.log('este es el id del CART:', idCart);
+        const status = {'approved': 4}
+      console.log(`/payments/${idCart}/status/${status[response.status]}`)                                                                  // hacer el cambio de estado en el cart debajo
+      try {
+       
+        await axios.put(`/payments/${idCart}/status/${status[response.status]}`) // de dónde lo saco?
+        ;
+        console.log("se cambió el estatus?")
+      } catch (error) {
+        console.log(error)
+        console.log("no se cambió el estatus")
+      }
     } catch (error) {
       console.log(error);
     }
@@ -89,3 +104,6 @@ export function setPayment (mpID)  {
     payload :mpID,
 }
 }
+
+
+
