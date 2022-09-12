@@ -48,11 +48,8 @@ function ShoppingBook() {
 
     function handleOnDelete(id, quantity, price) {
         let newItems = guestCartBooks.filter((item) => item.id !== id);
-        console.log(newItems);
         setGuestCartBooks(newItems);
-
         if (isAuthenticated) {
-            console.log("entra");
             dispatch(editCartItem(uid, id, quantity, price));
         }
     }
@@ -105,9 +102,35 @@ function ShoppingBook() {
             const total = { totalBooks, totalAmount };
             setTotal(total);
             localStorage.setItem("total", JSON.stringify(total) || []);
-            localStorage.setItem("guestCartBooks", JSON.stringify(guestCartBooks) || []);
+            localStorage.setItem(
+                "guestCartBooks",
+                JSON.stringify(guestCartBooks) || []
+            );
         }
     }, [guestCartBooks, isAuthenticated]);
+
+    const handleChangeQuantity = (e, id, price) => {
+        // let newItems = guestCartBooks.filter((item) => item.id !== id);
+        let newItems = guestCartBooks.map((item) => {
+            if (item.id === id)
+                item.payment_book.quantity =
+                    e.target.value > 0 ? e.target.value : 0;
+            return item;
+        });
+
+        setGuestCartBooks(newItems);
+        console.log(newItems);
+        if (isAuthenticated) {
+            dispatch(
+                editCartItem(
+                    uid,
+                    id,
+                    e.target.value > 0 ? e.target.value : 0,
+                    price
+                )
+            );
+        }
+    };
 
     const item = guestCartBooks?.map((b) => {
         let id, title, image, quantity, price;
@@ -141,19 +164,21 @@ function ShoppingBook() {
                             <label className={styles.cantidad}>
                                 Cantidad:{" "}
                             </label>
-                            <i>
-                                <BiMinus />
-                            </i>
                             <input
                                 type="number"
                                 className={styles.cantidadInput}
+                                defaultValue={quantity}
+                                min={"1"}
+                                max={"100"}
+                                onChange={(e) =>
+                                    handleChangeQuantity(e, id, price)
+                                }
                             />{" "}
                             {/*quantity*/}
-                            <i>
-                                <BsPlus />
-                            </i>
                         </div>
-                        <h2 className={styles.precio}>Total: $ {price}</h2>
+                        <h2 className={styles.precio}>
+                            Total: $ {price * quantity}
+                        </h2>
                         <button
                             className={styles.itemCancelar}
                             onClick={() => handleOnDelete(id, 0, 0)}
