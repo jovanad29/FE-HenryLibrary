@@ -64,15 +64,16 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       dispatch( setOrder(orderobj));
       console.log("se envía a guardar la orden de compra si status === 'approved'") // si esto se imprime,
        
-        console.log('este es el id del CART:', idCart);
-        const status = {'approved': 4}     
-       console.log(`/${idCart}/status/${status[response.status]}`)                                                                   // hacer el cambio de estado en el cart debajo
+      console.log('este es el id del CART:', idCart);
+      const status = {'approved': 4}     
+      console.log(`/${idCart}/status/${status[response.status]}`)                                                                   // hacer el cambio de estado en el cart debajo
       try {
        
         axios.put(`/${idCart}/status/${status[response.status]}`) // de dónde lo saco?
         ;
         console.log("se cambió el estatus?")
       } catch (error) {
+        console.log(error)
         console.log("no se cambió el estatus")
       }
     } catch (error) {
