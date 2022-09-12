@@ -10,6 +10,8 @@ import {
     startLogout,
     startResetPasswordEmail,
 } from "../../actions";
+import { useHistory } from "react-router-dom";
+
 
 //CSS
 import styles from "./Login.module.css";
@@ -23,11 +25,13 @@ import {
 } from "@chakra-ui/react";
 import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
+import {AiFillSetting} from "react-icons/ai"
 import { FcGoogle } from "react-icons/fc";
 
 function Login({ HandleOpenLogin }) {
     const dispatch = useDispatch();
-    const { status, displayName, photoURL, errorMessage } = useSelector(
+    const history = useHistory();
+    const { status, displayName, photoURL, errorMessage, isAdmin } = useSelector(
         (state) => state
     );
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
@@ -118,6 +122,11 @@ function Login({ HandleOpenLogin }) {
         } else dispatch(startResetPasswordEmail(login));
     };
 
+
+    const goToDashboardUser = () =>{
+        history.push("/dashboard/user");
+    }
+    
     return (
         <div className={styles.container}>
             <div className={styles.containerItems}>
@@ -199,6 +208,7 @@ function Login({ HandleOpenLogin }) {
                                 onChange={handleChange}
                             />
                         </div>
+
                     </>
                 ) : (
                     <p>{displayName}</p>
@@ -267,14 +277,24 @@ function Login({ HandleOpenLogin }) {
                     </div>
                 )}
                 {isAuthenticated && (
-                    <Button
-                        colorScheme="pink"
-                        width="200px"
-                        height="2rem"
-                        onClick={handleCloseSesion}
+                    <>
+
+                    {isAdmin ?                     
+                    (<Button leftIcon={<AiFillSetting />} bg='#01A86C' variant='solid' marginBottom='1rem' color='white'
+                    // onClick={}
+                    >Panel de Administrador</Button>) 
+                    :
+
+                    (<Button leftIcon={<AiFillSetting />} bg='#01A86C' variant='solid' marginBottom='1rem' color='white'
+                    onClick={goToDashboardUser}
+                    >Mi cuenta</Button>) 
+                    }
+                
+                    <Button colorScheme="pink" width="200px" height="2rem" onClick={handleCloseSesion}
                     >
                         Cerrar Sesion
                     </Button>
+                    </>
                 )}
             </div>
         </div>

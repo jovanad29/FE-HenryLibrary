@@ -50,7 +50,7 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex> : <h2>Todavia no hay ningun comentario, sé el primero</h2> }  
+    </Flex> : <h2>Todavia no hay ningun comentario. ¡Cuentános tu experiencia! </h2> }  
       
     </div>
   );
