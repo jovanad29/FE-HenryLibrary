@@ -24,6 +24,7 @@ import PurchaseOrdersDetail from "./Components/PurchaseOrders/PurchaseOrdersDeta
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 import Dashboard from "./Components/Admin/Dashboard";
 import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
+import UserView from "./Components/Admin/UserView";
 
 function App() {
   const status = useCheckAuth();
@@ -68,6 +69,7 @@ function App() {
 
         {/*Ruta administrador*/}
         <Route path={"/user/admin"} component={Dashboard} />
+        <Route path={"/user/admin/users"} component={UserView} />
 
         {/*Rutas Extras*/}
         <Route path="/aboutUs" component={AboutUs} />

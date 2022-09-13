@@ -8,7 +8,8 @@ body {
     display: flex;
     align-items: center;
     margin-top: 1rem;
-    width: 88%;
+    width: 90%;
+    margin-left: 3rem;
 }
 
 .h1 {
@@ -24,11 +25,11 @@ body {
     font-weight: bolder;
     font-size: 40px;
     color: #01A86C;
-    margin-right: 14rem;
+    margin-right: 10rem;
 }
 
 .search{
-    margin-right: 5rem;
+    margin-right: 4rem;
     width: 30%;
     position: relative;
     font-family: Quicksand;
