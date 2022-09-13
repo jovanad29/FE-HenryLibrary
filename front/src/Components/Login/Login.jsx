@@ -132,7 +132,7 @@ function Login({ HandleOpenLogin }) {
             <div className={styles.containerItems}>
                 <CloseButton
                     className={styles.cerrar}
-                    size="md"
+                    size="md" color="#01A86C"
                     onClick={cerrarLogin}
                 />
                 <div className={styles.img}>
