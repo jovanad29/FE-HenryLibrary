@@ -26,12 +26,12 @@ function ReviewsCard({ reviews }) {
               <div key={r.id}>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
-                    <Flex textAlign="left" w="8rem" fontWeight="bolder" fontFamily= "Quicksand" >
+                    <Flex textAlign="left" w="8rem" >
                       {r.users &&
                         r.users.map((u) => {
                           return (
                             <div key={u.uid}>
-                              <h3>{u.nameUser}</h3>
+                              <h3 className={styles.nombre}>{u.nameUser}</h3>
                             </div>
                           );
                         })}
@@ -44,7 +44,7 @@ function ReviewsCard({ reviews }) {
                 </h2>
 
                 <AccordionPanel pb={4} fontFamily= "Quicksand">
-                  <p>{r.descrption}</p>
+                  <p className={styles.descrption}>{r.descrption}</p>
                 </AccordionPanel>
               </div>
             </AccordionItem>
