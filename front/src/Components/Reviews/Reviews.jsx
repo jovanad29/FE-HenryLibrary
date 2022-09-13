@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
 import {getAllReviews, createReviewByBook} from "../../actions/index.js"
 import ReviewsCard from "./ReviewsCard/ReviewsCard.jsx";
-
+import Rating from "./Rating/Rating.jsx";
 
 //CSS
 import styles from "./Reviews.module.css";
@@ -15,7 +15,7 @@ import {
   FormErrorMessage,
   Button,
 } from "@chakra-ui/react";
-import Rating from "./Rating.jsx";
+
 
 
 
