@@ -120,8 +120,8 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
               name="descrption"
               onChange={handleInputsChange}
               placeholder="escribe tu opinion"
+              _placeholder={{ color: "#01A86C", opacity: 0.7 }}
               w="90%" h='60%'
-              outlineColor='none'
               focusBorderColor='#01A86C'
               borderColor='#01A86C'
             />

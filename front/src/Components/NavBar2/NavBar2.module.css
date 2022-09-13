@@ -1,12 +1,10 @@
-
-
-body{
-        margin: 0px;
-        padding: 0px;
-        box-sizing: border-box;
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
-.container{
+.container {
     display: flex;
     width: 90%;
     border-top: 2px solid #D9D9D9;
@@ -17,7 +15,7 @@ body{
     gap: 10rem;
 }
 
-.h3{
+.h3 {
     display: flex;
     margin-top: 1rem;
     color: #01A86C;
@@ -26,6 +24,7 @@ body{
     font-size: 20px;
 }
 
-.btnLightDark{
-    padding-top: 1rem;
+.btnLightDark {
+    position: absolute;
+    right: 13rem;
 }

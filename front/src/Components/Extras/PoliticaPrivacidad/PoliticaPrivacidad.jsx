@@ -23,7 +23,7 @@ export default function PoliticaPrivacidad() {
           La protección de la privacidad y de los datos personales es una
           prioridad para la Compañía y un claro compromiso asumido por la
           Compañía. Esta política se refiere a las prácticas de privacidad del
-          sitio web LIVRARIA LELLO administrado por la Compañía. Los datos
+          sitio web LIBRERIA HENRY administrado por la Compañía. Los datos
           personales facilitados por los USUARIOS REGISTRADOS serán tratados con
           las garantías de seguridad y confidencialidad exigidas por la
           legislación en materia de protección de datos de carácter personal.
@@ -240,7 +240,7 @@ export default function PoliticaPrivacidad() {
       </div>
       <div className={styles.boton}>
         <button className={styles.botonArriba} onClick={scrollToTop}>
-          <BsArrowUpCircle size="2rem" />
+          <BsArrowUpCircle size="2rem" color='#01A86C'/>
         </button>
       </div>
       <Footer />
