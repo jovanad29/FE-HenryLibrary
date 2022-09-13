@@ -41,7 +41,6 @@ function ReviewUser() {
               <Th>Titulo del libro</Th>
               <Th>Descripcion</Th>
               <Th>Rating</Th>
-              <Th>X</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -49,10 +48,9 @@ function ReviewUser() {
               reviewsUser?.map((r) => {
                 return (
                   <Tr key={r.id}>
+                    <Td>{r.books?.map((b) => b.title)}</Td>
                     <Td>{r.descrption}</Td>
                     <Td>{r.rating}</Td>
-                    <Td>{r.books?.map((b) => b.title)}</Td>
-                    <Td>X</Td>
                   </Tr>
                 )
               })

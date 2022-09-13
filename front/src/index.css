@@ -13,14 +13,19 @@ body {
   /* temas */
   --text: black;
   --bg: white;
+  --linkSearchBar: none;
+  --footerBg: #F2F1EF;
+  --footerMargin: none;
   background-color: var(--bg);
-
 
 }
 
 .dark {
   --text: white;
   --bg: #1B1B1B;
+  --linkSearchBar: #01A86C;
+  --footerBg: #1B1B1B;
+  --footerMargin: #01A86C;
 }
 
 code {
