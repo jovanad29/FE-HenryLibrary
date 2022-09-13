@@ -42,7 +42,7 @@ import {
   SET_ORDER,
 } from "../actions/checkoutActions";
 //DASHBOARD
-import { GET_ALL_USERS } from "../actions/dashboardActions";
+import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
 
 const initialState = {
   allBooks: [],
@@ -81,6 +81,7 @@ const initialState = {
   },
   items: [],
   reviews: [],
+  reviewsUser: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -428,6 +429,14 @@ function rootReducer(state = initialState, action) {
         ...JSON.parse(JSON.stringify(state)),
         allUsers: action.payload,
       };
+
+
+    case GET_ALL_REVIEW_BY_USER:
+      return {
+        ...state,
+        reviewsUser: action.payload,
+      }
+
 
     default:
       return state;
