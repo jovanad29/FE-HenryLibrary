@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  asyncConfirmPayment,
+  // asyncConfirmPayment,
   asyncGetMP,
 } from "../../actions/checkoutActions";
 import { clearPayment } from '../../reducer/checkoutSlice';
@@ -41,9 +41,9 @@ function PendingMP() {
     }
     if (order.items.length > 0 && userProfile.ID) {
       setLoading(false);
-      dispatch(
-        asyncConfirmPayment({ ...order, userID: parseInt(userProfile.ID) })
-      );
+      // dispatch(
+      //   asyncConfirmPayment({ ...order, userID: parseInt(userProfile.ID) })
+      // );
       dispatch(clearPayment());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
