@@ -1,18 +1,16 @@
 
 
 body{
-    
         margin: 0px;
         padding: 0px;
         box-sizing: border-box;
-
 }
 
 .container{
     display: flex;
-    width: 87%;
+    width: 90%;
     border-top: 2px solid #D9D9D9;
-    margin-left: 3rem;
+    margin-left: 4rem;
     margin-top: 0.5rem;
     align-items: center;
     justify-content: center;
