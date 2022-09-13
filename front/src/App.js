@@ -20,6 +20,7 @@ import Rejected from "./Components/MercadoPago/RejectedMP";
 import Pending from "./Components/MercadoPago/PendingMP";
 import Validate from "./Components/MercadoPago/ValidateMP";
 import PurchaseOrders from "./Components/PurchaseOrders/PurchaseOrders";
+import PurchaseOrdersDetail from "./Components/PurchaseOrders/PurchaseOrdersDetail";
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
 
@@ -83,6 +84,7 @@ function App() {
 
                 {/*Rutas Error*/}
             <Route exact path={"/purchaseOrders"} component={PurchaseOrders} />
+            <Route exact path={"/purchaseOrdersDetail/:id"} component={PurchaseOrdersDetail} />
                 <Route path="*" component={PageError} />
             </Switch>
         </>

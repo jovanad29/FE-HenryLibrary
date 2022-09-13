@@ -2,10 +2,12 @@ import React from "react";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
+import PurchaseOrders from "../PurchaseOrders/PurchaseOrders.jsx";
 
 //CSS
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import styles from "./DashboardUser.module.css";
+
 
 function DashboardUser() {
   return (
@@ -30,7 +32,7 @@ function DashboardUser() {
             <div>Direcciones</div>
             </TabPanel>
             <TabPanel>
-              <p>Ordenes de compras</p>
+              <PurchaseOrders/>
             </TabPanel>
             <TabPanel>
               <p>Historial de Comentario</p>
