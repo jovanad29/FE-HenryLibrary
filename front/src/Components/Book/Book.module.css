@@ -60,7 +60,7 @@ p{
     text-align: center;
     text-overflow: ellipsis;
     align-content: center;
-    color: var(--titulos)
+    color: var(--text)
 }
 
 .authors{
@@ -99,17 +99,23 @@ p{
     display: flex;
     width: 50%;
     justify-content: center;
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
 
 
 .boton{
+    margin-bottom: 0.2rem;
     background-color: #01A86C;
     font-weight: 600;
     font-size: 12px;
     border-radius: 8px;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: Quicksand;
+    font-weight: bolder;
+    font-size: 13px;  
+    color: black
 }
 
 
