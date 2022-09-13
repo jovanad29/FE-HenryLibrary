@@ -8,17 +8,20 @@ export default function MercadoPago({ items, setLoading, userID }) {
   const [preferenceId, setPreferenceId] = useState(null);
   const history = useHistory();
   useEffect(() => {
+    console.log("Estoy en el primer userEffect: ", userID)
     axios
       .post("/paymentsOrder", {
         items,
-        base_url: process.env.REACT_APP_BASE_URL,
+        base_url: process.env.REACT_APP_BASE_URL || 'http://localhost:3000',
         ID: userID,
       })
       .then((order) => {
+        console.log("Estoy en la respuesta del post que se hace en el primer useEffect", order)
         setPreferenceId(order.data.preferenceId);
       //  console.log('llegue a preferencias? '+ order.data.preferenceId)
       })
       .catch((error) => {
+        console.log(error) // el error no se imprime en el swal
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -29,9 +32,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
       });
   //eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
-      //setPreferenceId('1162304452-c681ce3b-6903-47c4-af4e-04fae0523ac3')
-    
- 
+   
   useEffect(() => {
    // console.log('estoy en mercado pago ' , preferenceId)
     if (preferenceId) {
