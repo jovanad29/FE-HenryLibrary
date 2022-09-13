@@ -136,7 +136,7 @@ export default function SearchBar() {
               />
 
               <Center pos="absolute" left={7} bottom={-2} h="68px">
-                <FiSearch color="#01A86C" boxSize="20px" />
+                <FiSearch color="#01A86C" boxsize="20px" />
               </Center>
             </Flex>
 
