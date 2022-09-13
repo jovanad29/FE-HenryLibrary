@@ -8,11 +8,15 @@ import PurchaseOrders from "../PurchaseOrders/PurchaseOrders.jsx";
 //CSS
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import styles from "./DashboardUser.module.css";
+import ReviewUser from "./ReviewUser/ReviewUser.jsx";
+
 
 
 function DashboardUser() {
 
   const {status, displayName, email, reviews, uid} = useSelector (state => state)
+
+
 
   
   return (
@@ -31,7 +35,7 @@ function DashboardUser() {
           </TabList>
           <TabPanels className={styles.containerItem}>
             <TabPanel >
-              <div>Datos personales</div>
+             <div>Datos personales</div>
             </TabPanel>
             <TabPanel>
             <div>Direcciones</div>
@@ -40,7 +44,7 @@ function DashboardUser() {
               <PurchaseOrders/>
             </TabPanel>
             <TabPanel>
-              <p>Historial de Comentario</p>
+              <ReviewUser uid={uid}/>
             </TabPanel>
             <TabPanel>
             <div>Seguridad</div>
