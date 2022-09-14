@@ -1,0 +1,18 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+.containerDirecciones{
+    width: 100%;
+    height: 20rem;
+    border-top: 1px solid #01A86C;
+}
+
+.formularioContainer{
+    width: 80%;
+    margin-left: 5rem;
+    /* background-color: red; */
+}
