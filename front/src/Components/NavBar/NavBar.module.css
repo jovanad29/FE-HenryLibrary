@@ -25,11 +25,11 @@ body {
     font-weight: bolder;
     font-size: 40px;
     color: #01A86C;
-    margin-right: 10rem;
+    margin-right: 7rem;
 }
 
 .search{
-    margin-right: 4rem;
+    margin-right: 6rem;
     width: 30%;
     position: relative;
     /* font-family: Quicksand; */
@@ -101,10 +101,45 @@ body {
 
 /* ####### RESPONSIVE ######## */
 
-/* @media screen and (max-width: 1920px){
+@media screen and (max-width: 1100px){
 
+    .container {
+        width: 95%;
+        margin-left: 1.5rem;
+    }
     
-} */
+    .h1 {
+        font-size: 32px;
+    }
+    
+    .h1_1 {
+        font-size: 32px;
+        margin-right: 5rem;
+    }
+    
+    .search{
+        margin-right: 3rem;
+    }
+    
+    .user{
+        width: 11%;
+        margin-right: 1.5rem;
+        font-size: 10px;
+    }
+    
+    .notUser{
+        width: 11%;
+        margin-right: 1.5rem;
+    }
+    
+    
+    .cantidad{
+        top: 0.8rem;
+        right: 8rem;
+        font-size: 10px;
+    }
+    
+}
 
 
 
@@ -149,7 +184,7 @@ body {
 }
 
 
-@media (max-width: 710px) {
+@media (max-width: 700px) {
 
     .container {
         margin-left: -0.5rem;
