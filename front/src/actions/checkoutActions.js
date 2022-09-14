@@ -44,6 +44,7 @@ export function asyncGetMP(mpID, idCart) {
         total: parseFloat(response.transaction_details.total_paid_amount),
       };
       dispatch(setOrder(orderobj));
+     
       // "se envía a guardar la orden de compra si status === 'approved'");
 
       //console.log("este es el id del CART:", idCart);
