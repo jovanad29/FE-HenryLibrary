@@ -1,18 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-
-//COMPONENTES
-import SearchBar from "../SearchBar/SearchBar";
-import Login from "../Login/Login";
-
-//REACT ICONS
-import { VscAccount } from "react-icons/vsc";
-import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
-import { BsCart2 } from "react-icons/bs";
-
-import styles from "./NavBar.module.css";
-import banderaArgentina from "./arg.png";
-import banderaEeuu from "./eeuu.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getAllBooks,
@@ -21,6 +8,22 @@ import {
     setPage,
     clearLoginError,
 } from "../../actions";
+import banderaArgentina from "./arg.png";
+// import banderaEeuu from "./eeuu.png";
+
+
+//COMPONENTES
+import SearchBar from "../SearchBar/SearchBar";
+import Login from "../Login/Login";
+
+
+//CSS
+import { VscAccount } from "react-icons/vsc";
+import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
+import { BsCart2 } from "react-icons/bs";
+import styles from "./NavBar.module.css";
+
+
 
 export default function NavBar() {
     const dispatch = useDispatch();
@@ -96,22 +99,25 @@ export default function NavBar() {
                 )}
 
                 <button onClick={() => HandleOpenLogin()}>
-                    <VscAccount size="1.4rem" />
+                    <VscAccount size="1.4rem" className={styles.icono}/>
                 </button>
 
                 <NavLink to="/carrito">
-                    <BsCart2 size="1.5rem" />
+                    <BsCart2 size="1.5rem" className={styles.icono}/>
                 </NavLink>
+
+
             </div>
 
             <div className={styles.banderas}>
+
                 <button className={styles.bandera}>
                     <img src={banderaArgentina} alt="" />
                 </button>
 
-                <button className={styles.bandera}>
+                {/* <button className={styles.bandera}>
                     <img src={banderaEeuu} alt="" />
-                </button>
+                </button> */}
             </div>
             {loginModal && <Login HandleOpenLogin={HandleOpenLogin} />}
         </nav>
