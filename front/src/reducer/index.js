@@ -42,12 +42,9 @@ import {
   SET_ORDER,
 } from "../actions/checkoutActions";
 //DASHBOARD
-import {
-  GET_ALL_USERS,
-  GET_ALL_REVIEW_BY_USER,
-  UPDATE_TO_ADMIN,
-  DELETE_USER,
-} from "../actions/dashboardActions";
+import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
+import { GET_USERS_BY_ID } from "../actions/dataUserIdActions.js";
+import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
 
 const initialState = {
   allBooks: [],
@@ -87,6 +84,7 @@ const initialState = {
   items: [],
   reviews: [],
   reviewsUser: [],
+  directionsUser: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -434,23 +432,39 @@ function rootReducer(state = initialState, action) {
         ...JSON.parse(JSON.stringify(state)),
         allUsers: action.payload,
       };
+
+      case GET_USERS_BY_ID:
+        return {
+          ...JSON.parse(JSON.stringify(state)),
+          allUsers: action.payload,
+        };
+
+        case GET_DIRECTIONS_USERS:
+          return {
+            ...JSON.parse(JSON.stringify(state)),
+            directionsUser: action.payload,
+          };
+
+
     //*verificar respuesta de la ruta */
-    case UPDATE_TO_ADMIN:
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        isAdmin: action.payload,
-      };
-    case DELETE_USER:
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        isActive: action.payload,
-      };
+    // case UPDATE_TO_ADMIN:
+    //   return {
+    //     ...JSON.parse(JSON.stringify(state)),
+    //     isAdmin: action.payload,
+    //   };
+    // case DELETE_USER:
+    //   return {
+    //     ...JSON.parse(JSON.stringify(state)),
+    //     isActive: action.payload,
+    //   };
 
     case GET_ALL_REVIEW_BY_USER:
       return {
         ...state,
         reviewsUser: action.payload,
-      };
+      }
+
+    
 
     default:
       return state;
