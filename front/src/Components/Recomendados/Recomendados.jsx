@@ -10,7 +10,7 @@ function Recomendados() {
 
   const allBooks  = useSelector( (state) => state.allBooks );
 
-  const recomendados = allBooks.slice(0,10)
+  const recomendados = allBooks.slice(0,6)
 
   return (
 

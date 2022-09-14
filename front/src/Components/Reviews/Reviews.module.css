@@ -16,7 +16,7 @@ body{
     /* text-align: center; */
     font-weight: bolder;
     font-size: 28px;
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     margin-bottom: 4rem;
     margin-left: 4rem;
     color: #01A86C;
@@ -82,7 +82,7 @@ body{
     margin-top: 1rem;
     font-weight: bolder;
     font-size: 12px;
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     color: var(--text)
 }
 
@@ -90,7 +90,11 @@ body{
     margin-top: 1rem;
     font-weight: bolder;
     font-size: 12px;
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     color: red
+}
+
+.textarea{
+    color: var(--text)
 }
 

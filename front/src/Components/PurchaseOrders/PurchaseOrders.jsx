@@ -38,16 +38,16 @@ export default function PurchaseOrders() {
     useEffect(() => {
         if (isAuthenticated) {
             dispatch(getAllCartDB(uid));
-            setOrders(allCartByUser);
+            // setOrders(allCartByUser);
             
         }
     }, [isAuthenticated, dispatch, uid]);
 
-//     useEffect(() => {
+    useEffect(() => {
         
-//             setOrders(allCartByUser);
-//             // dispatch(getCantItemsByCart(uid))        
-//   }, [allCartByUser, dispatch]);
+            setOrders(allCartByUser);
+            // dispatch(getCantItemsByCart(uid))        
+  }, [allCartByUser, dispatch]);
 
     // useEffect(() => {
     //     if (isAuthenticated) {
@@ -69,42 +69,33 @@ export default function PurchaseOrders() {
     // convertir totalAmount a formato internacional de moneda
     
     totalAmount = (b.totalAmount);
-    // parser 
-    
-    // preguntar si totalAmount es number
-    if (typeof b.totalAmount === 'number')
-    {
-        console.log('totalAmount es number');
-    }
-    else
-    {
-        console.log('totalAmount no es number');
-
-    }
-
-    state = (b.statusId === 1) ? "Pendiente" : "Completado";
+    state = (b.payment_status.description);
     purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.paymentMethodId;
     date = b.books[0].payment_book.createdAt.slice(0,10);
     return (
         <div key={id}> 
-        {/* mostrar los items espaciado uniforme en la linea    */}
-            <Tbody>
-                <Tr>
-                    <Td>{id}</Td>
-                    <Td isNumeric>{items}</Td>
-                    
-                    <Td isNumeric>{b.totalAmount}</Td>
-                    <Td>{state}</Td>
-                    <Td>{purchaseMetod}</Td>
-                    <Td>{date}</Td>
-                    <Td><div className={styles.button}>
-                        {(b.statusId === 1) ?  
-                        <button className={styles.comprar} onClick={() => handleDetailView(b.id,b.statusId)}>Comprar</button> :
-                        <button className={styles.textoContinuarComprando} onClick={() => history.push(`/purchaseOrder/${id}`)}>Detalle</button>}
-                        </div>
-                    </Td>
-                </Tr>
-            </Tbody>
+            <TableContainer maxWidth='100%'>
+                <Table variant='simple'>  
+                    <Tbody>
+                        <Tr>
+                            <Td>{id}</Td>
+                            <Td isNumeric>{items}</Td>
+                            
+                            <Td isNumeric>{parseFloat(totalAmount).toFixed(2)}</Td>
+                            <Td>{state}</Td>
+                            <Td>{purchaseMetod}</Td>
+                            <Td>{date}</Td>
+                            <Td>
+                                {(b.statusId === 1) ?  
+                                <button className={styles.comprar} onClick={() => handleDetailView(b.id,b.statusId)}>Comprar</button> :
+                                <button className={styles.textoContinuarComprando} onClick={() => history.push(`/purchaseOrder/${id}`)}>Detalle</button>}
+                                
+                            </Td>
+                        </Tr>
+                    </Tbody>
+                </Table>
+            </TableContainer>
+        
         </div>
     );
 });
@@ -129,15 +120,15 @@ let totalItemsByUser = 0
             history.push(`/purchaseOrdersDetail/${id}`);
         } 
         // 
-
+        
     }
-
-  return (
-    <div >            
+    
+    return (
+        <div >            
         <div className={styles.container}>
             <div className={styles.container1}>
                 <div>
-                    <TableContainer maxWidth='80%'>
+                    <TableContainer maxWidth='90%'>
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
@@ -147,16 +138,12 @@ let totalItemsByUser = 0
                                     <Th>Estado</Th>
                                     <Th>Metodo de pago</Th>
                                     <Th>Fecha</Th>
-                                    <Th>Detalle</Th>
+                                    <Th>Ir a</Th>
                                 </Tr>
                             </Thead>
                         </Table>
                     </TableContainer>
-                    <TableContainer maxWidth='100%'>
-                        <Table variant='simple' size='lg'>  
-                            {itemToPrint}
-                        </Table>
-                    </TableContainer>
+        {itemToPrint}
                      
                 </div>
             </div>
