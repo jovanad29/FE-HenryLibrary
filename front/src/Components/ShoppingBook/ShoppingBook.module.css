@@ -67,17 +67,6 @@ body {
     flex-direction: column;
 }
 
-.container2 {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: #f2f1efb6;
-    border-top: 1px solid #01A86C;
-    padding-top: 1rem;
-}
 
 .continuarComprando {
     margin-bottom: 2rem;
@@ -195,6 +184,27 @@ body {
     color: black;
     text-align: center;
 }
+
+
+.containerDirecciones{
+    padding-top: 2rem;
+    width: 100%;
+    height: 20rem;
+}
+
+
+.container2 {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #f2f1efb6;
+    border-top: 1px solid #01A86C;
+    padding-top: 1rem;
+}
+
 
 .infoCompra {
     display: flex;
