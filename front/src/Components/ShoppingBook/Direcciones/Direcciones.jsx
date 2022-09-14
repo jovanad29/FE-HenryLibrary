@@ -2,9 +2,7 @@ import React,{useState} from 'react'
 
 //CSS
 import styles from "./Direcciones.module.css";
-import { Flex, FormControl, RadioGroup, Radio, Input, FormLabel } from "@chakra-ui/react";
-
-
+import { Flex, FormControl, FormLabel, RadioGroup, Radio, Input } from "@chakra-ui/react";
 
 
 export default function Direcciones() {
@@ -45,7 +43,6 @@ export default function Direcciones() {
       </RadioGroup>
       </FormControl>
     </Flex>
-
     <h3 className={styles.errores}>Debe ingresar un domicilio de envio o seleccionar retirar en sucursal</h3>
   </div>
   )
