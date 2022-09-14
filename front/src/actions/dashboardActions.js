@@ -23,7 +23,7 @@ export function getAllUsers() {
       .catch((error) => {
         console.log("getAllUsers", error);
       });
-  };
+         };
 }
 
 //Convierte un usuario en admin
