@@ -77,14 +77,14 @@ export default function PurchaseOrders() {
                 </div>
     );
 });
-    let totalOrders = orders.length;
+    // let totalOrders = orders.length;
     let totalItemsByUser = 0;
     // sumar la cantidad total que hay en todas las propiedades quantity de payment_book
-    for (let i = 0; i < orders.length; i++) {
-        for (let j = 0; j < orders[i].books.length; j++) {
-            totalItemsByUser = totalItemsByUser + orders[i].books[j].payment_book.quantity;
-        }
-    }   
+    // for (let i = 0; i < orders.length; i++) {
+    //     for (let j = 0; j < orders[i].books.length; j++) {
+    //         totalItemsByUser = totalItemsByUser + orders[i].books[j].payment_book.quantity;
+    //     }
+    // }   
 
     // let item = [];
     // let cantItems = allCartByUser.length;
@@ -114,7 +114,7 @@ export default function PurchaseOrders() {
 
         <div>
             <h2>Total de ordenes</h2>
-            <h3>{totalOrders}</h3>
+            {/* <h3>{totalOrders}</h3> */}
         </div>
         <div>
             <h2>Total de Items</h2>

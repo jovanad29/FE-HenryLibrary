@@ -34,22 +34,28 @@ function DashboardUser() {
             <Tab className={styles.titulos}>Historial de Comentarios</Tab>
             <Tab className={styles.titulos}>Seguridad</Tab>
           </TabList>
+          
           <TabPanels className={styles.containerItem}>
             <TabPanel >
              <div>Datos personales</div>
             </TabPanel>
+
             <TabPanel>
             <div>Direcciones</div>
             </TabPanel>
+
             <TabPanel>
               <PurchaseOrders/>
             </TabPanel>
+
             <TabPanel>
               <ReviewUser uid={uid}/>
             </TabPanel>
+
             <TabPanel>
             <div>Seguridad</div>
             </TabPanel>
+
           </TabPanels>
         </Tabs>
       </div>

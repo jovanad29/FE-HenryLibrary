@@ -18,7 +18,7 @@ export function getAllUsers() {
       .catch((error) => {
         console.log("getAllUsers", error);
       });
-  };
+         };
 }
 
 
