@@ -14,7 +14,7 @@ import Reviews from "../Reviews/Reviews";
 //CSS
 import styles from "./BookDetail.module.css";
 import { RiShoppingCart2Fill } from "react-icons/ri";
-import { Button, Stack } from "@chakra-ui/react";
+import { Button, Stack, Flex } from "@chakra-ui/react";
 
 //pago
 import Swal from "sweetalert2";
@@ -198,7 +198,7 @@ function buyingBook(id) {
       <NavBar />
       <NavBar2 />
 
-      <div className={styles.container}>
+      <Flex className={styles.container}>
         <div className={styles.containerItems}>
           <div>
             <img className={styles.img1} src={bookDetail.image} alt="imagen del libro" />
@@ -224,8 +224,8 @@ function buyingBook(id) {
         </div>
 
        {/* CONTENIDO DEL LIBRO */}
-        <div className={styles.conteiner2}>
-          <div className={styles.info}>
+        <Flex className={styles.conteiner2}>
+          <Flex className={styles.info}>
             <h2 className={styles.title}>{bookDetail.title}</h2>
             <h2 className={styles.datos}>Genero: {arrCategories}</h2>
             <h4 className={styles.datos}>Autores: {arrAuthores}</h4>
@@ -234,7 +234,7 @@ function buyingBook(id) {
             <h2 className={styles.datos}>Numero de paginas: {bookDetail.pageCount}</h2>
             <h4 className={styles.datos}>Rating: {bookDetail.rating} puntos</h4>
             <h4 className={styles.description}>{bookDetail.description}</h4>
-          </div>
+          </Flex>
 
 
        {/* CONTENIDO DE LA COMPRA */}
@@ -256,6 +256,7 @@ function buyingBook(id) {
                     colorScheme="#01A86C"
                     color="black"
                     variant="solid"
+                    fontSize='14px'
                     height= "60px"
                     className={
                         bookDetail.currentStock > 0
@@ -274,10 +275,10 @@ function buyingBook(id) {
 
                 <Stack direction="row" spacing={10}>
                   <Button
-                   // rightIcon={<RiShoppingCart2Fill />}
                     color="black"
                     colorScheme="#01A86C"
                     variant="solid"
+                    fontSize='15px'
                     height= "60px"
                     className={
                         bookDetail.currentStock > 0
@@ -312,8 +313,8 @@ function buyingBook(id) {
       }
             </div>
           </div>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
 
        {/* REVIEWS */}
       <div className={styles.review}>
