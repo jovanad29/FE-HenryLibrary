@@ -165,7 +165,7 @@ let totalItemsByUser = 0
 
         <div>
             <h2>Total de ordenes</h2>
-            <h3>{totalOrders}</h3>
+            {/* <h3>{totalOrders}</h3> */}
         </div>
         <div>
             <h2>Total de Items</h2>
