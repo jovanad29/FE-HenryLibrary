@@ -76,6 +76,7 @@ const initialState = {
   activeCartAmount: 0,
   activeCartQuantity: 0,
   activeCartPaymentId: null,
+  allCartByUser: [],
   mpID: "",
   order: {
     ID: "",
@@ -400,6 +401,7 @@ function rootReducer(state = initialState, action) {
         activeCart: [],
         activeCartAmount: 0,
         activeCartQuantity: 0,
+        allCartByUser: [],
       };
 
     case GET_CART_QUANTITY:
