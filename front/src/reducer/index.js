@@ -372,7 +372,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case SET_ORDER:
-      alert("estoy en order " + action.payload);
+      //alert("estoy en order " + action.payload);
       return {
         ...state,
         order: action.payload,

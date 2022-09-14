@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  // asyncConfirmPayment,
+  
   asyncGetMP,
 } from "../../actions/checkoutActions";
 import { clearPayment } from '../../reducer/checkoutSlice';
@@ -13,7 +13,7 @@ function PendingMP() {
   const dispatch = useDispatch();
   const { userProfile } = useSelector((state) => state.profile);
   const { mpID, order } = useSelector((state) => state.checkout);
-  const { stack } = useSelector((state) => state.history);
+  
   const history = useHistory();
   const [front, setOrder] = useState({
     ID: order.order,
@@ -32,7 +32,7 @@ function PendingMP() {
     return () => {
       dispatch(clearPayment());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, []);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -41,32 +41,16 @@ function PendingMP() {
     }
     if (order.items.length > 0 && userProfile.ID) {
       setLoading(false);
-      // dispatch(
-      //   asyncConfirmPayment({ ...order, userID: parseInt(userProfile.ID) })
-      // );
+    
       dispatch(clearPayment());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [order, userProfile]);
   useEffect(() => {}, [front]);
-  function goBack() {
-    var lastPath = [];
-    for (let i = 1; i < stack.length; i++) {
-      if (
-        stack[i] !== "/register" &&
-        stack[i] !== "/login" &&
-        stack[i] !== "/profile" &&
-        stack[i] !== "/favourites" &&
-        !stack[i].includes("checkout")
-      ) {
-        lastPath.push(stack[i]);
-      }
-    }
-    if (lastPath.length > 0) {
-      history.push(lastPath[0]);
-    } else {
-      history.push("/");
-    }
+  function goBack(e) {
+    e.preventDefault();
+    history.push("/home");
+    
   }
   return (
     <div className={s.container}>
