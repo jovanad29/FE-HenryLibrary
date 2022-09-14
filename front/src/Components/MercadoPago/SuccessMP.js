@@ -6,6 +6,7 @@ import {
   asyncGetMP,
   clearPayment,
 } from "../../actions/checkoutActions.js";
+import {getCartDB} from '../../actions/index';
 import axios from "axios";
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
@@ -31,7 +32,7 @@ export default function SuccessMP() {
   useEffect(() => {
     if (mpID && activeCartPaymentId) {
       dispatch(asyncGetMP(mpID, activeCartPaymentId)); ////MIRAR
-      console.log("se hace algo después del asyncGetMP?");
+    
       // console.log('en success con mpID'+ mpID)
       setOrder1(order);
     }
@@ -39,6 +40,7 @@ export default function SuccessMP() {
     //   history.push("/");
     // }
     return () => {
+      dispatch(getCartDB(uid))
       // dispatch(clearPayment());  // este parece ser el problema
       // setOrder1({
       //   ID: "",
@@ -49,7 +51,7 @@ export default function SuccessMP() {
       // });
       setChange(false);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [mpID, activeCartPaymentId]);
   const [loading, setLoading] = useState(false);
   //  const loading = false;
@@ -67,6 +69,11 @@ export default function SuccessMP() {
         .post(`/paymentsOrder/create`, { ...obj, userID: uid })
         .then((r) => console.log("se guardó en DB"))
         .catch((e) => console.loe("no se guardó en DB", e));
+
+        
+      
+        
+
     }
   }, [order, uid, change, front.ID]);
 
