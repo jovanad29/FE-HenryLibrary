@@ -7,14 +7,13 @@ export const CLEAR_PAYMENT = "CLEAR_PAYMENT";
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 export function setOrder(order) {
-  console.log("estoy en la action setOrder: ", order);
-  return {
-    type: SET_ORDER,
-    payload: order,
-  };
-}
-export function asyncGetMP(mpID, idCart) {
-  // ejecuta el pago en mercadopago
+    console.log("estoy en la action setOrder: ", order)
+    return  {
+        type: SET_ORDER,
+        payload: order
+      }
+    }
+export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
   return async function (dispatch) {
     try {
       const response = (
@@ -24,38 +23,44 @@ export function asyncGetMP(mpID, idCart) {
           },
         })
       ).data;
-      //console.log("estoy en la action asyncGetMP: ", response);
-
+      console.log("estoy en la action asyncGetMP: ", response)
+      
       const items = response.additional_info.items.map((i) => {
         return {
-          id: i.id,
+          bookId: i.id,
           quantity: i.quantity,
+          paymentMpId: mpID,
           image: i.picture_url,
           title: i.title,
           price: parseFloat(i.unit_price).toFixed(2),
         };
       });
 
-      let orderobj = {
-        ID: mpID,
-        items: items,
-        status: response.status,
-        status_detail: response.status_detail,
+      // let orderobj = { ID: mpID,
+      //       items: items,
+      //       status: response.status,
+      //       status_detail: response.status_detail,
+      //       total: parseFloat(response.transaction_details.total_paid_amount)}
+      const order = {
+        transactionId: mpID,
+        items,
+        // userId  -> se agrega en el componente que pide la orden (rel. Checkout)
+        paymentType: response.payment_type_id,
         total: parseFloat(response.transaction_details.total_paid_amount),
-      };
-      dispatch(setOrder(orderobj));
-     
-      // "se envía a guardar la orden de compra si status === 'approved'");
-
-      //console.log("este es el id del CART:", idCart);
-      const status = { approved: 4 };
-      //console.log(`/payments/${idCart}/status/${status[response.status]}`); /
-      try {
-        await axios.put(
-          `/payments/${idCart}/status/${status[response.status]}` // hace el cambio de estado en el cart
-        );
+        paymentMethodId: response.payment_type_id,
+        status: response.status,
+        statusDetail: response.status_detail,
+        deliveryAddress: "dirección de envío"
+      }
+      // dispatch( setOrder(orderobj) );
+      dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
+      // console.log("se envía a guardar la orden de compra si status === 'approved'") // si esto se imprime,       
+      // console.log('este es el id del CART:', idCart);
+        const status = {'approved': 4} // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
+      try {       
+        await axios.put(`/payments/${idCart}/status/${status[response.status]}`) // cambio el estatus del pedido de carrito a aprobado
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     } catch (error) {
       console.log(error);
