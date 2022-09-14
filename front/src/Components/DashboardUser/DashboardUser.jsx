@@ -10,6 +10,7 @@ import ReviewUser from "./ReviewUser/ReviewUser.jsx";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import styles from "./DashboardUser.module.css";
 import DataUser from "./DataUser/DataUser.jsx";
+import DirectionsUser from "./DataUser/DirectionsUser.jsx";
 
 
 
@@ -42,7 +43,7 @@ function DashboardUser() {
             </TabPanel>
 
             <TabPanel>
-            <div>Direcciones</div>
+            <DirectionsUser uid={uid}/>
             </TabPanel>
 
             <TabPanel>

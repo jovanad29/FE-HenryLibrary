@@ -44,6 +44,7 @@ import {
 //DASHBOARD
 import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
 import { GET_USERS_BY_ID } from "../actions/dataUserIdActions.js";
+import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
 
 const initialState = {
   allBooks: [],
@@ -83,6 +84,7 @@ const initialState = {
   items: [],
   reviews: [],
   reviewsUser: [],
+  directionsUser: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -436,6 +438,12 @@ function rootReducer(state = initialState, action) {
           ...JSON.parse(JSON.stringify(state)),
           allUsers: action.payload,
         };
+
+        case GET_DIRECTIONS_USERS:
+          return {
+            ...JSON.parse(JSON.stringify(state)),
+            directionsUser: action.payload,
+          };
 
 
     //*verificar respuesta de la ruta */
