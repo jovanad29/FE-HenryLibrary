@@ -4,36 +4,35 @@ import { useHistory } from "react-router-dom";
 import {
   asyncConfirmPayment,
   asyncGetMP,
-  clearPayment
+  clearPayment,
 } from "../../actions/checkoutActions.js";
+import {getCartDB} from '../../actions/index';
 import axios from "axios";
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
 
-//import { getCartDB } from "../../actions/index";//  Traer los items de carrito
-
 export default function SuccessMP() {
   const dispatch = useDispatch();
 
-  const { mpID, order, activeCartPaymentId, uid} = useSelector((state) => state);
-  console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
- // const { stack } = useSelector((state) => state.stack);
+  const { mpID, order, activeCartPaymentId, uid } = useSelector(
+    (state) => state
+  );
+
   const history = useHistory();
   const [change, setChange] = useState(true);
-  const [front, setOrder1] = useState({ // hace falta de verdad? No sería mejor usar order del store directamente?
+  const [front, setOrder1] = useState({
+    // hace falta de verdad? No sería mejor usar order del store directamente?
     ID: mpID,
     items: order.items,
     status: order.status,
     status_detail: order.status_detail,
     total: order.total,
   });
-  // const [paymentId, setPaymentId] = useState(activeCartPaymentId)
-  // useEffect(() => {
-  // }, [activeCartPaymentId])
+
   useEffect(() => {
     if (mpID && activeCartPaymentId) {
-      dispatch(asyncGetMP(mpID,activeCartPaymentId)); ////MIRAR
-      console.log("se hace algo después del asyncGetMP?")
+      dispatch(asyncGetMP(mpID, activeCartPaymentId)); ////MIRAR
+    
       // console.log('en success con mpID'+ mpID)
       setOrder1(order);
     }
@@ -41,6 +40,7 @@ export default function SuccessMP() {
     //   history.push("/");
     // }
     return () => {
+      dispatch(getCartDB(uid))
       // dispatch(clearPayment());  // este parece ser el problema
       // setOrder1({
       //   ID: "",
@@ -51,50 +51,40 @@ export default function SuccessMP() {
       // });
       setChange(false);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [mpID, activeCartPaymentId]);
-   const [loading, setLoading] = useState(false);
-//  const loading = false;
+  const [loading, setLoading] = useState(false);
+  //  const loading = false;
   useEffect(() => {
     if (!front.ID) {
       setOrder1({ ...order });
     }
 
-   if (change && order.items.length > 0 && uid) {
+    if (change && order.items.length > 0 && uid) {
       let obj = { ...order };
-      console.log('esto tiene obj:', obj)
+      console.log("esto tiene obj:", obj);
       setChange(false);
-      // dispatch( // está dando problemas // porque limpia el estado de order
-      //   asyncConfirmPayment({ ...obj, userID: uid })//mirar si esta OK ?????
-      // )
-      // .then((res) => {
-        // if (res) {
-         // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
-          //  if ( activeCart) {
-              // setLoading(false);
-          
-        //  }
-         //);
-        // }
-      // });
-      axios.post(`/paymentsOrder/create`, { ...obj, userID: uid })
-      .then( r => console.log("se guardó en DB"))
-      .catch( e => console.loe("no se guardó en DB", e))
+
+      axios
+        .post(`/paymentsOrder/create`, { ...obj, userID: uid })
+        .then((r) => console.log("se guardó en DB"))
+        .catch((e) => console.loe("no se guardó en DB", e));
+
+        
+      
+        
+
     }
+  }, [order, uid, change, front.ID]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  //}
-  }, [order,uid, change, front.ID]);
-
-  //useEffect(() => {}, [front, activeCart]); // para qué es que era esto?
-    function goBack(e) {  
-       e.preventDefault();
-      history.push("/home");
-   // }
+  function goBack(e) {
+    e.preventDefault();
+    history.push("/home");
+    // }
   }
   return (
     <div className={s.container}>
-       {loading ? <Loading /> : null} 
+      {loading ? <Loading /> : null}
       <div className={s.cont}>
         <div className={s.contGreen}>
           <h1>Pago exitoso</h1>
@@ -102,19 +92,17 @@ export default function SuccessMP() {
             Numero transacción: <span>{front.ID}</span>
           </span>
           <span className={s.pID}>{front.status}</span>
-          <span>Total items: {front.items.length}</span> {/* y si tengo más de 1 mismo item ? */}
+          <span>Total items: {front.items.length}</span>
           <ul>
-            {
-              front.items.map(i => {
-                return <li>{i.title}</li>
-              })
-            }
+            {front.items.map((i) => {
+              return <li>{i.title}</li>;
+            })}
           </ul>
           <span>
             Total: <span className={s.price}> ${front.total}</span>
           </span>
           <div className={s.keep} onClick={goBack}>
-           Seguir Comprando 
+            Seguir Comprando
           </div>
         </div>
         <div className={s.successCheckmark}>
@@ -129,5 +117,3 @@ export default function SuccessMP() {
     </div>
   );
 }
-
-
