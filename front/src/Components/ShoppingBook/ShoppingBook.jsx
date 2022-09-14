@@ -196,6 +196,7 @@ function ShoppingBook() {
   const totalBooks = total.totalBooks;
   const totalAmount = total.totalAmount;
 
+
   return (
     <div className={styles.shopping}>
       <NavBar />
