@@ -43,7 +43,7 @@ import {
 } from "../actions/checkoutActions";
 //DASHBOARD
 import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
-import { GET_USERS_BY_ID } from "../actions/dataUserIdActions";
+import { GET_USERS_BY_ID } from "../actions/dataUserIdActions.js";
 
 const initialState = {
   allBooks: [],
@@ -430,17 +430,25 @@ function rootReducer(state = initialState, action) {
         ...JSON.parse(JSON.stringify(state)),
         allUsers: action.payload,
       };
+
+      case GET_USERS_BY_ID:
+        return {
+          ...JSON.parse(JSON.stringify(state)),
+          allUsers: action.payload,
+        };
+
+
     //*verificar respuesta de la ruta */
-    case UPDATE_TO_ADMIN:
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        isAdmin: action.payload,
-      };
-    case DELETE_USER:
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        isActive: action.payload,
-      };
+    // case UPDATE_TO_ADMIN:
+    //   return {
+    //     ...JSON.parse(JSON.stringify(state)),
+    //     isAdmin: action.payload,
+    //   };
+    // case DELETE_USER:
+    //   return {
+    //     ...JSON.parse(JSON.stringify(state)),
+    //     isActive: action.payload,
+    //   };
 
     case GET_ALL_REVIEW_BY_USER:
       return {

@@ -9,6 +9,7 @@ import ReviewUser from "./ReviewUser/ReviewUser.jsx";
 //CSS
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import styles from "./DashboardUser.module.css";
+import DataUser from "./DataUser/DataUser.jsx";
 
 
 
@@ -37,7 +38,7 @@ function DashboardUser() {
           
           <TabPanels className={styles.containerItem}>
             <TabPanel >
-             <div>Datos personales</div>
+            <DataUser uid={uid}/>
             </TabPanel>
 
             <TabPanel>
