@@ -16,11 +16,13 @@ body {
     width: 80%;
     height: 30%;
     margin-top: 9rem;
-    margin-left: 11rem;
+    margin-left: 9rem;
     justify-content: center;
 }
 
 .recomendados {
+    width: 80%;
+    margin-left: 7rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,8 +33,59 @@ body {
 }
 
 
-.recomendadosCards {
-    margin-top: 3rem;
-    width: 80rem;
-    height: 25rem;
+
+
+
+
+
+
+
+
+
+
+
+/* ####### RESPONSIVE ######## */
+
+/* @media screen and (max-width: 1920px){
+    .carrusel {
+        width: 85%;
+        margin-left: 10rem;
+    }
+    .recomendados {
+        margin-left: 12rem;
+    }
+    
+} */
+
+
+
+@media screen and (max-width: 860px){
+
+    .carrusel {
+        margin-top: 6rem;
+        margin-left: 5rem;
+    }
+
+    .recomendados {
+        width: 85%;
+        margin-left: 3rem;
+        margin-top: 6rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+@media (max-width: 710px) {
+
+    .carrusel {
+        margin-top: 7rem;
+        margin-left: 3.5rem;
+    }
+
+    .recomendados {
+        width: 70%;
+        margin-left: 7rem;
+        margin-top: 5rem;
+        margin-bottom: 0rem;
+    }
 }
