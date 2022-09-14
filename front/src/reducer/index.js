@@ -82,7 +82,7 @@ const initialState = {
   },
   items: [],
   reviews: [],
-  reviewsUser: []
+  reviewsUser: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -368,7 +368,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case SET_ORDER:
-      alert("estoy en order " + action.payload);
+      //alert("estoy en order " + action.payload);
       return {
         ...state,
         order: action.payload,
@@ -430,7 +430,17 @@ function rootReducer(state = initialState, action) {
         ...JSON.parse(JSON.stringify(state)),
         allUsers: action.payload,
       };
-
+    //*verificar respuesta de la ruta */
+    case UPDATE_TO_ADMIN:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        isAdmin: action.payload,
+      };
+    case DELETE_USER:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        isActive: action.payload,
+      };
 
     case GET_ALL_REVIEW_BY_USER:
       return {
