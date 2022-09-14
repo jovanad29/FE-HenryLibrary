@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAllCartDB } from "../../actions/index.js";
 
-import NavBar from "../NavBar/NavBar.jsx";
 //CSS
 import styles from "../ShoppingBook/ShoppingBook.module.css";
 
@@ -108,7 +107,7 @@ export default function PurchaseOrdersDetail() {
   return (
     <div>PurchaseOrdersDetail
       <div>
-        <NavBar />
+    
   
         <div className={styles.carrito}>
           <div className={styles.containerGeneral}>

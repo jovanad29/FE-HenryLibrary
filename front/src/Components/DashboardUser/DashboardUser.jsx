@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
@@ -16,7 +16,7 @@ import styles from "./DashboardUser.module.css";
 function DashboardUser() {
 
   const {status, displayName, email, reviews, uid} = useSelector (state => state)
-
+  const [isDetail, setIsDetail] = useState(false);
 
 
   
@@ -42,7 +42,8 @@ function DashboardUser() {
             <div>Direcciones</div>
             </TabPanel>
             <TabPanel>
-              <PurchaseOrders/>
+              {!isDetail ? <PurchaseOrders /> : <ReviewUser />}
+
             </TabPanel>
             <TabPanel>
               <ReviewUser uid={uid}/>
