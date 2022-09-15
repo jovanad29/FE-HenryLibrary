@@ -20,6 +20,7 @@ body {
     height: auto;
     display: flex;
     flex-direction: column;
+    
 
 }
 
@@ -30,6 +31,8 @@ body {
     height: auto;
     display: flex;
     flex-direction: column;
+
+    
 }
 
 .tituloPrincipal{
@@ -74,10 +77,10 @@ body {
     height: 100%;
     display: auto;
     flex-direction: column;
-    border-right: 1px solid #01A86C;
-    border-top: 1px solid #01A86C;
-    border-left: 1px solid #01A86C;
-    border-bottom: 1px solid #01A86C;
+    border-right: 2px solid #01A86C;
+    border-top: 2px solid #01A86C;
+    border-left: 2px solid #01A86C;
+    border-bottom: 2px solid #01A86C;
     background-color: gray;
 }
 
