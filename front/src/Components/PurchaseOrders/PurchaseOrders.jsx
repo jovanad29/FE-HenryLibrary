@@ -43,19 +43,11 @@ export default function PurchaseOrders() {
         }
     }, [isAuthenticated, dispatch, uid]);
 
-    useEffect(() => {
-        
-            setOrders(allCartByUser);
-            // dispatch(getCantItemsByCart(uid))        
+    useEffect(() => {  
+        setOrders(allCartByUser);    
   }, [allCartByUser, dispatch]);
 
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         let totalItems = orders.length;
-    //         setTotalOrders(totalItems);
-    //         setTotalItemsByUser(cantItemsByCart)
-    //     }
-    // }, [cantItemsByCart]);
+
 
    const itemToPrint = orders?.map((b) => {
     let id, items, totalAmount, state, purchaseMetod, date;
@@ -143,20 +135,38 @@ let totalItemsByUser = 0
                             </Thead>
                         </Table>
                     </TableContainer>
-        {itemToPrint}
-                     
+                    {itemToPrint}
                 </div>
             </div>
         
         </div>
 
-        <div>
-            <h2>Total de ordenes</h2>
-            {/* <h3>{totalOrders}</h3> */}
-        </div>
-        <div>
-            <h2>Total de Items</h2>
-            <h3>{totalItemsByUser}</h3>
+        <div className={styles.container2}>
+                    <TableContainer maxWidth='100%'>
+                        <Table variant='striped' size='lg'>
+                            <Thead>
+                                <Tr>
+                                    <Th>{totalOrders}</Th>
+                                    <Th inNumeric>{totalItemsByUser}</Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    
+                                </Tr>
+                            </Thead>
+                        </Table>
+                    </TableContainer> 
+        
+  
         </div>
                 
     
