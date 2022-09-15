@@ -6,7 +6,7 @@ import { editCartItem } from "../../actions/index.js";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
-import Direcciones from "./Direcciones/Direcciones.jsx"
+// import Direcciones from "./Direcciones/Direcciones.jsx"
 
 //CSS
 import styles from "./ShoppingBook.module.css";
@@ -229,9 +229,9 @@ function ShoppingBook() {
                 <div>
                   <div>{item}</div>  {/* RENDERIZADO DE LOS LIBROS AGREGADOS AL CARRITO */}
 
-                  <div className={styles.containerDirecciones}> {/* Direcciones */}
-                  <Direcciones />
-                  </div>
+                  {/* <div className={styles.containerDirecciones}> Direcciones */}
+                  {/* <Direcciones /> */}
+                  {/* </div> */}
                 </div>
               ) : (
                 <div className={styles.containerVacio}>
