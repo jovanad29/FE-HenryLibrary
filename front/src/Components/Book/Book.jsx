@@ -192,8 +192,8 @@ export default function Book({
     }, []);
 
     return (
-        <div className={styles.book}>
-           {stock > 0 ? 
+
+        <div className={stock > 0 ? styles.book : styles.bookSinStock}>
            ( <div className={styles.imagenes}>
                 <NavLink to={`/catalog/detail/${id}`}>
                     <img
@@ -205,20 +205,9 @@ export default function Book({
                 </NavLink>
             </div> )
             
-            : 
-
-            ( <div className={styles.imagenesSinStock}>
-                <NavLink to={`/catalog/detail/${id}`}>
-                    <img
-                        className={styles.img}
-                        src={sinStock}
-                        key={imgSrc}
-                        alt="imagenDelLibro"
-                    />
-                </NavLink>
-            </div>)
+ 
             
-        }
+        
 
             <p className={styles.title}>{title}</p>
             <h4 className={styles.authors}>
@@ -268,9 +257,9 @@ export default function Book({
                     </div>
                 ) : (
                     <div className={styles.pago}>
-                        <button className={styles.botonSinStock} disabled={true}>
+                        <div className={styles.botonSinStock} disabled={true}>
                             Sin stock
-                        </button>
+                        </div>
                     </div>
                 )}
             </div>

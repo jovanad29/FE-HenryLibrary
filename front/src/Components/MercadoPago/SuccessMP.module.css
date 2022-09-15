@@ -13,11 +13,12 @@ body {
 
 
 .cont{
-    width: 70%;
+    width: 60%;
     height: auto;
-    margin-left: 13rem;
+    margin-left: 17rem;
     margin-top: 4rem;
-    background-color: #01A86C;
+    /* background-color: #01A86C; */
+    border: 2px solid #01A86C;
     box-shadow: 2px 2px 10px 4px #b7b7b2;
 }
 
@@ -33,7 +34,7 @@ body {
     font-weight: bolder;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    color: #f2f1ef
+    color: #01A86C
 }
 
 .transaccion{
@@ -44,7 +45,7 @@ body {
 .pID{
     font-size: 20px;
     font-weight: bolder;
-    color: #f2f1ef;
+    color: #01A86C;
 }
 
 .itemsTotales{
@@ -68,12 +69,23 @@ body {
 .price{
     font-size: 25px;
     font-weight: bolder;
-    color: #f2f1ef
+    color: #01A86C
 }
 
 .boton{
-    background-color: #f2f1ef !important;
+    background-color: #01A86C !important;
     color: black;
     margin-bottom: 2rem;
     font-size: 1.2rem !important;
+}
+
+.check{
+    width: 100%;
+    width: 30%;
+    display: flex;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+    color:#01A86C
 }

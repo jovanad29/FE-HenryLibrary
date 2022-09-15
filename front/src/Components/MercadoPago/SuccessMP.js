@@ -21,6 +21,7 @@ import {
   Button
 } from '@chakra-ui/react'
 import s from "./SuccessMP.module.css"
+import {BsCheckCircle} from "react-icons/bs"
 
 
 
@@ -121,6 +122,7 @@ export default function SuccessMP() {
       {loading && <Loading />}
       <div className={s.cont}>
         <div className={s.contGreen}>
+        <div className={s.check}><BsCheckCircle fontSize="6rem"/></div>
           <h1 className={s.titulo}>PAGO EXITOSO</h1>
           <div className={s.transaccion}>
             Numero transacción: <span className={s.pID}>{order.transactionId}</span>
@@ -161,6 +163,7 @@ export default function SuccessMP() {
           </span>
 
           <Button className={s.boton} onClick={goBack}>Seguir Comprando</Button>
+
 
         </div>
         <div className={s.successCheckmark}>
