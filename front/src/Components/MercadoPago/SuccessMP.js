@@ -3,8 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {  asyncGetMP,} from "../../actions/checkoutActions.js";
 import axios from "axios";
-import s from "./MercadoPago.module.sass";
+// import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Button
+} from '@chakra-ui/react'
+import s from "./SuccessMP.module.css"
+import {BsCheckCircle} from "react-icons/bs"
+
+
+
 
 export default function SuccessMP() {
   const dispatch = useDispatch();
@@ -62,22 +77,44 @@ export default function SuccessMP() {
   }
   return (
     <div className={s.container}>
-      {loading ? <Loading /> : null}
+      {loading && <Loading />}
       <div className={s.cont}>
         <div className={s.contGreen}>
-          <h1>Pago exitoso</h1>
-          <span className={s.pID}>
-            Numero transacción: <span>{order.transactionId}</span>
-          </span>
-          <span className={s.pID}>{order.status}</span>
-          <span>Total items: {activeCartQuantity}</span> {/* y si tengo más de 1 mismo item ? */}
-          <ul>
-            {
-              order.items.map(i => {
-                return <li key={Math.random()}>{i.title} Cantidad: {i.quantity} </li>
-              })
-            }
-          </ul>
+        <div className={s.check}><BsCheckCircle fontSize="6rem"/></div>
+          <h1 className={s.titulo}>PAGO EXITOSO</h1>
+          <div className={s.transaccion}>
+            Numero transacción: <span className={s.pID}>{order.transactionId}</span>
+          </div>
+          <div className={s.transaccion}>
+            Estado: <span className={s.pID}>{order.status}</span>
+          </div>
+
+          <span className={s.itemsTotales}>Total items: {activeCartQuantity}</span> {/* y si tengo más de 1 mismo item ? */}
+
+          <TableContainer className={s.tabla}>
+            <Table key={Math.random()} variant='striped' colorScheme='green'>
+              <Thead>
+                <Tr>
+                  <Th className={s.tituloTabla}>Libro</Th>
+                  <Th isNumeric className={s.tituloTabla}>Cantidad</Th>
+                  <Th isNumeric className={s.tituloTabla}>Precio</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {
+                  order.items.map(i => {
+                    return (
+                      <Tr>
+                        <Td>{i.title}</Td>
+                        <Td>{i.quantity}</Td>
+                        <Td isNumeric>{i.price}</Td>
+                      </Tr>
+                    )
+                  })
+                }
+              </Tbody>
+            </Table>
+          </TableContainer>
           <span>
             Total Libros: <span className={s.price}> ${activeCartAmount}</span>
           </span>
@@ -87,10 +124,7 @@ export default function SuccessMP() {
           <span>
             Total: <span className={s.price}> ${order.total + 1500 }</span>
           </span>
-          <div className={s.keep} onClick={goBack}>
-            Seguir Comprando
-          </div>
-        </div>
+          <Button className={s.boton} onClick={goBack}>Seguir Comprando</Button>
         <div className={s.successCheckmark}>
           <div className={s.checkIcon}>
             <span className={`${s.iconLine} ${s.lineTip}`}></span>
