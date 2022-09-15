@@ -16,6 +16,7 @@ body {
   --linkSearchBar: none;
   --footerBg: #F2F1EF;
   --footerMargin: none;
+  --sombras: #D7D7CF;
   background-color: var(--bg);
 
 }
@@ -26,6 +27,7 @@ body {
   --linkSearchBar: #01A86C;
   --footerBg: #1B1B1B;
   --footerMargin: #01A86C;
+  --sombras: #6d6d6d;
 }
 
 code {
