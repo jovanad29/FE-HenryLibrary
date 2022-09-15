@@ -1,28 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //CSS
 import styles from "./Direcciones.module.css";
 import { Flex, FormControl, FormLabel, RadioGroup, Radio, Input } from "@chakra-ui/react";
 import { getUserById } from '../../../actions/dataUserIdActions';
 import { useId } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function Direcciones() {
-
   const { address, uid } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [addressUser, setAddress] = useState({   //Estado para el manejo de direccioes
     direccion: address ? address : "",
     otraDireccion: "",
     sucursal: false
   });
-
+  const [input, setInput] = useState({})
+  const [errors, setss] = useState({})
   useEffect(() => {
     dispatch(getUserById(uid));
-
   }, [dispatch]);
 
   function addressHandleChange() {
-
+    alert("Estoy manejando la dirección")
   }
 
   let handleInputChange = e => {
@@ -31,7 +32,7 @@ export default function Direcciones() {
         [e.target.name]: e.target.value
     })
     
-    setErrors(validate({
+    setss(validate({
         ...input,
         [e.target.name]: e.target.value
     }))
@@ -39,7 +40,7 @@ export default function Direcciones() {
 
   let validate = input => {
     let  isAlpha =/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/
-    let errors = {};
+    let ss = {};
 
     if (!input.name || input.name.length > 150 ||input.name.length < 4 ) errors.name = "El nombre debe tener entre 4 y 150 caracteres"
     if (input.name[0] === " ") errors.name = "El primer caracter no puede ser un espacio"
@@ -67,8 +68,7 @@ export default function Direcciones() {
 
                   <Input variant='outline' value={address.direccion}
                         onChange={e=>handleInputChange(e)}
-
-                className={styles.input} focusBorderColor='#01A86C' />
+                  className={styles.input} focusBorderColor='#01A86C' />
             </div>
             <div className={styles.form}>
               <FormLabel className={styles.formLabel}>
@@ -76,7 +76,6 @@ export default function Direcciones() {
                        onChange={addressHandleChange} className={styles.radio}>
                         Otro Domicilio:</Radio></FormLabel>
                 <Input variant='outline' value={address.direccion}
-
                 onChange={e=>handleInputChange(e)}  focusBorderColor='#01A86C' />
             </div>
             <div className={styles.form}>
