@@ -17,7 +17,7 @@ export default function Direcciones() {
     sucursal: false
   });
   const [input, setInput] = useState({})
-  const [errors, setss] = useState({})
+  const [errors, setErrors] = useState({})
   useEffect(() => {
     dispatch(getUserById(uid));
   }, [dispatch]);
@@ -32,7 +32,7 @@ export default function Direcciones() {
         [e.target.name]: e.target.value
     })
     
-    setss(validate({
+    setErrors(validate({
         ...input,
         [e.target.name]: e.target.value
     }))
@@ -40,7 +40,7 @@ export default function Direcciones() {
 
   let validate = input => {
     let  isAlpha =/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/
-    let ss = {};
+    let errors = {};
 
     if (!input.name || input.name.length > 150 ||input.name.length < 4 ) errors.name = "El nombre debe tener entre 4 y 150 caracteres"
     if (input.name[0] === " ") errors.name = "El primer caracter no puede ser un espacio"
