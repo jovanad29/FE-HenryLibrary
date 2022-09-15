@@ -194,7 +194,7 @@ export default function Book({
     return (
 
         <div className={stock > 0 ? styles.book : styles.bookSinStock}>
-           ( <div className={styles.imagenes}>
+            <div className={styles.imagenes}>
                 <NavLink to={`/catalog/detail/${id}`}>
                     <img
                         className={styles.img}
@@ -203,11 +203,7 @@ export default function Book({
                         alt="imagenDelLibro"
                     />
                 </NavLink>
-            </div> )
-            
- 
-            
-        
+            </div>
 
             <p className={styles.title}>{title}</p>
             <h4 className={styles.authors}>
