@@ -147,7 +147,7 @@ let totalItemsByUser = 0
                             <Thead>
                                 <Tr>
                                     <Th>{totalOrders}</Th>
-                                    <Th inNumeric>{totalItemsByUser}</Th>
+                                    <Th isNumeric>{totalItemsByUser}</Th>
                                     <Th></Th>
                                     <Th></Th>
                                     <Th></Th>
