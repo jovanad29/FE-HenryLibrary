@@ -8,6 +8,52 @@ body {
 
 .btnLightDark {
     position: absolute;
-    right: 16rem;
+    right: 14rem;
     top: 6.3rem
+}
+
+
+
+
+
+/* ####### RESPONSIVE ######## */
+
+@media screen and (max-width: 1150px){
+
+    .btnLightDark {
+        top: 6.2rem;
+        right: 8rem;
+    }
+    
+}
+
+
+@media screen and (max-width: 960px){
+
+    .btnLightDark {
+        right: 3rem;
+        top: 5.6rem;
+    }    
+    
+}
+
+
+
+@media screen and (max-width: 860px){
+    
+    .btnLightDark {
+        top: 5.5rem;
+        right: 2rem;
+    }  
+    
+}
+
+
+@media screen and (max-width: 600px){
+    
+    .btnLightDark {
+        top: 5.5rem;
+        right: 1rem;
+    }  
+    
 }
