@@ -66,14 +66,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
+    width: 94%;
     height: 80%;
     padding-right: 5rem;
 }
 
 
 .title{
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-weight: bolder;
     font-size: 30px;
     justify-items: center;
@@ -84,14 +84,14 @@ body {
 
 
 .datos{
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-size: 13px;
     margin-bottom: 0.5rem;
     color: var(--text)
 } 
 
 .active{
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-size: 13px;
     margin-bottom: 0.5rem;
     color: #4083d6
@@ -99,14 +99,15 @@ body {
 
 
 .description{
+    width: 100%;
     margin-top: 0.5rem;
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-size: 15px;
     margin-bottom: 1rem;
     text-overflow: ellipsis;  
     white-space: wrap;
     overflow: hidden;
-    color: var(--text)
+    color: var(--text);
 }
 
 .compra{
@@ -122,12 +123,13 @@ body {
     width: 40%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
 
 .precio{
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-weight: bolder;
     font-size: 43px;
     color: var(--text)
@@ -138,7 +140,7 @@ body {
 }
 
 .stock{
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-weight: bolder;
     font-size: 20px;
     margin-right: 0.5rem;
@@ -146,8 +148,9 @@ body {
 }
 
 .NumeroStock{
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-size: 20px;
+    color: var(--text)
 }
 
 .botones{
@@ -165,8 +168,6 @@ body {
 
 .boton{
     margin-top: 2rem;
-    width: 200px;
-    height: 60px;
     background-color: #01A86C;
     font-weight: 600;
     font-size: 18px;
@@ -271,6 +272,123 @@ body {
 .recomendados{
     margin-top: 10rem;
     margin-left: 8rem;
-    width: 75rem;
+    width: 80%;
     height: 25rem;
+}
+
+
+
+
+
+/* ####### RESPONSIVE ######## */
+
+@media screen and (max-width: 1200px){
+
+    .detail {
+        height: 300%; 
+        width: 100%;
+    }
+
+    .container{
+        margin-left: 3rem;
+        height: 70%;
+        margin-bottom: 7rem;
+    }
+
+    .containerItems{
+        margin-top: 3rem;
+    }
+    
+
+    .img1{
+        height: 250px;
+        width: 250px; 
+    }
+
+    .img{
+        width: 70%;
+    }
+    
+    .img2{
+    height: 100px;
+    width: 100px; 
+    margin-right: 1rem; 
+   }
+
+   .conteiner2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%; 
+    height: 100%;
+  }
+
+}
+
+
+    
+
+
+
+@media screen and (max-width: 950px){
+
+    .precio{
+        font-size: 35px;
+    }
+        
+}
+
+
+@media (max-width: 790px) {
+
+    .detail {
+        height: 300%; 
+        width: 100%;
+    }
+
+    .container{
+        margin-left: 3rem;
+        height: 70%;
+        margin-bottom: 7rem;
+    }
+
+    .containerItems{
+        margin-top: 3rem;
+    }
+    
+
+    .img1{
+        height: 200px;
+        width: 200px; 
+    }
+
+    .img{
+        width: 70%;
+        background-color: antiquewhite;
+    }
+    
+    .img2{
+    height: 80px;
+    width: 80px; 
+   }
+
+   .conteiner2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%; 
+    height: 100%;
+  }
+
+  .compra{
+    flex-direction: column;
+  }
+
+
+  .botones{
+    width: 80%;
+  }
+
+
+    
 }

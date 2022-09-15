@@ -18,7 +18,7 @@ import DirectionsUser from "./DataUser/DirectionsUser.jsx";
 function DashboardUser() {
 
   const {status, displayName, email, reviews, uid} = useSelector (state => state)
-  const [isDetail, setIsDetail] = useState(false);
+  
 
 
   
@@ -47,7 +47,7 @@ function DashboardUser() {
             </TabPanel>
 
             <TabPanel>
-              {!isDetail ? <PurchaseOrders /> : <ReviewUser />}
+              <PurchaseOrders />
 
             </TabPanel>
 
