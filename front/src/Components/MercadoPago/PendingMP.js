@@ -11,8 +11,8 @@ import s from "./MercadoPago.module.sass";
 
 function PendingMP() {
   const dispatch = useDispatch();
-  const { userProfile } = useSelector((state) => state.profile);
-  const { mpID, order } = useSelector((state) => state.checkout);
+  //const { userProfile } = useSelector((state) => state.profile);
+  const { mpID, order, uid } = useSelector((state) => state);
   
   const history = useHistory();
   const [front, setOrder] = useState({
@@ -39,7 +39,7 @@ function PendingMP() {
     if (!front.ID) {
       setOrder({ ...order });
     }
-    if (order.items.length > 0 && userProfile.ID) {
+    if (order.items.length > 0 && uid) {
       setLoading(false);
     
       dispatch(clearPayment());
@@ -63,10 +63,10 @@ function PendingMP() {
           </span>
           <span>Total items: {front.items.length}</span>
           <span>
-            You need to complete the payment to receive your purchase.
+            Necesita completar el pago para recibir su Orden de Compra.
           </span>
           <div className={s.keep} onClick={goBack}>
-            Keep buying
+            Seguir comprando 
           </div>
         </div>
       </div>

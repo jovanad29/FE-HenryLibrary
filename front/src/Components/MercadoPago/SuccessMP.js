@@ -14,42 +14,19 @@ import Loading from "../Loading/Loading";
 export default function SuccessMP() {
   const dispatch = useDispatch();
 
-  const { mpID, order, activeCartPaymentId, uid} = useSelector((state) => state);
+  const { mpID, order, activeCartPaymentId, uid,activeCartQu} = useSelector((state) => state);
   // console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
- // const { stack } = useSelector((state) => state.stack);
+ 
   const history = useHistory();
-  // const [change, setChange] = useState(true); // para qué es esto?
-  // const order = {
-  //   transactionId: mpID,
-  //   items,
-  //   // userId  -> se agrega en el componente que pide la orden (rel. Checkout)
-  //   paymentType: response.payment_type_id,
-  //   total: parseFloat(response.transaction_details.total_paid_amount),
-  //   paymentMethodId: response.payment_type_id,
-  //   status: response.status,
-  //   statusDetail: response.status_detail,
-  //   deliveryAddress: "dirección de envío"
-  // }
-  // const [front, setOrder1] = useState({ // hace falta de verdad? No sería mejor usar order del store directamente?
-  //   ID: order.transactionId,
-  //   items: order.items,
-  //   status: order.status,
-  //   status_detail: order.statusDetail,
-  //   total: order.total,
-  // });
-  // const [paymentId, setPaymentId] = useState(activeCartPaymentId)
-  // useEffect(() => {
-  // }, [activeCartPaymentId])
+  
   useEffect(() => {
     if (mpID && activeCartPaymentId) {
       dispatch(asyncGetMP(mpID,activeCartPaymentId)); ////MIRAR
-      // console.log("se hace algo después del asyncGetMP?")
-      // console.log('en success con mpID'+ mpID)
-      // setOrder1(order);
+      
     }
-    //  else {
-    //   history.push("/");
-    // }
+     else {
+      history.push("/home");
+    }
     // return () => {
       // dispatch(clearPayment());  // este parece ser el problema
       // setOrder1({
@@ -61,40 +38,22 @@ export default function SuccessMP() {
       // });
       // setChange(false);
     // };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, [mpID, activeCartPaymentId]);
   const [loading, setLoading] = useState(false);
   //  const loading = false;
   useEffect(() => {
-    // console.log("estoy en el useEffect de la creación de datos en DB")
-    // if (!front.ID) {
-    //   setOrder1({ ...order });
-    // }
+   
     console.log("la condición para crear paymentOrder es: ", order.items.length > 0 && uid)
    if (order.items.length > 0 && uid) { // antes también se evaluaba el estado 'change'
       console.log("render")
-      // setChange(false);
-      // dispatch( // está dando problemas // porque limpia el estado de order
-      //   asyncConfirmPayment({ ...obj, userID: uid })//mirar si esta OK ?????
-      // )
-      // .then((res) => {
-        // if (res) {
-         // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
-          //  if ( activeCart) {
-              // setLoading(false);
-          
-        //  }
-         //);
-        // }
-      // });
-      // axios.post(`/paymentsOrder/create`, { ...order, userID: uid })
+      
       axios.post(`/mercadopago/create`, { ...order, userID: uid })
       .then( r => console.log("se guardó en DB", r))
       .catch( e => console.log("no se guardó en DB", e))
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  //}
+   
   }, [order, uid]); // front.ID
 
   function goBack(e) {
