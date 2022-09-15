@@ -16,6 +16,10 @@ import reactImageSize from "react-image-size";
 import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import Swal from "sweetalert2";
+import sinStock from "./sinStock.png"
+
+
+
 
 export default function Book({
     id,
@@ -189,17 +193,32 @@ export default function Book({
 
     return (
         <div className={styles.book}>
-            <div className={styles.imagenes}>
+           {stock > 0 ? 
+           ( <div className={styles.imagenes}>
                 <NavLink to={`/catalog/detail/${id}`}>
                     <img
                         className={styles.img}
-                        // onLoad={loadImage}
                         src={imgSrc}
                         key={imgSrc}
                         alt="imagenDelLibro"
                     />
                 </NavLink>
-            </div>
+            </div> )
+            
+            : 
+
+            ( <div className={styles.imagenesSinStock}>
+                <NavLink to={`/catalog/detail/${id}`}>
+                    <img
+                        className={styles.img}
+                        src={sinStock}
+                        key={imgSrc}
+                        alt="imagenDelLibro"
+                    />
+                </NavLink>
+            </div>)
+            
+        }
 
             <p className={styles.title}>{title}</p>
             <h4 className={styles.authors}>
@@ -248,8 +267,8 @@ export default function Book({
                         </button>
                     </div>
                 ) : (
-                    <div>
-                        <button className={styles.boton} disabled={true}>
+                    <div className={styles.pago}>
+                        <button className={styles.botonSinStock} disabled={true}>
                             Sin stock
                         </button>
                     </div>
