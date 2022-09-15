@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  
+  clearPayment,
   asyncGetMP,
 } from "../../actions/checkoutActions";
-import { clearPayment } from '../../reducer/checkoutSlice';
+
 import Loading from "../Loading/Loading";
 import s from "./MercadoPago.module.sass";
 
 function PendingMP() {
   const dispatch = useDispatch();
-  const { userProfile } = useSelector((state) => state.profile);
-  const { mpID, order } = useSelector((state) => state.checkout);
+  //const { userProfile } = useSelector((state) => state.profile);
+  const { mpID, order, uid } = useSelector((state) => state);
   
   const history = useHistory();
   const [front, setOrder] = useState({
@@ -33,19 +33,19 @@ function PendingMP() {
       dispatch(clearPayment());
     };
   
-  }, []);
+  }, [mpID]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!front.ID) {
       setOrder({ ...order });
     }
-    if (order.items.length > 0 && userProfile.ID) {
+    if (order.items.length > 0 && uid) {
       setLoading(false);
     
       dispatch(clearPayment());
     }
    
-  }, [order, userProfile]);
+  }, [order, uid]);
   useEffect(() => {}, [front]);
   function goBack(e) {
     e.preventDefault();
@@ -63,10 +63,10 @@ function PendingMP() {
           </span>
           <span>Total items: {front.items.length}</span>
           <span>
-            You need to complete the payment to receive your purchase.
+            Necesita completar el pago para recibir su Orden de Compra.
           </span>
           <div className={s.keep} onClick={goBack}>
-            Keep buying
+            Seguir comprando 
           </div>
         </div>
       </div>
