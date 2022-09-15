@@ -134,6 +134,7 @@ export default function SuccessMP() {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 }
