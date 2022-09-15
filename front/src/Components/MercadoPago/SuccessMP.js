@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  asyncConfirmPayment,
-  asyncGetMP,
-  clearPayment,
-} from "../../actions/checkoutActions.js";
-import {getCartDB} from '../../actions/index';
+import {  asyncGetMP,} from "../../actions/checkoutActions.js";
 import axios from "axios";
 import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
@@ -14,7 +9,11 @@ import Loading from "../Loading/Loading";
 export default function SuccessMP() {
   const dispatch = useDispatch();
 
-  const { mpID, order, activeCartPaymentId, uid,activeCartQu} = useSelector((state) => state);
+  const { mpID, 
+      order,
+     activeCartPaymentId,
+     uid, activeCartQuantity,
+     activeCartAmount,} = useSelector((state) => state);
   // console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
  
   const history = useHistory();
@@ -24,9 +23,9 @@ export default function SuccessMP() {
       dispatch(asyncGetMP(mpID,activeCartPaymentId)); ////MIRAR
       
     }
-     else {
-      history.push("/home");
-    }
+    //  else {
+    //   history.push("/home");
+    // }
     // return () => {
       // dispatch(clearPayment());  // este parece ser el problema
       // setOrder1({
@@ -41,12 +40,12 @@ export default function SuccessMP() {
   
   }, [mpID, activeCartPaymentId]);
   const [loading, setLoading] = useState(false);
-  //  const loading = false;
+
   useEffect(() => {
    
-    console.log("la condición para crear paymentOrder es: ", order.items.length > 0 && uid)
+  
    if (order.items.length > 0 && uid) { // antes también se evaluaba el estado 'change'
-      console.log("render")
+     // console.log("render")
       
       axios.post(`/mercadopago/create`, { ...order, userID: uid })
       .then( r => console.log("se guardó en DB", r))
@@ -71,16 +70,22 @@ export default function SuccessMP() {
             Numero transacción: <span>{order.transactionId}</span>
           </span>
           <span className={s.pID}>{order.status}</span>
-          <span>Total items: {order.items.length}</span> {/* y si tengo más de 1 mismo item ? */}
+          <span>Total items: {activeCartQuantity}</span> {/* y si tengo más de 1 mismo item ? */}
           <ul>
             {
               order.items.map(i => {
-                return <li key={Math.random()}>{i.title}</li>
+                return <li key={Math.random()}>{i.title} Cantidad: {i.quantity} </li>
               })
             }
           </ul>
           <span>
-            Total: <span className={s.price}> ${order.total}</span>
+            Total Libros: <span className={s.price}> ${activeCartAmount}</span>
+          </span>
+          <span>
+            Gastos de envio: <span className={s.price}> ${1500}</span>
+          </span>
+          <span>
+            Total: <span className={s.price}> ${order.total + 1500 }</span>
           </span>
           <div className={s.keep} onClick={goBack}>
             Seguir Comprando

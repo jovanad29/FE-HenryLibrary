@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  
+  clearPayment,
   asyncGetMP,
 } from "../../actions/checkoutActions";
-import { clearPayment } from '../../reducer/checkoutSlice';
+
 import Loading from "../Loading/Loading";
 import s from "./MercadoPago.module.sass";
 
@@ -33,7 +33,7 @@ function PendingMP() {
       dispatch(clearPayment());
     };
   
-  }, []);
+  }, [mpID]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!front.ID) {
@@ -45,7 +45,7 @@ function PendingMP() {
       dispatch(clearPayment());
     }
    
-  }, [order, userProfile]);
+  }, [order, uid]);
   useEffect(() => {}, [front]);
   function goBack(e) {
     e.preventDefault();
