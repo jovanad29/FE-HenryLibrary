@@ -1,7 +1,7 @@
 import React, { useState, useEffect,  useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { getAllCartDB} from "../../actions/index.js";
+import PurchaseOrdersDetail from "../PurchaseOrders/PurchaseOrdersDetail.jsx";
 
 //CSS
 import styles from "../ShoppingBook/ShoppingBook.module.css";
@@ -14,14 +14,20 @@ import {
     Td,
     TableContainer,
   } from '@chakra-ui/react'
+  import {
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
+    Box,
+  } from '@chakra-ui/react'
+
 
 export default function PurchaseOrders() {
-    const history = useHistory();
     const dispatch = useDispatch();  
     //definir un estados local para guardar todas las ordenes de un cliente
     const [orders, setOrders] = useState([]);
-    // //definir un estado local para guardar la cantidad de ordens de un cliente
-    // const [totalOrders, setTotalOrders] = useState(0);
 
     const { 
         status, 
@@ -66,27 +72,36 @@ export default function PurchaseOrders() {
     date = b.books[0].payment_book.createdAt.slice(0,10);
     return (
         <div key={id}> 
-            <TableContainer maxWidth='100%'>
-                <Table variant='simple'>  
-                    <Tbody>
-                        <Tr>
-                            <Td>{id}</Td>
-                            <Td isNumeric>{items}</Td>
-                            
-                            <Td isNumeric>{parseFloat(totalAmount).toFixed(2)}</Td>
-                            <Td>{state}</Td>
-                            <Td>{purchaseMetod}</Td>
-                            <Td>{date}</Td>
-                            <Td>
-                                {(b.statusId === 1) ?  
-                                <button className={styles.comprar} onClick={() => handleDetailView(b.id,b.statusId)}>Comprar</button> :
-                                <button className={styles.textoContinuarComprando} onClick={() => history.push(`/purchaseOrder/${id}`)}>Detalle</button>}
+                                <Accordion allowToggle>
+                                <AccordionItem>
+                                    <h2>
+                                    <AccordionButton>
+                                        <Box flex='1' textAlign='left'>
+                                        <TableContainer maxWidth='100%'>
+                                            <Table variant='simple'>  
+                                                <Tbody>
+                                                    <Tr>
+                                                        <Td>{id}</Td>
+                                                        <Td isNumeric>{items}</Td>
+                                                        <Td isNumeric>${parseFloat(totalAmount).toFixed(2)}</Td>
+                                                        <Td>{state}</Td>
+                                                        <Td>{purchaseMetod}</Td>
+                                                        <Td>{date}</Td>
+                                                      </Tr>
+                                                </Tbody>
+                                            </Table>
+                                        </TableContainer>
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                    </h2>
+                                    <AccordionPanel pb={4}>
+                                        <PurchaseOrdersDetail data={id}/>
+                                     </AccordionPanel>
+                                </AccordionItem>
+
+                                </Accordion>
                                 
-                            </Td>
-                        </Tr>
-                    </Tbody>
-                </Table>
-            </TableContainer>
         
         </div>
     );
@@ -104,17 +119,6 @@ let totalItemsByUser = 0
     }
 
 
-    function handleDetailView(id, statusId) {
-     
-        if(statusId === 1){
-            history.push(`/carrito`);
-        }else{
-            history.push(`/purchaseOrdersDetail/${id}`);
-        } 
-        // 
-        
-    }
-    
     return (
         <div >            
         <div className={styles.container}>
@@ -130,7 +134,6 @@ let totalItemsByUser = 0
                                     <Th>Estado</Th>
                                     <Th>Metodo de pago</Th>
                                     <Th>Fecha</Th>
-                                    <Th>Ir a</Th>
                                 </Tr>
                             </Thead>
                         </Table>
@@ -147,7 +150,7 @@ let totalItemsByUser = 0
                             <Thead>
                                 <Tr>
                                     <Th>{totalOrders}</Th>
-                                    <Th inNumeric>{totalItemsByUser}</Th>
+                                    <Th isNumeric>{totalItemsByUser}</Th>
                                     <Th></Th>
                                     <Th></Th>
                                     <Th></Th>
