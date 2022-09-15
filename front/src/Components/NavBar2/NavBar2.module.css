@@ -31,12 +31,6 @@ body {
 
 /* ####### RESPONSIVE ######## */
 
-/* @media screen and (max-width: 1920px){
-
-    
-} */
-
-
 
 @media screen and (max-width: 860px) {
 
@@ -51,12 +45,6 @@ body {
         font-size: 14px;
     }
 
-    .btnLightDark {
-        right: 3rem;
-        top: 5rem
-    }
-
-
 }
 
 
@@ -67,6 +55,5 @@ body {
         margin-left: 2rem;
         gap: 6rem;
     }
-
 
 }
