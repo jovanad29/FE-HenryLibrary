@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem } from "../../actions";
+import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem, discountCurrentStock } from "../../actions";
 import { Link, useParams } from "react-router-dom";
 
 //COMPONENTES
@@ -108,6 +108,7 @@ function handleOnAdd(id, price) {
           confirmButtonColor: "#01A86C",
       });
   }
+  dispatch(discountCurrentStock(bookDetail.id));
 }
 
 
@@ -146,10 +147,14 @@ useEffect (() => {
     totals.totalAmount += guestBook.price;
     // setTotal(totals);
     localStorage.setItem("total", JSON.stringify(totals));
+
   }
 }, [guestBook, guestBook.id, bookDetail.id]);
 
+// useEffect (() => {// cuando cambia el stock renderizo el componente detalle
+//   dispatch(getBooksId(id));
 
+// }, [bookDetail.currentStock]);
 
 
   const arrAuthores = bookDetail.authors && bookDetail.authors.map(a => {
