@@ -100,7 +100,7 @@ export default function SuccessMP() {
               Gastos de envio: <span className={s.price}> ${1500}</span>
             </span>
             <span>
-              Total: <span className={s.price}> ${order.total + 1500 }</span>
+            Total: <span className={s.price}> ${parseFloat(order.total + 1500).toFixed(2)}</span>
             </span>
             <Button className={s.boton} onClick={goBack}>Seguir Comprando</Button>
           <div className={s.successCheckmark}>
