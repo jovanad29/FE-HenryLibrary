@@ -38,6 +38,7 @@ export default function BookDetail() {
 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getBooksId(id));
 
     return () => {
