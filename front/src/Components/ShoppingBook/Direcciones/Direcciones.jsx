@@ -64,13 +64,13 @@ export default function Direcciones() {
     e.preventDefault();
     const pickUpInStore = 'Retira en sucursal el cliente'
     if (checkbottom === "1") {
-      //dispatch(updateAdrress(uid,input.addressUser));//ruta nueva de user
+     // dispatch(updateAdrress(uid,input.addressUser));//ruta nueva de user put de USER con a
       dispatch(getUserInfo(uid))
       // dispatch(updateDeliveryAddress(uid,input.addressUser)) // ruta nueva para payment
       console.log('otra direccion', input.addressUser);
     }
     if (checkbottom === "2") {
-      //dispatch(updateDeliveryAddress(uid,otherAddress)) //ruta nueva para payment
+    //  dispatch(updateDeliveryAddress(uid,otherAddress)) //ruta nueva para payment JOVVVVAAAAAAA!!!
       console.log('otra direccion', input.otherAddress);
     }
     if (checkbottom === "3") {
