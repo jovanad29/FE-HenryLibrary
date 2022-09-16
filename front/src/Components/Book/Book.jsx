@@ -16,7 +16,6 @@ import reactImageSize from "react-image-size";
 import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import Swal from "sweetalert2";
-import sinStock from "./sinStock.png"
 
 
 
