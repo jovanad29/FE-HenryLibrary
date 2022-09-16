@@ -12,7 +12,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
     axios
     .post("/mercadopago", {
         items,
-        base_url: process.env.REACT_APP_BASE_URL || 'http://localhost:3000/',
+        base_url: process.env.REACT_APP_BASE_URL || 'http://localhost:3000',
         ID: userID,
       })
       .then((order) => {
