@@ -77,10 +77,6 @@ body {
     height: 100%;
     display: auto;
     flex-direction: column;
-    border-right: 2px solid #01A86C;
-    border-top: 2px solid #01A86C;
-    border-left: 2px solid #01A86C;
-    border-bottom: 2px solid #01A86C;
     background-color: gray;
 }
 
@@ -276,4 +272,12 @@ body {
     font-weight: bolder;
     font-size: 18px;
     color: var(--text);
+}
+
+.tableTittles {
+    color: var(--text) !important;
+}
+
+.tableDetails {
+    color: var(--text) !important;
 }

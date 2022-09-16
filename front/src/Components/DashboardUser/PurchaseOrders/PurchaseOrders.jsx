@@ -78,18 +78,18 @@ export default function PurchaseOrders() {
                                 <Accordion allowToggle>
                                 <AccordionItem>
                                     <h2>
-                                    <AccordionButton>
+                                    <AccordionButton className={styles.tableDetails}>
                                         <Box flex='1' textAlign='left'>
                                         <TableContainer maxWidth='100%'>
                                             <Table variant='simple'>  
                                                 <Tbody>
                                                     <Tr>
-                                                        <Td>{id}</Td>
-                                                        <Td isNumeric>{items}</Td>
-                                                        <Td isNumeric>${parseFloat(totalAmount).toFixed(2)}</Td>
-                                                        <Td>{state}</Td>
-                                                        <Td>{purchaseMetod}</Td>
-                                                        <Td>{date}</Td>
+                                                        <Td className={styles.tableDetails}>{id}</Td>
+                                                        <Td className={styles.tableDetails} isNumeric>{items}</Td>
+                                                        <Td className={styles.tableDetails} isNumeric>${parseFloat(totalAmount).toFixed(2)}</Td>
+                                                        <Td className={styles.tableDetails}>{state}</Td>
+                                                        <Td className={styles.tableDetails}>{purchaseMetod}</Td>
+                                                        <Td className={styles.tableDetails}>{date}</Td>
                                                       </Tr>
                                                 </Tbody>
                                             </Table>
@@ -130,13 +130,13 @@ let totalItemsByUser = 0
                     <TableContainer maxWidth='90%'>
                         <Table variant='simple'>
                             <Thead>
-                                <Tr>
-                                    <Th>Id</Th>
-                                    <Th>Items</Th>
-                                    <Th isNumeric >Importe/s</Th>
-                                    <Th>Estado</Th>
-                                    <Th>Metodo de pago</Th>
-                                    <Th>Fecha</Th>
+                                <Tr className={styles.tableTittles}>
+                                    <Th className={styles.tableTittles}>Id</Th>
+                                    <Th className={styles.tableTittles}>Items</Th>
+                                    <Th className={styles.tableTittles} isNumeric >Importe/s</Th>
+                                    <Th className={styles.tableTittles}>Estado</Th>
+                                    <Th className={styles.tableTittles}>Metodo de pago</Th>
+                                    <Th className={styles.tableTittles}>Fecha</Th>
                                 </Tr>
                             </Thead>
                         </Table>
@@ -152,21 +152,8 @@ let totalItemsByUser = 0
                         <Table variant='striped' size='lg'>
                             <Thead>
                                 <Tr>
-                                    <Th>{totalOrders}</Th>
-                                    <Th isNumeric>{totalItemsByUser}</Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                    
+                                    <Th>Cantidad de Ordenes: {totalOrders}</Th>
+                                    <Th isNumeric>Cantidad de Items: {totalItemsByUser}</Th>                                    
                                 </Tr>
                             </Thead>
                         </Table>
