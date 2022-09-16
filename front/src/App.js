@@ -23,7 +23,7 @@ import PurchaseOrders from "./Components/PurchaseOrders/PurchaseOrders";
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 import Dashboard from "./Components/Admin/Dashboard";
 import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
-import UserView from "./Components/Admin/UserView";
+import UserView from "./Components/Admin/UserView/UserView";
 
 function App() {
   const status = useCheckAuth();

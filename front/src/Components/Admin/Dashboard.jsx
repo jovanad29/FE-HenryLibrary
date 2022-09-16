@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UserView from "./UserView";
 import { getAllUsers } from "../../actions/dashboardActions";
 import { Box } from "@chakra-ui/react";
+import UserView from "./UserView/UserView";
 
 import Menu from "./Components/Menu";
 import BreadCrumb from "./Components/BreadCrumb";
@@ -19,14 +19,15 @@ function Dashboard() {
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Quicksand" bgColor="blackAlpha.50">
+    <Box fontFamily="Quicksand">
       <Menu />
       <BreadCrumb />
       <Title />
-
+      {console.log(allUsers)}
       <Box ml="20%" mt="5%">
         <CardsInfo />
       </Box>
+      <UserView allUsers={allUsers} />
     </Box>
   );
 }
