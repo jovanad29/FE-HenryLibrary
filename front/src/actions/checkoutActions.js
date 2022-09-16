@@ -52,16 +52,14 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
         statusDetail: response.status_detail,
         deliveryAddress: "dirección de envío"
       }
-      // dispatch( setOrder(orderobj) );
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
-      // console.log("se envía a guardar la orden de compra si status === 'approved'") // si esto se imprime,       
-      // console.log('este es el id del CART:', idCart);
-      const status = { 'approved': 4 } // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
-      try {
+      const status = {'approved': 4, 'in_process': 2} // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
+      try {       
         await axios.put(`/payments/${idCart}/status/${status[response.status]}`) // cambio el estatus del pedido de carrito a aprobado
       } catch (error) {
         console.log(error)
       }
+      // ACABÁ DEBERÍA LIMPIAR EL CARRITO O LLAMAR A LA ACTION QUE LO HACE
     } catch (error) {
       console.log(error);
     }
