@@ -51,8 +51,6 @@ export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
 export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 
-
-
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
         axios
@@ -465,6 +463,7 @@ export function orderBy(order) {
         dispatch({ type: ORDER_BY, payload: order });
     };
 }
+
 
 export function saveLocalCartToDB(userId, body) {
     return async function (dispatch) {
