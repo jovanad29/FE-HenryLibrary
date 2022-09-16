@@ -63,6 +63,8 @@ export function validateReview(input) {
     errores.descrption = "Se requiere una descripcion";
   } else if (input.descrption.length > 100) {
     errores.descrption = "supero el maximo de 100 caracteres";
+  }else if (input.descrption !== "") {
+    errores.descrption = "Debe escribir un mensaje";
   }
 
   return errores;
