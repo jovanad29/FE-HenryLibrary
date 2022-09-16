@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 //CSS
 import styles from "../ShoppingBook/ShoppingBook.module.css";
 
-export default function PurchaseOrdersDetail({data}) {
+export default function PurchaseOrdersDetail({id}) {
+    const history = useHistory();
     const dispatch = useDispatch();
     const {
         allCartByUser,
@@ -13,16 +15,20 @@ export default function PurchaseOrdersDetail({data}) {
 
     useEffect(() => {
           let allOrders = allCartByUser;
-          let orderId = allOrders.find((o) => o.id === data);
+          let orderId = allOrders.find((o) => o.id === id);
           setOrder(orderId);
-    }, [allCartByUser,data,dispatch]);
+    }, [allCartByUser,id,dispatch]);
 
     let totalAmount = parseFloat(order.totalAmount).toFixed(2);
 
-    function handleBuyingBooks(e) {
-        e.preventDefault();
+    function handleBuyingBooks(id) {
+        if (order.statusId === 1) {
+            history.push("/carrito");
+        } else {   
+            // console.log(order, "order"); 
         // history.push("/shoppingcart");
-    }
+       }
+    }   
     //obtener los datos de los libros para imprimir
     let books = order?.books?.map((b) => {
       let id, title, image, quantity, price;
@@ -78,16 +84,18 @@ export default function PurchaseOrdersDetail({data}) {
 
               </div>
               <div className={styles.container2}>
-                Total: ${totalAmount}
-                <div className={styles.button}>
-                    <button
-                        className={styles.comprar}
-                        onClick={(e) =>
-                            handleBuyingBooks(e)
-                        }
-                    >
-                        Falta Funcionalidad!
-                    </button> 
+                <div className={styles.infoCompra}>
+                    <div className={styles.total}>
+                        <h3>
+                            Total: ${totalAmount} 
+                        </h3>
+                    </div>
+                    <div className={styles.button}>
+                        {order.statusId === 1 ? 
+                            (<button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>Continuar Comprando</button>):
+                            (<button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>Falta Funcionalidad!</button>)}
+                    </div>
+
                 </div>
             </div>
       </div>

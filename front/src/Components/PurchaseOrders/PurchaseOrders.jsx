@@ -96,7 +96,7 @@ export default function PurchaseOrders() {
                                     </AccordionButton>
                                     </h2>
                                     <AccordionPanel pb={4}>
-                                        <PurchaseOrdersDetail data={id}/>
+                                        <PurchaseOrdersDetail id={id}/>
                                      </AccordionPanel>
                                 </AccordionItem>
 
