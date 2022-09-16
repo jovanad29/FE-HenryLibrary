@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-//CSS
-import styles from "../ShoppingBook/ShoppingBook.module.css";
+//CSS 
+import styles from "../../ShoppingBook/ShoppingBook.module.css";
 
 
 export default function PurchaseOrdersDetail({id}) {
@@ -12,8 +12,6 @@ export default function PurchaseOrdersDetail({id}) {
     const dispatch = useDispatch();
     const {
         allCartByUser,
-        uid,
-        bookDetail,
     } = useSelector((state) => state);
     const [order, setOrder] = useState([]);
 

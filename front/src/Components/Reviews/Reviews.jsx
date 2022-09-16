@@ -86,6 +86,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
           descrption:"",
           rating: 1
       })
+      // setErrores("");
     };
 
 
