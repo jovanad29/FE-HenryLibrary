@@ -33,7 +33,8 @@ import {
   GET_ID_FAVORITES,
   GET_ALL_REVIEWS,
   POST_ALL_REVIEWS,
-  GET_USER_PAYMENTS_BOOK
+  GET_USER_PAYMENTS_BOOK,
+  GET_DIRECTIONS_USERS
 } from "../actions/index";
 //mercado pago
 import {
@@ -44,7 +45,7 @@ import {
 } from "../actions/checkoutActions";
 //DASHBOARD
 import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
-import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
+
 
 const initialState = {
   allBooks: [],

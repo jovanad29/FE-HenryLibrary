@@ -2,12 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function DataUser(id) {
-  const { email, displayName } = useSelector((state) => state);
+  const { email, displayName, address } = useSelector((state) => state);
+
+ 
 
   return (
     <div>
-      <p>Nombre: {displayName}</p>
+   {/* Nombre:   <input value={} /> {displayName} */}
       <p>Email: {email}</p>
+      <p>Direccion: {address}</p>
     </div>
   )
 }

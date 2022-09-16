@@ -48,8 +48,8 @@ export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
 export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
-export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK"
-
+export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
+export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 
 
 
@@ -659,3 +659,22 @@ export const startResetPasswordEmail = ({ email }) => {
         if (!result.ok) return dispatch(logout(result.errorMessage));
     };
 };
+
+
+
+export function getDirectionsUser(uid) {
+  return async (dispatch) => {
+    try {
+     await
+      axios.get(`/mercadopago/adresses/${uid}`)
+        .then((response) => {
+          dispatch({
+            type: GET_DIRECTIONS_USERS,
+            payload: response.data,
+          });
+        })
+    } catch (error) {
+      console.log("getDirectionsUser", error);
+    };
+  };
+}
