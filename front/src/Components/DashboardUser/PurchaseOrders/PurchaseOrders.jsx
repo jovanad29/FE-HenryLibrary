@@ -1,10 +1,10 @@
 import React, { useState, useEffect,  useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCartDB} from "../../actions/index.js";
-import PurchaseOrdersDetail from "../PurchaseOrders/PurchaseOrdersDetail.jsx";
+import { getAllCartDB} from "../../../actions/index";
+import PurchaseOrdersDetail from "./PurchaseOrdersDetail.jsx";
 
-//CSS
-import styles from "../ShoppingBook/ShoppingBook.module.css";
+//CSS 
+import styles from "../../ShoppingBook/ShoppingBook.module.css";
 import {
     Table,
     Thead,
