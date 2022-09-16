@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
-import PurchaseOrders from "../PurchaseOrders/PurchaseOrders.jsx";
+import PurchaseOrders from "./PurchaseOrders/PurchaseOrders.jsx";
 import ReviewUser from "./ReviewUser/ReviewUser.jsx";
 
 //CSS
