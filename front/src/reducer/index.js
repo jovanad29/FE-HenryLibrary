@@ -33,6 +33,7 @@ import {
   GET_ID_FAVORITES,
   GET_ALL_REVIEWS,
   POST_ALL_REVIEWS,
+  GET_USER_PAYMENTS_BOOK
 } from "../actions/index";
 //mercado pago
 import {
@@ -43,7 +44,6 @@ import {
 } from "../actions/checkoutActions";
 //DASHBOARD
 import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
-import { GET_USERS_BY_ID } from "../actions/dataUserIdActions.js";
 import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
 
 const initialState = {
@@ -85,6 +85,7 @@ const initialState = {
   items: [],
   reviews: [],
   reviewsUser: [],
+  reviewsBook: [],
   directionsUser: [],
 };
 
@@ -427,6 +428,12 @@ function rootReducer(state = initialState, action) {
         reviews: [...state.reviews, { ...action.payload }],
       };
 
+    case GET_USER_PAYMENTS_BOOK:
+      return{
+        ...state,
+
+      }
+
     //DASHBOARDS
 
     case GET_ALL_USERS:
@@ -434,12 +441,6 @@ function rootReducer(state = initialState, action) {
         ...JSON.parse(JSON.stringify(state)),
         allUsers: action.payload,
       };
-
-      case GET_USERS_BY_ID:
-        return {
-          ...JSON.parse(JSON.stringify(state)),
-          allUsers: action.payload,
-        };
 
         case GET_DIRECTIONS_USERS:
           return {

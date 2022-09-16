@@ -11,9 +11,8 @@ export default function MercadoPago({ items, setLoading, userID }) {
     // console.log("Estoy en el primer userEffect: ", userID)
     axios
     .post("/mercadopago", {
-        // .post("/paymentsOrder", {
         items,
-        base_url: process.env.REACT_APP_BASE_URL || 'http://localhost:3000/',
+        base_url: process.env.REACT_APP_BASE_URL || 'http://localhost:3000',
         ID: userID,
       })
       .then((order) => {
@@ -30,7 +29,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
         });
       });
   //eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+  }, []);
    
   useEffect(() => {
    // console.log('estoy en mercado pago ' , preferenceId)

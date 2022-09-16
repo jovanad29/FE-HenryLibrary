@@ -20,52 +20,32 @@ import {BsCheckCircle} from "react-icons/bs"
 
 
 export default function SuccessMP() {
-  const dispatch = useDispatch();
-
-  const { mpID, 
-      order,
-     activeCartPaymentId,
-     uid, activeCartQuantity,
-     activeCartAmount,} = useSelector((state) => state);
+  	const dispatch = useDispatch();
+	const {
+		mpID, 
+		order,
+		activeCartPaymentId,
+		uid, activeCartQuantity,
+		activeCartAmount
+	} = useSelector((state) => state);
   // console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
  
   const history = useHistory();
   
   useEffect(() => {
     if (mpID && activeCartPaymentId) {
-      dispatch(asyncGetMP(mpID,activeCartPaymentId)); ////MIRAR
-      
-    }
-    //  else {
-    //   history.push("/home");
-    // }
-    // return () => {
-      // dispatch(clearPayment());  // este parece ser el problema
-      // setOrder1({
-      //   ID: "",
-      //   items: [],
-      //   status: "",
-      //   status_detail: "",
-      //   total: 0,
-      // });
-      // setChange(false);
-    // };
-  
+      dispatch(asyncGetMP(mpID,activeCartPaymentId));     
+    }  
   }, [mpID, activeCartPaymentId]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-   
-  
-   if (order.items.length > 0 && uid) { // antes también se evaluaba el estado 'change'
-     // console.log("render")
-      
+  useEffect(() => {     
+   if (order.items.length && uid) { // antes también se evaluaba el estado 'change'
+     // console.log("render")      
       axios.post(`/mercadopago/create`, { ...order, userID: uid })
       .then( r => console.log("se guardó en DB", r))
       .catch( e => console.log("no se guardó en DB", e))
-    }
-
-   
+    }   
   }, [order, uid]); // front.ID
 
   function goBack(e) {
