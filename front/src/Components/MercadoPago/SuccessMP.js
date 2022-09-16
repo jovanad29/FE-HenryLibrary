@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { asyncGetMP } from "../../actions/checkoutActions.js";
+import {
+  asyncGetMP,
+  // clearPayment
+} from "../../actions/checkoutActions.js";
 import axios from "axios";
 // import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
@@ -17,6 +20,7 @@ import {
 } from '@chakra-ui/react'
 import s from "./SuccessMP.module.css"
 import {BsCheckCircle} from "react-icons/bs"
+import { getCartDB } from "../../actions/index.js";
 
 
 export default function SuccessMP() {
@@ -25,7 +29,8 @@ export default function SuccessMP() {
 		mpID, 
 		order,
 		activeCartPaymentId,
-		uid, activeCartQuantity,
+		uid,
+    activeCartQuantity,
 		activeCartAmount
 	} = useSelector((state) => state);
   // console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
@@ -34,8 +39,11 @@ export default function SuccessMP() {
   
   useEffect(() => {
     if (mpID && activeCartPaymentId) {
-      dispatch(asyncGetMP(mpID,activeCartPaymentId));     
-    }  
+      dispatch(asyncGetMP(mpID,activeCartPaymentId));
+    }
+    return () => {
+      dispatch(getCartDB(uid)) // para limpiar el carrito después de comprar
+    }
   }, [mpID, activeCartPaymentId]);
   // const [loading, setLoading] = useState(false);
 
@@ -45,7 +53,10 @@ export default function SuccessMP() {
       axios.post(`/mercadopago/create`, { ...order, userID: uid })
       .then( r => console.log("se guardó en DB", r))
       .catch( e => console.log("no se guardó en DB", e))
-    }   
+    }
+    // return () => {
+    //   dispatch(clearPayment())
+    // }
   }, [order, uid]); // front.ID
 
   function goBack(e) {
@@ -102,7 +113,7 @@ export default function SuccessMP() {
               Gastos de envio: <span className={s.price}> ${1500}</span>
             </span>
             <span>
-              Total: <span className={s.price}> ${order.total + 1500 }</span>
+            Total: <span className={s.price}> ${parseFloat(order.total + 1500).toFixed(2)}</span>
             </span>
             <Button className={s.boton} onClick={goBack}>Seguir Comprando</Button>
           <div className={s.successCheckmark}>
