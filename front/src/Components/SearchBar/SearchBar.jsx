@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 
 //CSS
-// import styles from "./SearchBar.module.css";
+import styles from "./SearchBar.module.css";
 
 //Componentes Chakra
 import { Box, Flex, chakra, Center } from "@chakra-ui/react";
@@ -108,8 +108,7 @@ export default function SearchBar() {
               rounded: "lg",
               overflow: "hidden",
               bg: "transparent",
-              // shadow: "lg",
-              boxShadow: "3px 3px 3px #01A86C",
+              shadow: "lg",
               maxW: "600px",
               width: "100%",
               mt: "1rem",
@@ -131,13 +130,14 @@ export default function SearchBar() {
                   outline: 0,
                 }}
                 placeholder="Buscar Libro"
-                _placeholder={{ color: "#01A86C", opacity: 0.3 }}
+                _placeholder={{ color: "#01A86C", opacity: 0.6 }}
                 value={title}
                 onChange={handleChange}
+                className={styles.input}
               />
 
               <Center pos="absolute" left={7} bottom={-2} h="68px">
-                <FiSearch color="#01A86C" boxSize="20px" />
+                <FiSearch color="#01A86C" boxsize="20px" />
               </Center>
             </Flex>
 

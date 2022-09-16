@@ -7,22 +7,22 @@ import s from "./Checkout.module.sass";
 
 function Checkout() {
   const [loading, setLoading] = useState(true);
-  const items  = useSelector((state) => state.items);
+  // const items  = useSelector((state) => state.items);
  // alert('estoy en checout tengo estos items',items)
   //const { stack } = useSelector((state) => state.history);
  // const status  = useSelector((state) => state.status);
-  const uid =useSelector(state=> state.uid)
+  const { uid, items } = useSelector(state=> state)
   const history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (items.length <= 0) {
-      history.push("/");
+    if (!items.length) {
+      history.push("/carrito");
     }
-    
+    setLoading(false)    
   }, []);
-  useEffect(() => {
+  // useEffect(() => {
    
-  }, [loading]);
+  // }, [loading]);
   function goBack() {
     // var lastPath = [];
     // for (let i = 1; i < stack.length; i++) {
@@ -42,8 +42,8 @@ function Checkout() {
   
   return (
     <div className={s.container}>
-     {loading ? <Loading /> : null} 
-
+    {
+      loading ? <Loading /> : 
       <div className={s.ticket}>
         <div className={s.contTicket}>
           <div className={s.backButton}>
@@ -91,6 +91,7 @@ function Checkout() {
           </div>
         </div>
       </div>
+    }
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
 import {getAllReviews, createReviewByBook} from "../../actions/index.js"
 import ReviewsCard from "./ReviewsCard/ReviewsCard.jsx";
-
+import Rating from "./Rating/Rating.jsx";
 
 //CSS
 import styles from "./Reviews.module.css";
@@ -15,7 +15,7 @@ import {
   FormErrorMessage,
   Button,
 } from "@chakra-ui/react";
-import Rating from "./Rating.jsx";
+
 
 
 
@@ -120,8 +120,8 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
               name="descrption"
               onChange={handleInputsChange}
               placeholder="escribe tu opinion"
+              _placeholder={{ color: "#01A86C"}}
               w="90%" h='60%'
-              outlineColor='none'
               focusBorderColor='#01A86C'
               borderColor='#01A86C'
             />

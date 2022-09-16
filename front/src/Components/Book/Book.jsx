@@ -17,6 +17,9 @@ import styles from "./Book.module.css";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import Swal from "sweetalert2";
 
+
+
+
 export default function Book({
     id,
     title,
@@ -188,12 +191,12 @@ export default function Book({
     }, []);
 
     return (
-        <div className={styles.book}>
+
+        <div className={stock > 0 ? styles.book : styles.bookSinStock}>
             <div className={styles.imagenes}>
                 <NavLink to={`/catalog/detail/${id}`}>
                     <img
                         className={styles.img}
-                        // onLoad={loadImage}
                         src={imgSrc}
                         key={imgSrc}
                         alt="imagenDelLibro"
@@ -248,10 +251,10 @@ export default function Book({
                         </button>
                     </div>
                 ) : (
-                    <div>
-                        <button className={styles.boton} disabled={true}>
+                    <div className={styles.pago}>
+                        <div className={styles.botonSinStock} disabled={true}>
                             Sin stock
-                        </button>
+                        </div>
                     </div>
                 )}
             </div>
