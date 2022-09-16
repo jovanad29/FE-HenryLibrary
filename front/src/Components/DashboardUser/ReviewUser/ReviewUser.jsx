@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { getAllReviewByUser } from "../../../actions/dashboardActions.js";
 import { useSelector, useDispatch } from "react-redux";
+import RatingNoEditable from '../../Reviews/Rating/RatingNoEditable.jsx';
 
 //CSS
 import {
@@ -28,10 +29,7 @@ function ReviewUser() {
     dispatch(getAllReviewByUser(uid));
   }, [dispatch, uid]);
 
-
-
-
-  
+ 
   return (
     <TableContainer>
         <Table variant="simple">
@@ -50,11 +48,14 @@ function ReviewUser() {
                   <Tr key={r.id}>
                     <Td>{r.books?.map((b) => b.title)}</Td>
                     <Td>{r.descrption}</Td>
-                    <Td>{r.rating}</Td>
+                    {/* <Td>{r.rating}</Td> */}
+                    <Td>{<RatingNoEditable value={r.rating}/>}</Td>
                   </Tr>
                 )
               })
-            }
+              }
+            
+        
           </Tbody>
         </Table>
     </TableContainer>
