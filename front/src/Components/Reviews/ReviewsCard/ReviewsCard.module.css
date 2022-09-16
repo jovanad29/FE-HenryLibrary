@@ -1,3 +1,15 @@
 .mensajeVacio{
     color: var(--text)
 }
+
+.nombre{
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--text)
+}
+
+.descrption{
+    font-weight: lighter;
+    font-size: 18px;
+    color: var(--text)
+}

@@ -31,8 +31,8 @@ export default function Footer() {
     </div>
 
     <div className={styles.redes}>
-      <FaFacebookSquare size="2rem" />
-      <BsInstagram size="2rem"/>
+      <FaFacebookSquare size="1.5rem" color="#01A86C"/>
+      <BsInstagram size="1.5rem" color="#01A86C"/>
     </div>
 
   </div>

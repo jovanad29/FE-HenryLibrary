@@ -1,18 +1,33 @@
 import React, { useState, useEffect,  useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { getAllCartDB} from "../../actions/index.js";
+import PurchaseOrdersDetail from "../PurchaseOrders/PurchaseOrdersDetail.jsx";
 
-import NavBar from "../NavBar/NavBar.jsx";
+//CSS
+import styles from "../ShoppingBook/ShoppingBook.module.css";
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tr,
+    Th,
+    Td,
+    TableContainer,
+  } from '@chakra-ui/react'
+  import {
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
+    Box,
+  } from '@chakra-ui/react'
 
 
 export default function PurchaseOrders() {
-    const history = useHistory();
     const dispatch = useDispatch();  
     //definir un estados local para guardar todas las ordenes de un cliente
     const [orders, setOrders] = useState([]);
-    // //definir un estado local para guardar la cantidad de ordens de un cliente
-    // const [totalOrders, setTotalOrders] = useState(0);
 
     const { 
         status, 
@@ -29,26 +44,19 @@ export default function PurchaseOrders() {
     useEffect(() => {
         if (isAuthenticated) {
             dispatch(getAllCartDB(uid));
+            // setOrders(allCartByUser);
             
         }
     }, [isAuthenticated, dispatch, uid]);
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            setOrders(allCartByUser);
-            // dispatch(getCantItemsByCart(uid))        
-  }}, [allCartByUser]);
+    useEffect(() => {  
+        setOrders(allCartByUser);    
+  }, [allCartByUser, dispatch]);
 
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         let totalItems = orders.length;
-    //         setTotalOrders(totalItems);
-    //         setTotalItemsByUser(cantItemsByCart)
-    //     }
-    // }, [cantItemsByCart]);
+
 
    const itemToPrint = orders?.map((b) => {
-    let id, items, mont, state, purchaseMetod, date;
+    let id, items, totalAmount, state, purchaseMetod, date;
     id = b.id;
     //sumar la cantidad total que hay en todas las propiedades quantity de payment_book
     items = 0
@@ -56,63 +64,112 @@ export default function PurchaseOrders() {
             items = items + b.books[i].payment_book.quantity; 
     }
     
+    // convertir totalAmount a formato internacional de moneda
     
-    mont = parseFloat(b.totalAmount).toFixed(2);
-    state = (b.statusId === 1) ? "Pendiente" : "Completado";
+    totalAmount = (b.totalAmount);
+    state = (b.payment_status.description);
     purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.paymentMethodId;
     date = b.books[0].payment_book.createdAt.slice(0,10);
     return (
         <div key={id}> 
-                   Id  {id}
-                   Items {items}
-                   Importe/s {mont}
-                   Estado {state}
-                   Método de Pago {purchaseMetod}
-                   Fecha {date}
-                   <button onClick={() => handleDetailView(b.id,b.statusId)}>
-                        Ver Detalle
-                    </button>
-                </div>
+                                <Accordion allowToggle>
+                                <AccordionItem>
+                                    <h2>
+                                    <AccordionButton>
+                                        <Box flex='1' textAlign='left'>
+                                        <TableContainer maxWidth='100%'>
+                                            <Table variant='simple'>  
+                                                <Tbody>
+                                                    <Tr>
+                                                        <Td>{id}</Td>
+                                                        <Td isNumeric>{items}</Td>
+                                                        <Td isNumeric>${parseFloat(totalAmount).toFixed(2)}</Td>
+                                                        <Td>{state}</Td>
+                                                        <Td>{purchaseMetod}</Td>
+                                                        <Td>{date}</Td>
+                                                      </Tr>
+                                                </Tbody>
+                                            </Table>
+                                        </TableContainer>
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                    </h2>
+                                    <AccordionPanel pb={4}>
+                                        <PurchaseOrdersDetail data={id}/>
+                                     </AccordionPanel>
+                                </AccordionItem>
+
+                                </Accordion>
+                                
+        
+        </div>
     );
 });
-    let totalOrders = orders.length;
-    let totalItemsByUser = 0;
-    // sumar la cantidad total que hay en todas las propiedades quantity de payment_book
-    for (let i = 0; i < orders.length; i++) {
-        for (let j = 0; j < orders[i].books.length; j++) {
-            totalItemsByUser = totalItemsByUser + orders[i].books[j].payment_book.quantity;
-        }
-    }   
-
-    // let item = [];
-    // let cantItems = allCartByUser.length;
-    function handleDetailView(id, statusId) {
-        if(statusId === 1){
-            history.push(`/carrito`);
-        }else{} 
-        // 
-
+let totalOrders =0
+let totalItemsByUser = 0
+    if(orders){
+        totalOrders = orders.length;
+        // sumar la cantidad total que hay en todas las propiedades quantity de payment_book
+        for (let i = 0; i < orders.length; i++) {
+            for (let j = 0; j < orders[i].books.length; j++) {
+                totalItemsByUser = totalItemsByUser + orders[i].books[j].payment_book.quantity;
+            }
+        }   
     }
 
-  return (
-    <div>PurchaseOrders
-        <NavBar />
-            <h2> Estado </h2>
-        <div>
 
-       
-                 {itemToPrint}
-                
+    return (
+        <div >            
+        <div className={styles.container}>
+            <div className={styles.container1}>
+                <div>
+                    <TableContainer maxWidth='90%'>
+                        <Table variant='simple'>
+                            <Thead>
+                                <Tr>
+                                    <Th>Id</Th>
+                                    <Th>Items</Th>
+                                    <Th isNumeric >Importe/s</Th>
+                                    <Th>Estado</Th>
+                                    <Th>Metodo de pago</Th>
+                                    <Th>Fecha</Th>
+                                </Tr>
+                            </Thead>
+                        </Table>
+                    </TableContainer>
+                    {itemToPrint}
+                </div>
+            </div>
         
         </div>
 
-        <div>
-            <h2>Total de ordenes</h2>
-            <h3>{totalOrders}</h3>
-        </div>
-        <div>
-            <h2>Total de Items</h2>
-            <h3>{totalItemsByUser}</h3>
+        <div className={styles.container2}>
+                    <TableContainer maxWidth='100%'>
+                        <Table variant='striped' size='lg'>
+                            <Thead>
+                                <Tr>
+                                    <Th>{totalOrders}</Th>
+                                    <Th isNumeric>{totalItemsByUser}</Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                    
+                                </Tr>
+                            </Thead>
+                        </Table>
+                    </TableContainer> 
+        
+  
         </div>
                 
     

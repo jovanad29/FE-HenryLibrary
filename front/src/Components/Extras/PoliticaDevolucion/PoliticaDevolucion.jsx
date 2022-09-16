@@ -31,7 +31,7 @@ export default function PoliticaDevolucion() {
           CONTRATADOS Y PROGRAMADOS EN LA TIENDA ONLINE Derecho de Libre
           Resolución El CLIENTE podrá devolver los PRODUCTOS ya adquiridos y
           pagados y/o cancelar los SERVICIOS ya contratados y programados (ej.
-          visitas al espacio físico LIVRARIA LELLO), es decir, podrá ejercer su
+          visitas al espacio físico LIBRERIA HENRY), es decir, podrá ejercer su
           derecho de libre resolución dentro de los 14 días naturales, sin la
           necesidad de indicar cualquier motivo. El plazo para ejercer el
           derecho de libre resolución expira a los 14 días desde: día siguiente
@@ -52,31 +52,31 @@ export default function PoliticaDevolucion() {
           ningún gasto como consecuencia de dicho reembolso. NOTA : si el
           CLIENTE ha devuelto un libro y, durante el periodo de libre
           resolución, ya ha disfrutado del Ticket-bono asociado, es decir, la
-          visita al espacio físico o virtual de LIVRARIA LELLO, será a cargo de
+          visita al espacio físico o virtual de LIBRERIA HENRY, será a cargo de
           la Empresa el valor de 5 € correspondiente al coste de la entrada, que
           se deduce del importe a devolver. Para ejercer su derecho de libre
           resolución, el CLIENTE deberá comunicar su decisión a la Empresa, de
           manera inequívoca, por correo electrónico a la siguiente dirección de
-          correo electrónico: customercare@livrarialello.pt . Asimismo deberá
+          correo electrónico: customercare@libreriaHenry.com . Asimismo deberá
           indicar expresamente su nombre, dirección postal, teléfono de
           contacto, el/los PRODUCTO(s) y/o SERVICIO(s) adquirido(s) respecto de
           los que pretende ejercer el derecho de libre resolución contractual y
           adjuntar la factura de la compra. Aunque no es obligatorio, el CLIENTE
           podrá utilizar el modelo de formulario de resolución disponible aquí.
           Su comunicación de retiro gratuito debe enviarse antes de que expire
-          el período de retiro. Reglas para la devolución de PRODUCTOS LIVRARIA
-          LELLO en caso de Terminación Contractual Libre A partir de la fecha en
+          el período de retiro. Reglas para la devolución de PRODUCTOS LIBRERIA
+          HENRY en caso de Terminación Contractual Libre A partir de la fecha en
           que haya comunicado su decisión de resolución del contrato, el CLIENTE
           dispone de un plazo de 14 días para devolver o entregar el/los
           PRODUCTO(s) a la Empresa, debiendo hacerlo a la siguiente dirección:
           Livraria Lello Departamento Logístico Rua das Carmelitas, 144 4050-161
           Oporto – Portugal Corresponde al CLIENTE hacerse cargo de los gastos
-          de devolución de los PRODUCTOS LIVRARIA LELLO El CLIENTE también
-          deberá conservar los PRODUCTOS LIVRARIA LELLO de forma que le permita
+          de devolución de los PRODUCTOS LIBRERIA HENRY El CLIENTE también
+          deberá conservar los PRODUCTOS LIBRERIA HENRY de forma que le permita
           devolverlos en las debidas condiciones de uso. Sin perjuicio del
           derecho del CLIENTE a inspeccionar con el debido cuidado la
           naturaleza, las características y el funcionamiento del PRODUCTO
-          LELLO, el CLIENTE podrá ser considerado responsable de la depreciación
+          HENRY, el CLIENTE podrá ser considerado responsable de la depreciación
           del PRODUCTO, si la manipulación realizada supera lo habitualmente
           admitido en un comercial. establecimiento. El(los) PRODUCTO(s) debe(n)
           ser entregado(s) junto con los respectivos accesorios, incluyendo, en
@@ -92,7 +92,7 @@ export default function PoliticaDevolucion() {
           celebrados entre la Empresa y consumidores finales, o de los
           celebrados entre la Empresa y particulares o colectivos. en el
           ejercicio de su actividad. En cualquiera de estos casos, los gastos de
-          devolución o recogida de los PRODUCTOS LELLO, dentro del plazo de
+          devolución o recogida de los PRODUCTOS HENRY, dentro del plazo de
           garantía legalmente establecido, correrán a cargo de la Empresa. A la
           recepción del PRODUCTO por éste, se procederá a la debida verificación
           técnica, y si se acredita la falta de conformidad, la Empresa
@@ -117,7 +117,7 @@ export default function PoliticaDevolucion() {
       
       <div className={styles.boton}>
         <button className={styles.botonArriba} onClick={scrollToTop}>
-          <BsArrowUpCircle size="2rem" />
+          <BsArrowUpCircle size="2rem" color='#01A86C'/>
         </button>
       </div>
 

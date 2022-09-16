@@ -1,133 +1,118 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  asyncConfirmPayment,
-  asyncGetMP,
-  clearPayment
-} from "../../actions/checkoutActions.js";
+import { asyncGetMP } from "../../actions/checkoutActions.js";
 import axios from "axios";
-import s from "./MercadoPago.module.sass";
+// import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Button
+} from '@chakra-ui/react'
+import s from "./SuccessMP.module.css"
+import {BsCheckCircle} from "react-icons/bs"
 
-//import { getCartDB } from "../../actions/index";//  Traer los items de carrito
 
 export default function SuccessMP() {
-  const dispatch = useDispatch();
-
-  const { mpID, order, activeCartPaymentId, uid} = useSelector((state) => state);
-  console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
- // const { stack } = useSelector((state) => state.stack);
+  	const dispatch = useDispatch();
+	const {
+		mpID, 
+		order,
+		activeCartPaymentId,
+		uid, activeCartQuantity,
+		activeCartAmount
+	} = useSelector((state) => state);
+  // console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
+ 
   const history = useHistory();
-  const [change, setChange] = useState(true);
-  const [front, setOrder1] = useState({ // hace falta de verdad? No sería mejor usar order del store directamente?
-    ID: mpID,
-    items: order.items,
-    status: order.status,
-    status_detail: order.status_detail,
-    total: order.total,
-  });
-  // const [paymentId, setPaymentId] = useState(activeCartPaymentId)
-  // useEffect(() => {
-  // }, [activeCartPaymentId])
+  
   useEffect(() => {
     if (mpID && activeCartPaymentId) {
-      dispatch(asyncGetMP(mpID,activeCartPaymentId)); ////MIRAR
-      console.log("se hace algo después del asyncGetMP?")
-      // console.log('en success con mpID'+ mpID)
-      setOrder1(order);
-    }
-    //  else {
-    //   history.push("/");
-    // }
-    return () => {
-      // dispatch(clearPayment());  // este parece ser el problema
-      // setOrder1({
-      //   ID: "",
-      //   items: [],
-      //   status: "",
-      //   status_detail: "",
-      //   total: 0,
-      // });
-      setChange(false);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      dispatch(asyncGetMP(mpID,activeCartPaymentId));     
+    }  
   }, [mpID, activeCartPaymentId]);
-   const [loading, setLoading] = useState(false);
-//  const loading = false;
-  useEffect(() => {
-    if (!front.ID) {
-      setOrder1({ ...order });
-    }
+  const [loading, setLoading] = useState(false);
 
-   if (change && order.items.length > 0 && uid) {
-      let obj = { ...order };
-      console.log('esto tiene obj:', obj)
-      setChange(false);
-      // dispatch( // está dando problemas // porque limpia el estado de order
-      //   asyncConfirmPayment({ ...obj, userID: uid })//mirar si esta OK ?????
-      // )
-      // .then((res) => {
-        // if (res) {
-         // dispatch(getCartDB(uid)).then((res2) => {/// esta parte  hay que traer CARTS!!! se traen del estado !!! 
-          //  if ( activeCart) {
-              // setLoading(false);
-          
-        //  }
-         //);
-        // }
-      // });
-      axios.post(`/paymentsOrder/create`, { ...obj, userID: uid })
-      .then( r => console.log("se guardó en DB"))
-      .catch( e => console.loe("no se guardó en DB", e))
-    }
+  useEffect(() => {     
+   if (order.items.length && uid) { // antes también se evaluaba el estado 'change'
+     // console.log("render")      
+      axios.post(`/mercadopago/create`, { ...order, userID: uid })
+      .then( r => console.log("se guardó en DB", r))
+      .catch( e => console.log("no se guardó en DB", e))
+    }   
+  }, [order, uid]); // front.ID
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  //}
-  }, [order,uid, change, front.ID]);
-
-  //useEffect(() => {}, [front, activeCart]); // para qué es que era esto?
-    function goBack(e) {  
-       e.preventDefault();
-      history.push("/home");
-   // }
+  function goBack(e) {
+    e.preventDefault();
+    history.push("/home");
+    // }
   }
   return (
     <div className={s.container}>
-       {loading ? <Loading /> : null} 
+      {loading && <Loading />}
       <div className={s.cont}>
         <div className={s.contGreen}>
-          <h1>Pago exitoso</h1>
-          <span className={s.pID}>
-            Numero transacción: <span>{front.ID}</span>
-          </span>
-          <span className={s.pID}>{front.status}</span>
-          <span>Total items: {front.items.length}</span> {/* y si tengo más de 1 mismo item ? */}
-          <ul>
-            {
-              front.items.map(i => {
-                return <li>{i.title}</li>
-              })
-            }
-          </ul>
-          <span>
-            Total: <span className={s.price}> ${front.total}</span>
-          </span>
-          <div className={s.keep} onClick={goBack}>
-           Seguir Comprando 
-          </div>
-        </div>
-        <div className={s.successCheckmark}>
-          <div className={s.checkIcon}>
-            <span className={`${s.iconLine} ${s.lineTip}`}></span>
-            <span className={`${s.iconLine} ${s.lineLong}`}></span>
-            <div className={s.iconCircle}></div>
-            <div className={s.iconFix}></div>
+          <div className={s.check}><BsCheckCircle fontSize="6rem"/></div>
+            <h1 className={s.titulo}>PAGO EXITOSO</h1>
+            <div className={s.transaccion}>
+              Numero transacción: <span className={s.pID}>{order.transactionId}</span>
+            </div>
+            <div className={s.transaccion}>
+              Estado: <span className={s.pID}>{order.status}</span>
+            </div>
+
+            <span className={s.itemsTotales}>Total items: {activeCartQuantity}</span> {/* y si tengo más de 1 mismo item ? */}
+
+            <TableContainer className={s.tabla}>
+              <Table key={Math.random()} variant='striped' colorScheme='green'>
+                <Thead>
+                  <Tr>
+                    <Th className={s.tituloTabla}>Libro</Th>
+                    <Th isNumeric className={s.tituloTabla}>Cantidad</Th>
+                    <Th isNumeric className={s.tituloTabla}>Precio</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {
+                    order.items.map(i => {
+                      return (
+                        <Tr>
+                          <Td>{i.title}</Td>
+                          <Td>{i.quantity}</Td>
+                          <Td isNumeric>{i.price}</Td>
+                        </Tr>
+                      )
+                    })
+                  }
+                </Tbody>
+              </Table>
+            </TableContainer>
+            <span>
+              Total Libros: <span className={s.price}> ${activeCartAmount}</span>
+            </span>
+            <span>
+              Gastos de envio: <span className={s.price}> ${1500}</span>
+            </span>
+            <span>
+              Total: <span className={s.price}> ${order.total + 1500 }</span>
+            </span>
+            <Button className={s.boton} onClick={goBack}>Seguir Comprando</Button>
+          <div className={s.successCheckmark}>
+            <div className={s.checkIcon}>
+              <span className={`${s.iconLine} ${s.lineTip}`}></span>
+              <span className={`${s.iconLine} ${s.lineLong}`}></span>
+              <div className={s.iconCircle}></div>
+              <div className={s.iconFix}></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-
