@@ -1,29 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 //CSS
 import styles from "./Direcciones.module.css";
 import { Flex, FormControl, FormLabel, RadioGroup, Radio, Input } from "@chakra-ui/react";
 import { getUserById } from '../../../actions/dataUserIdActions';
 import { useId } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function Direcciones() {
+
   const { address, uid } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const [addressUser, setAddress] = useState({   //Estado para el manejo de direccioes
-    direccion: address ? address : "",
-    otraDireccion: "",
-    sucursal: false
+  const [checkbottom , setCheckbottom] = useState({   //Estado para el manejo de direccioes
+    addressUser: address ? address : "",
+    anotherAddress: "",
+    booStore: false
   });
-  const [input, setInput] = useState({})
-  const [errors, setErrors] = useState({})
+
+  const [input, setAddress] = useState({   //Estado para el manejo de direccioes
+    addressUser: address ? address : "",
+    anotherAddress: "",
+    bookStore: false
+  });
+
   useEffect(() => {
     dispatch(getUserById(uid));
+
   }, [dispatch]);
 
-  function addressHandleChange() {
-    alert("Estoy manejando la dirección")
+  function HandleChange(e) {
+// si clickeo dir user inhabilito el input de otheraddress input  y bookStore=false 
+// si clickeo dir user inhabilito el input de otheraddress input  y bookStore=false 
+// si clicleo bookstore 
   }
 
   let handleInputChange = e => {
@@ -39,13 +46,15 @@ export default function Direcciones() {
 }
 
   let validate = input => {
-    let  isAlpha =/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/
+   
     let errors = {};
 
-    if (!input.name || input.name.length > 150 ||input.name.length < 4 ) errors.name = "El nombre debe tener entre 4 y 150 caracteres"
+    if (!input.addressUser || input.addressUser.length > 100 ||input.addressUser.length < 30 ) errors.name = "La direccion debe  tener entre 30 y 100 caracteres"
+    if (input.addressUser[0] === " ") errors.addressUser = "El primer caracter no puede ser un espacio"
+
+    if (!input.anotherAddress || input.name.length > 150 ||input.name.length < 4 ) errors.name = "La direccion debe  tener entre 30 y 100 caracteres"
     if (input.name[0] === " ") errors.name = "El primer caracter no puede ser un espacio"
-    if ((input.height )&&(input.height > 15 || input.height < 0.1 || !/^\d*\.?\d*$/.test(input.height))) errors.height = "El valor debe estar entre 0.1  y 15.0" 
-    if ((input.weight )&&(input.weight > 1000 || input.weight < 0.1 || !/^\d*\.?\d*$/.test(input.weight))) errors.weight = "El valor debe estar entre 0.1 y 1000.0" 
+    
     return errors;
 }
 
@@ -59,16 +68,18 @@ export default function Direcciones() {
           isRequired
           className={styles.formulario}
         >
-          <RadioGroup onChange={addressHandleChange} value={address}>
+          <RadioGroup onChange={e=>handleCheckBottom=>(e)} value={address}>
             <div className={styles.form}>
               <FormLabel className={styles.formLabel}>
-                <Radio value={address.direccion}
+                <Radio value={checkbottom.addressUser}
+
                   onChange={addressHandleChange} >
                   Domicilio:</Radio></FormLabel>
 
                   <Input variant='outline' value={address.direccion}
                         onChange={e=>handleInputChange(e)}
-                  className={styles.input} focusBorderColor='#01A86C' />
+
+                className={styles.input} focusBorderColor='#01A86C' />
             </div>
             <div className={styles.form}>
               <FormLabel className={styles.formLabel}>
@@ -76,6 +87,7 @@ export default function Direcciones() {
                        onChange={addressHandleChange} className={styles.radio}>
                         Otro Domicilio:</Radio></FormLabel>
                 <Input variant='outline' value={address.direccion}
+
                 onChange={e=>handleInputChange(e)}  focusBorderColor='#01A86C' />
             </div>
             <div className={styles.form}>
