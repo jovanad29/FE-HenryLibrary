@@ -21,6 +21,7 @@ import {
 	Button
 } from '@chakra-ui/react'
 import {BsExclamationCircle} from "react-icons/bs"
+import { getCartDB } from "../../actions";
 
 
 function PendingMP() {
@@ -48,8 +49,11 @@ function PendingMP() {
   useEffect(() => {
 	console.log("Entro en el useEffect que dispara la petición de la compra hecha")
     if (mpID && activeCartPaymentId) {
-      dispatch(asyncGetMP(mpID,activeCartPaymentId));     
-    }  
+      	dispatch(asyncGetMP(mpID,activeCartPaymentId));     
+    }
+	return () => {
+		dispatch(getCartDB(uid)) // para limpiar el carrito después de comprar
+	}
   }, [mpID, activeCartPaymentId]);
 
 //   const [loading, setLoading] = useState(true);
