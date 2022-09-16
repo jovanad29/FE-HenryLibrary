@@ -4,7 +4,7 @@ import { getDirectionsUser } from "../../../actions/directionsUserActions.js";
 
 function DirectionsUser(id) {
   const dispatch = useDispatch();
-  const { uid, allUsers, directionsUser } = useSelector((state) => state);
+  const { uid,  directionsUser } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getDirectionsUser(uid));
@@ -13,10 +13,11 @@ function DirectionsUser(id) {
   return(
       <>
   {
-    allUsers?.map((u) => {
+    directionsUser?.map((u) => {
       return (
         <div key={u.uid}>        
-          <p>Direccion: {u.address? u.address : "Ingrese su Direccion"}  </p>
+          <p>Direccion: {u.deliveryAddress} ? {u.deliveryAddress} : {"Ingrese su Direccion"} </p>
+          {/*  */}
         <hr/>
         </div>
       )
