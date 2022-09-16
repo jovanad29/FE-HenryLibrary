@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //CSS
 import styles from "../ShoppingBook/ShoppingBook.module.css";
+
 
 export default function PurchaseOrdersDetail({id}) {
     const history = useHistory();
     const dispatch = useDispatch();
     const {
         allCartByUser,
+        uid,
+        bookDetail,
     } = useSelector((state) => state);
     const [order, setOrder] = useState([]);
 
@@ -24,8 +28,9 @@ export default function PurchaseOrdersDetail({id}) {
     function handleBuyingBooks(id) {
         if (order.statusId === 1) {
             history.push("/carrito");
-        } else {   
-            // console.log(order, "order"); 
+        } else { 
+           
+
         // history.push("/shoppingcart");
        }
     }   
@@ -52,7 +57,8 @@ export default function PurchaseOrdersDetail({id}) {
 
               <div className={styles.info}>
                   <div className={styles.infoItem1}>
-                      <h3 className={styles.title}>{title}</h3>
+                    <Link to={`/catalog/detail/${id}`}>
+                      <h3 className={styles.title}>{title}</h3></Link>
                   </div>
                   <div className={styles.infoItem2}>
                       <h2 className={styles.precio}>Precio: $ {price}</h2>
@@ -92,8 +98,7 @@ export default function PurchaseOrdersDetail({id}) {
                     </div>
                     <div className={styles.button}>
                         {order.statusId === 1 ? 
-                            (<button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>Continuar Comprando</button>):
-                            (<button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>Falta Funcionalidad!</button>)}
+                            (<button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>Continuar Comprando</button>) :''}
                     </div>
 
                 </div>

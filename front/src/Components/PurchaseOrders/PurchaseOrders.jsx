@@ -69,7 +69,10 @@ export default function PurchaseOrders() {
     totalAmount = (b.totalAmount);
     state = (b.payment_status.description);
     purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.paymentMethodId;
-    date = b.books[0].payment_book.createdAt.slice(0,10);
+    date = b.books[0].payment_book.createdAt;
+    //darle formato de fecha y hora a date
+    date = new Date(date).toLocaleString('es-ES');
+
     return (
         <div key={id}> 
                                 <Accordion allowToggle>
