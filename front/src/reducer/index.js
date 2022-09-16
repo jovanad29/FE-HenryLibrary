@@ -33,6 +33,7 @@ import {
   GET_ID_FAVORITES,
   GET_ALL_REVIEWS,
   POST_ALL_REVIEWS,
+  GET_USER_PAYMENTS_BOOK
 } from "../actions/index";
 //mercado pago
 import {
@@ -85,6 +86,7 @@ const initialState = {
   items: [],
   reviews: [],
   reviewsUser: [],
+  reviewsBook: [],
   directionsUser: [],
 };
 
@@ -426,6 +428,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         reviews: [...state.reviews, { ...action.payload }],
       };
+
+    case GET_USER_PAYMENTS_BOOK:
+      return{
+        ...state,
+
+      }
 
     //DASHBOARDS
 

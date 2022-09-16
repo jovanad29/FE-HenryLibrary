@@ -48,6 +48,10 @@ export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
 export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
+export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK"
+
+
+
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -597,6 +601,24 @@ export function createReviewByBook(id, body) {
       });
   };
 }
+
+export function getUserPaymentsBook(uid, id){
+    return function (dispatch) {
+        axios
+            .get(`${baseURL}/bookpayments/${uid}?id=${id}`)
+            .then((response) => {
+                dispatch({
+                    type: GET_USER_PAYMENTS_BOOK,
+                    payload: response.data,
+                });
+            })
+            .catch((error) => {
+                console.log("getUserPaymentsBook", error);
+            });
+    };
+}
+
+
 
 export function addCartItem(userId, id, price) {
     return async function (dispatch) {
