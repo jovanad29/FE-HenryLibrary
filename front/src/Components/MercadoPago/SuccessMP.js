@@ -37,7 +37,7 @@ export default function SuccessMP() {
       dispatch(asyncGetMP(mpID,activeCartPaymentId));     
     }  
   }, [mpID, activeCartPaymentId]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {     
    if (order.items.length && uid) { // antes también se evaluaba el estado 'change'
@@ -54,8 +54,10 @@ export default function SuccessMP() {
     // }
   }
   return (
-    <div className={s.container}>
-      {loading && <Loading />}
+    <>
+    {order.items.length > 0 ?
+      (<div className={s.container}>
+      {/* {loading && <Loading />} */}
       <div className={s.cont}>
         <div className={s.contGreen}>
           <div className={s.check}><BsCheckCircle fontSize="6rem"/></div>
@@ -93,7 +95,7 @@ export default function SuccessMP() {
                 </Tbody>
               </Table>
             </TableContainer>
-            <span>
+            <span className={s.totalLibros}>
               Total Libros: <span className={s.price}> ${activeCartAmount}</span>
             </span>
             <span>
@@ -113,6 +115,8 @@ export default function SuccessMP() {
           </div>
         </div>
       </div>
-    </div>
+    </div>) : <Loading />
+    }
+    </>
   );
 }

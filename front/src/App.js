@@ -19,7 +19,7 @@ import Checkout from "./Components/Checkout/Checkout";
 import Rejected from "./Components/MercadoPago/RejectedMP";
 import Pending from "./Components/MercadoPago/PendingMP";
 import Validate from "./Components/MercadoPago/ValidateMP";
-import PurchaseOrders from "./Components/PurchaseOrders/PurchaseOrders";
+import PurchaseOrders from "./Components/DashboardUser/PurchaseOrders/PurchaseOrders";
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 import Dashboard from "./Components/Admin/Dashboard";
 import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
