@@ -7,12 +7,12 @@ export const CLEAR_PAYMENT = "CLEAR_PAYMENT";
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 export function setOrder(order) {
-    console.log("estoy en la action setOrder: ", order)
-    return  {
-        type: SET_ORDER,
-        payload: order
-      }
-    }
+  console.log("estoy en la action setOrder: ", order)
+  return {
+    type: SET_ORDER,
+    payload: order
+  }
+}
 export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
   return async function (dispatch) {
     try {
@@ -24,7 +24,7 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
         })
       ).data;
       console.log("estoy en la action asyncGetMP: ", response)
-      
+
       const items = response.additional_info.items.map((i) => {
         return {
           bookId: i.id,
@@ -56,8 +56,8 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
       // console.log("se envía a guardar la orden de compra si status === 'approved'") // si esto se imprime,       
       // console.log('este es el id del CART:', idCart);
-        const status = {'approved': 4} // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
-      try {       
+      const status = { 'approved': 4 } // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
+      try {
         await axios.put(`/payments/${idCart}/status/${status[response.status]}`) // cambio el estatus del pedido de carrito a aprobado
       } catch (error) {
         console.log(error)
