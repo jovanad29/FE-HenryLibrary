@@ -15,8 +15,8 @@ function Checkout() {
   const history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (items.length <= 0) {
-      history.push("/");
+    if (!items.length) {
+      history.push("/carrito");
     }
     setLoading(false)    
   }, []);
