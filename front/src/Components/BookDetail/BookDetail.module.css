@@ -142,14 +142,14 @@ body {
 .stock{
     /* font-family: Quicksand; */
     font-weight: bolder;
-    font-size: 20px;
+    font-size: 22px;
     margin-right: 0.5rem;
     color: var(--text)
 }
 
 .NumeroStock{
     /* font-family: Quicksand; */
-    font-size: 20px;
+    font-size: 22px;
     color: var(--text)
 }
 
@@ -364,7 +364,6 @@ body {
 
     .img{
         width: 70%;
-        background-color: antiquewhite;
     }
     
     .img2{
@@ -373,11 +372,7 @@ body {
    }
 
    .conteiner2{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 60%; 
-    height: 100%;
+    margin-left: 2rem;
   }
 
   .compra{

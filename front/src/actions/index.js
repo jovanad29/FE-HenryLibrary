@@ -605,11 +605,11 @@ export function createReviewByBook(id, body) {
 export function getUserPaymentsBook(uid, id){
     return function (dispatch) {
         axios
-            .get(`${baseURL}/bookpayments/${uid}?id=${id}`)
+            .get(`${baseURL}/user/bookpayments/${uid}?id=${id}`)
             .then((response) => {
                 dispatch({
                     type: GET_USER_PAYMENTS_BOOK,
-                    payload: response.data,
+                    payload: response.data.quantityBooks,
                 });
             })
             .catch((error) => {
