@@ -17,8 +17,7 @@ function DirectionsUser(id) {
       return (
         <div key={u.uid}>        
           <p>Direccion: {u.deliveryAddress} ? {u.deliveryAddress} : {"Ingrese su Direccion"} </p>
-          {/*  */}
-        <hr/>
+                <hr/>
         </div>
       )
     })
