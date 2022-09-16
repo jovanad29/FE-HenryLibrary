@@ -22,21 +22,11 @@ import { useHistory } from "react-router-dom";
 import { setItems } from "../../actions/checkoutActions";
 
 
-
-
-
-
-
-
-
 function ShoppingBook() {
   const history = useHistory(); //para ir al  checkout del pago
   const dispatch = useDispatch();
   const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
   const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
-
-
-
   const { activeCart, activeCartAmount, status, activeCartQuantity, uid } =
     useSelector((state) => state);
 
