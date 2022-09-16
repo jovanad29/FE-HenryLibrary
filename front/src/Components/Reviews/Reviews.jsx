@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {validateReview} from "../NewBook/validate.js";
-import {getAllReviews, createReviewByBook} from "../../actions/index.js"
+import {getAllReviews, createReviewByBook, getUserPaymentsBook} from "../../actions/index.js"
 import ReviewsCard from "./ReviewsCard/ReviewsCard.jsx";
 import Rating from "./Rating/Rating.jsx";
 
@@ -27,15 +27,23 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
     const dispatch = useDispatch();
 
-    const {status, displayName, email, reviews, uid} = useSelector (state => state)
+    const {status, displayName, email, reviews, uid, reviewsBook} = useSelector (state => state)
 
     useEffect(() => {
       setErrores("");
       dispatch(getAllReviews(id));
   }, [dispatch,id]);
 
+
+  useEffect(() => {     
+    dispatch(getUserPaymentsBook(uid,id))
+}, [dispatch,id,uid]);
+
+
   const setReviews = (value) =>{ setInput({...input, rating:value}) }
   
+
+
     //ESTADO DE ERRORES
      const [errores, setErrores] = useState({});
 
@@ -97,7 +105,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
 
         </Flex>
 
-        {status === "authenticated" && (
+        {reviewsBook > 0 && (
         <Flex className={styles.formularioContainer}>
 
           <FormControl isRequired isInvalid={validateReview} className={styles.formulario}>
