@@ -66,7 +66,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
     function handleInputsChange(event) {
             setInput({
                 ...input,
-                [event.target.name]: event.target.value,
+                [event.target.name]: event.target.value.trim(),
             });
 
             setErrores(
