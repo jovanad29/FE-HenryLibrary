@@ -402,23 +402,22 @@ function rootReducer(state = initialState, action) {
         ...state,
         order: action.payload,
       };
-
     case SET_ITEMS:
-      if (action.payload.length) {
-        const newitems = action.payload.map((i) => {
-          return {
-            id: i.id,
-            unit_price: i.price,
-            picture_url: i.image,
-            quantity: i.quantity,
-            title: i.title,
-          };
-        });
-        return {
-          ...state,
-          items: state.items.concat(newitems),
-        };
-      }
+      return {
+        ...state,
+        items: action.payload.length
+        ? action.payload.map((i) => {
+            return {
+              id: i.id,
+              unit_price: i.unit_price,
+              picture_url: i.picture_url,
+              quantity: i.quantity,
+              title: i.title,
+              description: i.description
+            };
+          })
+        : [{ msg: "no hay datos" }]
+      };
 
     case SET_DELIVERY_ADDRESS:
       return {
