@@ -12,3 +12,21 @@
 .star{
     font-size: 2rem;
 }
+
+
+@media screen and (max-width: 844px) {
+
+    .containerRating{
+        margin-top: 15px;
+        margin-left: 1px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 15rem !important;
+        justify-content: space-evenly;
+    }
+    
+    .star{
+        font-size: 3rem !important;
+    }
+}

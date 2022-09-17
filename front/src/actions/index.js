@@ -109,12 +109,11 @@ export function setBookDetailCurrentStock(currentStock) {
 
 //DISCOUNT_CURRENT_STOCK
 export function discountCurrentStock(id) {
-    return  {
+    return {
         type: DISCOUNT_CURRENT_STOCK,
-        payload: {id},
+        payload: { id },
     };
 }
-
 
 export function deleteBookDetail(id) {
     //--> Lo utilizo para desmontar el componente de detalle
