@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Direcciones.module.css";
 import { Flex, FormControl, FormLabel, RadioGroup, Radio, Input } from "@chakra-ui/react";
 import { getUserInfo } from '../../../actions/index';
+import { clearDeliveryAddress, setDeliveryAddress, setAddressUser, setItems } from '../../../actions/checkoutActions';
 
 export default function Direcciones() {
   let [errors, setErrors] = useState({});
@@ -24,8 +25,14 @@ export default function Direcciones() {
 
   useEffect(() => {
     dispatch(getUserInfo(uid));
+    setInput({
+      ...input,
+      addressUser:address
+    })
+
 
   }, [dispatch, uid]);
+
 
 
   let handleInputChange = e => {
@@ -63,21 +70,48 @@ export default function Direcciones() {
   async function handleSubmit(e) {
     e.preventDefault();
     const pickUpInStore = 'Retira en sucursal el cliente'
+
     if (checkbottom === "1") {
-     // dispatch(updateAdrress(uid,input.addressUser));//ruta nueva de user put de USER con a
-      dispatch(getUserInfo(uid))
-      // dispatch(updateDeliveryAddress(uid,input.addressUser)) // ruta nueva para payment
+      
+      await dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
+      await dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
+      setDeliveryAddress(input.addressUser) // seteo la dirección de envio en Store 
+     
       console.log('otra direccion', input.addressUser);
     }
+
     if (checkbottom === "2") {
-    //  dispatch(updateDeliveryAddress(uid,otherAddress)) //ruta nueva para payment JOVVVVAAAAAAA!!!
+      setDeliveryAddress(input.otherAddress) // otra no la dir del user
       console.log('otra direccion', input.otherAddress);
     }
+
+    if ( checkbottom === "1" || checkbottom==="2"  ){
+      const items= {
+          id: 0,
+          unit_price: 1000,
+          picture_url: undefined,
+          quantity: 1,
+          title: "Gasto de envío",
+      }
+      setItems([items])
+      
+    }
     if (checkbottom === "3") {
-      //  dispatch(updateDeliveryAddress(uid,pickUpInStore)) //
-      console.log('retira store', pickUpInStore);
+
+      clearDeliveryAddress();
+      //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
+      const items = {
+        id: 0,
+        unit_price: 0,
+        picture_url: undefined,
+        quantity: 1,
+        title: "Retira en Sucursal",
+      }
+      setItems([items])
     }
     alert(`Direccion de Envio registrado`);
+
+  
   }
 
   
@@ -90,7 +124,7 @@ return (
     <Flex className={styles.formularioContainer}>
       <FormControl
         isRequired
-        className={styles.formulario} onSubmit={(e) => handleSubmit(e)}
+        className={styles.formulario} //onSubmit={(e) => handleSubmit(e)}
       >
         <RadioGroup onChange={setCheckbottom} value={checkbottom}>
           <div className={styles.form}>
@@ -136,7 +170,7 @@ return (
         </RadioGroup>
 
         <div  className={styles.button}>
-          <button disabled={Object.keys(errors).length > 0} type="submit"
+          <button disabled={Object.keys(errors).length > 0}  onClick={handleSubmit}
             className={styles.confirmar}>Continuar </button>
         </div>
       </FormControl>
