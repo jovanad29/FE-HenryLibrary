@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {validateReview} from "../NewBook/validate.js";
+import validateReview from "./validate.js";
 import {getAllReviews, createReviewByBook, getUserPaymentsBook} from "../../actions/index.js"
 import ReviewsCard from "./ReviewsCard/ReviewsCard.jsx";
 import Rating from "./Rating/Rating.jsx";
@@ -66,7 +66,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
     function handleInputsChange(event) {
             setInput({
                 ...input,
-                [event.target.name]: event.target.value.trim(),
+                [event.target.name]: event.target.value,
             });
 
             setErrores(
@@ -86,7 +86,6 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
           descrption:"",
           rating: 1
       })
-      // setErrores("");
     };
 
 
