@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Select } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-
+import styles from "./Order.module.css"
 import { orderBy, getAllBooks } from "../../actions";
 import { useDispatch } from "react-redux";
 
@@ -39,7 +39,7 @@ export default function Order() {
         fontFamily="Quicksand"
       >
         <Box fontWeight={"bold"}>
-          <label>Ordenado por: </label>
+          <label className={styles.claroOscuro}>Ordenado por: </label>
         </Box>
         <Select
           size="sm"
@@ -51,9 +51,10 @@ export default function Order() {
           fontWeight={"semibold"}
           cursor="pointer"
           onChange={ordenByHandler}
+          className={styles.claroOscuro}
         >
           {sorts.map((sort) => (
-            <option key={sort.id} value={sort.value}>
+            <option key={sort.id} value={sort.value} className={styles.claroOscuro}>
               {sort.title}
             </option>
           ))}
