@@ -33,7 +33,8 @@ function ReviewUser() {
 
   
   return (
-    <TableContainer className={styles.TableContainer}>
+    <div className={styles.TableContainer}>
+    <TableContainer>
         <Table variant="simple" >
           <TableCaption className={styles.comentarios}>Tabla de comentarios de {displayName}</TableCaption>
           <Thead>
@@ -58,6 +59,7 @@ function ReviewUser() {
           </Tbody>
         </Table>
     </TableContainer>
+    </div>
   );
 }
 

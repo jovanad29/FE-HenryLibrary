@@ -53,3 +53,25 @@ body {
     margin-bottom: 2rem;
     visibility: hidden 
 }
+.button {
+    display: flex;
+    width: 90%;
+    height: 50px;
+    justify-content: center;
+}
+
+.confirmar {
+    height: 60%;
+    width: 40%;
+    background-color: #01A86C;
+    /* font-family: Quicksand; */
+    font-weight: bolder;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: black;
+}
+
+.confirmar:hover {
+    box-shadow: 0px 1px 10px 0px #646262;
+}
