@@ -334,6 +334,7 @@ function rootReducer(state = initialState, action) {
         isAdmin: action.payload.isAdmin,
         isBanned: action.payload.isBanned,
         address: action.payload.address,
+        displayName: action.payload.nameUser,
       };
 
     case GET_CART:

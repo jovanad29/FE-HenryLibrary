@@ -677,3 +677,32 @@ export function getDirectionsUser(uid) {
     };
   };
 }
+
+export function updateUserAddress(uid, body) {
+    console.log(uid, body)
+    return async function (dispatch) {
+        await axios
+            .put(`${baseURL}/user/address/${uid}`, body)
+            .then((response) => {
+                            
+            })
+            .catch((error) => {
+                console.log("updateUserAddress", error);
+            });
+    };
+}
+
+export function updateUserName(uid, body) {
+    console.log(uid, body)
+    return async function (dispatch) {
+        await axios
+            .put(`${baseURL}/user/name/${uid}`, body)
+            .then((response) => {
+              
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log("updateUserName", error);
+            });
+    };
+}
