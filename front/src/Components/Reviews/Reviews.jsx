@@ -136,7 +136,7 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
             {errores.descrption && (<FormErrorMessage>{errores.descrption}</FormErrorMessage>)}
 
 
-            <Button  marginTop='1rem' bg='#01A86C' w="90%" h="40%" onClick={handleOnSubmit}
+            <Button  marginTop='1rem' bg='#01A86C' w="90%" h="40%" onClick={handleOnSubmit} className={styles.enviar}
                           disabled={
                             JSON.stringify(errores) === "{}" && contadorDescription < 100 && input.descrption.trim()
                               ? false
