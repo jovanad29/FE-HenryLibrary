@@ -44,6 +44,8 @@ import {
   SET_ITEMS,
   SET_PAYMENT,
   SET_ORDER,
+  SET_DELIVERY_ADDRESS,
+  CLEAR_DELIVERY_ADDRESS
 } from "../actions/checkoutActions";
 //DASHBOARD
 import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
@@ -77,6 +79,7 @@ const initialState = {
   activeCartQuantity: 0,
   activeCartPaymentId: null,
   allCartByUser: [],
+  //checkout
   mpID: "",
   order: {
     ID: "",
@@ -86,6 +89,8 @@ const initialState = {
     total: 0,
   },
   items: [],
+  deliveryAdress:"",
+//end Checkout
   reviews: [],
   reviewsUser: [],
   reviewsBook: 0,
@@ -121,13 +126,13 @@ function rootReducer(state = initialState, action) {
 
     case SET_BOOK_DETAIL_CURRENT_STOCK:
       return {
-          ...state,
-          bookDetail: {
-            ...state.bookDetail,
-            currentStock: action.payload
-          }
+        ...state,
+        bookDetail: {
+          ...state.bookDetail,
+          currentStock: action.payload,
+        },
       };
-        
+
     case DISCOUNT_CURRENT_STOCK: //descuenta el stock de un libro
       return {
         ...state,
@@ -136,7 +141,6 @@ function rootReducer(state = initialState, action) {
           currentStock: state.bookDetail.currentStock - 1,
         },
       };
-
 
     case GET_ALL_CATEGORIES:
       return {
@@ -297,7 +301,7 @@ function rootReducer(state = initialState, action) {
         (b) => b !== action.payload
       );
       const filtereds = state.allBooks.filter((b) =>
-          availableFavorites.includes(b.id)
+        availableFavorites.includes(b.id)
       );
       return {
         ...state,
@@ -373,7 +377,7 @@ function rootReducer(state = initialState, action) {
         allCartByUser: action.payload,
       };
 
-    //mercado pago
+    //pago
     case SET_PAYMENT:
       return {
         ...state,
@@ -394,28 +398,41 @@ function rootReducer(state = initialState, action) {
       };
 
     case SET_ORDER:
-      //alert("estoy en order " + action.payload);
       return {
         ...state,
         order: action.payload,
       };
 
     case SET_ITEMS:
+      if (action.payload.length) {
+        const newitems = action.payload.map((i) => {
+          return {
+            id: i.id,
+            unit_price: i.price,
+            picture_url: i.image,
+            quantity: i.quantity,
+            title: i.title,
+          };
+        });
+        return {
+          ...state,
+          items: state.items.concat(newitems),
+        };
+      }
+
+    case SET_DELIVERY_ADDRESS:
       return {
         ...state,
-        items: action.payload.length
-          ? action.payload.map((i) => {
-              return {
-                id: i.id,
-                unit_price: i.price,
-                picture_url: i.image,
-                quantity: i.quantity,
-                title: i.title,
-              };
-            })
-          : [{ msg: "no hay datos" }],
+        deliveryAdress: action.payload,
       };
 
+    case CLEAR_DELIVERY_ADDRESS:
+      return {
+        ...state,
+        deliveryAdress: "",
+      };
+
+    //fin pago
     case CLEAR_CART:
       return {
         ...state,
@@ -451,11 +468,11 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_USER_PAYMENTS_BOOK:
-      console.log("action",action.payload)
-      return{
+      console.log("action", action.payload);
+      return {
         ...state,
-        reviewsBook: action.payload
-      }
+        reviewsBook: action.payload,
+      };
 
     //DASHBOARDS
 
@@ -465,12 +482,11 @@ function rootReducer(state = initialState, action) {
         allUsers: action.payload,
       };
 
-        case GET_DIRECTIONS_USERS:
-          return {
-            ...JSON.parse(JSON.stringify(state)),
-            directionsUser: action.payload,
-          };
-
+    case GET_DIRECTIONS_USERS:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        directionsUser: action.payload,
+      };
 
     //*verificar respuesta de la ruta */
     // case UPDATE_TO_ADMIN:
@@ -488,9 +504,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         reviewsUser: action.payload,
-      }
-
-    
+      };
 
     default:
       return state;
