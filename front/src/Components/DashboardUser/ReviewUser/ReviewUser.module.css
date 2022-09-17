@@ -5,10 +5,9 @@ body {
 }
 
 .TableContainer{
-    width: 90%;
-    height: auto;
-    margin-left: 2rem;
-    margin-top: 2rem;
+    width: 95%;
+    height: 26rem;
+    overflow-y: scroll;
 }
 
 

@@ -17,7 +17,7 @@ import DirectionsUser from "./DataUser/DirectionsUser.jsx";
 
 function DashboardUser() {
 
-  const {status, displayName, email, reviews, uid} = useSelector (state => state)
+  const {uid} = useSelector (state => state)
   
 
 
@@ -48,7 +48,6 @@ function DashboardUser() {
 
             <TabPanel>
               <PurchaseOrders />
-
             </TabPanel>
 
             <TabPanel>
