@@ -11,3 +11,13 @@ body{
     margin-left: 3rem;
 }
 
+
+
+@media screen and (max-width: 844px){
+
+    .carrusel-2{
+        width: 14rem;
+        margin-left: 0rem;
+    } 
+        
+}
