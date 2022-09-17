@@ -5,7 +5,6 @@ import {
     registerUserWithEmailPassword,
     signInWithGoogle,
     logoutFirebase,
-    FirebaseAuth,
     resetPasswordEmail,
 } from "../firebase/providers";
 

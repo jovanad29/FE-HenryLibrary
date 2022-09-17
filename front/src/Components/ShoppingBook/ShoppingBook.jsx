@@ -10,9 +10,7 @@ import Direcciones from "./Direcciones/Direcciones.jsx";
 
 //CSS
 import styles from "./ShoppingBook.module.css";
-import { FaBackward, FaTrashAlt } from "react-icons/fa";
-import { BsPlus } from "react-icons/bs";
-import { BiMinus } from "react-icons/bi";
+import { FaBackward } from "react-icons/fa";
 
 import { Button } from "@chakra-ui/react";
 

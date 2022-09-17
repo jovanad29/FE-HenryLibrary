@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./ItemCart.module.css";
 import { BsPlus } from "react-icons/bs";
 import { BiMinus } from "react-icons/bi";
-import { FaBackward, FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
 export const ItemCart = (props) => {
     const {
