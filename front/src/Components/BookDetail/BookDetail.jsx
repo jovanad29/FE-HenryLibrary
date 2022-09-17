@@ -136,7 +136,7 @@ useEffect(() => {
       // si existe, actualizar el stock
       let currentStock = bookDetail.currentStock - book.payment_book.quantity;
       console.log("currentStock", currentStock);
-      setBookDetailCurrentStock(currentStock);
+      dispatch (setBookDetailCurrentStock(currentStock));
       console.log("bookDetail", bookDetail);
     }
   }
@@ -282,7 +282,7 @@ function buyingBook(id) {
               <h2 className={styles.precio}>$ {bookDetail.price}</h2>
               <div className={styles.stockItems}>
                 <h6 className={styles.stock}>Stock:</h6>
-                <h6 className={styles.NumeroStock}>{bookDetail.currentStock}</h6>
+                <h6 className={styles.NumeroStock}>{bookDetail?.currentStock}</h6>
               </div>
             </div>
 
