@@ -27,11 +27,14 @@ export default function Direcciones() {
     }); //Estado para el manejo de direccioes);
 
   useEffect(() => {
-    dispatch(getUserInfo(uid));
-    setInput({
+    if (uid){
+      dispatch(getUserInfo(uid));
+      setInput({
       ...input,
       addressUser:address
     })
+    }
+    
 
 
   }, [dispatch, uid]);
@@ -92,25 +95,25 @@ export default function Direcciones() {
       
       await dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
       await dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
-      setDeliveryAddress(input.addressUser) // seteo la dirección de envio en Store 
+      dispatch(setDeliveryAddress(input.addressUser)) // seteo la dirección de envio en Store 
      
-      console.log('otra direccion', input.addressUser);
+      console.log(' direccion', input.addressUser);
     }
 
     if (checkbottom === "2") {
-      setDeliveryAddress(input.otherAddress) // otra no la dir del user
+      dispatch(setDeliveryAddress(input.otherAddress)) // otra no la dir del user
       console.log('otra direccion', input.otherAddress);
     }
 
     if ( checkbottom === "1" || checkbottom==="2"  ){
       const items= {
           id: 0,
-          unit_price: 1000,
-          picture_url: undefined,
-          quantity: 1,
+          price: 1000,
+          image:'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
+          quantity:1,
           title: "Gasto de envío",
       }
-      setItems([items])
+     dispatch( setItems([items]))
       
     }
     if (checkbottom === "3") {
@@ -119,12 +122,12 @@ export default function Direcciones() {
       //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
       const items = {
         id: 0,
-        unit_price: 0,
-        picture_url: undefined,
+        price: 0,
+        image:'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
         quantity: 1,
         title: "Retira en Sucursal",
       }
-      setItems([items])
+      dispatch(setItems([items]))
     }
     alert(`Direccion de Envio registrado`);
 
@@ -142,7 +145,7 @@ export default function Direcciones() {
                 <FormControl
                     isRequired
                     className={styles.formulario}
-                    onSubmit={(e) => handleSubmit(e)}
+                  
                 >
                     <RadioGroup onChange={setCheckbottom} value={checkbottom}>
                         <div className={styles.form}>
@@ -205,7 +208,7 @@ export default function Direcciones() {
                     <div className={styles.button}>
                         <button
                             disabled={Object.keys(errors).length > 0}
-                            type="submit"
+                            onClick={handleSubmit}
                             className={styles.confirmar}
                         >
                             Continuar{" "}
