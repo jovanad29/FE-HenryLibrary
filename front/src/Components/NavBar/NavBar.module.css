@@ -200,16 +200,18 @@ body {
     
     .h1 {
         font-weight: bolder;
-        font-size: 38px;
+        font-size: 33px;
         color: #ABABAB;
-        margin-left: 2rem;
+        margin-left: -4rem;
+        margin-top: 3.5rem;
     }
     
     .h1_1 {
         font-weight: bolder;
-        font-size: 38px;
+        font-size: 33px;
         color: #01A86C;
         margin-bottom: 1.5rem;
+        margin-top: 3.5rem;
     }
     
     .search{
@@ -238,11 +240,15 @@ body {
     }
     
     .iconos {
-        width: 95%;
+        position: absolute;
+        top: 1.8rem;
+        width: 60%;
         display: flex;
         justify-content: space-around;
-        margin-left: 1rem;
+        margin-left: -4rem;
         margin-bottom: 1.5rem;
+        background-color: red;
+        font-size: 2.5rem !important;
     }
     
     .icono{
@@ -275,12 +281,9 @@ body {
     }
     
     .banderas {
-        width: 95%;  
+        width: 10%;
         display: flex;
-        justify-content: center;
-        margin-bottom: 1.5rem;  
-        margin-top: 1rem;
-        padding-bottom: 3rem;
+        flex-direction: row;
     }
     
     .bandera {
