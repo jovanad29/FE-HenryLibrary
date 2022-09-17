@@ -66,7 +66,7 @@ export const ItemCart = (props) => {
                             // readOnly
                             onChange={(e) =>
                                 handleChangeQuantity(
-                                    e.target.value,
+                                    parseInt(e.target.value),
                                     id,
                                     price,
                                     currentStock
