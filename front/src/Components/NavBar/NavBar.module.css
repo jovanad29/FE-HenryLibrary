@@ -191,7 +191,7 @@ body {
 @media (max-width: 844px) {
 
     .container {
-        width: 58%;
+        width: 90%;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -200,20 +200,20 @@ body {
     
     .h1 {
         font-weight: bolder;
-        font-size: 30px;
+        font-size: 38px;
         color: #ABABAB;
-        margin-left: 1rem;
+        margin-left: 2rem;
     }
     
     .h1_1 {
         font-weight: bolder;
-        font-size: 30px;
+        font-size: 38px;
         color: #01A86C;
         margin-bottom: 1.5rem;
     }
     
     .search{
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         margin-bottom: 3rem;
         margin-left: 2.8rem;
         width: 90%;
@@ -226,7 +226,7 @@ body {
         margin-bottom: 2rem;
         font-weight: bolder;
         text-align: center;
-        font-size: 12px;
+        font-size: 15px;
         color: #01A86C;
     }
     
@@ -254,10 +254,10 @@ body {
         color: #01A86C;
     }
     
-    .iconoNoFav {
+    /* .iconoNoFav {
         visibility: hidden;
         cursor: none;
-    }
+    } */
     
     .cantidad{
         position: absolute;
@@ -280,7 +280,7 @@ body {
         justify-content: center;
         margin-bottom: 1.5rem;  
         margin-top: 1rem;
-        padding-bottom: 2rem;
+        padding-bottom: 3rem;
     }
     
     .bandera {

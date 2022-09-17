@@ -16,6 +16,11 @@
 
 @media screen and (max-width: 844px) {
 
+    .contenedor{
+        margin-left: 1.5rem;
+    }
+
+
     .mensajeVacio{
         color: var(--text);
     }
