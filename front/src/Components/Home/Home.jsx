@@ -180,10 +180,6 @@ export default function Home() {
                         <img src={banner} alt="banner" />
                     </div>
 
-                    {/* ORDENAMIENTOS */}
-                    {/* <div>
-            <Order />
-          </div> */}
 
                     <div className={styles.paginado}>
                         <>
@@ -372,10 +368,12 @@ export default function Home() {
                                 </DrawerContent>
                             </Drawer>
                         </>
-                        <Paginated
+                        <div className={styles.paginas}>
+                            <Paginated
                             totalItems={allBooks.length}
                             itemsPorPagina={itemsPorPagina}
                         />
+                        </div>
 
                         <Order key={clearKeySort} />
                     </div>
