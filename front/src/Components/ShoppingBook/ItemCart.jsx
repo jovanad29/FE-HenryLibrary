@@ -44,7 +44,7 @@ export const ItemCart = (props) => {
                     </h2>
                     <div className={styles.cantidadContainer}>
                         <label className={styles.cantidad}>Cantidad: </label>
-                        <BiMinus
+                        <button
                             onClick={() =>
                                 handleChangeQuantity(
                                     value - 1,
@@ -53,7 +53,9 @@ export const ItemCart = (props) => {
                                     currentStock
                                 )
                             }
-                        />
+                        >
+                            <BiMinus />
+                        </button>
                         <input
                             type="number"
                             className={styles.cantidadInput}
@@ -63,10 +65,15 @@ export const ItemCart = (props) => {
                             // max={"100"}
                             // readOnly
                             onChange={(e) =>
-                                handleChangeQuantity(e.target.value, id, price, currentStock)
+                                handleChangeQuantity(
+                                    e.target.value,
+                                    id,
+                                    price,
+                                    currentStock
+                                )
                             }
                         />
-                        <BsPlus
+                        <button
                             onClick={() =>
                                 handleChangeQuantity(
                                     value + 1,
@@ -75,7 +82,9 @@ export const ItemCart = (props) => {
                                     currentStock
                                 )
                             }
-                        />
+                        >
+                            <BsPlus />
+                        </button>
                         {/*quantity*/}
                     </div>
                     <h2 className={styles.precio}>
