@@ -190,6 +190,9 @@ function Login({ HandleOpenLogin }) {
                   pr="4rem"
                   type={show ? "text" : "password"}
                   placeholder="password"
+                  name="password"
+                  value={login.password}
+                  onChange={handleChange}
                   className={styles.input}
                 />
                 <InputLeftElement width="4.5rem">
