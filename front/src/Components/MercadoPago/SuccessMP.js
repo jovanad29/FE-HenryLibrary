@@ -41,9 +41,9 @@ export default function SuccessMP() {
     if (mpID && activeCartPaymentId) {
       dispatch(asyncGetMP(mpID,activeCartPaymentId));
     }
-    return () => {
-      dispatch(getCartDB(uid)) // para limpiar el carrito después de comprar
-    }
+    // return () => {
+    //   dispatch(getCartDB(uid)) // para limpiar el carrito después de comprar
+    // }
   }, [mpID, activeCartPaymentId]);
   // const [loading, setLoading] = useState(false);
 
@@ -54,9 +54,9 @@ export default function SuccessMP() {
       .then( r => console.log("se guardó en DB", r))
       .catch( e => console.log("no se guardó en DB", e))
     }
-    // return () => {
-    //   dispatch(clearPayment())
-    // }
+     return () => {
+        dispatch(getCartDB(uid))
+    }
   }, [order, uid]); // front.ID
 
   function goBack(e) {
