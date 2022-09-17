@@ -310,7 +310,7 @@ function buyingBook(id) {
                 </Stack>
                 
               </div>
-              <div className={styles.carrito}>
+              <div className={styles.carrito2}>
 
                 <Stack direction="row" spacing={10}>
                   <Button
