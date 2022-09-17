@@ -3,7 +3,9 @@ export const SET_ITEMS = "SET_ITEMS";
 export const SET_PAYMENT = "SET_PAYMENT";
 export const SET_ORDER = "SET_ORDER";
 export const CLEAR_PAYMENT = "CLEAR_PAYMENT";
+//para el envio al cliente
 export const SET_DELIVERY_ADDRESS="SET_DELIVERY_ADDRESS"
+export const CLEAR_DELIVERY_ADDRESS="CLEAR_DELIVERY_ADDRESS"
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
@@ -37,11 +39,7 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
         };
       });
 
-      // let orderobj = { ID: mpID,
-      //       items: items,
-      //       status: response.status,
-      //       status_detail: response.status_detail,
-      //       total: parseFloat(response.transaction_details.total_paid_amount)}
+     
       const order = {
         transactionId: mpID,
         items,
@@ -94,4 +92,25 @@ export function setDeliveryAddress(deliveryAddress) {
     type: SET_DELIVERY_ADDRESS,
     payload: deliveryAddress,
   };
+}
+
+export function clearDeliveryAddress() {
+  return {
+    type: CLEAR_DELIVERY_ADDRESS,
+    payload: null,
+  };
+
+}
+
+//Modify User Address
+export  function setAddressUser(uid,addressUser) {
+  return async function (dispatch) {
+  try {       
+    await axios.put(`/user/address/${uid}`, {address: addressUser })
+   
+  } catch (error) {
+    console.log(error)
+  }
+    dispatch (setDeliveryAddress(addressUser))
+  }
 }
