@@ -32,7 +32,7 @@ function DashboardUser() {
           <TabList>
             <Tab className={styles.titulos}>Datos Personales</Tab>
             <Tab className={styles.titulos}>Direcciones</Tab>
-            <Tab className={styles.titulos}>Ordenes de compras</Tab>
+            <Tab className={styles.titulos}>Órdenes de compras</Tab>
             <Tab className={styles.titulos}>Historial de Comentarios</Tab>
             <Tab className={styles.titulos}>Seguridad</Tab>
           </TabList>
