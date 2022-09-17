@@ -9,6 +9,7 @@ import Menu from "./Components/Menu";
 import BreadCrumb from "./Components/BreadCrumb";
 import Title from "./Components/Title";
 import CardsInfo from "./Components/CardsInfo";
+import PaymentsView from "./PaymentsView/PaymentsView";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -23,11 +24,12 @@ function Dashboard() {
       <Menu />
       <BreadCrumb />
       <Title />
-      {console.log(allUsers)}
-      <Box ml="20%" mt="5%">
+
+      {/* <Box ml="20%" mt="5%">
         <CardsInfo />
-      </Box>
-      <UserView allUsers={allUsers} />
+      </Box> */}
+      <PaymentsView />
+      {/* <UserView allUsers={allUsers} /> */}
     </Box>
   );
 }

@@ -24,6 +24,8 @@ import { useCheckAuth } from "../src/hooks/useCheckAuth";
 import Dashboard from "./Components/Admin/Dashboard";
 import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
 import UserView from "./Components/Admin/UserView/UserView";
+import PaymentsView from "./Components/Admin/PaymentsView/PaymentsView";
+import DetailPayment from "./Components/Admin/PaymentsView/DetailPayment/DetailPayment";
 
 function App() {
   const status = useCheckAuth();
@@ -67,8 +69,10 @@ function App() {
         <Route path="/catalog/author/:id" component={CardsAuthor} />
 
         {/*Ruta administrador*/}
-        <Route path={"/user/admin"} component={Dashboard} />
-        <Route path={"/user/admin/users"} component={UserView} />
+        <Route exact path={"/user/admin"} component={Dashboard} />
+        <Route exact path={"/user/admin/users"} component={UserView} />
+        <Route exact path={"/user/admin/payments"} component={PaymentsView} />
+        <Route path={"/user/admin/payments/:id"} component={DetailPayment} />
 
         {/*Rutas Extras*/}
         <Route path="/aboutUs" component={AboutUs} />
