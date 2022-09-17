@@ -40,6 +40,7 @@ export default function BookDetail() {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getBooksId(id));
+    // console.log('useeffect 1 getBooksId');
 
     return () => {
       dispatch(deleteBookDetail(id));
@@ -51,6 +52,7 @@ export default function BookDetail() {
 
   useEffect(() => {
     setIsActive(bookDetail.isActive);
+    // console.log('useeffect 2 setIsActive');
   }, [bookDetail.isActive]);
 
 
@@ -113,6 +115,7 @@ function handleOnAdd(id, price) {
 
 // al actualizarse bookDetail, encontrar el stock actualizado y setear bookDetail.currentStock
 useEffect(() => {
+  // console.log('useeffect 3 setBookDetailCurrentStock');
   if (bookDetail.currentStock) {
     // encontrar el id actual en localStorage.guestCartBooks
     const guestCartBooks = JSON.parse(localStorage.getItem("guestCartBooks"));
@@ -121,23 +124,24 @@ useEffect(() => {
       if (guestBook) {
         // si existe, actualizar el stock
         let currentStock = bookDetail.currentStock - guestBook.quantity
+        // console.log("currentStock desde localstorage", currentStock);
       dispatch (setBookDetailCurrentStock(currentStock));
-      //{ ...bookDetail, currentStock: bookDetail.currentStock - guestBook.quantity }
+      // console.log("bookDetail desde local storage", bookDetail);
     }
   }
   //encontrar el id actual en el state activeCart de Redux (si existe)
   if (activeCart) {
     const book = activeCart.find((book) => book.id === bookDetail.id);
     if (book) {
-      console.log("book", book);
+      // console.log("book", book);
 
-      console.log("bookDetail.currentStock", bookDetail.currentStock);
-      console.log("book.payment_book.quantity", book.payment_book.quantity);
+      // console.log("bookDetail.currentStock", bookDetail.currentStock);
+      // console.log("book.payment_book.quantity", book.payment_book.quantity);
       // si existe, actualizar el stock
       let currentStock = bookDetail.currentStock - book.payment_book.quantity;
-      console.log("currentStock", currentStock);
+      // console.log("currentStock", currentStock);
       dispatch (setBookDetailCurrentStock(currentStock));
-      console.log("bookDetail", bookDetail);
+      // console.log("bookDetail", bookDetail);
     }
   }
 }
@@ -147,6 +151,7 @@ useEffect(() => {
 
 //traer el localstorage cuando carga el componente
 useEffect(() => {
+  // console.log('useeffect 4 getLocalStorage en localItems');
   const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
   if (localItems) {
     // setGuestCartBooks(localItems);
@@ -158,6 +163,7 @@ useEffect(() => {
 }, [id]);
 
 useEffect (() => {
+  // console.log('useeffect 5 setLocalStorage');
   if (guestBook.id) {
     const totals = JSON.parse(localStorage.getItem("total")) || {totalBooks: 0, totalAmount: 0};
     const itemsLS = JSON.parse(localStorage.getItem("guestCartBooks")) || [];
@@ -224,7 +230,7 @@ function buyingBook(id) {
     const image = bookDetail.image;
     const bookToAdd =[{ id, price, quantity, title, image}]  
    // alert("estoy en boton pago", bookToAdd)
-    console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
+    // console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
     dispatch(setItems(bookToAdd));    
     history.push("/checkout");
   

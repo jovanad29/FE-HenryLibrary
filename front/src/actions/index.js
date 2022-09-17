@@ -103,7 +103,7 @@ export function getBooksId(id) {
 export function setBookDetailCurrentStock(currentStock) {
     return {
         type: "SET_BOOK_DETAIL_CURRENT_STOCK",
-        payload: {currentStock},
+        payload: currentStock,
     };
 }
 
