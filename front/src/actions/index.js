@@ -49,7 +49,7 @@ export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
 export const DISCOUNT_CURRENT_STOCK = "DISCOUNT_CURRENT_STOCK";
-
+export const SET_BOOK_DETAIL_CURRENT_STOCK = "SET_BOOK_DETAIL_CURRENT_STOCK";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -98,6 +98,15 @@ export function getBooksId(id) {
             });
     };
 }
+
+//setBookDetailCurrentStock
+export function setBookDetailCurrentStock(currentStock) {
+    return {
+        type: "SET_BOOK_DETAIL_CURRENT_STOCK",
+        payload: currentStock,
+    };
+}
+
 //DISCOUNT_CURRENT_STOCK
 export function discountCurrentStock(id) {
     return  {
