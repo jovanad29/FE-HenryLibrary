@@ -317,7 +317,6 @@ body {
         height: auto;
         display: flex;
         flex-direction: column;
-        background-color: red;
     }
 
     .containerGeneral {
@@ -327,8 +326,6 @@ body {
         height: auto;
         display: flex;
         flex-direction: column;
-        background-color: antiquewhite;
-
     }
 
     .tituloPrincipal {
