@@ -49,9 +49,12 @@ export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
+<<<<<<< HEAD
 export const DISCOUNT_CURRENT_STOCK = "DISCOUNT_CURRENT_STOCK";
 
 
+=======
+>>>>>>> 73b92c0 (add ItemCart component to shoppingCart)
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -452,7 +455,6 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
 
         if (!result.ok) return dispatch(logout(result));
 
-
         const { uid, photoURL, displayName } = result;
         dispatch(login({ uid, email, displayName, photoURL }));
     };
@@ -473,7 +475,6 @@ export function orderBy(order) {
         dispatch({ type: ORDER_BY, payload: order });
     };
 }
-
 
 export function saveLocalCartToDB(userId, body) {
     return async function (dispatch) {
@@ -598,20 +599,20 @@ export function getAllReviews(id) {
 }
 
 export function createReviewByBook(id, body) {
-  return function (dispatch) {
-    axios
-      .post(`${baseURL}/reviews/byBook/${id}`, body)
-      .then((response) => {
-        dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
-        dispatch(getAllReviews(id));
-      })
-      .catch((error) => {
-        console.log("saveLocalCartToDB", error);
-      });
-  };
+    return function (dispatch) {
+        axios
+            .post(`${baseURL}/reviews/byBook/${id}`, body)
+            .then((response) => {
+                dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
+                dispatch(getAllReviews(id));
+            })
+            .catch((error) => {
+                console.log("saveLocalCartToDB", error);
+            });
+    };
 }
 
-export function getUserPaymentsBook(uid, id){
+export function getUserPaymentsBook(uid, id) {
     return function (dispatch) {
         axios
             .get(`${baseURL}/user/bookpayments/${uid}?id=${id}`)
@@ -626,8 +627,6 @@ export function getUserPaymentsBook(uid, id){
             });
     };
 }
-
-
 
 export function addCartItem(userId, id, price) {
     return async function (dispatch) {
