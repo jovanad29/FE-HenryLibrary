@@ -34,7 +34,8 @@ import {
   GET_ALL_REVIEWS,
   POST_ALL_REVIEWS,
   GET_USER_PAYMENTS_BOOK,
-  DISCOUNT_CURRENT_STOCK
+  DISCOUNT_CURRENT_STOCK,
+  SET_BOOK_DETAIL_CURRENT_STOCK
 
 } from "../actions/index";
 //mercado pago
@@ -118,6 +119,15 @@ function rootReducer(state = initialState, action) {
         bookDetail: [],
       };
 
+    case SET_BOOK_DETAIL_CURRENT_STOCK:
+      return {
+          ...state,
+          bookDetail: {
+            ...state.bookDetail,
+            currentStock: action.payload
+          }
+      };
+        
     case DISCOUNT_CURRENT_STOCK: //descuenta el stock de un libro
       return {
         ...state,
