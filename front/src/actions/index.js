@@ -5,7 +5,6 @@ import {
     registerUserWithEmailPassword,
     signInWithGoogle,
     logoutFirebase,
-    FirebaseAuth,
     resetPasswordEmail,
 } from "../firebase/providers";
 
@@ -48,10 +47,9 @@ export const GET_CART_QUANTITY = "GET_CART_QUANTITY";
 export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
-export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK"
-
-
-
+export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
+export const DISCOUNT_CURRENT_STOCK = "DISCOUNT_CURRENT_STOCK";
+export const SET_BOOK_DETAIL_CURRENT_STOCK = "SET_BOOK_DETAIL_CURRENT_STOCK";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -98,6 +96,22 @@ export function getBooksId(id) {
             .catch((error) => {
                 console.log("getBooksId", error);
             });
+    };
+}
+
+//setBookDetailCurrentStock
+export function setBookDetailCurrentStock(currentStock) {
+    return {
+        type: "SET_BOOK_DETAIL_CURRENT_STOCK",
+        payload: currentStock,
+    };
+}
+
+//DISCOUNT_CURRENT_STOCK
+export function discountCurrentStock(id) {
+    return {
+        type: DISCOUNT_CURRENT_STOCK,
+        payload: { id },
     };
 }
 
@@ -444,7 +458,6 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
 
         if (!result.ok) return dispatch(logout(result));
 
-
         const { uid, photoURL, displayName } = result;
         dispatch(login({ uid, email, displayName, photoURL }));
     };
@@ -589,27 +602,27 @@ export function getAllReviews(id) {
 }
 
 export function createReviewByBook(id, body) {
-  return function (dispatch) {
-    axios
-      .post(`${baseURL}/reviews/byBook/${id}`, body)
-      .then((response) => {
-        dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
-        dispatch(getAllReviews(id));
-      })
-      .catch((error) => {
-        console.log("saveLocalCartToDB", error);
-      });
-  };
-}
-
-export function getUserPaymentsBook(uid, id){
     return function (dispatch) {
         axios
-            .get(`${baseURL}/bookpayments/${uid}?id=${id}`)
+            .post(`${baseURL}/reviews/byBook/${id}`, body)
+            .then((response) => {
+                dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
+                dispatch(getAllReviews(id));
+            })
+            .catch((error) => {
+                console.log("saveLocalCartToDB", error);
+            });
+    };
+}
+
+export function getUserPaymentsBook(uid, id) {
+    return function (dispatch) {
+        axios
+            .get(`${baseURL}/user/bookpayments/${uid}?id=${id}`)
             .then((response) => {
                 dispatch({
                     type: GET_USER_PAYMENTS_BOOK,
-                    payload: response.data,
+                    payload: response.data.quantityBooks,
                 });
             })
             .catch((error) => {
@@ -617,8 +630,6 @@ export function getUserPaymentsBook(uid, id){
             });
     };
 }
-
-
 
 export function addCartItem(userId, id, price) {
     return async function (dispatch) {

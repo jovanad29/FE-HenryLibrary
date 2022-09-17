@@ -16,18 +16,19 @@ body {
 
 
 .container{
-    width: 85%;
-    height: 50%;
-    margin-top: 8rem;
+    width: 82%;
+    height: auto;
+    margin-top: 4rem;
     margin-left: 7rem;
     margin-bottom: 8rem;
     border: 2px solid #01A86C;
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
 }
 
 .containerItem{
-    width: 98%;
-    height: 100%;
-    /* background-color: red; */
+    width: auto;
+    height: auto;
     margin-top: 3rem;
     margin-bottom: 3rem;
     margin-left: 1rem;

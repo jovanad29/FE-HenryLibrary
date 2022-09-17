@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-//CSS
-import styles from "../ShoppingBook/ShoppingBook.module.css";
+//CSS 
+import styles from "../../ShoppingBook/ShoppingBook.module.css";
 
-export default function PurchaseOrdersDetail({data}) {
+
+export default function PurchaseOrdersDetail({id}) {
+    const history = useHistory();
     const dispatch = useDispatch();
     const {
         allCartByUser,
@@ -13,16 +17,21 @@ export default function PurchaseOrdersDetail({data}) {
 
     useEffect(() => {
           let allOrders = allCartByUser;
-          let orderId = allOrders.find((o) => o.id === data);
+          let orderId = allOrders.find((o) => o.id === id);
           setOrder(orderId);
-    }, [allCartByUser,data,dispatch]);
+    }, [allCartByUser,id,dispatch]);
 
     let totalAmount = parseFloat(order.totalAmount).toFixed(2);
 
-    function handleBuyingBooks(e) {
-        e.preventDefault();
+    function handleBuyingBooks(id) {
+        if (order.statusId === 1) {
+            history.push("/carrito");
+        } else { 
+           
+
         // history.push("/shoppingcart");
-    }
+       }
+    }   
     //obtener los datos de los libros para imprimir
     let books = order?.books?.map((b) => {
       let id, title, image, quantity, price;
@@ -46,7 +55,8 @@ export default function PurchaseOrdersDetail({data}) {
 
               <div className={styles.info}>
                   <div className={styles.infoItem1}>
-                      <h3 className={styles.title}>{title}</h3>
+                    <Link to={`/catalog/detail/${id}`}>
+                      <h3 className={styles.title}>{title}</h3></Link>
                   </div>
                   <div className={styles.infoItem2}>
                       <h2 className={styles.precio}>Precio: $ {price}</h2>
@@ -78,16 +88,17 @@ export default function PurchaseOrdersDetail({data}) {
 
               </div>
               <div className={styles.container2}>
-                Total: ${totalAmount}
-                <div className={styles.button}>
-                    <button
-                        className={styles.comprar}
-                        onClick={(e) =>
-                            handleBuyingBooks(e)
-                        }
-                    >
-                        Falta Funcionalidad!
-                    </button> 
+                <div className={styles.infoCompra}>
+                    <div className={styles.total}>
+                        <h3>
+                            Total: ${totalAmount} 
+                        </h3>
+                    </div>
+                    <div className={styles.button}>
+                        {order.statusId === 1 ? 
+                            (<button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>Continuar Comprando</button>) :''}
+                    </div>
+
                 </div>
             </div>
       </div>

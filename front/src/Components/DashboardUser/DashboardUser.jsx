@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
-import PurchaseOrders from "../PurchaseOrders/PurchaseOrders.jsx";
+import PurchaseOrders from "./PurchaseOrders/PurchaseOrders.jsx";
 import ReviewUser from "./ReviewUser/ReviewUser.jsx";
 
 //CSS
@@ -17,7 +17,7 @@ import DirectionsUser from "./DataUser/DirectionsUser.jsx";
 
 function DashboardUser() {
 
-  const {status, displayName, email, reviews, uid} = useSelector (state => state)
+  const {uid} = useSelector (state => state)
   
 
 
@@ -32,7 +32,7 @@ function DashboardUser() {
           <TabList>
             <Tab className={styles.titulos}>Datos Personales</Tab>
             <Tab className={styles.titulos}>Direcciones</Tab>
-            <Tab className={styles.titulos}>Ordenes de compras</Tab>
+            <Tab className={styles.titulos}>Órdenes de compras</Tab>
             <Tab className={styles.titulos}>Historial de Comentarios</Tab>
             <Tab className={styles.titulos}>Seguridad</Tab>
           </TabList>
@@ -48,7 +48,6 @@ function DashboardUser() {
 
             <TabPanel>
               <PurchaseOrders />
-
             </TabPanel>
 
             <TabPanel>

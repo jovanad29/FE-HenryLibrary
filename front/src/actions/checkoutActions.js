@@ -3,6 +3,7 @@ export const SET_ITEMS = "SET_ITEMS";
 export const SET_PAYMENT = "SET_PAYMENT";
 export const SET_ORDER = "SET_ORDER";
 export const CLEAR_PAYMENT = "CLEAR_PAYMENT";
+export const SET_DELIVERY_ADDRESS="SET_DELIVERY_ADDRESS"
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
@@ -52,16 +53,14 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
         statusDetail: response.status_detail,
         deliveryAddress: "dirección de envío"
       }
-      // dispatch( setOrder(orderobj) );
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
-      // console.log("se envía a guardar la orden de compra si status === 'approved'") // si esto se imprime,       
-      // console.log('este es el id del CART:', idCart);
-      const status = { 'approved': 4 } // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
-      try {
+      const status = {'approved': 4, 'in_process': 2} // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
+      try {       
         await axios.put(`/payments/${idCart}/status/${status[response.status]}`) // cambio el estatus del pedido de carrito a aprobado
       } catch (error) {
         console.log(error)
       }
+      
     } catch (error) {
       console.log(error);
     }
@@ -86,5 +85,13 @@ export function setPayment(mpID) {
   return {
     type: SET_PAYMENT,
     payload: mpID,
+  };
+}
+
+
+export function setDeliveryAddress(deliveryAddress) {
+  return {
+    type: SET_DELIVERY_ADDRESS,
+    payload: deliveryAddress,
   };
 }

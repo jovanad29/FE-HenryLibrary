@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem } from "../../actions";
+import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem, discountCurrentStock, setBookDetailCurrentStock } from "../../actions";
 import { Link, useParams } from "react-router-dom";
 
 //COMPONENTES
@@ -29,7 +29,7 @@ import { setItems } from "../../actions/checkoutActions";
 export default function BookDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { bookDetail, isAdmin , status, uid} = useSelector((state) => state);
+  const { bookDetail, isAdmin , status, uid, activeCart} = useSelector((state) => state);
   const history = useHistory();
 
   const [isActive, setIsActive] = useState(true);
@@ -38,7 +38,9 @@ export default function BookDetail() {
 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getBooksId(id));
+    // console.log('useeffect 1 getBooksId');
 
     return () => {
       dispatch(deleteBookDetail(id));
@@ -50,6 +52,7 @@ export default function BookDetail() {
 
   useEffect(() => {
     setIsActive(bookDetail.isActive);
+    // console.log('useeffect 2 setIsActive');
   }, [bookDetail.isActive]);
 
 
@@ -107,11 +110,48 @@ function handleOnAdd(id, price) {
           confirmButtonColor: "#01A86C",
       });
   }
+  dispatch(discountCurrentStock(bookDetail.id));
 }
+
+// al actualizarse bookDetail, encontrar el stock actualizado y setear bookDetail.currentStock
+useEffect(() => {
+  // console.log('useeffect 3 setBookDetailCurrentStock');
+  if (bookDetail.currentStock) {
+    // encontrar el id actual en localStorage.guestCartBooks
+    const guestCartBooks = JSON.parse(localStorage.getItem("guestCartBooks"));
+    if (guestCartBooks) {
+      const guestBook = guestCartBooks.find((book) => book.id === bookDetail.id);
+      if (guestBook) {
+        // si existe, actualizar el stock
+        let currentStock = bookDetail.currentStock - guestBook.quantity
+        // console.log("currentStock desde localstorage", currentStock);
+      dispatch (setBookDetailCurrentStock(currentStock));
+      // console.log("bookDetail desde local storage", bookDetail);
+    }
+  }
+  //encontrar el id actual en el state activeCart de Redux (si existe)
+  if (activeCart) {
+    const book = activeCart.find((book) => book.id === bookDetail.id);
+    if (book) {
+      // console.log("book", book);
+
+      // console.log("bookDetail.currentStock", bookDetail.currentStock);
+      // console.log("book.payment_book.quantity", book.payment_book.quantity);
+      // si existe, actualizar el stock
+      let currentStock = bookDetail.currentStock - book.payment_book.quantity;
+      // console.log("currentStock", currentStock);
+      dispatch (setBookDetailCurrentStock(currentStock));
+      // console.log("bookDetail", bookDetail);
+    }
+  }
+}
+}, [bookDetail.id]);
+
 
 
 //traer el localstorage cuando carga el componente
 useEffect(() => {
+  // console.log('useeffect 4 getLocalStorage en localItems');
   const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
   if (localItems) {
     // setGuestCartBooks(localItems);
@@ -123,6 +163,7 @@ useEffect(() => {
 }, [id]);
 
 useEffect (() => {
+  // console.log('useeffect 5 setLocalStorage');
   if (guestBook.id) {
     const totals = JSON.parse(localStorage.getItem("total")) || {totalBooks: 0, totalAmount: 0};
     const itemsLS = JSON.parse(localStorage.getItem("guestCartBooks")) || [];
@@ -145,10 +186,14 @@ useEffect (() => {
     totals.totalAmount += guestBook.price;
     // setTotal(totals);
     localStorage.setItem("total", JSON.stringify(totals));
+
   }
 }, [guestBook, guestBook.id, bookDetail.id]);
 
+// useEffect (() => {// cuando cambia el stock renderizo el componente detalle
+//   dispatch(getBooksId(id));
 
+// }, [bookDetail.currentStock]);
 
 
   const arrAuthores = bookDetail.authors && bookDetail.authors.map(a => {
@@ -185,7 +230,7 @@ function buyingBook(id) {
     const image = bookDetail.image;
     const bookToAdd =[{ id, price, quantity, title, image}]  
    // alert("estoy en boton pago", bookToAdd)
-    console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
+    // console.log("bookToAdd desde buyingBook en bookdetail", bookToAdd)
     dispatch(setItems(bookToAdd));    
     history.push("/checkout");
   
@@ -243,7 +288,7 @@ function buyingBook(id) {
               <h2 className={styles.precio}>$ {bookDetail.price}</h2>
               <div className={styles.stockItems}>
                 <h6 className={styles.stock}>Stock:</h6>
-                <h6 className={styles.NumeroStock}>{bookDetail.currentStock}</h6>
+                <h6 className={styles.NumeroStock}>{bookDetail?.currentStock}</h6>
               </div>
             </div>
 
@@ -271,7 +316,7 @@ function buyingBook(id) {
                 </Stack>
                 
               </div>
-              <div className={styles.carrito}>
+              <div className={styles.carrito2}>
 
                 <Stack direction="row" spacing={10}>
                   <Button
@@ -327,8 +372,9 @@ function buyingBook(id) {
         <Recomendados />
       </div>
 
-
+      <div className={styles.footer}>
       <Footer />
+      </div>
 
       {/* MODAL PARA ABRIR EL EDITBOOK */}
       {modal && <EditBook bookDetail={bookDetail} setModal={setModal} />}

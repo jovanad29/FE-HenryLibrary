@@ -20,7 +20,7 @@ body {
     height: auto;
     display: flex;
     flex-direction: column;
-    
+
 
 }
 
@@ -31,11 +31,9 @@ body {
     height: auto;
     display: flex;
     flex-direction: column;
-
-    
 }
 
-.tituloPrincipal{
+.tituloPrincipal {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -43,7 +41,7 @@ body {
     padding-right: 2rem;
 }
 
-.titulo{
+.titulo {
     font-weight: bolder;
     font-size: 15px;
     color: var(--text);
@@ -77,11 +75,15 @@ body {
     height: 100%;
     display: auto;
     flex-direction: column;
-    border-right: 2px solid #01A86C;
-    border-top: 2px solid #01A86C;
-    border-left: 2px solid #01A86C;
-    border-bottom: 2px solid #01A86C;
     background-color: gray;
+}
+
+.container3 {
+    margin-top: 1rem;
+    width: 100%;
+    height: 100%;
+    display: auto;
+    flex-direction: column;
 }
 
 .continuarComprando {
@@ -94,7 +96,7 @@ body {
     color: #01A86C;
 }
 
-.textoContinuarComprando{
+.textoContinuarComprando {
     /* font-family: Quicksand; */
     font-style: italic;
     font-weight: bolder;
@@ -102,12 +104,12 @@ body {
     color: #01A86C;
 }
 
-.textoContinuarComprando:hover{
+.textoContinuarComprando:hover {
     outline-color: none;
     background-color: none;
 }
 
-.textoContinuarComprando:focus{
+.textoContinuarComprando:focus {
     outline-color: none;
 }
 
@@ -135,12 +137,12 @@ body {
     margin-left: 2rem;
 }
 
-.infoItem1{
+.infoItem1 {
     width: 50%;
     height: 100%;
 }
 
-.infoItem2{
+.infoItem2 {
     width: 50%;
     height: 100%;
     display: flex;
@@ -155,7 +157,7 @@ body {
     color: black
 }
 
-.cantidadContainer{
+.cantidadContainer {
     width: 40%;
     display: flex;
     justify-content: center;
@@ -168,11 +170,13 @@ body {
     color: black
 }
 
-.cantidadInput{
+.cantidadInput {
     width: 20%;
+    text-align: center;
+    border-radius: 5%;
 }
 
-.cantidadInput:focus{
+.cantidadInput:focus {
     outline-color: #01A86C
 }
 
@@ -192,6 +196,9 @@ body {
     cursor: pointer;
 }
 
+.itemCancelarResponsive{
+    display: none;
+}
 
 .itemTotales {
     font-weight: bolder;
@@ -202,7 +209,7 @@ body {
 }
 
 
-.containerDirecciones{
+.containerDirecciones {
     width: 100%;
     padding-top: 2rem;
     /* height: 20rem; */
@@ -235,7 +242,7 @@ body {
     font-weight: bolder;
     /* font-family: Quicksand; */
     font-size: 23px;
-    color: var(--text);
+    color: black;
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -264,7 +271,7 @@ body {
     box-shadow: 0px 1px 10px 0px #646262;
 }
 
-    
+
 .containerVacio {
     margin-top: 6rem;
     margin-left: 18rem;
@@ -276,4 +283,293 @@ body {
     font-weight: bolder;
     font-size: 18px;
     color: var(--text);
+}
+
+.tableTittles {
+    color: var(--text) !important;
+}
+
+.tableDetails {
+    color: var(--text) !important;
+}
+
+
+
+
+
+/* RESPONSIVE */
+
+@media (max-width: 844px) {
+
+    .shopping {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg);
+    }
+
+    .carrito {
+        margin-top: 5rem;
+        margin-bottom: 2rem;
+        margin-left: 2rem;
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        background-color: red;
+    }
+
+    .containerGeneral {
+        margin-top: 0rem;
+        margin-left: 0rem;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        background-color: antiquewhite;
+
+    }
+
+    .tituloPrincipal {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .titulo {
+        font-weight: bolder;
+        font-size: 15px;
+        color: var(--text);
+    }
+
+    .container {
+        margin-top: 1rem;
+        width: 100%;
+        height: 100%;
+        display: auto;
+        flex-direction: column;
+        border-right: 1px solid #01A86C;
+        border-top: 1px solid #01A86C;
+        border-left: 1px solid #01A86C;
+        border-bottom: 1px solid #01A86C;
+    }
+
+    .container1 {
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container2 {
+        width: 100%;
+        height: 100%;
+        display: auto;
+        flex-direction: column;
+        background-color: gray;
+    }
+
+
+    .item {
+        width: 100%;
+        height: 90%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        background-color: #f2f1efb6;
+    }
+
+    .img {
+        width: 75px;
+        height: 90px;
+        margin-right: 0rem;
+    }
+
+    .info {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-left: 1rem;
+    }
+
+    .infoItem1 {
+        width: 95%;
+        height: 100%;
+    }
+
+    .infoItem2 {
+        width: 95%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .title {
+        margin-bottom: 1rem;
+        font-weight: bolder;
+        font-size: 12px;
+        color: black
+    }
+
+    .cantidadContainer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .cantidad {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 16px;
+        color: black
+    }
+
+    .cantidadInput {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        width: 1.5rem;
+        height: 2rem;
+        border-radius: 10%;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .itemCancelarResponsive{
+        width: 40%;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-self: flex-end;
+        cursor: pointer;
+        font-size: 1.3rem !important;
+    }
+
+    .precio {
+        font-size: 16px;
+        color: black;
+    }
+
+    .itemCancelar {
+        display: none;
+    }
+
+
+
+    .itemTotales {
+        font-weight: bolder;
+        /* font-family: Quicksand; */
+        font-size: 16px;
+        color: black;
+        text-align: center;
+    }
+
+
+    .containerDirecciones {
+        width: 100%;
+        padding-top: 2rem;
+        /* height: 20rem; */
+    }
+
+
+    .container2 {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: #f2f1efb6;
+        border-top: 1px solid #01A86C;
+        padding-top: 1rem;
+    }
+
+
+    .infoCompra {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        height: 80%;
+        justify-content: flex-end;
+
+    }
+
+    .total {
+        font-weight: bolder;
+        /* font-family: Quicksand; */
+        font-size: 23px;
+        color: black;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+
+    .button {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        justify-content: center;
+    }
+
+    .comprar {
+        height: 90%;
+        width: 85%;
+        background-color: #01A86C;
+        /* font-family: Quicksand; */
+        font-weight: bolder;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 8px;
+        color: black;
+    }
+
+    .comprar:hover {
+        box-shadow: 0px 1px 10px 0px #646262;
+    }
+
+
+    .containerVacio {
+        margin-top: 5rem;
+        margin-left: 0rem;
+        margin-bottom: 10rem;
+        width: 100%;
+        height: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .textoVacio{
+        font-weight: bolder;
+        font-size: 15px;
+        color: var(--text);
+        margin-bottom: 1rem;
+    }
+
+    .parrafoVacio{
+        font-weight: bolder;
+        font-size: 12px;
+        color: var(--text);
+    }
+
+    .tableTittles {
+        color: var(--text) !important;
+    }
+
+    .tableDetails {
+        color: var(--text) !important;
+    }
+
+
+
+
 }

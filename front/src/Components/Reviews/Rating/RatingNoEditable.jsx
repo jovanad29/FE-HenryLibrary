@@ -1,6 +1,6 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
-import styles from "./Rating.module.css";
+import styles from "./RatingNoEditable.module.css";
 
 
 class RatingNoEditable extends React.Component {

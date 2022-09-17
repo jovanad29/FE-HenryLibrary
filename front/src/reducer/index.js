@@ -33,7 +33,10 @@ import {
   GET_ID_FAVORITES,
   GET_ALL_REVIEWS,
   POST_ALL_REVIEWS,
-  GET_USER_PAYMENTS_BOOK
+  GET_USER_PAYMENTS_BOOK,
+  DISCOUNT_CURRENT_STOCK,
+  SET_BOOK_DETAIL_CURRENT_STOCK
+
 } from "../actions/index";
 //mercado pago
 import {
@@ -85,7 +88,7 @@ const initialState = {
   items: [],
   reviews: [],
   reviewsUser: [],
-  reviewsBook: [],
+  reviewsBook: 0,
   directionsUser: [],
 };
 
@@ -115,6 +118,25 @@ function rootReducer(state = initialState, action) {
         ...state,
         bookDetail: [],
       };
+
+    case SET_BOOK_DETAIL_CURRENT_STOCK:
+      return {
+          ...state,
+          bookDetail: {
+            ...state.bookDetail,
+            currentStock: action.payload
+          }
+      };
+        
+    case DISCOUNT_CURRENT_STOCK: //descuenta el stock de un libro
+      return {
+        ...state,
+        bookDetail: {
+          ...state.bookDetail,
+          currentStock: state.bookDetail.currentStock - 1,
+        },
+      };
+
 
     case GET_ALL_CATEGORIES:
       return {
@@ -274,13 +296,13 @@ function rootReducer(state = initialState, action) {
       const availableFavorites = state.favorites.filter(
         (b) => b !== action.payload
       );
-      // const filtereds = state.allBooks.filter((b) =>
-      //     availableFavorites.includes(b.id)
-      // );
+      const filtereds = state.allBooks.filter((b) =>
+          availableFavorites.includes(b.id)
+      );
       return {
         ...state,
         favorites: availableFavorites,
-        // allBooks: filtereds,
+        allBooks: filtereds,
       };
 
     //ORDENAMIENTOS
@@ -429,9 +451,10 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_USER_PAYMENTS_BOOK:
+      console.log("action",action.payload)
       return{
         ...state,
-
+        reviewsBook: action.payload
       }
 
     //DASHBOARDS

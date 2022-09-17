@@ -14,7 +14,7 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
-
+import styles from "./ReviewUser.module.css"
 
 
 
@@ -33,14 +33,15 @@ function ReviewUser() {
 
   
   return (
+    <div className={styles.TableContainer}>
     <TableContainer>
-        <Table variant="simple">
-          <TableCaption>Tabla de comentarios de {displayName}</TableCaption>
+        <Table variant="simple" >
+          <TableCaption className={styles.comentarios}>Tabla de comentarios de {displayName}</TableCaption>
           <Thead>
             <Tr>
-              <Th>Titulo del libro</Th>
-              <Th>Descripcion</Th>
-              <Th>Rating</Th>
+              <Th className={styles.titulo}>Titulo del libro</Th>
+              <Th className={styles.titulo}>Descripcion</Th>
+              <Th className={styles.titulo}>Rating</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -48,9 +49,9 @@ function ReviewUser() {
               reviewsUser?.map((r) => {
                 return (
                   <Tr key={r.id}>
-                    <Td>{r.books?.map((b) => b.title)}</Td>
-                    <Td>{r.descrption}</Td>
-                    <Td>{r.rating}</Td>
+                    <Td className={styles.info}>{r.books?.map((b) => b.title)}</Td>
+                    <Td className={styles.info}>{r.descrption}</Td>
+                    <Td className={styles.info}>{r.rating}</Td>
                   </Tr>
                 )
               })
@@ -58,6 +59,7 @@ function ReviewUser() {
           </Tbody>
         </Table>
     </TableContainer>
+    </div>
   );
 }
 

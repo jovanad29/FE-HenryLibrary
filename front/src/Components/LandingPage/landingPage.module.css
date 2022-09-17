@@ -46,18 +46,6 @@ body {
 
 /* ####### RESPONSIVE ######## */
 
-/* @media screen and (max-width: 1920px){
-    .carrusel {
-        width: 85%;
-        margin-left: 10rem;
-    }
-    .recomendados {
-        margin-left: 12rem;
-    }
-    
-} */
-
-
 
 @media screen and (max-width: 860px){
 
@@ -88,4 +76,33 @@ body {
         margin-top: 5rem;
         margin-bottom: 0rem;
     }
+}
+
+@media screen and (max-width: 844px){
+
+    .LandingPage {
+        width: 100%;
+        height: 355vh;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg);
+    }
+    
+    .carrusel {
+        width: 23rem;
+        height: 25rem;
+        margin-top: 8rem;
+        margin-left: 0.7rem;
+    }
+    
+    .recomendados {
+        width: 85%;
+        margin-left: 2rem;
+        display: flex;
+        flex-direction: column;
+        margin-top: -2rem;
+        margin-bottom: 4rem;
+    }
+    
+        
 }

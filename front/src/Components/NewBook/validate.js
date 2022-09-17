@@ -56,14 +56,3 @@ export default function validate(input) {
   return errores;
 }
 
-export function validateReview(input) {
-  let errores = {};
-
-  if (!input.descrption) {
-    errores.descrption = "Se requiere una descripcion";
-  } else if (input.descrption.length > 100) {
-    errores.descrption = "supero el maximo de 100 caracteres";
-  }
-
-  return errores;
-}
