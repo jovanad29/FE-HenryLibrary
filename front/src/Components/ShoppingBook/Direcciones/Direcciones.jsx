@@ -130,7 +130,6 @@ return (
           <div className={styles.form}>
             <FormLabel className={styles.formLabel}>
               <Radio value="3"
-                id="noDelivery"
                 disabled={checkbottom !== "3"}
                 className={styles.radio}>Retiro en sucural:</Radio></FormLabel>
           </div>
@@ -138,7 +137,7 @@ return (
 
         <div  className={styles.button}>
           <button disabled={Object.keys(errors).length > 0} type="submit"
-            className={styles.confirmar}>Guardar Dirección </button>
+            className={styles.confirmar}>Continuar </button>
         </div>
       </FormControl>
     </Flex>
