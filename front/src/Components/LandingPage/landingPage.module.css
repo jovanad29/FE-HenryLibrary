@@ -82,25 +82,25 @@ body {
 
     .LandingPage {
         width: 100%;
-        height: 310vh;
+        height: 355vh;
         display: flex;
         flex-direction: column;
         background-color: var(--bg);
     }
     
     .carrusel {
-        width: 30rem;
-        height: 6rem;
-        margin-top: 7rem;
-        margin-left: 1rem;
+        width: 23rem;
+        height: 25rem;
+        margin-top: 8rem;
+        margin-left: 0.7rem;
     }
     
     .recomendados {
-        width: 58%;
-        margin-left: 1rem;
+        width: 85%;
+        margin-left: 2rem;
         display: flex;
         flex-direction: column;
-        margin-top: 6rem;
+        margin-top: -2rem;
         margin-bottom: 4rem;
     }
     

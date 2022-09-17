@@ -61,7 +61,7 @@ body {
         margin-top: 1rem;
         color:  #01A86C;  
         font-weight: bolder;
-        font-size: 15px;
+        font-size: 18px;
         text-align: center;
     }
     
@@ -76,7 +76,7 @@ body {
     .image{
         width: 150px;
         height: 150px;
-        margin-left: 1.6rem;
+        margin-left: 4rem;
     }
     
     .title{
@@ -89,6 +89,7 @@ body {
         color: var(--text);
         margin-top: 0.5rem;
         margin-bottom: 3rem;
+        margin-left: -1rem;
     }
     
         

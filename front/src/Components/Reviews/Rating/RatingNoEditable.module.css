@@ -1,0 +1,12 @@
+.star{
+    font-size: 2rem;
+}
+
+
+@media screen and (max-width: 844px) {
+
+    
+    .star{
+        font-size: 1rem !important;
+    }
+}
