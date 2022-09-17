@@ -78,8 +78,8 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
         }
     
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
+    const handleOnSubmit = (event) => {
+        event.preventDefault();
         dispatch(createReviewByBook(id, input));
         setInput({
           uid: uid, //id user
@@ -136,9 +136,9 @@ function Reviews({id}) { //Este id me lo traigo del componente BookDetail para t
             {errores.descrption && (<FormErrorMessage>{errores.descrption}</FormErrorMessage>)}
 
 
-            <Button  marginTop='1rem' bg='#01A86C' w="90%" h="40%" onClick={handleOnSubmit}
+            <Button  marginTop='1rem' bg='#01A86C' w="90%" h="40%" onClick={handleOnSubmit} className={styles.enviar}
                           disabled={
-                            JSON.stringify(errores) === "{}" && contadorDescription < 100
+                            JSON.stringify(errores) === "{}" && contadorDescription < 100 && input.descrption.trim()
                               ? false
                               : true
                           }
