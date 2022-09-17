@@ -3,6 +3,7 @@ export const SET_ITEMS = "SET_ITEMS";
 export const SET_PAYMENT = "SET_PAYMENT";
 export const SET_ORDER = "SET_ORDER";
 export const CLEAR_PAYMENT = "CLEAR_PAYMENT";
+export const SET_DELIVERY_ADDRESS="SET_DELIVERY_ADDRESS"
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
@@ -59,7 +60,7 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       } catch (error) {
         console.log(error)
       }
-      // ACABÁ DEBERÍA LIMPIAR EL CARRITO O LLAMAR A LA ACTION QUE LO HACE
+      
     } catch (error) {
       console.log(error);
     }
@@ -84,5 +85,13 @@ export function setPayment(mpID) {
   return {
     type: SET_PAYMENT,
     payload: mpID,
+  };
+}
+
+
+export function setDeliveryAddress(deliveryAddress) {
+  return {
+    type: SET_DELIVERY_ADDRESS,
+    payload: deliveryAddress,
   };
 }
