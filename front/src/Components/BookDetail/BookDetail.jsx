@@ -82,7 +82,7 @@ function handleOnAdd(id, price) {
           dispatch(addCartItem(uid, id, price));
           Swal.fire({
               icon: "success",
-              title: "Se agrego el libro al carrito",
+              title: "Se agregó el libro al carrito",
               showConfirmButton: true,
               confirmButtonColor: "#01A86C",
           });
