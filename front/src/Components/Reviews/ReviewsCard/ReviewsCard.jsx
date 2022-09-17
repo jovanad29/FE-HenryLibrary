@@ -23,11 +23,11 @@ function ReviewsCard({ reviews }) {
         
         return (
           <Accordion p="0.5rem" allowMultiple >
-            <AccordionItem >
+            <AccordionItem className={styles.contenedor} >
               <div key={r.id}>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
-                    <Flex textAlign="left" w="8rem">
+                    <Flex textAlign="left" w="8rem" >
                       {r.users &&
                         r.users.map((u) => {
                           return (

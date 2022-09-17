@@ -61,11 +61,11 @@ body {
 @media (max-width: 844px) {
 
     .container {
-        width: 58%;
-        height: 15rem;
+        width: 90%;
+        height: 5rem;
         margin-left: 1rem;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: space-around;
         border-top: 2px solid #D9D9D9;
         border-bottom: 2px solid #D9D9D9;

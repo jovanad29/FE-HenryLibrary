@@ -147,7 +147,8 @@ function ShoppingBook() {
             price = b.price;
         }
         const currentBook = allBooks.filter((b) => b.id === id);
-        const { currentStock } = currentBook[0];
+        let currentStock;
+        if (currentBook) currentStock = currentBook[0]?.currentStock;
 
         return (
             <ItemCart
@@ -212,8 +213,8 @@ function ShoppingBook() {
                                 </div>
                             ) : (
                                 <div className={styles.containerVacio}>
-                                    <h2>Tu carrito está vacío</h2>
-                                    <h4>
+                                    <h2 className={styles.textoVacio}>Tu carrito está vacío</h2>
+                                    <h4 className={styles.parrafoVacio}>
                                         {" "}
                                         ¿No sabés qué comprar? ¡Miles de libros
                                         te esperan!
