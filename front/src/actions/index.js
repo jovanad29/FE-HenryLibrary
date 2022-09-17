@@ -49,12 +49,8 @@ export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
-<<<<<<< HEAD
 export const DISCOUNT_CURRENT_STOCK = "DISCOUNT_CURRENT_STOCK";
 
-
-=======
->>>>>>> 73b92c0 (add ItemCart component to shoppingCart)
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
