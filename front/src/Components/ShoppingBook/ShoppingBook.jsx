@@ -147,7 +147,8 @@ function ShoppingBook() {
             price = b.price;
         }
         const currentBook = allBooks.filter((b) => b.id === id);
-        const { currentStock } = currentBook[0];
+        let currentStock;
+        if (currentBook) currentStock = currentBook[0]?.currentStock;
 
         return (
             <ItemCart

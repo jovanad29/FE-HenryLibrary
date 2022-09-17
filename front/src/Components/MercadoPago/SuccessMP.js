@@ -51,11 +51,11 @@ export default function SuccessMP() {
    if (order.items.length && uid) { // antes también se evaluaba el estado 'change'
      // console.log("render")      
       axios.post(`/mercadopago/create`, { ...order, userID: uid })
-      .then( r => console.log("se guardó en DB", r))
-      .catch( e => console.log("no se guardó en DB", e))
-    }
-     return () => {
+      .then( r => {
+        console.log("se guardó en DB", r)
         dispatch(getCartDB(uid))
+      })
+      .catch( e => console.log("no se guardó en DB", e))
     }
   }, [order, uid]); // front.ID
 
