@@ -61,6 +61,7 @@ export default function SuccessMP() {
 
   function goBack(e) {
     e.preventDefault();
+    dispatch(getCartDB(uid))
     history.push("/home");
     // }
   }
@@ -110,10 +111,10 @@ export default function SuccessMP() {
               Total Libros: <span className={s.price}> ${activeCartAmount}</span>
             </span>
             <span>
-              Gastos de envio: <span className={s.price}> ${1500}</span>
+              Gastos de envio: <span className={s.price}> ${1000}</span>
             </span>
             <span>
-            Total: <span className={s.price}> ${parseFloat(order.total + 1500).toFixed(2)}</span>
+            Total: <span className={s.price}> ${parseFloat(order.total).toFixed(2)}</span>
             </span>
             <Button className={s.boton} onClick={goBack}>Seguir Comprando</Button>
           <div className={s.successCheckmark}>
