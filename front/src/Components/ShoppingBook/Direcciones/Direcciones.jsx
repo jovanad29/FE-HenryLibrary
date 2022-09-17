@@ -12,9 +12,10 @@ import {
     Input,
 } from "@chakra-ui/react";
 import { getUserInfo } from "../../../actions/index";
+import { clearDeliveryAddress, setDeliveryAddress, setAddressUser, setItems } from '../../../actions/checkoutActions';
 
 export default function Direcciones() {
-    let [errors, setErrors] = useState({});
+  let [errors, setErrors] = useState({});
 
     const dispatch = useDispatch();
     const { address, uid } = useSelector((state) => state);
@@ -25,15 +26,26 @@ export default function Direcciones() {
         otherAddress: "",
     }); //Estado para el manejo de direccioes);
 
-    useEffect(() => {
-        if (uid) dispatch(getUserInfo(uid));
-    }, [dispatch, uid]);
+  useEffect(() => {
+    if (uid){
+      dispatch(getUserInfo(uid));
+      setInput({
+      ...input,
+      addressUser:address
+    })
+    }
+    
 
-    let handleInputChange = (e) => {
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value,
-        });
+
+  }, [dispatch, uid]);
+
+
+
+  let handleInputChange = e => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
 
         setErrors(
             validate({
@@ -75,25 +87,52 @@ export default function Direcciones() {
         return errors;
     };
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const pickUpInStore = "Retira en sucursal el cliente";
-        if (checkbottom === "1") {
-            // dispatch(updateAdrress(uid,input.addressUser));//ruta nueva de user put de USER con a
-            dispatch(getUserInfo(uid));
-            // dispatch(updateDeliveryAddress(uid,input.addressUser)) // ruta nueva para payment
-            console.log("otra direccion", input.addressUser);
-        }
-        if (checkbottom === "2") {
-            //  dispatch(updateDeliveryAddress(uid,otherAddress)) //ruta nueva para payment JOVVVVAAAAAAA!!!
-            console.log("otra direccion", input.otherAddress);
-        }
-        if (checkbottom === "3") {
-            //  dispatch(updateDeliveryAddress(uid,pickUpInStore)) //
-            console.log("retira store", pickUpInStore);
-        }
-        alert(`Direccion de Envio registrado`);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const pickUpInStore = 'Retira en sucursal el cliente'
+
+    if (checkbottom === "1") {
+      
+      await dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
+      await dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
+      dispatch(setDeliveryAddress(input.addressUser)) // seteo la dirección de envio en Store 
+     
+      console.log(' direccion', input.addressUser);
     }
+
+    if (checkbottom === "2") {
+      dispatch(setDeliveryAddress(input.otherAddress)) // otra no la dir del user
+      console.log('otra direccion', input.otherAddress);
+    }
+
+    if ( checkbottom === "1" || checkbottom==="2"  ){
+      const items= {
+          id: 0,
+          price: 1000,
+          image:'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
+          quantity:1,
+          title: "Gasto de envío",
+      }
+     dispatch( setItems([items]))
+      
+    }
+    if (checkbottom === "3") {
+
+      clearDeliveryAddress();
+      //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
+      const items = {
+        id: 0,
+        price: 0,
+        image:'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
+        quantity: 1,
+        title: "Retira en Sucursal",
+      }
+      dispatch(setItems([items]))
+    }
+    alert(`Direccion de Envio registrado`);
+
+  
+  }
 
     return (
         <div className={styles.containerDirecciones}>
@@ -106,7 +145,7 @@ export default function Direcciones() {
                 <FormControl
                     isRequired
                     className={styles.formulario}
-                    onSubmit={(e) => handleSubmit(e)}
+                  
                 >
                     <RadioGroup onChange={setCheckbottom} value={checkbottom}>
                         <div className={styles.form}>
@@ -169,7 +208,7 @@ export default function Direcciones() {
                     <div className={styles.button}>
                         <button
                             disabled={Object.keys(errors).length > 0}
-                            type="submit"
+                            onClick={handleSubmit}
                             className={styles.confirmar}
                         >
                             Continuar{" "}
