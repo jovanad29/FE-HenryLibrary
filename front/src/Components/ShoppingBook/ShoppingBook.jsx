@@ -6,7 +6,7 @@ import { editCartItem } from "../../actions/index.js";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
-// import Direcciones from "./Direcciones/Direcciones.jsx"
+import Direcciones from "./Direcciones/Direcciones.jsx"
 
 //CSS
 import styles from "./ShoppingBook.module.css";
@@ -64,13 +64,26 @@ function ShoppingBook() {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Go to Login",
+        confirmButtonText: "Ir a Login",
       }).then((result) => {
         if (result.isConfirmed) {
           history.push("/home");
         }
       });
-    } else {
+
+
+    } 
+    // if (!addressDelivery) { // estado global 
+    //   Swal.fire({
+    //     title: "Para comprar debe ingresar direccion envío optar retirar en sucursal",
+    //     icon: "info",
+    //    // showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     confirmButtonText: "Ingresar dirección",
+    //   })
+    // }
+       
+    else {
       const booksBuy = guestCartBooks.map((b) => {
         return {
           id: b.id,
@@ -219,9 +232,10 @@ function ShoppingBook() {
                 <div>
                   <div>{item}</div>  {/* RENDERIZADO DE LOS LIBROS AGREGADOS AL CARRITO */}
 
-                  {/* <div className={styles.containerDirecciones}> Direcciones */}
-                  {/* <Direcciones /> */}
-                  {/* </div> */}
+                  <div className={styles.containerDirecciones}> {/* Direcciones */}
+                  <Direcciones /> 
+                  </div>
+                  <br/> <br/>
                 </div>
               ) : (
                 <div className={styles.containerVacio}>
