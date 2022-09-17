@@ -100,7 +100,7 @@ export default function Direcciones() {
             {" "}
             {/* Direcciones */}
             <h2 className={styles.titulo}>
-                Indique el lugar de envio de la compra:
+                Indique el lugar de envío de la compra:
             </h2>
             <Flex className={styles.formularioContainer}>
                 <FormControl
