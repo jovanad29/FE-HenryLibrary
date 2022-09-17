@@ -57,3 +57,14 @@ body {
     }  
     
 }
+
+
+@media (max-width: 844px) {
+    
+    .btnLightDark {
+        position: absolute;
+        top: 19.5rem;
+        left: 7.5rem;
+    }  
+    
+}
