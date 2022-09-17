@@ -53,7 +53,7 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex> : <h2 className={styles.mensajeVacio}>Todavia no hay ningun comentario. ¡Compra un libro y cuentános tu experiencia! </h2> }  
+    </Flex> : <h2 className={styles.mensajeVacio}>Todavía no hay ningún comentario. ¡Comprá un libro y contanos tu experiencia! </h2> }  
       
     </div>
   );
