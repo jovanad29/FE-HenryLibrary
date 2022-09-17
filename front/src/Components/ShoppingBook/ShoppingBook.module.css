@@ -80,6 +80,14 @@ body {
     background-color: gray;
 }
 
+.container3 {
+    margin-top: 1rem;
+    width: 100%;
+    height: 100%;
+    display: auto;
+    flex-direction: column;
+}
+
 .continuarComprando {
     margin-bottom: 2rem;
     width: 20%;
