@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem, discountCurrentStock } from "../../actions";
+import { getBooksId, deleteBookDetail, deleteLogicBook, addCartItem, discountCurrentStock, setBookDetailCurrentStock } from "../../actions";
 import { Link, useParams } from "react-router-dom";
 
 //COMPONENTES
@@ -29,7 +29,7 @@ import { setItems } from "../../actions/checkoutActions";
 export default function BookDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { bookDetail, isAdmin , status, uid} = useSelector((state) => state);
+  const { bookDetail, isAdmin , status, uid, activeCart} = useSelector((state) => state);
   const history = useHistory();
 
   const [isActive, setIsActive] = useState(true);
@@ -110,6 +110,39 @@ function handleOnAdd(id, price) {
   }
   dispatch(discountCurrentStock(bookDetail.id));
 }
+
+// al actualizarse bookDetail, encontrar el stock actualizado y setear bookDetail.currentStock
+useEffect(() => {
+  if (bookDetail.currentStock) {
+    // encontrar el id actual en localStorage.guestCartBooks
+    const guestCartBooks = JSON.parse(localStorage.getItem("guestCartBooks"));
+    if (guestCartBooks) {
+      const guestBook = guestCartBooks.find((book) => book.id === bookDetail.id);
+      if (guestBook) {
+        // si existe, actualizar el stock
+        let currentStock = bookDetail.currentStock - guestBook.quantity
+      dispatch (setBookDetailCurrentStock(currentStock));
+      //{ ...bookDetail, currentStock: bookDetail.currentStock - guestBook.quantity }
+    }
+  }
+  //encontrar el id actual en el state activeCart de Redux (si existe)
+  if (activeCart) {
+    const book = activeCart.find((book) => book.id === bookDetail.id);
+    if (book) {
+      console.log("book", book);
+
+      console.log("bookDetail.currentStock", bookDetail.currentStock);
+      console.log("book.payment_book.quantity", book.payment_book.quantity);
+      // si existe, actualizar el stock
+      let currentStock = bookDetail.currentStock - book.payment_book.quantity;
+      console.log("currentStock", currentStock);
+      setBookDetailCurrentStock(currentStock);
+      console.log("bookDetail", bookDetail);
+    }
+  }
+}
+}, [bookDetail.id]);
+
 
 
 //traer el localstorage cuando carga el componente
