@@ -61,7 +61,7 @@ body {
 @media (max-width: 844px) {
 
     .container {
-        width: 58%;
+        width: 90%;
         height: 15rem;
         margin-left: 1rem;
         display: flex;

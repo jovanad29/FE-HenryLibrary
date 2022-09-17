@@ -372,8 +372,9 @@ function buyingBook(id) {
         <Recomendados />
       </div>
 
-
+      <div className={styles.footer}>
       <Footer />
+      </div>
 
       {/* MODAL PARA ABRIR EL EDITBOOK */}
       {modal && <EditBook bookDetail={bookDetail} setModal={setModal} />}
