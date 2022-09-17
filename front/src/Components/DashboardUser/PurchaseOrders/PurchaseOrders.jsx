@@ -124,7 +124,7 @@ let totalItemsByUser = 0
 
     return (
         <div >            
-        <div className={styles.container}>
+        <div className={styles.container3}>
             <div className={styles.container1}>
                 <div>
                     <TableContainer maxWidth='90%'>
