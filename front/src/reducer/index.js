@@ -286,13 +286,13 @@ function rootReducer(state = initialState, action) {
       const availableFavorites = state.favorites.filter(
         (b) => b !== action.payload
       );
-      // const filtereds = state.allBooks.filter((b) =>
-      //     availableFavorites.includes(b.id)
-      // );
+      const filtereds = state.allBooks.filter((b) =>
+          availableFavorites.includes(b.id)
+      );
       return {
         ...state,
         favorites: availableFavorites,
-        // allBooks: filtereds,
+        allBooks: filtereds,
       };
 
     //ORDENAMIENTOS
