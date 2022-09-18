@@ -17,7 +17,7 @@ import { Button } from "@chakra-ui/react";
 //pago
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-import { setItems } from "../../actions/checkoutActions";
+import {  setItems } from "../../actions/checkoutActions";
 import { ItemCart } from "./ItemCart.jsx";
 
 function ShoppingBook() {
@@ -32,7 +32,8 @@ function ShoppingBook() {
         activeCartQuantity,
         uid,
         allBooks,
-        items
+        items,
+        deliveryAdress
     } = useSelector((state) => state);
 
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
@@ -69,13 +70,27 @@ function ShoppingBook() {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Go to Login",
+                confirmButtonText: "Ir a Loguin",
             }).then((result) => {
                 if (result.isConfirmed) {
                     history.push("/home");
                 }
             });
-        } else {
+
+
+        } 
+        if (!deliveryAdress) {
+            Swal.fire({
+                title: "Para comprar debe confirmar dirección de Envío ",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                 confirmButtonText: "Aceptar",
+            })
+
+        }        
+        
+        else {
             let booksBuy = guestCartBooks.map((b) => {
                 return {
                     id: b.id,
