@@ -308,7 +308,7 @@ function buyingBook(id) {
                           ? styles.boton
                           : styles.boton + " " + styles.botonDisabled
                       }
-                      disabled={bookDetail.currentStock === 0}
+                      disabled={bookDetail.currentStock <= 0}
                       onClick={() => handleOnAdd(bookDetail.id, bookDetail.price)}
                   >
                     Agregar al carrito
@@ -330,7 +330,7 @@ function buyingBook(id) {
                           ? styles.boton
                           : styles.boton + " " + styles.botonDisabled
                       }
-                      disabled={bookDetail.currentStock === 0}
+                      disabled={bookDetail.currentStock <= 0}
                       onClick={()=>buyingBook(id)}
                   >
                    Comprar
