@@ -7,52 +7,84 @@ import PurchaseOrders from "./PurchaseOrders/PurchaseOrders.jsx";
 import ReviewUser from "./ReviewUser/ReviewUser.jsx";
 
 //CSS
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import {
+    Tabs,
+    TabList,
+    TabPanels,
+    Tab,
+    TabPanel,
+    Button,
+} from "@chakra-ui/react";
 import styles from "./DashboardUser.module.css";
 import DataUser from "./DataUser/DataUser.jsx";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { startResetPasswordEmail } from "../../actions/index.js";
 
 function DashboardUser() {
-  const { status, displayName, email, reviews, uid } = useSelector(
-    (state) => state
-  );
-  
-  return (
-    <div className={styles.dashboardUser}>
-      <NavBar />
-      <NavBar2 />
+    const { status, displayName, email, reviews, uid } = useSelector(
+        (state) => state
+    );
 
-      <div className={styles.container}>
-        <Tabs variant="soft-rounded" colorScheme="green">
-          <TabList>
-            <Tab className={styles.titulos}>Datos Personales</Tab>
-            <Tab className={styles.titulos}>Ordenes de compras</Tab>
-            <Tab className={styles.titulos}>Historial de Comentarios</Tab>
-            <Tab className={styles.titulos}>Seguridad</Tab>
-          </TabList>
+    const dispatch = useDispatch();
 
-          <TabPanels className={styles.containerItem}>
-            <TabPanel>
-              <DataUser uid={uid} />
-            </TabPanel>
+    const handleResetPassword = () => {
+      dispatch(startResetPasswordEmail({ email }));
+        Swal.fire({
+          title: "Mail de reseteo de password enviado!",
+          icon: "success",
+          iconColor: "#01A86C",
+          confirmButtonColor: "#01A86C",
+        });
+    }
 
-            <TabPanel>
-              <PurchaseOrders />
-            </TabPanel>
+    return (
+        <div className={styles.dashboardUser}>
+            <NavBar />
+            <NavBar2 />
 
-            <TabPanel>
-              <ReviewUser uid={uid} />
-            </TabPanel>
+            <div className={styles.container}>
+                <Tabs variant="soft-rounded" colorScheme="green">
+                    <TabList>
+                        <Tab className={styles.titulos}>Datos Personales</Tab>
+                        <Tab className={styles.titulos}>Ordenes de compras</Tab>
+                        <Tab className={styles.titulos}>
+                            Historial de Comentarios
+                        </Tab>
+                        <Tab className={styles.titulos}>Seguridad</Tab>
+                    </TabList>
 
-            <TabPanel>
-              <div>Seguridad</div>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </div>
+                    <TabPanels className={styles.containerItem}>
+                        <TabPanel>
+                            <DataUser uid={uid} />
+                        </TabPanel>
 
-      <Footer />
-    </div>
-  );
+                        <TabPanel>
+                            <PurchaseOrders />
+                        </TabPanel>
+
+                        <TabPanel>
+                            <ReviewUser uid={uid} />
+                        </TabPanel>
+
+                        <TabPanel>
+                            <div>
+                                <Button
+                                    colorScheme="red"
+                                    size="md"
+                                    onClick={handleResetPassword}
+                                >
+                                    Resetear contraseña
+                                </Button>
+                            </div>
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </div>
+
+            <Footer />
+        </div>
+    );
 }
 
 export default DashboardUser;
