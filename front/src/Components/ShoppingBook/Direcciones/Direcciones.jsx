@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-
+import Swal from "sweetalert2";
 //CSS
 import styles from "./Direcciones.module.css";
 import {
@@ -88,6 +88,17 @@ export default function Direcciones() {
   async function handleSubmit(e) {
     e.preventDefault();
    
+    if (
+        (!input.addressUser && checkbottom === "1") ||
+        (!input.otherAddress && checkbottom === "2")
+    )
+        return Swal.fire({
+            title: "Para confirmar Envío debe ingresar una dirección o Retirar en Sucursal",
+            icon: "info",
+            confirmButtonColor: "#3085d6",
+             confirmButtonText: "Aceptar",
+        })
+
 
     if (checkbottom === "1") {
       
@@ -130,7 +141,12 @@ export default function Direcciones() {
       }
       dispatch(setItems([items]))
     }
-    alert(`Direccion de Envio registrado`);
+    return Swal.fire({
+        title: "Se confirmo la dirección de envío puede comprar",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+         confirmButtonText: "Aceptar",
+    })
 
   
   }
@@ -212,7 +228,7 @@ export default function Direcciones() {
                             onClick={handleSubmit}
                             className={styles.confirmar}
                         >
-                            Continuar{" "}
+                            Confirmar
                         </button>
                     </div>
                 </FormControl>
