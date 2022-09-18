@@ -54,7 +54,9 @@ function RowTable({ book }) {
         <Box className={style.rating}>{book.rating}</Box>
         <Box className={style.price}>{book.price}</Box>
         <Box className={style.edit}>
-          <NavLink to={`/user/admin/catalogue/${id}`}>
+          <NavLink
+            to={{ pathname: `/user/admin/catalogue/${id}`, props: book }}
+          >
             <Button colorScheme="green" size="xs" onClick={handleClick}>
               Editar
             </Button>
