@@ -35,7 +35,7 @@ import {
   POST_ALL_REVIEWS,
   GET_USER_PAYMENTS_BOOK,
   DISCOUNT_CURRENT_STOCK,
-  SET_BOOK_DETAIL_CURRENT_STOCK
+  SET_BOOK_DETAIL_CURRENT_STOCK,
 
 } from "../actions/index";
 //mercado pago
@@ -45,10 +45,14 @@ import {
   SET_PAYMENT,
   SET_ORDER,
   SET_DELIVERY_ADDRESS,
-  CLEAR_DELIVERY_ADDRESS
+  CLEAR_DELIVERY_ADDRESS,
 } from "../actions/checkoutActions";
 //DASHBOARD
-import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
+import { GET_ALL_USERS, 
+  GET_ALL_REVIEW_BY_USER,
+  GET_ALL_ORDERS
+ } from "../actions/dashboardActions";
+
 import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
 
 const initialState = {
@@ -90,6 +94,7 @@ const initialState = {
   },
   items: [],
   deliveryAdress:"",
+  allOrders:[],
 //end Checkout
   reviews: [],
   reviewsUser: [],
@@ -396,6 +401,15 @@ function rootReducer(state = initialState, action) {
         },
         items: [],
       };
+    case  GET_ALL_ORDERS:
+      return{
+
+        ...state,
+        allOrders: action.payload,
+
+      }
+
+
 
     case SET_ORDER:
       return {
