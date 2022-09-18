@@ -431,7 +431,6 @@ export function getUserInfo(uid) {
         await axios
             .get(`${baseURL}/user/${uid}`)
             .then((response) => {
-                console.log(response.data.isActive);
                 if (response.data.isActive)
                     dispatch({ type: GET_USER_INFO, payload: response.data });
                 else dispatch(startLogout());
