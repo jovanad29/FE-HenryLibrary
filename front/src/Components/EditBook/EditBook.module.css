@@ -40,6 +40,14 @@ body {
     color: var(--text) !important;
 }
 
+.Input3{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
 /* .containerInput {
     display: flex;
     margin-left: 12rem;
