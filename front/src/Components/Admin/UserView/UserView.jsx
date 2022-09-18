@@ -10,37 +10,37 @@ import { getAllUsers } from "../../../actions/dashboardActions";
 import NavBar from "../Components/NavBar";
 
 function UserView() {
-  const dispatch = useDispatch();
-  const { allUsers } = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const { allUsers } = useSelector((state) => state);
 
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
-  return (
-    <Box fontFamily="Quicksand">
-      <Menu />
-      <NavBar />
-      <Title />
+    useEffect(() => {
+        dispatch(getAllUsers());
+    }, [dispatch]);
 
-      <Box className={style.content}>
-        {/* CABECERA */}
-        <Flex className={style.table}>
-          <Box className={style.user}>Usuario</Box>
-          <Box className={style.address}>Direccion</Box>
-          <Box className={style.ative}>Activo</Box>
-          <Box className={style.admin}>Administrador</Box>
-          <Box className={style.banned}>Bloquear</Box>
-          <Box className={style.edit}>Editar</Box>
-        </Flex>
+    return (
+        <Box fontFamily="Quicksand">
+            <Menu />
+            <NavBar />
+            <Title />
 
-        {/* INFORMACION */}
-        {allUsers.map((user) => {
-          console.log();
-          return <RowTable key={user.uid} user={user} />;
-        })}
-      </Box>
-    </Box>
-  );
+            <Box className={style.content}>
+                {/* CABECERA */}
+                <Flex className={style.table}>
+                    <Box className={style.user}>Usuario</Box>
+                    <Box className={style.address}>Direccion</Box>
+                    <Box className={style.admin}>Administrador</Box>
+                    <Box className={style.banned}>Bloquear</Box>
+                    <Box className={style.edit}>Acciones</Box>
+                </Flex>
+
+                {/* INFORMACION */}
+                {allUsers.map((user) => {
+                    if (user.isActive)
+                        return <RowTable key={user.uid} user={user} />;
+                })}
+            </Box>
+        </Box>
+    );
 }
 
 export default UserView;

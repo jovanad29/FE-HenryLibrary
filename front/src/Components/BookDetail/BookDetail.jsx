@@ -318,7 +318,7 @@ function buyingBook(id) {
               </div>
               <div className={styles.carrito2}>
 
-                <Stack direction="row" spacing={10}>
+                {/* <Stack direction="row" spacing={10}>
                   <Button
                     color="black"
                     colorScheme="#01A86C"
@@ -335,7 +335,7 @@ function buyingBook(id) {
                   >
                    Comprar
                   </Button>
-                </Stack>
+                </Stack> */}
                 
               </div>
               
