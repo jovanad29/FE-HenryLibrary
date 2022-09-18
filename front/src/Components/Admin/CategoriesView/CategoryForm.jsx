@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import { postCategory} from '../../../actions/index.js';
+import {  Input, FormLabel, Button , FormErrorMessage} from "@chakra-ui/react";
+import styles from "./CategoryForm.module.css"
+import Swal from "sweetalert2";
+
+
 
 export default function CategoryForm() {
 //create a controlled form to perform CRUD operations on the category table
@@ -45,12 +50,31 @@ function handleSubmit(evento){
                 ...input,
             }))
 
+            Swal.fire({
+                icon: "success",
+                title: "Se creo la categoria exitosamente ",
+                showConfirmButton: true,
+                confirmButtonColor: "#01A86C",
+            });
+
         } catch (error) {
-            alert('La categoria no fue creada. Hay errores en la carga:',{errors})
+            // alert('La categoria no fue creada. Hay errores en la carga:',{errors})
+            Swal.fire({
+                icon: "success",
+                title: `La categoria no fue creada. Hay errores en la carga:', ${errors}`,
+                showConfirmButton: true,
+                confirmButtonColor: "#01A86C",
+            });
         }
             
     } else {
-        alert('La categoria no fue creada. Hay errores en la carga:',{errors})
+        // alert('La categoria no fue creada. Hay errores en la carga:',{errors})
+        Swal.fire({
+            icon: "success",
+            title: `La categoria no fue creada. Hay errores en la carga:', ${errors}`,
+            showConfirmButton: true,
+            confirmButtonColor: "#01A86C",
+        });
     }
     
 }
@@ -69,10 +93,11 @@ function validate(input) {
 
 
   return (
-    <div >
+    <div className={styles.contenedor}>
     
-    <h1>Crear una Categoria</h1>
-    <form onSubmit={(evento)=>handleSubmit(evento)}>
+    <h1 className={styles.title}>Crear una Categoria</h1>
+    
+    {/* <form onSubmit={(evento)=>handleSubmit(evento)}>
         <div >
             <label>Categoría:</label>
             <input
@@ -86,6 +111,39 @@ function validate(input) {
         </div>
 
         <button type="submit">Crear</button>
+    </form> */}
+
+    <form >
+        <div >
+           <FormLabel fontWeight="bold" className={styles.text}>Categoría:</FormLabel>
+            <Input
+            value={input.name}
+            type= "text"
+            name="name"
+            onChange={handleChange}
+            focusBorderColor="#01A86C"
+            placeholder='ingrese...'
+            boxShadow="lg"
+            rounded="lg"
+            color="#01A86C"
+          />
+            {errors.name && <FormErrorMessage>{errors.name}</FormErrorMessage>}
+        </div>
+        <Button
+              type="submit"
+              w="30%"
+              backgroundColor="#01A86C"
+              variant="solid"
+              onClick={handleSubmit}
+              className={styles.boton}
+              disabled={
+                JSON.stringify(errors) === "{}"
+                  ? false
+                  : true
+              }
+            >
+              Crear
+            </Button>
     </form>
 </div>
     );
