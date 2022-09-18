@@ -24,7 +24,7 @@ import {
 } from "./elements";
 
 //CSS
-import styles from "./EditBook.module.css";
+
 import swal from "sweetalert2";
 // import { ImCross } from "react-icons/im";
 import { Box, Stack, useToast } from "@chakra-ui/react";
@@ -258,7 +258,6 @@ export default function EditBook({ props }) {
         pb="5%"
       >
         <Stack
-          className={styles.form}
           border="2px"
           borderColor="#D9D9D9"
           padding="2%"
