@@ -112,7 +112,7 @@ body{
     
     .paginado{
         height: 15rem;
-        margin-top: 2rem;
+        margin-top: 0rem;
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -138,7 +138,7 @@ body{
 
     
     .cards{
-        width: 85%;
+        width: 75%;
         display: flex;
         flex-wrap: wrap ;
         justify-content: space-around;

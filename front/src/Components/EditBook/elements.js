@@ -15,6 +15,7 @@ import {
 
 import { CgCheck } from "react-icons/cg";
 import { TbBookUpload } from "react-icons/tb";
+import styles from "./EditBook.module.css"
 
 //=======================================================================================
 //FUNCIONES PARA NO REPETIR CODIGO
@@ -30,7 +31,7 @@ export const elementInputValidate = (
 ) => {
   return (
     <FormControl isRequired isInvalid={validate} pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Input
           value={value}
@@ -69,7 +70,7 @@ export const elementTestArea = (
 ) => {
   return (
     <FormControl isRequired isInvalid={validate} pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Textarea
           value={value}
@@ -108,7 +109,7 @@ export const elementNumberValidate = (
 ) => {
   return (
     <FormControl isRequired isInvalid={validate} pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Input
           value={value}
@@ -149,7 +150,7 @@ export const elementSelectValidate = (
 ) => {
   return (
     <FormControl isRequired isInvalid={validate} pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Select
           value={value}
@@ -189,7 +190,7 @@ export const elementSelectValidate = (
 export const elementInputDate = (type, label, value, name, handle) => {
   return (
     <Box pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Input
           type={type}
@@ -225,7 +226,7 @@ export const elementSelect = (
 ) => {
   return (
     <Box pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Select
           value={value}
@@ -270,7 +271,7 @@ export const elementNumber = (
 ) => {
   return (
     <Box pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Input
           value={value}
@@ -306,7 +307,7 @@ export const elementInput = (
 ) => {
   return (
     <Box pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Input
           value={value}
@@ -346,7 +347,7 @@ export const elementSelectOthers = (
   //   console.log(arr2);
   return (
     <Box pl={"2%"}>
-      <FormLabel fontWeight="bold">{label}</FormLabel>
+      <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
       <Box display="flex" justifyContent="space-between" pr="2%">
         <Select
           value={value}
@@ -461,7 +462,7 @@ export const elementInputImage = (
   return (
     <Box pl={"2%"}>
       <FormControl isRequired isInvalid={validate}>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.label}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <InputGroup>
             <Input
