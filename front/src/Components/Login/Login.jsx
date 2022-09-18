@@ -158,13 +158,14 @@ function Login({ HandleOpenLogin }) {
 
         {createUser && !isAuthenticated && (
           <div>
-            <input
+            <Input
               className={styles.input}
               type="text"
               placeholder="Nombre Completo"
               name="displayName"
               value={login.name}
               onChange={handleChange}
+              focusBorderColor="#01A86C"
             />
           </div>
         )}
@@ -177,12 +178,13 @@ function Login({ HandleOpenLogin }) {
                   !createUser ? styles.iconoEmail : styles.noIconoEmail
                 }
               />
-              <input
+              <Input
                 className={styles.input}
                 type="text"
                 placeholder="Email"
                 name="email"
                 value={login.email}
+                focusBorderColor="#01A86C"
                 onChange={handleChange}
               />
             </div>
@@ -194,6 +196,7 @@ function Login({ HandleOpenLogin }) {
                   type={show ? "text" : "password"}
                   placeholder="password"
                   name="password"
+                  focusBorderColor="#01A86C"
                   value={login.password}
                   onChange={handleChange}
                   className={styles.input}
