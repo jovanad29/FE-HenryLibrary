@@ -6,8 +6,6 @@ import { useLocation } from "react-router-dom";
 function Title() {
   const location = useLocation();
   const pathName = location.pathname;
-
-  console.log(pathName.includes("payments/"));
   return (
     <Box pl="10.8%" textAlign="center" fontFamily="Quicksand">
       <Heading
@@ -19,7 +17,7 @@ function Title() {
         color="#01A86C"
       >
         {pathName.includes("catalogue")
-          ? "Libreria"
+          ? "Libros"
           : pathName.includes("users")
           ? "Usuarios"
           : pathName.includes("payments/")

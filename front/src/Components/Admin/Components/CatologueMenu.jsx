@@ -18,7 +18,7 @@ function CatalogueMenu() {
             ml="8%"
             color="#01A86C"
           >
-            Biblioteca
+            Libros
           </Heading>
         </Flex>
       </NavLink>
