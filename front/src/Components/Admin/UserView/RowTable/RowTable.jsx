@@ -13,19 +13,19 @@ import style from "./RowTable.module.css";
 
 import { AiFillEdit } from "react-icons/ai";
 import { FaUserAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
-import { startResetPasswordEmail } from "../../../../actions";
+import {
+    deleteUser,
+    setUserAdmin,
+    setUserBanned,
+    startResetPasswordEmail,
+} from "../../../../actions";
+import { getAllUsers } from "../../../../actions/dashboardActions";
 
 function RowTable({ user }) {
-    const {
-        uid,
-        nameUser,
-        email,
-        profilePic,
-        isAdmin,
-        address,
-        isBanned,
-    } = user;
+    const { uid, nameUser, email, profilePic, isAdmin, address, isBanned } =
+        user;
 
     const dispatch = useDispatch();
 
@@ -34,8 +34,29 @@ function RowTable({ user }) {
     };
 
     const handleDeleteUser = () => {
-      
-    }
+        Swal.fire({
+            icon: "warning",
+            title: "Esta seguro que desea eliminar este usuario?",
+            showConfirmButton: true,
+            confirmButtonColor: "#01A86C",
+            showDenyButton: true,
+            confirmButtonText: "Si",
+            denyButtonText: "No",
+            focusDeny: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteUser(uid));
+            }
+        });
+    };
+
+    const handleBannedUser = () => {
+        dispatch(setUserBanned(uid));
+    };
+
+    const handleUserAdmin = () => {
+        dispatch(setUserAdmin(uid));
+    };
 
     return (
         <Box className={style.content}>
@@ -72,6 +93,7 @@ function RowTable({ user }) {
                         colorScheme="green"
                         defaultChecked={isAdmin || email === "admin@gmail.com"}
                         isReadOnly={email === "admin@gmail.com"}
+                        onChange={handleUserAdmin}
                     />
                 </Box>
                 <Box className={style.banned}>
@@ -79,6 +101,7 @@ function RowTable({ user }) {
                         colorScheme="green"
                         defaultChecked={isBanned}
                         isReadOnly={email === "admin@gmail.com"}
+                        onChange={handleBannedUser}
                     />
                 </Box>
                 <Box className={style.edit}>
