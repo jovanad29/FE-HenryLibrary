@@ -1,11 +1,35 @@
 import { Box, Button, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
+
+import { deleteLogicBook } from "../../../../actions/index";
 
 import style from "./RowTable.module.css";
 
 function RowTable({ book }) {
+  const dispatch = useDispatch();
   const { id, image, title, description, authors, categories } = book;
+
+  const handleClick = (event) => {
+    Swal.fire({
+      icon: "warning",
+      title: "Esta seguro que desea eliminar este libro?",
+      showConfirmButton: true,
+      confirmButtonColor: "#01A86C",
+      showDenyButton: true,
+      confirmButtonText: "Si",
+      denyButtonText: "No",
+      focusDeny: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteLogicBook(id));
+      }
+    });
+  };
 
   return (
     <Box className={style.content}>
@@ -58,7 +82,7 @@ function RowTable({ book }) {
               Editar
             </Button>
           </NavLink>
-          <Button colorScheme="red" size="xs">
+          <Button colorScheme="red" size="xs" onClick={handleClick}>
             Eliminar
           </Button>
         </Box>
