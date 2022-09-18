@@ -1,50 +1,39 @@
-
 .content{
     /* background-color: aquamarine; */
     margin-left: 18%;
     margin-top: 5%;
     margin-right: 5%;
+
 }
 
-.table{
-    margin-bottom: 1%;
-}
-
-.numOrder{
-    flex: 1; 
+.book{
+    flex: 3; 
     font-weight: bold; 
-    color: #01A86C;
+    color: #01A86C;    
 }
 
-
-
-.items{
+.author{
     flex: 1;
     font-weight: bold;
     color: #01A86C;
 }
 
-.amount{
+.category{
     flex: 1;
     font-weight: bold;
     color: #01A86C;
 }
 
-.status{
+.rating{
     flex: 1;
     font-weight: bold;
     color: #01A86C;
 }
 
-.paymentMethod{
+.price{
     flex: 1;
     font-weight: bold;
     color: #01A86C;
 }
 
-.date{
-    flex: 1;
-    font-weight: bold;
-    color: #01A86C;
-}
 

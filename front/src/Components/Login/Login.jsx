@@ -21,15 +21,15 @@ import {
   AlertIcon,
   CloseButton,
   Stack,
-  Input, 
-  InputGroup ,
-  InputLeftElement
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 
 import { FiMail } from "react-icons/fi";
 import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { AiFillSetting } from "react-icons/ai";
-import {FiEyeOff , FiEye} from "react-icons/fi"
+import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 
 function Login({ HandleOpenLogin }) {
@@ -52,7 +52,7 @@ function Login({ HandleOpenLogin }) {
 
   const [show, setShow] = useState(false); //Para manejar la contraseña
 
-  const handleClick = () => setShow(!show)
+  const handleClick = () => setShow(!show);
 
   function handleChange(event) {
     setLogin({
@@ -132,6 +132,10 @@ function Login({ HandleOpenLogin }) {
     history.push("/dashboard/user");
   };
 
+  const goToDashboardAdmin = () => {
+    history.push("/user/admin");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.containerItems}>
@@ -184,7 +188,6 @@ function Login({ HandleOpenLogin }) {
             </div>
 
             <div>
-
               <InputGroup>
                 <Input
                   pr="4rem"
@@ -196,14 +199,21 @@ function Login({ HandleOpenLogin }) {
                   className={styles.input}
                 />
                 <InputLeftElement width="4.5rem">
-                    
-                {show ? <FiEye onClick={handleClick} className={styles.iconoContraseña}/>  : <FiEyeOff onClick={handleClick}  className={styles.iconoContraseña}/>}
-                  
+                  {show ? (
+                    <FiEye
+                      onClick={handleClick}
+                      className={styles.iconoContraseña}
+                    />
+                  ) : (
+                    <FiEyeOff
+                      onClick={handleClick}
+                      className={styles.iconoContraseña}
+                    />
+                  )}
                 </InputLeftElement>
               </InputGroup>
             </div>
           </>
-
         ) : (
           <h3 className={styles.nombre}>{displayName}</h3>
         )}
@@ -272,7 +282,7 @@ function Login({ HandleOpenLogin }) {
         )}
         {isAuthenticated && (
           <>
-            {!isAdmin && (
+            {!isAdmin ? (
               <Button
                 leftIcon={<AiFillSetting />}
                 bg="#01A86C"
@@ -282,6 +292,17 @@ function Login({ HandleOpenLogin }) {
                 onClick={goToDashboardUser}
               >
                 Mi cuenta
+              </Button>
+            ) : (
+              <Button
+                leftIcon={<AiFillSetting />}
+                bg="#01A86C"
+                variant="solid"
+                marginBottom="1rem"
+                color="white"
+                onClick={goToDashboardAdmin}
+              >
+                Dashboard
               </Button>
             )}
 
