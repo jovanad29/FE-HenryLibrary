@@ -32,6 +32,7 @@ function ShoppingBook() {
         activeCartQuantity,
         uid,
         allBooks,
+        items
     } = useSelector((state) => state);
 
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
@@ -75,19 +76,23 @@ function ShoppingBook() {
                 }
             });
         } else {
-            const booksBuy = guestCartBooks.map((b) => {
+            let booksBuy = guestCartBooks.map((b) => {
                 return {
                     id: b.id,
                     title: b.title,
-                    image: b.image,
+                    picture_url: b.image,
                     quantity: isAuthenticated
                         ? b.payment_book?.quantity
                         : b.quantity,
-                    price: isAuthenticated ? b.payment_book?.price : b.price,
+                    unit_price: isAuthenticated ? b.payment_book?.price : b.price,
+                    description: "null"
                 };
             });
-            console.log("estoy en boton pago carrito ", booksBuy);
-
+            // console.log("estoy en boton pago carrito ", booksBuy);
+            // console.log("estoy en shopping book", deliveryAdress)
+            const isDeliverySet = Boolean(items.find(i => i.id === 0))
+            console.log("viendo si dirección ya se guardó en items", items.find(i => i.id === 0))
+            booksBuy = isDeliverySet ? booksBuy.concat(items) : booksBuy
             dispatch(setItems(booksBuy));
             history.push("/checkout");
         }
