@@ -5,6 +5,8 @@ import { Box, Divider } from "@chakra-ui/react";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 import OrdersMenu from "./OrdersMenu";
+import CatalogueMenu from "./CatologueMenu";
+import DashboardMenu from "./DashboardMenu";
 
 function Menu() {
   return (
@@ -23,6 +25,10 @@ function Menu() {
       <Logo />
 
       <Divider mt="15%" />
+
+      <DashboardMenu />
+
+      <CatalogueMenu />
 
       <UserMenu />
 

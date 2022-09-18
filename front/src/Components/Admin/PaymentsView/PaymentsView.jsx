@@ -4,6 +4,10 @@ import { Box, Flex } from "@chakra-ui/react";
 import style from "./PaymentsView.module.css";
 import RowTable from "./RowTable/RowTable";
 
+import Menu from "../Components/Menu";
+import Title from "../Components/Title";
+import NavBar from "../Components/NavBar";
+
 const obj = `[{
     "id": 1,
     "transactionId": "1308347227",
@@ -191,7 +195,11 @@ const allPayments = JSON.parse(obj);
 
 function PaymentsView() {
   return (
-    <>
+    <Box fontFamily="Quicksand">
+      <Menu />
+      <NavBar />
+      <Title />
+
       <Box className={style.content}>
         {/* CABECERA */}
         <Flex className={style.table}>
@@ -205,10 +213,10 @@ function PaymentsView() {
 
         {/* INFORMACION */}
         {allPayments.map((payment) => (
-          <RowTable allPayments={payment} />
+          <RowTable key={payment.id} allPayments={payment} />
         ))}
       </Box>
-    </>
+    </Box>
   );
 }
 
