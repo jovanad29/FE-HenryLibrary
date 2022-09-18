@@ -15,8 +15,6 @@ function DashboardUser() {
   const { status, displayName, email, reviews, uid } = useSelector(
     (state) => state
   );
-
-  const {uid} = useSelector (state => state)
   
   return (
     <div className={styles.dashboardUser}>
