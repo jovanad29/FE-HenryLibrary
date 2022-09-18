@@ -6,7 +6,7 @@ import "./imagenesSlide.css"
 
 export default function ImagenesSlide ({ slides }) {
   return (
-    <Carousel className="carrusel-2" infiniteLoop>
+    <Carousel className="carrusel-2" showThumbs={false} infiniteLoop>
       {slides.map((slide, index) => {
         return <Image key={index} src={slide.image} height="auto" width="400px" />;
       })}

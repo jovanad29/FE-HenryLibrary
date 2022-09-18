@@ -5,18 +5,33 @@ import { NavLink } from "react-router-dom";
 import style from "./RowTable.module.css";
 
 function RowTable({ allPayments }) {
-  const { id, books, total, statusId, paymentMethodId, createdAt } =
+  const { id, user, books, total, order_status, payment_status, createdAt } =
     allPayments;
+
+  const dateFormat = (createAt) => {
+    let tuple = createAt.split("T");
+    let date = tuple[0];
+    let dateTuple = date.split("-");
+    let day = parseInt(dateTuple[2]);
+    let month = parseInt(dateTuple[1]);
+    let year = parseInt(dateTuple[0]);
+    let newFormatedDate = [day, month, year].join("/");
+
+    return newFormatedDate;
+  };
+
   return (
     <NavLink className={style.link} to={`/user/admin/payments/${id}`}>
       <Box className={style.content}>
         <Flex className={style.table}>
           <Box className={style.numOrder}>{id}</Box>
+          <Box className={style.status}>{user.nameUser}</Box>
+          <Box className={style.numOrder}>{user.email}</Box>
           <Box className={style.items}>{books.length}</Box>
           <Box className={style.amount}>{total}</Box>
-          <Box className={style.status}>{statusId}</Box>
-          <Box className={style.paymentMethod}>{paymentMethodId}</Box>
-          <Box className={style.date}>{createdAt}</Box>
+          <Box className={style.date}>{dateFormat(createdAt)}</Box>
+          <Box className={style.status}>{payment_status.description}</Box>
+          <Box className={style.status}>{order_status.description}</Box>
         </Flex>
       </Box>
     </NavLink>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAllUsers } from "../../actions/dashboardActions";
+import { getAllUsers, getAllOrders } from "../../actions/dashboardActions";
 import { Box } from "@chakra-ui/react";
 
 import Menu from "./Components/Menu";
@@ -13,6 +13,7 @@ function Dashboard() {
 
   useEffect(() => {
     dispatch(getAllUsers());
+    dispatch(getAllOrders());
   }, [dispatch]);
 
   return (
