@@ -91,8 +91,8 @@ export default function Direcciones() {
 
     if (checkbottom === "1") {
       
-      await dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
-      await dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
+     dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
+     dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
       dispatch(setDeliveryAddress(input.addressUser)) // seteo la dirección de envio en Store 
      
       console.log(' direccion', input.addressUser);
@@ -183,7 +183,7 @@ export default function Direcciones() {
                                 name="otherAddress"
                                 value={input.otherAddress}
                                 disabled={
-                                    checkbottom !== "2" || !input.addressUser
+                                    checkbottom !== "2" 
                                 }
                                 onChange={(e) => handleInputChange(e)}
                                 focusBorderColor="#01A86C"
