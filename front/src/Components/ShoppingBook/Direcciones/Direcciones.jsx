@@ -27,12 +27,12 @@ export default function Direcciones() {
     }); //Estado para el manejo de direccioes);
 
   useEffect(() => {
-    if (uid){
-      dispatch(getUserInfo(uid));
-      setInput({
-      ...input,
-      addressUser:address
-    })
+        if (uid){
+        dispatch(getUserInfo(uid));
+        setInput({
+        ...input,
+        addressUser:address
+        })
     }
     
 
@@ -108,10 +108,11 @@ export default function Direcciones() {
     if ( checkbottom === "1" || checkbottom==="2"  ){
       const items= {
           id: 0,
-          price: 1000,
-          image:'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
+          unit_price: 1000,
+          picture_url:'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
           quantity:1,
           title: "Gasto de envío",
+          description: checkbottom === "1" ? input.addressUser : input.otherAddress
       }
      dispatch( setItems([items]))
       
@@ -122,10 +123,11 @@ export default function Direcciones() {
       //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
       const items = {
         id: 0,
-        price: 0,
-        image:'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
+        unit_price: 0,
+        picture_url:'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
         quantity: 1,
         title: "Retira en Sucursal",
+        description: "Retira en Sucursal"
       }
       dispatch(setItems([items]))
     }
