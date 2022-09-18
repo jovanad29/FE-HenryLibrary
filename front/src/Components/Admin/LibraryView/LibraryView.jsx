@@ -11,6 +11,7 @@ import NavBar from "../Components/NavBar";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import style from "./LibraryView.module.css";
 import RowTable from "./RowTable/RowTable";
+import { NavLink } from "react-router-dom";
 
 function LibraryView() {
   const dispatch = useDispatch();
@@ -27,9 +28,11 @@ function LibraryView() {
       <Title />
 
       <Box className={style.content}>
-        <Button colorScheme="green" size="sm" mb="5%">
-          Crear Libro
-        </Button>
+        <NavLink to={`/user/admin/catalogue/new`}>
+          <Button colorScheme="green" size="sm" mb="5%">
+            Crear Libro
+          </Button>
+        </NavLink>
         {/* CABECERA */}
         <Flex className={style.table}>
           <Box className={style.book}>Libro</Box>
