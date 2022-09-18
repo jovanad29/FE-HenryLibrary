@@ -146,7 +146,7 @@ function DetailPayment() {
             <Box className={style.dateRow}>{createdAt}</Box>
             <Box className={style.editRow}>
               <Button colorScheme="green" size="xs">
-                Enviar
+                Guardar
               </Button>
               <Button colorScheme="green" size="xs">
                 Cancelar
