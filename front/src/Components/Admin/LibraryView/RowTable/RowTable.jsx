@@ -1,18 +1,12 @@
 import { Box, Button, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getBooksId } from "../../../../actions";
 
 import style from "./RowTable.module.css";
 
 function RowTable({ book }) {
-  const dispatch = useDispatch();
   const { id, image, title, description, authors, categories } = book;
-  const handleClick = (event) => {
-    // event.preventDafault();
-    dispatch(getBooksId(id));
-  };
+
   return (
     <Box className={style.content}>
       <Flex className={style.table}>
@@ -57,7 +51,7 @@ function RowTable({ book }) {
           <NavLink
             to={{ pathname: `/user/admin/catalogue/${id}`, props: book }}
           >
-            <Button colorScheme="green" size="xs" onClick={handleClick}>
+            <Button colorScheme="green" size="xs">
               Editar
             </Button>
           </NavLink>
