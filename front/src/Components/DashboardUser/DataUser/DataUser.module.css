@@ -20,3 +20,9 @@
     margin: 3px;
     cursor: pointer;
 }
+.btnDisabled{
+    display: none;
+}
+.btnEnabled{
+    display: block;
+}

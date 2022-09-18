@@ -13,6 +13,8 @@ function DataUser(id) {
 
   const [direction, setDirection] = useState("");
 
+  var [botonActivo, setBotonActivo] = useState(false);
+
 
 useEffect(() => {
   if(displayName ){
@@ -43,8 +45,7 @@ useEffect(() => {
     //   errores.address = "La Direccion no puede superar los 70 caracteres";
     // }
 
-    setName(e.target.value)
-
+    setName(e.target.value);
   }
 
 
@@ -55,9 +56,9 @@ useEffect(() => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserAddress(uid, {address: direction}));
-    
+    dispatch(updateUserAddress(uid, {address: direction}));    
     dispatch(updateUserName(uid, {name: name}));  
+  
   };
 
   function handleEdit(e) {
@@ -69,7 +70,13 @@ useEffect(() => {
         b.value = " ";
       }
     }
+   
+      if(setBotonActivo) {setBotonActivo=true}
+      else{setBotonActivo=false}
+  
   }
+
+
 
   return (
     <>
@@ -104,13 +111,14 @@ useEffect(() => {
           </div>
         </div>
         <div className={styles.containerButtons}>
-          <button className={styles.buttons} onClick={handleEdit}>
+          <button className={styles.buttons } onClick={handleEdit}>
             Editar
           </button>
-          <button className={styles.buttons} onClick={handleOnSubmit}>
+          <button  className={styles.buttons } onClick={handleOnSubmit} disabled={botonActivo}>
             Guardar
           </button>
-          <button className={styles.buttons}>Cancelar</button>
+          <button  className={styles.buttons} disabled={botonActivo}>Cancelar</button>
+     
         </div>
       </form>
     </>
