@@ -25,7 +25,7 @@ function LibraryView() {
       <Menu />
       <NavBar />
       <Title />
-      {console.log(allBooks[allBooks.length - 1])}
+
       <Box className={style.content}>
         <Button colorScheme="green" size="sm" mb="5%">
           Crear Libro
