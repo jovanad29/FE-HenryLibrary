@@ -483,7 +483,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_USER_PAYMENTS_BOOK:
-      console.log("action", action.payload);
       return {
         ...state,
         reviewsBook: action.payload,
