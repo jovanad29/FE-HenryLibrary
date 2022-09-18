@@ -494,9 +494,12 @@ function rootReducer(state = initialState, action) {
         //DASHBOARDS
 
         case GET_ALL_USERS:
+            const allUsers = action.payload.filter(
+                (user) => user.isActive === true
+            );
             return {
-                ...JSON.parse(JSON.stringify(state)),
-                allUsers: action.payload,
+                ...state,
+                allUsers: allUsers,
             };
 
         case GET_DIRECTIONS_USERS:
