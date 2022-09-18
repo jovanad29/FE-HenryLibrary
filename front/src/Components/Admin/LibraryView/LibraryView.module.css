@@ -33,6 +33,18 @@
 .price{
     flex: 1;
     font-weight: bold;
+    color:
+     #01A86C;
+}
+.stock{
+    flex: 1;
+    font-weight: bold;
+    color: #01A86C;
+}
+
+.edit{
+    flex: 1;
+    font-weight: bold;
     color: #01A86C;
 }
 

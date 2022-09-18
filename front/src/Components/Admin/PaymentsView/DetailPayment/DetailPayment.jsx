@@ -146,7 +146,7 @@ function DetailPayment() {
             <Box className={style.dateRow}>{createdAt}</Box>
             <Box className={style.editRow}>
               <Button colorScheme="green" size="xs">
-                Enviar
+                Guardar
               </Button>
               <Button colorScheme="green" size="xs">
                 Cancelar
@@ -160,8 +160,15 @@ function DetailPayment() {
 
       {/* TITULO */}
       <Box pl="10.8%" pt="5%" textAlign="center">
-        <Heading fontFamily="Quicksand" as="h2" size="md" ml="8%">
-          Libros
+        <Heading
+          fontFamily="Quicksand"
+          as="h2"
+          size="md"
+          ml="8%"
+          fontSize="3xl"
+          color="#01A86C"
+        >
+          Detalles de la Orden
         </Heading>
       </Box>
 
