@@ -204,13 +204,18 @@ body {
     margin-top: 0.3rem;
     width: 100px;
     height: 40px;
-    background-color: white;
+    background-color: var(--bg);
     border: 2px solid #01A86C;
     font-weight: bolder;
     font-size: 13px;
     border-radius: 8px;
     color: #01A86C;
     margin-left: 2rem;
+}
+
+.botonBorradoLogico:hover {
+    color: white;
+    background-color: #01A86C;
 }
 
 /* disable --> true */
@@ -254,7 +259,7 @@ body {
     font-weight: bolder;
     font-size: 13px;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--bg);
     border: 2px solid #4ea1ea;
     color: #4ea1ea
 }
@@ -405,7 +410,7 @@ body {
     }
 
     .container {
-        margin-top: 5rem;
+        margin-top: 1rem;
         margin-left: 1rem;
         width: 90%;
         display: flex;
@@ -603,7 +608,7 @@ body {
         margin-top: 3rem;
         width: 100px;
         height: 40px;
-        background-color: white;
+        background-color: var(--bg);
         border: 2px solid #01A86C;
         font-weight: bolder;
         font-size: 13px;
@@ -654,7 +659,7 @@ body {
         font-weight: bolder;
         font-size: 13px;
         border-radius: 8px;
-        background-color: white;
+        background-color: var(--bg);
         border: 2px solid #4ea1ea;
         color: #4ea1ea
     }
