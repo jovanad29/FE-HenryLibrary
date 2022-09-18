@@ -36,6 +36,12 @@
     align-items: center;
 }
 
+.stock{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
 .edit{
     flex: 1;
     display: flex;

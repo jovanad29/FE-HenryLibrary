@@ -47,6 +47,9 @@ function RowTable({ book }) {
         </Box>
         <Box className={style.rating}>{book.rating}</Box>
         <Box className={style.price}>{book.price}</Box>
+        <Box className={style.stock}>
+          {book.currentStock === 0 ? "No Disponible" : book.currentStock}
+        </Box>
         <Box className={style.edit}>
           <NavLink
             to={{ pathname: `/user/admin/catalogue/${id}`, props: book }}
