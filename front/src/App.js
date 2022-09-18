@@ -27,6 +27,7 @@ import UserView from "./Components/Admin/UserView/UserView";
 import PaymentsView from "./Components/Admin/PaymentsView/PaymentsView";
 import DetailPayment from "./Components/Admin/PaymentsView/DetailPayment/DetailPayment";
 import LibraryView from "./Components/Admin/LibraryView/LibraryView";
+import CategoryForm from "./Components/Admin/CategoriesView/CategoryForm";
 
 function App() {
   const status = useCheckAuth();
@@ -74,6 +75,7 @@ function App() {
         <Route exact path={"/user/admin/catalogue"} component={LibraryView} />
         <Route exact path={"/user/admin/users"} component={UserView} />
         <Route exact path={"/user/admin/payments"} component={PaymentsView} />
+        <Route exact path={"/user/admin/categories/"} component={CategoryForm} />
         <Route path={"/user/admin/payments/:id"} component={DetailPayment} />
 
         {/*Rutas Extras*/}
