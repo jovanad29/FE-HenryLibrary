@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 // import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllOrders } from '../../actions/dashboardActions';
+// import { getAllOrders } from '../../actions/dashboardActions';
 import {
     getAllBooks,
     getUserFavorites,
@@ -109,7 +109,7 @@ export default function Home() {
         // else {
         //   dispatch(getAllBooks());
         // }
-        dispatch( getAllOrders())
+        // dispatch( getAllOrders())
     }, [dispatch, category, author, favorites]);
 
     useEffect(() => {
