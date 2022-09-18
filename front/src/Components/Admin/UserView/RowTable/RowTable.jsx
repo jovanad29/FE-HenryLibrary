@@ -31,6 +31,12 @@ function RowTable({ user }) {
 
     const handleResetPassword = () => {
         dispatch(startResetPasswordEmail({ email }));
+        Swal.fire({
+          title: "Mail de reseteo de password enviado!",
+          icon: "success",
+          iconColor: "#01A86C",
+          confirmButtonColor: "#01A86C",
+        });
     };
 
     const handleDeleteUser = () => {
