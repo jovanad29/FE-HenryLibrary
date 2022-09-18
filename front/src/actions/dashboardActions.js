@@ -64,6 +64,7 @@ export function deleteUser(uid) {
 export function getAllOrders() {
   return (dispatch) => {
     axios
+
       .get(`/mercadopago`)
       .then((response) => {
         dispatch({
@@ -74,6 +75,7 @@ export function getAllOrders() {
       .catch((error) => {
         console.log("getAllOrders", error);
       });
+      
   };
 }
 
@@ -126,4 +128,5 @@ export function getAllReviewByUser(uid) {
         console.log("getAllReviewByUser", error);
       });
   };
+  
 }
