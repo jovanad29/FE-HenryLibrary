@@ -136,7 +136,7 @@ export default function EditBook({ props }) {
     //   confirmButtonColor: "#01A86C",
     // });
 
-    // history.push("/user/admin/catalogue");
+    history.push("/user/admin/catalogue");
 
     //   setTimeout(function(){
     //     window.location.reload()
