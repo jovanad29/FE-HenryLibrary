@@ -33,6 +33,7 @@ function LibraryView() {
           <Box className={style.category}>Genero</Box>
           <Box className={style.rating}>Calificacion</Box>
           <Box className={style.price}>Precio</Box>
+          <Box className={style.edit}></Box>
         </Flex>
 
         {/* CONTENIDO */}
