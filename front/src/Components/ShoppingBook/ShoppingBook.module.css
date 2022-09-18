@@ -312,7 +312,7 @@ body {
     .carrito {
         margin-top: 1rem;
         margin-bottom: 2rem;
-        margin-left: 2rem;
+        margin-left: 1.5rem;
         width: 90%;
         height: auto;
         display: flex;
@@ -493,10 +493,9 @@ body {
     .infoCompra {
         display: flex;
         flex-direction: column;
-        width: 30%;
+        width: 90%;
         height: 80%;
         justify-content: flex-end;
-
     }
 
     .total {
@@ -507,7 +506,6 @@ body {
         text-align: center;
         margin-bottom: 1rem;
     }
-
 
     .button {
         display: flex;
@@ -520,7 +518,6 @@ body {
         height: 90%;
         width: 85%;
         background-color: #01A86C;
-        /* font-family: Quicksand; */
         font-weight: bolder;
         font-size: 20px;
         cursor: pointer;
@@ -556,14 +553,6 @@ body {
         font-weight: bolder;
         font-size: 12px;
         color: var(--text);
-    }
-
-    .tableTittles {
-        color: var(--text) !important;
-    }
-
-    .tableDetails {
-        color: var(--text) !important;
     }
 
 
