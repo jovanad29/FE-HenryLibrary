@@ -95,7 +95,7 @@ export default function Direcciones() {
         return Swal.fire({
             title: "Para confirmar Envío debe ingresar una dirección o Retirar en Sucursal",
             icon: "info",
-            confirmButtonColor: "#3085d6",
+            confirmButtonColor: "#01A86C",
              confirmButtonText: "Aceptar",
         })
 
@@ -144,7 +144,7 @@ export default function Direcciones() {
     return Swal.fire({
         title: "Se confirmo la dirección de envío puede comprar",
         icon: "info",
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#01A86C",
          confirmButtonText: "Aceptar",
     })
 
