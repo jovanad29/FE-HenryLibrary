@@ -4,6 +4,7 @@ import {
   GET_BOOKS_ID,
   DELETE_BOOKS_DETAIL,
   GET_ALL_CATEGORIES,
+  POST_CATEGORY,
   GET_ALL_BOOKS_BY_CATEGORY,
   POST_BOOK,
   SET_PAGE,
@@ -36,6 +37,7 @@ import {
   GET_USER_PAYMENTS_BOOK,
   DISCOUNT_CURRENT_STOCK,
   SET_BOOK_DETAIL_CURRENT_STOCK,
+  DELETE_USER,
 } from "../actions/index";
 //mercado pago
 import {
@@ -150,6 +152,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         categories: action.payload,
+      };
+
+    case POST_CATEGORY:
+      return {
+        ...state,
+        categories: [...state.categories, action.payload],
       };
 
     case GET_ALL_BOOKS_BY_CATEGORY:
@@ -480,9 +488,10 @@ function rootReducer(state = initialState, action) {
     //DASHBOARDS
 
     case GET_ALL_USERS:
+      const allUsers = action.payload.filter((user) => user.isActive === true);
       return {
-        ...JSON.parse(JSON.stringify(state)),
-        allUsers: action.payload,
+        ...state,
+        allUsers: allUsers,
       };
 
     case GET_ALL_ORDERS:
@@ -513,6 +522,15 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         reviewsUser: action.payload,
+      };
+
+    case DELETE_USER:
+      const users = state.allUsers.filter(
+        (user) => user.uid !== action.payload
+      );
+      return {
+        ...state,
+        allUsers: users,
       };
 
     default:

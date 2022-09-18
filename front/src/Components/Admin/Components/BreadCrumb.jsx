@@ -17,7 +17,7 @@ function BreadCrumb() {
       {pathName === "/user/admin/catalogue" ? (
         <BreadcrumbItem>
           <BreadcrumbLink as={Link} to="/user/admin/catalogue">
-            Libreria
+            Libros
           </BreadcrumbLink>
         </BreadcrumbItem>
       ) : pathName === "/user/admin/users" ? (
