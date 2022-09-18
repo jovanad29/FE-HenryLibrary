@@ -1,6 +1,24 @@
-
-.newbook{
+.newbook {
     background-color: var(--bg);
     display: flex;
     flex-direction: column;
+}
+
+.text{
+    color: var(--text) !important;
+}
+
+@media screen and (max-width: 844px) {
+
+
+    .newbook {
+        background-color: var(--bg);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form{
+        width: 90% !important;
+    }
+
 }
