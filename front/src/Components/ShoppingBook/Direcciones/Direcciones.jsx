@@ -34,8 +34,6 @@ export default function Direcciones() {
         addressUser:address
         })
     }
-    
-
 
   }, [dispatch, uid]);
 
