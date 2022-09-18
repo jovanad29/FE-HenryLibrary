@@ -278,10 +278,9 @@ export default function BookDetail() {
                                 <Stack direction="row" spacing={10}>
                                     <Button
                                         rightIcon={<RiShoppingCart2Fill />}
-                                        colorScheme="#01A86C"
-                                        color="black"
                                         variant="solid"
-                                        fontSize="14px"
+                                        fontSize="15px"
+                                        backgroundColor="#01A86C"
                                         height="60px"
                                         className={
                                             bookDetail.currentStock > 0

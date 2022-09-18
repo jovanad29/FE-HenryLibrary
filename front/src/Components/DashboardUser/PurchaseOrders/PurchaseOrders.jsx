@@ -22,14 +22,14 @@ import {
     AccordionIcon,
     Box,
 } from "@chakra-ui/react";
-import { getAllOrders } from "../../../actions/dashboardActions";
+// import { getAllOrders } from "../../../actions/dashboardActions";
 
 export default function PurchaseOrders() {
     const dispatch = useDispatch();
     //definir un estados local para guardar todas las ordenes de un cliente
     const [orders, setOrders] = useState([]);
 
-    const { status, uid, allCartByUser, allOrders } = useSelector(
+    const { status, uid, allCartByUser,  } = useSelector( // allOrders
         (state) => state
     );
 

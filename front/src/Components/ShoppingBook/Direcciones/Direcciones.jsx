@@ -10,6 +10,7 @@ import {
     RadioGroup,
     Radio,
     Input,
+    Button
 } from "@chakra-ui/react";
 import { getUserInfo } from "../../../actions/index";
 import { clearDeliveryAddress, setDeliveryAddress, setAddressUser, setItems } from '../../../actions/checkoutActions';
@@ -223,13 +224,27 @@ export default function Direcciones() {
                     </RadioGroup>
 
                     <div className={styles.button}>
-                        <button
+                        {/* <button
                             disabled={Object.keys(errors).length > 0}
                             onClick={handleSubmit}
                             className={styles.confirmar}
                         >
                             Confirmar
-                        </button>
+                        </button> */}
+                        <Button
+                      w="40%"
+                      backgroundColor="#01A86C"
+                      variant="solid"
+                      onClick={handleSubmit}
+                      className={styles.confirmar}
+                      disabled={
+                        JSON.stringify(errors) === "{}"
+                          ? false
+                          : true
+                      }
+                    >
+                      Confirmar
+                    </Button>
                     </div>
                 </FormControl>
             </Flex>

@@ -12,7 +12,7 @@ class Rating extends React.Component {
     this.state = {
       rating: 1
     }
-      }
+  }
 
 
   onStarClick(nextValue, prevValue, name) {
