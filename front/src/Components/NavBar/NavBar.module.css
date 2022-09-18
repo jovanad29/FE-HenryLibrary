@@ -57,13 +57,22 @@ body {
 .iconos {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     margin-right: 1rem;
-    width: 8%;
+    width: 15%;
 }
 
 .icono{
-    color: var(--text);
+    width: 2rem;
+    color: var(--text);}
+
+.favoritos{
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    margin-right: -1rem;
 }
+
 
 .iconoFav {
     visibility: visible;
@@ -76,18 +85,15 @@ body {
 }
 
 .cantidad{
-    position: absolute;
     width: 1rem;
     height: 1rem;
-    top: 1.3rem;
-    right: 15.6rem;
     color: white;
     font-weight: bolder;
     text-align: center;
     font-size: 10px;
     background-color: #076744;
     border: 1px solid #076744;
-    border-radius: 300px;
+    border-radius: 300px
 }
 
 .banderas {
@@ -200,16 +206,18 @@ body {
     
     .h1 {
         font-weight: bolder;
-        font-size: 38px;
+        font-size: 33px;
         color: #ABABAB;
-        margin-left: 2rem;
+        margin-left: -4rem;
+        margin-top: 4.5rem;
     }
     
     .h1_1 {
         font-weight: bolder;
-        font-size: 38px;
+        font-size: 33px;
         color: #01A86C;
         margin-bottom: 1.5rem;
+        margin-top: 4.5rem;
     }
     
     .search{
@@ -238,54 +246,20 @@ body {
     }
     
     .iconos {
-        width: 95%;
+        position: absolute;
+        top: 1.8rem;
+        width: 60%;
         display: flex;
         justify-content: space-around;
-        margin-left: 1rem;
+        margin-left: -4rem;
         margin-bottom: 1.5rem;
+        font-size: 2.5rem !important;
     }
     
     .icono{
         color: var(--text);
     }
-    
-    .iconoFav {
-        visibility: visible;
-        color: #01A86C;
-    }
-    
-    /* .iconoNoFav {
-        visibility: hidden;
-        cursor: none;
-    } */
-    
-    .cantidad{
-        position: absolute;
-        width: 1rem;
-        height: 1rem;
-        top: 12.5rem;
-        left: 3.1rem;
-        color: white;
-        font-weight: bolder;
-        text-align: center;
-        font-size: 10px;
-        background-color: #076744;
-        border: 1px solid #076744;
-        border-radius: 300px;
-    }
-    
-    .banderas {
-        width: 95%;  
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1.5rem;  
-        margin-top: 1rem;
-        padding-bottom: 3rem;
-    }
-    
-    .bandera {
-        margin-left: 0rem;
-    }
+       
     
     
 }
