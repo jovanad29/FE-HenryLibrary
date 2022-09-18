@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 // import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { getAllOrders } from '../../actions/dashboardActions';
 import {
     getAllBooks,
     getUserFavorites,
@@ -12,6 +13,8 @@ import {
     setSection,
     getIdFavorites
 } from "../../actions/index.js";
+
+
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -106,6 +109,7 @@ export default function Home() {
         // else {
         //   dispatch(getAllBooks());
         // }
+        dispatch( getAllOrders())
     }, [dispatch, category, author, favorites]);
 
     useEffect(() => {

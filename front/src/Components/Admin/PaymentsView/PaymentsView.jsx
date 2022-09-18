@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 
 import style from "./PaymentsView.module.css";
@@ -7,6 +7,9 @@ import RowTable from "./RowTable/RowTable";
 import Menu from "../Components/Menu";
 import Title from "../Components/Title";
 import NavBar from "../Components/NavBar";
+
+import { getAllOrders } from "../../../actions/dashboardActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const obj = `[{
     "id": 1,
@@ -194,6 +197,13 @@ const obj = `[{
 const allPayments = JSON.parse(obj);
 
 function PaymentsView() {
+  const dispatch = useDispatch();
+  const { allOrders } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(getAllOrders());
+  }, [dispatch]);
+
   return (
     <Box fontFamily="Quicksand">
       <Menu />
@@ -204,15 +214,17 @@ function PaymentsView() {
         {/* CABECERA */}
         <Flex className={style.table}>
           <Box className={style.numOrder}>Numero de Orden</Box>
-          <Box className={style.items}>Items</Box>
+          <Box className={style.numOrder}>Usuario</Box>
+          <Box className={style.numOrder}>E-mail</Box>
+          <Box className={style.items}>Cantidad</Box>
           <Box className={style.amount}>Importe/s</Box>
-          <Box className={style.status}>Estado</Box>
-          <Box className={style.paymentMethod}>Metodo de Pago</Box>
-          <Box className={style.date}>Fecha</Box>
+          <Box className={style.date}>Fecha Compra</Box>
+          <Box className={style.status}>Pago</Box>
+          <Box className={style.status}>Orden</Box>
         </Flex>
 
         {/* INFORMACION */}
-        {allPayments.map((payment) => (
+        {allOrders.map((payment) => (
           <RowTable key={payment.id} allPayments={payment} />
         ))}
       </Box>
