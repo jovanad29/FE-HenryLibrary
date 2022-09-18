@@ -10,7 +10,7 @@ function RowTable({ book }) {
   const dispatch = useDispatch();
   const { id, image, title, description, authors, categories } = book;
   const handleClick = (event) => {
-    event.preventDafault();
+    // event.preventDafault();
     dispatch(getBooksId(id));
   };
   return (
@@ -55,7 +55,7 @@ function RowTable({ book }) {
         <Box className={style.price}>{book.price}</Box>
         <Box className={style.edit}>
           <NavLink to={`/user/admin/catalogue/${id}`}>
-            <Button colorScheme="green" size="xs">
+            <Button colorScheme="green" size="xs" onClick={handleClick}>
               Editar
             </Button>
           </NavLink>
