@@ -31,6 +31,7 @@ import { Box, Stack, useToast } from "@chakra-ui/react";
 import Menu from "../../Components/Menu";
 import NavBar from "../../Components/NavBar";
 import Title from "../../Components/Title";
+import Swal from "sweetalert2";
 
 export default function EditBook({ props }) {
   const dispatch = useDispatch();
@@ -128,7 +129,7 @@ export default function EditBook({ props }) {
 
     dispatch(updateBook(bookDetail.id, book));
 
-    swal.fire({
+    Swal.fire({
       title: "Buen Trabajo!",
       text: "Se Modificó el libro!",
       icon: "success",
