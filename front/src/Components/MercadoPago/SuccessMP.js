@@ -29,7 +29,7 @@ export default function SuccessMP() {
 		activeCartPaymentId,
 		uid,
     activeCartQuantity,
-		activeCartAmount
+		activeCartAmount, 
 	} = useSelector((state) => state);
   // console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
  
@@ -94,8 +94,8 @@ export default function SuccessMP() {
                       return (
                         <Tr>
                           <Td>{i.title}</Td>
-                          <Td>{i.quantity}</Td>
-                          <Td isNumeric>{i.price}</Td>
+                          <Td isNumeric>{(i.bookId!==0 && i.title!=='Retira en Sucursal') ? i.quantity : ' ' }</Td>
+                          <Td isNumeric>{(i.bookId!==0 && i.title!=='Retira en Sucursal') ? i.price : ' '}</Td>
                         </Tr>
                       )
                     })
@@ -106,9 +106,9 @@ export default function SuccessMP() {
             <span className={s.totalLibros}>
               Total Libros: <span className={s.price}> ${activeCartAmount}</span>
             </span>
-            <span>
+            {/* <span>
               Gastos de envio: <span className={s.price}> ${1000}</span>
-            </span>
+            </span> */}
             <span>
             Total: <span className={s.price}> ${parseFloat(order.total).toFixed(2)}</span>
             </span>

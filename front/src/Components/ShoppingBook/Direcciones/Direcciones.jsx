@@ -78,7 +78,7 @@ export default function Direcciones() {
                 input.otherAddress.length < 20
             )
                 errors.name =
-                    "La direccion debe  tener entre 200 y 100 caracteres";
+                    "La direccion debe  tener entre 20 y 100 caracteres";
             if (input.otherAddress[0] === " ")
                 errors.name = "El primer caracter no puede ser un espacio";
         }
@@ -87,7 +87,7 @@ export default function Direcciones() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const pickUpInStore = 'Retira en sucursal el cliente'
+   
 
     if (checkbottom === "1") {
       
@@ -116,8 +116,9 @@ export default function Direcciones() {
       
     }
     if (checkbottom === "3") {
-
-      clearDeliveryAddress();
+        const pickUpInStore = 'Retira en sucursal'
+        dispatch(setDeliveryAddress(pickUpInStore)) 
+      //clearDeliveryAddress();
       //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
       const items = {
         id: 0,
