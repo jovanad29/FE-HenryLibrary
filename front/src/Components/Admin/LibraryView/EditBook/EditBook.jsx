@@ -128,13 +128,13 @@ export default function EditBook({ props }) {
 
     dispatch(updateBook(bookDetail.id, book));
 
-    // swal.fire({
-    //   title: "Buen Trabajo!",
-    //   text: "Se Modificó el libro!",
-    //   icon: "success",
-    //   iconColor: "#01A86C",
-    //   confirmButtonColor: "#01A86C",
-    // });
+    swal.fire({
+      title: "Buen Trabajo!",
+      text: "Se Modificó el libro!",
+      icon: "success",
+      iconColor: "#01A86C",
+      confirmButtonColor: "#01A86C",
+    });
 
     history.push("/user/admin/catalogue");
 
