@@ -1,0 +1,28 @@
+.containerInputs{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+        flex-direction: column;
+    height: 7rem;
+    margin-bottom: 2rem;
+}
+
+.containerButtons{
+    display: flex;
+    width: 15rem;
+    justify-content: space-between;
+    padding: 1rem;
+   
+}
+.buttons{
+    border: solid 2px green; 
+    padding: 0.5rem;
+    margin: 3px;
+    cursor: pointer;
+}
+.btnDisabled{
+    display: none;
+}
+.btnEnabled{
+    display: block;
+}

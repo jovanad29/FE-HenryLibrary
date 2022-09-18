@@ -52,6 +52,7 @@ export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
 export const DISCOUNT_CURRENT_STOCK = "DISCOUNT_CURRENT_STOCK";
 export const SET_BOOK_DETAIL_CURRENT_STOCK = "SET_BOOK_DETAIL_CURRENT_STOCK";
 export const DELETE_USER = "DELETE_USER";
+export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -719,6 +720,33 @@ export function deleteUser(userId) {
     };
 }
 
+export function getDirectionsUser(uid) {
+    return async (dispatch) => {
+        try {
+            await axios.get(`/mercadopago/adresses/${uid}`).then((response) => {
+                dispatch({
+                    type: GET_DIRECTIONS_USERS,
+                    payload: response.data,
+                });
+            });
+        } catch (error) {
+            console.log("getDirectionsUser", error);
+        }
+    };
+}
+
+export function updateUserAddress(uid, body) {
+    console.log(uid, body);
+    return async function (dispatch) {
+        await axios
+            .put(`${baseURL}/user/address/${uid}`, body)
+            .then((response) => {})
+            .catch((error) => {
+                console.log("updateUserAddress", error);
+            });
+    };
+}
+
 export function setUserAdmin(userId) {
     return async function (dispatch) {
         await axios
@@ -726,6 +754,20 @@ export function setUserAdmin(userId) {
             .then((response) => {})
             .catch((error) => {
                 console.log("deleteUser", error);
+            });
+    };
+}
+
+export function updateUserName(uid, body) {
+    console.log(uid, body);
+    return async function (dispatch) {
+        await axios
+            .put(`${baseURL}/user/name/${uid}`, body)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log("updateUserName", error);
             });
     };
 }
