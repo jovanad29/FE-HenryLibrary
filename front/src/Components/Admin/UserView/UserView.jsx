@@ -27,16 +27,14 @@ function UserView() {
         <Flex className={style.table}>
           <Box className={style.user}>Usuario</Box>
           <Box className={style.address}>Direccion</Box>
-          <Box className={style.ative}>Activo</Box>
           <Box className={style.admin}>Administrador</Box>
           <Box className={style.banned}>Bloquear</Box>
-          <Box className={style.edit}>Editar</Box>
+          <Box className={style.edit}>Acciones</Box>
         </Flex>
 
         {/* INFORMACION */}
         {allUsers.map((user) => {
-          console.log();
-          return <RowTable key={user.uid} user={user} />;
+          if (user.isActive) return <RowTable key={user.uid} user={user} />;
         })}
       </Box>
     </Box>
