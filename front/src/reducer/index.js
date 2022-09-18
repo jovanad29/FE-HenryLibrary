@@ -4,6 +4,7 @@ import {
     GET_BOOKS_ID,
     DELETE_BOOKS_DETAIL,
     GET_ALL_CATEGORIES,
+    POST_CATEGORY,
     GET_ALL_BOOKS_BY_CATEGORY,
     POST_BOOK,
     SET_PAGE,
@@ -149,6 +150,12 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 categories: action.payload,
+            };
+
+        case POST_CATEGORY:
+            return {
+                ...state,
+                categories: [...state.categories, action.payload],
             };
 
         case GET_ALL_BOOKS_BY_CATEGORY:
