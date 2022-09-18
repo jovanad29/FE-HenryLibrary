@@ -310,14 +310,13 @@ body {
     }
 
     .carrito {
-        margin-top: 5rem;
+        margin-top: 1rem;
         margin-bottom: 2rem;
         margin-left: 2rem;
         width: 90%;
         height: auto;
         display: flex;
         flex-direction: column;
-        background-color: red;
     }
 
     .containerGeneral {
@@ -327,8 +326,6 @@ body {
         height: auto;
         display: flex;
         flex-direction: column;
-        background-color: antiquewhite;
-
     }
 
     .tituloPrincipal {
