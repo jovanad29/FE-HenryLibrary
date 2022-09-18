@@ -1,15 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import { getCategories, postCategory, updateCategory} from '../../../actions/index.js';
-import {useHistory} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import { postCategory} from '../../../actions/index.js';
 
 export default function CategoryForm() {
 //create a controlled form to perform CRUD operations on the category table
 //the form should have a text input for the name of the category
 const dispatch = useDispatch();
-const history = useHistory();
 
-const allCategories = useSelector((state) => state.categories);
 const [input, setInput] = useState({
     name: "",
 });
@@ -17,9 +14,6 @@ const [errors, setErrors] = useState({
     name: "",
 });
 
-useEffect(() => {
-    dispatch(getCategories());
-}, [dispatch]);
 
 const handleChange = function (e) {
     setInput((prevState) => {
@@ -38,7 +32,6 @@ const handleChange = function (e) {
 //manejador del submit
 function handleSubmit(evento){
     evento.preventDefault();
-    console.log('aqui input', input.name);
     if(input.name){
         // &&!errors.name ){
             
