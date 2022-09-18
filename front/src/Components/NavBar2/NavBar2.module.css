@@ -76,11 +76,11 @@ body {
         width: 2rem !important;
         height: 3rem;
         position: absolute;
-        top: -12.4rem;
+        top: -12.5rem;
         left: 18rem;
         border: 2px solid #01A86C;
         background-color: var(--bg) !important;
-        z-index: 100 !important;
+        z-index: 1 !important;
     }
 
     .responsiveBoton{
@@ -89,12 +89,12 @@ body {
     }
 
     .menuLista{
-        z-index: 100 !important;
+        z-index: 0 !important;
+        background-color: var(--bg) !important;
+        color: #01A86C !important;
+        border: 2px solid var(--bg) !important
     }
 
     
-    .h3 {
-        z-index: 100 !important;
-    }
     
 }

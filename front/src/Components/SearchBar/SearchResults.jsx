@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Image, Grid, Text, VStack } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
+import styles from "./SearchBar.module.css";
+
 const SearchResults = ({ searchResults, clearTitle }) => {
   const handleClick = (e) => clearTitle();
   return (
