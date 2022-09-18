@@ -68,7 +68,7 @@ function ShoppingBook() {
                 title: "Para comprar debe estar autenticado",
                 icon: "info",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
+                confirmButtonColor: "#01A86C",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Ir a Loguin",
             }).then((result) => {

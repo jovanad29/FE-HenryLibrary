@@ -25,7 +25,7 @@ import {
 
 //CSS
 
-import swal from "sweetalert2";
+// import swal from "sweetalert2";
 // import { ImCross } from "react-icons/im";
 import { Box, Stack, useToast } from "@chakra-ui/react";
 import Menu from "../../Components/Menu";
