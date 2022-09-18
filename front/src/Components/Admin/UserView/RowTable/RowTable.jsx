@@ -1,4 +1,12 @@
-import { Box, Flex, Image, Switch, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Switch,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import React from "react";
 
 import style from "./RowTable.module.css";
@@ -30,7 +38,6 @@ function RowTable({ user }) {
             <VStack className={style.infoUser}>
               <Text noOfLines={1} className={style.nameUser}>
                 {nameUser}
-                {console.log(nameUser)}
               </Text>
               <Text noOfLines={1} className={style.uid}>
                 {uid}
@@ -43,16 +50,18 @@ function RowTable({ user }) {
         </Box>
         <Box className={style.address}>{address ? address : "None"}</Box>
         <Box className={style.ative}>
-          <Switch isChecked={isActive} colorScheme="green" />
+          <Switch colorScheme="green" />
         </Box>
         <Box className={style.admin}>
-          <Switch isChecked={isAdmin} colorScheme="green" />
+          <Switch colorScheme="green" />
         </Box>
         <Box className={style.banned}>
-          <Switch isChecked={isBanned} colorScheme="green" />
+          <Switch colorScheme="green" />
         </Box>
         <Box className={style.edit}>
-          <AiFillEdit className={style.fillEdit} size="30px" />
+          <Button colorScheme="green" size="xs">
+            Restablecer Contraseña
+          </Button>
         </Box>
       </Flex>
     </Box>

@@ -57,7 +57,7 @@ export default function NavBar() {
     <nav className={styles.container}>
       <div className={styles.titulo}>
         <h1 className={styles.h1}>
-          <NavLink to="/">Libreria</NavLink>
+          <NavLink to="/">Librería</NavLink>
         </h1>
 
         <h2 className={styles.h1_1}>
