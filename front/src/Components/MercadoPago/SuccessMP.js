@@ -44,7 +44,7 @@ export default function SuccessMP() {
 
 
   useEffect(() => {     
-   if (order.items.length && uid) { /
+   if (order.items.length && uid) { 
      
       axios.post(`/mercadopago/create`, { ...order, userID: uid })
       .then( r => {
