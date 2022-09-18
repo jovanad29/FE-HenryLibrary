@@ -51,6 +51,8 @@ export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
 export const DISCOUNT_CURRENT_STOCK = "DISCOUNT_CURRENT_STOCK";
 export const SET_BOOK_DETAIL_CURRENT_STOCK = "SET_BOOK_DETAIL_CURRENT_STOCK";
+export const DELETE_USER = "DELETE_USER";
+
 
 export function getAllBooks(pagina = 0, items = 10) {
     return function (dispatch) {
@@ -693,3 +695,38 @@ export const startResetPasswordEmail = ({ email }) => {
         if (!result.ok) return dispatch(logout(result.errorMessage));
     };
 };
+
+export function setUserBanned(userId) {
+    return async function (dispatch) {
+        await axios
+            .delete(`${baseURL}/user/banned/${userId}`)
+            .then((response) => {})
+            .catch((error) => {
+                console.log("setUserBanned", error);
+            });
+    };
+}
+
+export function deleteUser(userId) {
+    return async function (dispatch) {
+        await axios
+            .delete(`${baseURL}/user/${userId}`)
+            .then((response) => {
+                dispatch({ type: DELETE_USER, payload: userId });
+            })
+            .catch((error) => {
+                console.log("deleteUser", error);
+            });
+    };
+}
+
+export function setUserAdmin(userId) {
+    return async function (dispatch) {
+        await axios
+            .put(`${baseURL}/user/${userId}`)
+            .then((response) => {})
+            .catch((error) => {
+                console.log("deleteUser", error);
+            });
+    };
+}

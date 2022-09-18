@@ -27,6 +27,8 @@ import UserView from "./Components/Admin/UserView/UserView";
 import PaymentsView from "./Components/Admin/PaymentsView/PaymentsView";
 import DetailPayment from "./Components/Admin/PaymentsView/DetailPayment/DetailPayment";
 import LibraryView from "./Components/Admin/LibraryView/LibraryView";
+import EditBook from "./Components/Admin/LibraryView/EditBook/EditBook";
+import NewBook from "./Components/Admin/LibraryView/NewBook/NewBook";
 import CategoryForm from "./Components/Admin/CategoriesView/CategoryForm";
 
 function App() {
@@ -73,6 +75,8 @@ function App() {
         {/*Ruta administrador*/}
         <Route exact path={"/user/admin"} component={Dashboard} />
         <Route exact path={"/user/admin/catalogue"} component={LibraryView} />
+        <Route exact path={"/user/admin/catalogue/new"} component={NewBook} />
+        <Route path={"/user/admin/catalogue/:id"} component={EditBook} />
         <Route exact path={"/user/admin/users"} component={UserView} />
         <Route exact path={"/user/admin/payments"} component={PaymentsView} />
         <Route exact path={"/user/admin/categories/"} component={CategoryForm} />
