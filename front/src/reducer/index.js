@@ -1,51 +1,52 @@
 import {
-  GET_ALL_BOOKS,
-  GET_NAME_BOOKS,
-  GET_BOOKS_ID,
-  DELETE_BOOKS_DETAIL,
-  GET_ALL_CATEGORIES,
-  GET_ALL_BOOKS_BY_CATEGORY,
-  POST_BOOK,
-  SET_PAGE,
-  BANNED_BOOK,
-  DELETE_LOGICO_BOOK,
-  SET_ALL_BOOKS_BY_AUTHOR,
-  SET_AUTHOR_BY_NAME,
-  GET_ALL_AUTHORS,
-  GET_ALL_PUBLISHERS,
-  EMPTY_AUTHORS,
-  PUT_BOOK,
-  ADD_FAVORITES,
-  SET_SECTION,
-  GET_USER_FAVORITES,
-  DELETE_FAVORITES,
-  LOGIN,
-  LOGOUT,
-  CHECKING_CREDENTIALS,
-  ORDER_BY,
-  GET_USER_INFO,
-  CLEAR_LOGIN_ERROR,
-  GET_CART,
-  CLEAR_CART,
-  SET_FILTERS,
-  GET_CART_QUANTITY,
-  GET_ALL_CART_BY_USER,
-  GET_ID_FAVORITES,
-  GET_ALL_REVIEWS,
-  POST_ALL_REVIEWS,
-  GET_USER_PAYMENTS_BOOK,
-  DISCOUNT_CURRENT_STOCK,
-  SET_BOOK_DETAIL_CURRENT_STOCK,
-
+    GET_ALL_BOOKS,
+    GET_NAME_BOOKS,
+    GET_BOOKS_ID,
+    DELETE_BOOKS_DETAIL,
+    GET_ALL_CATEGORIES,
+    POST_CATEGORY,
+    GET_ALL_BOOKS_BY_CATEGORY,
+    POST_BOOK,
+    SET_PAGE,
+    BANNED_BOOK,
+    DELETE_LOGICO_BOOK,
+    SET_ALL_BOOKS_BY_AUTHOR,
+    SET_AUTHOR_BY_NAME,
+    GET_ALL_AUTHORS,
+    GET_ALL_PUBLISHERS,
+    EMPTY_AUTHORS,
+    PUT_BOOK,
+    ADD_FAVORITES,
+    SET_SECTION,
+    GET_USER_FAVORITES,
+    DELETE_FAVORITES,
+    LOGIN,
+    LOGOUT,
+    CHECKING_CREDENTIALS,
+    ORDER_BY,
+    GET_USER_INFO,
+    CLEAR_LOGIN_ERROR,
+    GET_CART,
+    CLEAR_CART,
+    SET_FILTERS,
+    GET_CART_QUANTITY,
+    GET_ALL_CART_BY_USER,
+    GET_ID_FAVORITES,
+    GET_ALL_REVIEWS,
+    POST_ALL_REVIEWS,
+    GET_USER_PAYMENTS_BOOK,
+    DISCOUNT_CURRENT_STOCK,
+    SET_BOOK_DETAIL_CURRENT_STOCK,
+    DELETE_USER,
 } from "../actions/index";
 //mercado pago
 import {
-  CLEAR_PAYMENT,
-  SET_ITEMS,
-  SET_PAYMENT,
-  SET_ORDER,
-  SET_DELIVERY_ADDRESS,
-  CLEAR_DELIVERY_ADDRESS,
+    CLEAR_PAYMENT,
+    SET_ITEMS,
+    SET_PAYMENT,
+    SET_ORDER,
+    SET_DELIVERY_ADDRESS,
+    CLEAR_DELIVERY_ADDRESS,
 } from "../actions/checkoutActions";
 //DASHBOARD
 import { GET_ALL_USERS, 
@@ -153,11 +154,17 @@ function rootReducer(state = initialState, action) {
         categories: action.payload,
       };
 
-    case GET_ALL_BOOKS_BY_CATEGORY:
-      return {
-        ...state,
-        allBooks: action.payload,
-      };
+        case POST_CATEGORY:
+            return {
+                ...state,
+                categories: [...state.categories, action.payload],
+            };
+
+        case GET_ALL_BOOKS_BY_CATEGORY:
+            return {
+                ...state,
+                allBooks: action.payload,
+            };
 
     case POST_BOOK:
       return {
@@ -334,19 +341,27 @@ function rootReducer(state = initialState, action) {
         type = "soldCopies";
       }
 
-      if (less.indexOf(order) > -1) {
-        orderedBy = state.allBooks.sort((el1, el2) => {
-          return el1[type] > el2[type] ? 1 : el1[type] < el2[type] ? -1 : 0;
-        });
-      } else {
-        orderedBy = state.allBooks.sort((el1, el2) => {
-          return el1[type] > el2[type] ? -1 : el1[type] < el2[type] ? 1 : 0;
-        });
-      }
-      return {
-        ...JSON.parse(JSON.stringify(state)),
-        allBooks: orderedBy,
-      };
+            if (less.indexOf(order) > -1) {
+                orderedBy = state.allBooks.sort((el1, el2) => {
+                    return el1[type] > el2[type]
+                        ? 1
+                        : el1[type] < el2[type]
+                        ? -1
+                        : 0;
+                });
+            } else {
+                orderedBy = state.allBooks.sort((el1, el2) => {
+                    return el1[type] > el2[type]
+                        ? -1
+                        : el1[type] < el2[type]
+                        ? 1
+                        : 0;
+                });
+            }
+            return {
+                ...JSON.parse(JSON.stringify(state)),
+                allBooks: orderedBy,
+            };
 
     case GET_USER_INFO:
       if (action.payload.email === "admin@gmail.com") {
@@ -519,8 +534,17 @@ function rootReducer(state = initialState, action) {
         reviewsUser: action.payload,
       };
 
-    default:
-      return state;
-  }
+        case DELETE_USER:
+            const users = state.allUsers.filter(
+                (user) => user.uid !== action.payload
+            );
+            return {
+                ...state,
+                allUsers: users,
+            };
+
+        default:
+            return state;
+    }
 }
 export default rootReducer;
