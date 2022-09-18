@@ -121,7 +121,7 @@ p{
     margin-bottom: 0.2rem;
     background-color: #01A86C;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 14px !important;
     border-radius: 8px;
     padding-left: 10px;
     padding-right: 10px;

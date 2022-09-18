@@ -7,6 +7,7 @@ body {
 
 .containerDirecciones{
     width: 100%;
+    height: 25rem;
     border-top: 1px solid #01A86C;
     background-color: var(--bg);
 }
@@ -23,7 +24,7 @@ body {
     width: 50%;
     height: 13rem;
     margin-left: 5rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
     display: flex ;
     flex-direction: column;
@@ -61,20 +62,12 @@ body {
 }
 
 .confirmar {
-    height:55%;
-    width: 30%;
-    background-color: #01A86C;
-    /* font-family: Quicksand; */
-    font-weight: bolder;
-    font-size: 20px;
+    height: 90% !important;
+    font-size: 20px !important;
     cursor: pointer;
-    border-radius: 8px;
     color: black;
 }
 
-.confirmar:hover {
-    box-shadow: 0px 1px 10px 0px #646262;
-}
 
 
 
@@ -90,7 +83,7 @@ body {
 
     .containerDirecciones{
         width: 100%;
-        height: 24rem;
+        height: 25rem;
         border-top: 1px solid #01A86C;
         background-color: var(--bg);
     }
