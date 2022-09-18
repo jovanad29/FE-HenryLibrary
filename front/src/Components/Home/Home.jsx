@@ -54,7 +54,7 @@ import { MdClose } from "react-icons/md";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { status, actualPage, allBooks, section, uid, favorites ,getAllOrders } = useSelector(
+    const { status, actualPage, allBooks, section, uid, favorites } = useSelector(
         (state) => state
     );
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
