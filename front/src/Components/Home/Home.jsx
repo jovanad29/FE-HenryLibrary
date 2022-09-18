@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 // import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { getAllOrders } from '../../actions/dashboardActions';
 import {
     getAllBooks,
     getUserFavorites,
@@ -12,6 +13,8 @@ import {
     setSection,
     getIdFavorites
 } from "../../actions/index.js";
+
+
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -51,7 +54,7 @@ import { MdClose } from "react-icons/md";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { status, actualPage, allBooks, section, uid } = useSelector(
+    const { status, actualPage, allBooks, section, uid, favorites } = useSelector(
         (state) => state
     );
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
@@ -106,7 +109,8 @@ export default function Home() {
         // else {
         //   dispatch(getAllBooks());
         // }
-    }, [dispatch, category, author]);
+        dispatch( getAllOrders())
+    }, [dispatch, category, author, favorites]);
 
     useEffect(() => {
         if (section === "home") {
@@ -180,10 +184,6 @@ export default function Home() {
                         <img src={banner} alt="banner" />
                     </div>
 
-                    {/* ORDENAMIENTOS */}
-                    {/* <div>
-            <Order />
-          </div> */}
 
                     <div className={styles.paginado}>
                         <>
@@ -372,10 +372,12 @@ export default function Home() {
                                 </DrawerContent>
                             </Drawer>
                         </>
-                        <Paginated
+                        <div className={styles.paginas}>
+                            <Paginated
                             totalItems={allBooks.length}
                             itemsPorPagina={itemsPorPagina}
                         />
+                        </div>
 
                         <Order key={clearKeySort} />
                     </div>

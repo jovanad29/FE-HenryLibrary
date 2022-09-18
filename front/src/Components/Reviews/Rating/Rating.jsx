@@ -21,7 +21,7 @@ class Rating extends React.Component {
   }
 
   componentDidMount(){
-    this.state = {
+    this.setState = {
       rating: this.props.rating
     }
   }

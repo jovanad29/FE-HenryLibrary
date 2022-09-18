@@ -14,7 +14,7 @@ import {
 import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
 
 export const useCheckAuth = () => {
-    const { status } = useSelector((state) => state);
+    const { status, isActive } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -31,6 +31,7 @@ export const useCheckAuth = () => {
                     profilePic,
                 })
             );
+
             dispatch(login({ uid, email, displayName, photoURL }));
 
             const localCart = checkLocalShoppingBookExist();

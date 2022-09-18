@@ -3,6 +3,9 @@ export const SET_ITEMS = "SET_ITEMS";
 export const SET_PAYMENT = "SET_PAYMENT";
 export const SET_ORDER = "SET_ORDER";
 export const CLEAR_PAYMENT = "CLEAR_PAYMENT";
+//para el envio al cliente
+export const SET_DELIVERY_ADDRESS="SET_DELIVERY_ADDRESS"
+export const CLEAR_DELIVERY_ADDRESS="CLEAR_DELIVERY_ADDRESS"
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
@@ -36,21 +39,16 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
         };
       });
 
-      // let orderobj = { ID: mpID,
-      //       items: items,
-      //       status: response.status,
-      //       status_detail: response.status_detail,
-      //       total: parseFloat(response.transaction_details.total_paid_amount)}
       const order = {
         transactionId: mpID,
-        items,
+        items: items.filter(i => i.id !== "0"),
         // userId  -> se agrega en el componente que pide la orden (rel. Checkout)
         paymentType: response.payment_type_id,
         total: parseFloat(response.transaction_details.total_paid_amount),
         paymentMethodId: response.payment_type_id,
         status: response.status,
         statusDetail: response.status_detail,
-        deliveryAddress: "dirección de envío"
+        deliveryAddress: response.additional_info.items.find(i => i.id === "0").description
       }
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
       const status = {'approved': 4, 'in_process': 2} // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
@@ -59,7 +57,7 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       } catch (error) {
         console.log(error)
       }
-      // ACABÁ DEBERÍA LIMPIAR EL CARRITO O LLAMAR A LA ACTION QUE LO HACE
+      
     } catch (error) {
       console.log(error);
     }
@@ -85,4 +83,33 @@ export function setPayment(mpID) {
     type: SET_PAYMENT,
     payload: mpID,
   };
+}
+
+
+export function setDeliveryAddress(deliveryAddress) {
+  return {
+    type: SET_DELIVERY_ADDRESS,
+    payload: deliveryAddress,
+  };
+}
+
+export function clearDeliveryAddress() {
+  return {
+    type: CLEAR_DELIVERY_ADDRESS,
+    payload: null,
+  };
+
+}
+
+//Modify User Address
+export  function setAddressUser(uid,addressUser) {
+  return async function (dispatch) {
+  try {       
+    await axios.put(`/user/address/${uid}`, {address: addressUser })
+   
+  } catch (error) {
+    console.log(error)
+  }
+    dispatch (setDeliveryAddress(addressUser))
+  }
 }

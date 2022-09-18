@@ -5,7 +5,6 @@ import {
     registerUserWithEmailPassword,
     signInWithGoogle,
     logoutFirebase,
-    FirebaseAuth,
     resetPasswordEmail,
 } from "../firebase/providers";
 
@@ -18,6 +17,7 @@ export const GET_NAME_BOOKS = "GET_NAME_BOOKS";
 export const GET_BOOKS_ID = "GET_BOOKS_ID";
 export const DELETE_BOOKS_DETAIL = "DELETE_BOOKS_DETAIL";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
+export const POST_CATEGORY = "POST_CATEGORY";
 export const GET_ALL_BOOKS_BY_CATEGORY = "GET_ALL_BOOKS_BY_CATEGORY";
 export const POST_BOOK = "POST_BOOK";
 export const SET_PAGE = "SET_PAGE";
@@ -49,6 +49,9 @@ export const GET_ID_FAVORITES = "GET_ID_FAVORITES";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const POST_ALL_REVIEWS = "POST_ALL_REVIEWS";
 export const GET_USER_PAYMENTS_BOOK = "GET_USER_PAYMENTS_BOOK";
+export const DISCOUNT_CURRENT_STOCK = "DISCOUNT_CURRENT_STOCK";
+export const SET_BOOK_DETAIL_CURRENT_STOCK = "SET_BOOK_DETAIL_CURRENT_STOCK";
+export const DELETE_USER = "DELETE_USER";
 export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 
 export function getAllBooks(pagina = 0, items = 10) {
@@ -99,6 +102,22 @@ export function getBooksId(id) {
     };
 }
 
+//setBookDetailCurrentStock
+export function setBookDetailCurrentStock(currentStock) {
+    return {
+        type: "SET_BOOK_DETAIL_CURRENT_STOCK",
+        payload: currentStock,
+    };
+}
+
+//DISCOUNT_CURRENT_STOCK
+export function discountCurrentStock(id) {
+    return {
+        type: DISCOUNT_CURRENT_STOCK,
+        payload: { id },
+    };
+}
+
 export function deleteBookDetail(id) {
     //--> Lo utilizo para desmontar el componente de detalle
     return {
@@ -133,6 +152,26 @@ export function getCategories() {
             .catch((error) => {
                 console.log("getBooksByCategory", error);
             });
+    };
+}
+
+export function postCategory(body) {
+    return function (dispatch) {
+        try {
+            axios
+                .post(`${baseURL}/categories`, body)
+                .then((response) => {
+                    dispatch({
+                        type: POST_CATEGORY,
+                        payload: response.data,
+                    });
+                })
+                .catch((error) => {
+                    console.log("postCategory", error);
+                });
+        } catch (error) {
+            console.log("postCategory", error);
+        }
     };
 }
 
@@ -269,7 +308,7 @@ export function updateBook(id, body) {
         await axios
             .put(`${baseURL}/catalogue/${id}`, body)
             .then((response) => {
-                dispatch({ type: PUT_BOOK, payload: response.data });
+                // dispatch({ type: PUT_BOOK, payload: response.data });
                 dispatch(getBooksId(id));
             })
             .catch((error) => {
@@ -393,7 +432,9 @@ export function getUserInfo(uid) {
         await axios
             .get(`${baseURL}/user/${uid}`)
             .then((response) => {
-                dispatch({ type: GET_USER_INFO, payload: response.data });
+                if (response.data.isActive)
+                    dispatch({ type: GET_USER_INFO, payload: response.data });
+                else dispatch(startLogout());
             })
             .catch((error) => {
                 console.log("getUserInfo", error);
@@ -442,7 +483,6 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
 
         if (!result.ok) return dispatch(logout(result));
 
-
         const { uid, photoURL, displayName } = result;
         dispatch(login({ uid, email, displayName, photoURL }));
     };
@@ -463,7 +503,6 @@ export function orderBy(order) {
         dispatch({ type: ORDER_BY, payload: order });
     };
 }
-
 
 export function saveLocalCartToDB(userId, body) {
     return async function (dispatch) {
@@ -588,20 +627,20 @@ export function getAllReviews(id) {
 }
 
 export function createReviewByBook(id, body) {
-  return function (dispatch) {
-    axios
-      .post(`${baseURL}/reviews/byBook/${id}`, body)
-      .then((response) => {
-        dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
-        dispatch(getAllReviews(id));
-      })
-      .catch((error) => {
-        console.log("saveLocalCartToDB", error);
-      });
-  };
+    return function (dispatch) {
+        axios
+            .post(`${baseURL}/reviews/byBook/${id}`, body)
+            .then((response) => {
+                dispatch({ type: POST_ALL_REVIEWS, payload: response.data });
+                dispatch(getAllReviews(id));
+            })
+            .catch((error) => {
+                console.log("saveLocalCartToDB", error);
+            });
+    };
 }
 
-export function getUserPaymentsBook(uid, id){
+export function getUserPaymentsBook(uid, id) {
     return function (dispatch) {
         axios
             .get(`${baseURL}/user/bookpayments/${uid}?id=${id}`)
@@ -616,8 +655,6 @@ export function getUserPaymentsBook(uid, id){
             });
     };
 }
-
-
 
 export function addCartItem(userId, id, price) {
     return async function (dispatch) {
@@ -659,7 +696,29 @@ export const startResetPasswordEmail = ({ email }) => {
     };
 };
 
+export function setUserBanned(userId) {
+    return async function (dispatch) {
+        await axios
+            .delete(`${baseURL}/user/banned/${userId}`)
+            .then((response) => {})
+            .catch((error) => {
+                console.log("setUserBanned", error);
+            });
+    };
+}
 
+export function deleteUser(userId) {
+    return async function (dispatch) {
+        await axios
+            .delete(`${baseURL}/user/${userId}`)
+            .then((response) => {
+                dispatch({ type: DELETE_USER, payload: userId });
+            })
+            .catch((error) => {
+                console.log("deleteUser", error);
+            }
+     }
+}
 
 export function getDirectionsUser(uid) {
   return async (dispatch) => {
@@ -692,6 +751,18 @@ export function updateUserAddress(uid, body) {
     };
 }
 
+
+export function setUserAdmin(userId) {
+    return async function (dispatch) {
+        await axios
+            .put(`${baseURL}/user/${userId}`)
+            .then((response) => {})
+            .catch((error) => {
+                console.log("deleteUser", error);
+            });
+    };
+}
+
 export function updateUserName(uid, body) {
     console.log(uid, body)
     return async function (dispatch) {
@@ -706,3 +777,4 @@ export function updateUserName(uid, body) {
             });
     };
 }
+

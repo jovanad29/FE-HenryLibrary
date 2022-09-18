@@ -16,6 +16,8 @@ function DashboardUser() {
     (state) => state
   );
 
+  const {uid} = useSelector (state => state)
+  
   return (
     <div className={styles.dashboardUser}>
       <NavBar />

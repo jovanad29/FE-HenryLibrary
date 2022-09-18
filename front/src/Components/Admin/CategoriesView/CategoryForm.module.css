@@ -1,0 +1,33 @@
+
+.contenedor{
+    width: 35%;
+    height: 100%;
+    margin-left: 30rem;
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #01A86C;
+    box-shadow: 2px 2px 10px 4px #b7b7b2;
+    padding: 2rem;
+}
+
+.title {
+    font-weight: bolder;
+    font-size: 30px;
+    justify-items: center;
+    margin-bottom: 3rem;
+    color: #01A86C
+}
+
+.text{
+    color: var(--text) !important;
+    font-size: 15px;
+}
+
+.boton{
+    margin-top: 2rem;
+    margin-left: 4rem;
+    width: 5.5rem !important;
+}

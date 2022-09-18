@@ -25,7 +25,9 @@ body {
 }
 
 
-
+.responsiveContainer{
+    display: none !important;
+}
 
 
 
@@ -56,4 +58,43 @@ body {
         gap: 6rem;
     }
 
+}
+
+@media (max-width: 844px) {
+
+    .container{
+        display: none;
+    }
+
+    .containerResponsiveMenu{
+        background-color: var(--bg) !important;
+        z-index: 100 !important;
+    }
+
+    .responsiveContainer{
+        display: inline !important;
+        width: 2rem !important;
+        height: 3rem;
+        position: absolute;
+        top: -12.5rem;
+        left: 18rem;
+        border: 2px solid #01A86C;
+        background-color: var(--bg) !important;
+        z-index: 1 !important;
+    }
+
+    .responsiveBoton{
+        width: 2rem !important;
+        margin-left: -0.9rem;
+    }
+
+    .menuLista{
+        z-index: 0 !important;
+        background-color: var(--bg) !important;
+        color: #01A86C !important;
+        border: 2px solid var(--bg) !important
+    }
+
+    
+    
 }
