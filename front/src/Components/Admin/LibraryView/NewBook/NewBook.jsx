@@ -8,8 +8,8 @@ import {
   getCategories,
   getAllPublishers,
   uploadImage,
-} from "../../actions";
-import validate from "./validate.js.js";
+} from "../../../../actions/index";
+import validate from "./validate.js";
 
 //Componentes Chakra
 import {
@@ -34,11 +34,11 @@ import { TbBookUpload } from "react-icons/tb";
 
 //CSS
 import styles from "./NewBookChakra.module.css";
+import Menu from "../../Components/Menu";
+import NavBar from "../../Components/NavBar";
+import Title from "../../Components/Title";
 
 //COMPONENTES
-import NavBar from "../NavBar/NavBar.jsx";
-import NavBar2 from "../NavBar2/NavBar2.jsx";
-import Footer from "../Footer/Footer.jsx";
 
 export default function NewBook() {
   const dispatch = useDispatch();
@@ -186,11 +186,13 @@ export default function NewBook() {
       iconColor: "#01A86C",
       confirmButtonColor: "#01A86C",
     });
+
+    history.push("/user/admin/catalogue");
   };
 
   const handleBackSubmit = (e) => {
     e.preventDefault();
-    history.push("/"); // ---> esta ruta debe volver al catalogo
+    history.push("/user/admin/catalogue"); // ---> esta ruta debe volver al catalogo
   };
 
   //=======================================================================================
@@ -604,156 +606,156 @@ export default function NewBook() {
   }, [successMsg, errMsg, toast]);
 
   return (
-    <div className={styles.newbook}>
+    <Box>
+      <Menu />
       <NavBar />
-
-      <NavBar2 />
-
-      <Box
-        display="flex"
-        justifyContent="center"
-        fontFamily="Quicksand"
-        pt="5%"
-        pb="5%"
-      >
-        <Stack
-          className={styles.form}
-          border="2px"
-          borderColor="#D9D9D9"
-          padding="2%"
-          spacing={4}
-          w="40%"
-          boxShadow="lg"
-          rounded="2xl"
+      <Title />
+      <form onSubmit={handleOnSubmit}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          fontFamily="Quicksand"
+          pt="5%"
+          pb="5%"
         >
-          {/* NOMBRE DEL LIBRO */}
-          {elementInput("Nombre del Libro", error.title, book.title, "title")}
+          <Stack
+            className={styles.form}
+            border="2px"
+            borderColor="#D9D9D9"
+            padding="2%"
+            spacing={4}
+            w="40%"
+            boxShadow="lg"
+            rounded="2xl"
+          >
+            {/* NOMBRE DEL LIBRO */}
+            {elementInput("Nombre del Libro", error.title, book.title, "title")}
 
-          {/* DESCRIPCION DEL LIBRO */}
-          {elementTestArea(
-            "Descripcion",
-            error.description,
-            book.description,
-            "description"
-          )}
+            {/* DESCRIPCION DEL LIBRO */}
+            {elementTestArea(
+              "Descripcion",
+              error.description,
+              book.description,
+              "description"
+            )}
 
-          {/* PRECIO DEL LIBRO */}
-          {elementNumberInputValidate(
-            "Precio",
-            error.price,
-            book.price,
-            "price",
-            handleChangePrice
-          )}
+            {/* PRECIO DEL LIBRO */}
+            {elementNumberInputValidate(
+              "Precio",
+              error.price,
+              book.price,
+              "price",
+              handleChangePrice
+            )}
 
-          {/* IMAGEN DEL LIBRO */}
-          {elementInputImage(
-            "Imagen",
-            error.image,
-            book.image,
-            "image",
-            null,
-            handleFileInputChange
-          )}
+            {/* IMAGEN DEL LIBRO */}
+            {elementInputImage(
+              "Imagen",
+              error.image,
+              book.image,
+              "image",
+              null,
+              handleFileInputChange
+            )}
 
-          {/* EDITORIAL DEL LIBRO */}
-          {elementSelectValidate(
-            "Editorial",
-            error.publisherId,
-            book.publisherId,
-            "publisherId",
-            "Seleccione una opcion",
-            handleInputsChange,
-            allPublishers
-          )}
+            {/* EDITORIAL DEL LIBRO */}
+            {elementSelectValidate(
+              "Editorial",
+              error.publisherId,
+              book.publisherId,
+              "publisherId",
+              "Seleccione una opcion",
+              handleInputsChange,
+              allPublishers
+            )}
 
-          {/* FECHA DE PUBLICACION DEL LIBRO */}
-          {elementInputDate(
-            "date",
-            "Fecha de Publicacion",
-            book.publishedDate,
-            "publishedDate"
-          )}
+            {/* FECHA DE PUBLICACION DEL LIBRO */}
+            {elementInputDate(
+              "date",
+              "Fecha de Publicacion",
+              book.publishedDate,
+              "publishedDate"
+            )}
 
-          {/* NUMERO DE PAGINAS DEL LIBRO */}
-          {elementNumberInputValidate(
-            "Numero de Paginas",
-            error.pageCount,
-            book.pageCount,
-            "pageCount",
-            handleChangePage
-          )}
+            {/* NUMERO DE PAGINAS DEL LIBRO */}
+            {elementNumberInputValidate(
+              "Numero de Paginas",
+              error.pageCount,
+              book.pageCount,
+              "pageCount",
+              handleChangePage
+            )}
 
-          {/* IDIOMA DEL LIBRO */}
-          {elementSelectValidate(
-            "Idioma",
-            error.language,
-            book.language,
-            "language",
-            "Seleccione una opcion",
-            handleInputsChange,
-            languages
-          )}
+            {/* IDIOMA DEL LIBRO */}
+            {elementSelectValidate(
+              "Idioma",
+              error.language,
+              book.language,
+              "language",
+              "Seleccione una opcion",
+              handleInputsChange,
+              languages
+            )}
 
-          {/* STOCK DEL LIBRO */}
-          {elementNumberInputValidate(
-            "Stock",
-            error.currentStock,
-            book.currentStock,
-            "currentStock",
-            handleChangeStock
-          )}
+            {/* STOCK DEL LIBRO */}
+            {elementNumberInputValidate(
+              "Stock",
+              error.currentStock,
+              book.currentStock,
+              "currentStock",
+              handleChangeStock
+            )}
 
-          {/* CATEGORIAS DEL LIBRO */}
-          {elementSelectOthers(
-            "Categoria",
-            book.categories,
-            "categories",
-            "category",
-            "Seleccione una opcion",
-            handleInputsChange,
-            allCategories
-          )}
+            {/* CATEGORIAS DEL LIBRO */}
+            {elementSelectOthers(
+              "Categoria",
+              book.categories,
+              "categories",
+              "category",
+              "Seleccione una opcion",
+              handleInputsChange,
+              allCategories
+            )}
 
-          {/* AUTORES DEL LIBRO */}
-          {elementSelectOthers(
-            "Autor",
-            book.authors,
-            "authors",
-            "author",
-            "Seleccione una opcion",
-            handleInputsChange,
-            allAuthors
-          )}
+            {/* AUTORES DEL LIBRO */}
+            {elementSelectOthers(
+              "Autor",
+              book.authors,
+              "authors",
+              "author",
+              "Seleccione una opcion",
+              handleInputsChange,
+              allAuthors
+            )}
 
-          {/* BOTONES DE INTERACCION */}
-          <Flex justifyContent="space-around">
-            <Button
-              w="30%"
-              backgroundColor="#01A86C"
-              variant="solid"
-              onClick={handleOnSubmit}
-              disabled={
-                JSON.stringify(error) === "{}" && book.title !== ""
-                  ? false
-                  : true
-              }
-            >
-              Enviar
-            </Button>
+            {/* BOTONES DE INTERACCION */}
+            <Flex justifyContent="space-around">
+              <Button
+                w="30%"
+                backgroundColor="#01A86C"
+                variant="solid"
+                onClick={handleOnSubmit}
+                disabled={
+                  JSON.stringify(error) === "{}" && book.title !== ""
+                    ? false
+                    : true
+                }
+              >
+                Enviar
+              </Button>
 
-            <Button
-              w="30%"
-              backgroundColor="#01A86C"
-              variant="solid"
-              onClick={handleBackSubmit}
-            >
-              Cancelar
-            </Button>
-          </Flex>
-        </Stack>
-      </Box>
-      <Footer />
-    </div>
+              <Button
+                w="30%"
+                backgroundColor="#01A86C"
+                variant="solid"
+                onClick={handleBackSubmit}
+              >
+                Cancelar
+              </Button>
+            </Flex>
+          </Stack>
+        </Box>
+      </form>
+    </Box>
   );
 }
