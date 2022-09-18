@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-
+import Swal from "sweetalert2";
 //CSS
 import styles from "./Direcciones.module.css";
 import {
@@ -34,8 +34,6 @@ export default function Direcciones() {
         addressUser:address
         })
     }
-    
-
 
   }, [dispatch, uid]);
 
@@ -80,7 +78,7 @@ export default function Direcciones() {
                 input.otherAddress.length < 20
             )
                 errors.name =
-                    "La direccion debe  tener entre 200 y 100 caracteres";
+                    "La direccion debe  tener entre 20 y 100 caracteres";
             if (input.otherAddress[0] === " ")
                 errors.name = "El primer caracter no puede ser un espacio";
         }
@@ -89,12 +87,23 @@ export default function Direcciones() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const pickUpInStore = 'Retira en sucursal el cliente'
+   
+    if (
+        (!input.addressUser && checkbottom === "1") ||
+        (!input.otherAddress && checkbottom === "2")
+    )
+        return Swal.fire({
+            title: "Para confirmar Envío debe ingresar una dirección o Retirar en Sucursal",
+            icon: "info",
+            confirmButtonColor: "#3085d6",
+             confirmButtonText: "Aceptar",
+        })
+
 
     if (checkbottom === "1") {
       
-      await dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
-      await dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
+     dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
+     dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
       dispatch(setDeliveryAddress(input.addressUser)) // seteo la dirección de envio en Store 
      
       console.log(' direccion', input.addressUser);
@@ -118,8 +127,9 @@ export default function Direcciones() {
       
     }
     if (checkbottom === "3") {
-
-      clearDeliveryAddress();
+        const pickUpInStore = 'Retira en sucursal'
+        dispatch(setDeliveryAddress(pickUpInStore)) 
+      //clearDeliveryAddress();
       //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
       const items = {
         id: 0,
@@ -131,7 +141,12 @@ export default function Direcciones() {
       }
       dispatch(setItems([items]))
     }
-    alert(`Direccion de Envio registrado`);
+    return Swal.fire({
+        title: "Se confirmo la dirección de envío puede comprar",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+         confirmButtonText: "Aceptar",
+    })
 
   
   }
@@ -184,7 +199,7 @@ export default function Direcciones() {
                                 name="otherAddress"
                                 value={input.otherAddress}
                                 disabled={
-                                    checkbottom !== "2" || !input.addressUser
+                                    checkbottom !== "2" 
                                 }
                                 onChange={(e) => handleInputChange(e)}
                                 focusBorderColor="#01A86C"
@@ -213,7 +228,7 @@ export default function Direcciones() {
                             onClick={handleSubmit}
                             className={styles.confirmar}
                         >
-                            Continuar{" "}
+                            Confirmar
                         </button>
                     </div>
                 </FormControl>
