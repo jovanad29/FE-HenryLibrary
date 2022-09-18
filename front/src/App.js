@@ -73,7 +73,8 @@ function App() {
         {/*Ruta administrador*/}
         <Route exact path={"/user/admin"} component={Dashboard} />
         <Route exact path={"/user/admin/catalogue"} component={LibraryView} />
-        <Route exact path={"/user/admin/catalogue/:id"} component={EditBook} />
+        <Route path={"/user/admin/catalogue/:id"} component={EditBook} />
+        <Route exact path={"/user/admin/catalogue/new"} component={EditBook} />
         <Route exact path={"/user/admin/users"} component={UserView} />
         <Route exact path={"/user/admin/payments"} component={PaymentsView} />
         <Route path={"/user/admin/payments/:id"} component={DetailPayment} />
