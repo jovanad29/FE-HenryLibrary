@@ -8,7 +8,7 @@ import Title from "../Components/Title";
 import NavBar from "../Components/NavBar";
 
 // ESTILOS Y COMPONENTES CHAKRA
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import style from "./LibraryView.module.css";
 import RowTable from "./RowTable/RowTable";
 
@@ -26,6 +26,9 @@ function LibraryView() {
       <Title />
 
       <Box className={style.content}>
+        <Button colorScheme="green" size="sm" mb="5%">
+          Crear Libro
+        </Button>
         {/* CABECERA */}
         <Flex className={style.table}>
           <Box className={style.book}>Libro</Box>
