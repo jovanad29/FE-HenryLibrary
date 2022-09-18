@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   asyncGetMP,
-  // clearPayment
 } from "../../actions/checkoutActions.js";
 import axios from "axios";
-// import s from "./MercadoPago.module.sass";
 import Loading from "../Loading/Loading";
 import {
   Table,
@@ -31,7 +29,7 @@ export default function SuccessMP() {
 		activeCartPaymentId,
 		uid,
     activeCartQuantity,
-		activeCartAmount
+		activeCartAmount, 
 	} = useSelector((state) => state);
   // console.log("Estoy recuperando el store en SuccessMP", mpID, order, activeCartPaymentId)
  
@@ -41,19 +39,17 @@ export default function SuccessMP() {
     if (mpID && activeCartPaymentId) {
       dispatch(asyncGetMP(mpID,activeCartPaymentId));
     }
-    // return () => {
-    //   dispatch(getCartDB(uid)) // para limpiar el carrito después de comprar
-    // }
+
   }, [mpID, activeCartPaymentId]);
-  // const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {     
-   if (order.items.length && uid) { // antes también se evaluaba el estado 'change'
-     // console.log("render")      
+   if (order.items.length && uid) { 
+     
       axios.post(`/mercadopago/create`, { ...order, userID: uid })
       .then( r => {
         console.log("se guardó en DB", r)
-      //  dispatch(getCartDB(uid))
+   
       })
       .catch( e => console.log("no se guardó en DB", e))
     }
@@ -98,8 +94,8 @@ export default function SuccessMP() {
                       return (
                         <Tr>
                           <Td>{i.title}</Td>
-                          <Td>{i.quantity}</Td>
-                          <Td isNumeric>{i.price}</Td>
+                          <Td isNumeric>{(i.bookId!==0 && i.title!=='Retira en Sucursal') ? i.quantity : ' ' }</Td>
+                          <Td isNumeric>{(i.bookId!==0 && i.title!=='Retira en Sucursal') ? i.price : ' '}</Td>
                         </Tr>
                       )
                     })
@@ -110,9 +106,9 @@ export default function SuccessMP() {
             <span className={s.totalLibros}>
               Total Libros: <span className={s.price}> ${activeCartAmount}</span>
             </span>
-            <span>
+            {/* <span>
               Gastos de envio: <span className={s.price}> ${1000}</span>
-            </span>
+            </span> */}
             <span>
             Total: <span className={s.price}> ${parseFloat(order.total).toFixed(2)}</span>
             </span>

@@ -57,12 +57,12 @@ body {
     display: flex;
     width: 90%;
     height: 50px;
-    justify-content: center;
+    justify-content: left;
 }
 
 .confirmar {
-    height: 60%;
-    width: 40%;
+    height:55%;
+    width: 30%;
     background-color: #01A86C;
     /* font-family: Quicksand; */
     font-weight: bolder;
