@@ -55,6 +55,9 @@ function RowTable({ book }) {
               Editar
             </Button>
           </NavLink>
+          <Button colorScheme="red" size="xs">
+            Eliminar
+          </Button>
         </Box>
       </Flex>
     </Box>
