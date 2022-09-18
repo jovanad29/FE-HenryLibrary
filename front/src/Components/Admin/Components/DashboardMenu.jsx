@@ -2,15 +2,15 @@ import React from "react";
 
 import { Box, Flex, Heading } from "@chakra-ui/react";
 
-import { FaUser } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 
-function UserMenu() {
+function DashboardMenu() {
   return (
     <Box mt="25%">
-      <NavLink to={`/user/admin/users`}>
+      <NavLink to={`/user/admin`}>
         <Flex justifyContent="center">
-          <FaUser size="10%" color="#01A86C" />
+          <AiFillDashboard size="12%" color="#01A86C" />
           <Heading
             fontFamily="Quicksand"
             as="h2"
@@ -18,7 +18,7 @@ function UserMenu() {
             ml="8%"
             color="#01A86C"
           >
-            Usuarios
+            Dashboard
           </Heading>
         </Flex>
       </NavLink>
@@ -26,4 +26,4 @@ function UserMenu() {
   );
 }
 
-export default UserMenu;
+export default DashboardMenu;
