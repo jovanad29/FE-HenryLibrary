@@ -7,7 +7,7 @@ function Logo() {
     <Box fontFamily="Quicksand">
       <Flex justifyContent="center">
         <Heading fontFamily="Quicksand" as="h2" size="lg" color="#ABABAB">
-          Libreria
+          Librería
         </Heading>
         <Heading fontFamily="Quicksand" as="h2" size="lg" color="#01A86C">
           HENRY
