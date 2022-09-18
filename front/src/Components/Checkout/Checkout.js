@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Loading from "../Loading/Loading.jsx";
 import MercadoPago from "../MercadoPago/MercadoPago";
-import s from "./Checkout.module.sass";
+// import s from "./Checkout.module.sass";
+import s from "./Checkout.module.css"
 
 function Checkout() {
   const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ function Checkout() {
               Volver
             </button>
           </div>
-          <h1>Orden de Compra</h1>
+          <h1 className={s.ordenDeCompra}>Orden de Compra</h1>
           <div className={s.itemsCont}>
             {items?.map((i, key) => (
               <div key={key} className={s.item}>
