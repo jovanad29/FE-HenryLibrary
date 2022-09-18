@@ -22,7 +22,7 @@ import {
     AccordionIcon,
     Box,
   } from '@chakra-ui/react'
-import { getAllOrders } from "../../../actions/dashboardActions";
+// import { getAllOrders } from "../../../actions/dashboardActions";
 
 
 export default function PurchaseOrders() {
@@ -34,7 +34,7 @@ export default function PurchaseOrders() {
         status, 
         uid,
         allCartByUser,
-        allOrders
+        // allOrders
 
     } = useSelector((state) => state);
     //traer del estado allCartByUser
@@ -45,16 +45,16 @@ export default function PurchaseOrders() {
     //llamar a la action getAllCartDB con el uid del usuario logueado
     useEffect(() => {
         if (isAuthenticated) {
-          //  dispatch(getAllCartDB(uid));
+           dispatch(getAllCartDB(uid));
             // setOrders(allCartByUser);
-            dispatch(getAllOrders())
+            // dispatch(getAllOrders())
             
         }
     }, [isAuthenticated, dispatch, uid]);
 
     useEffect(() => {  
-        setOrders(allOrders);    
-  }, [allOrders, dispatch]);
+        setOrders(allCartByUser);    
+  }, [allCartByUser, dispatch]);
 
 
 
@@ -65,16 +65,15 @@ export default function PurchaseOrders() {
     //sumar la cantidad total que hay en todas las propiedades quantity de payment_book
     items = 0
     for (let i = 0; i <b.books.length; i++) {    
-            items = items + b.books[i].payment_mp_book.quantity; 
+            items = items + b.books[i].payment_book.quantity; 
     }
     
     // convertir totalAmount a formato internacional de moneda
     
-    totalAmount = (b.total);
+    totalAmount = (b.totalAmount);
     state = (b.payment_status.description);
-    purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.payment_method.descrption
-
-    date = b.books[0].payment_mp_book.createdAt;
+    purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.payment_method
+    date = b.books[0].payment_book.createdAt;
 
 
 
