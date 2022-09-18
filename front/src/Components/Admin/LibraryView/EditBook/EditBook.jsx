@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateBook,
@@ -27,7 +27,10 @@ import {
 import styles from "./EditBook.module.css";
 import swal from "sweetalert2";
 // import { ImCross } from "react-icons/im";
-import { useToast } from "@chakra-ui/react";
+import { Box, Stack, useToast } from "@chakra-ui/react";
+import Menu from "../../Components/Menu";
+import NavBar from "../../Components/NavBar";
+import Title from "../../Components/Title";
 
 export default function EditBook({ props }) {
   const dispatch = useDispatch();
@@ -36,6 +39,7 @@ export default function EditBook({ props }) {
   const allPublishers = useSelector((state) => state.publishers);
   const location = useLocation();
   const bookDetail = location.props;
+  const history = useHistory();
 
   const languages = [
     { id: 1, name: "Español", value: "es" },
@@ -124,13 +128,15 @@ export default function EditBook({ props }) {
 
     dispatch(updateBook(bookDetail.id, book));
 
-    swal.fire({
-      title: "Buen Trabajo!",
-      text: "Se Modificó el libro!",
-      icon: "success",
-      iconColor: "#01A86C",
-      confirmButtonColor: "#01A86C",
-    });
+    // swal.fire({
+    //   title: "Buen Trabajo!",
+    //   text: "Se Modificó el libro!",
+    //   icon: "success",
+    //   iconColor: "#01A86C",
+    //   confirmButtonColor: "#01A86C",
+    // });
+
+    // history.push("/user/admin/catalogue");
 
     //   setTimeout(function(){
     //     window.location.reload()
@@ -139,6 +145,7 @@ export default function EditBook({ props }) {
 
   const handleBackSubmit = (e) => {
     e.preventDefault();
+    history.push("/user/admin/catalogue");
   };
 
   const eliminarAuthor = (e) => {
@@ -239,169 +246,189 @@ export default function EditBook({ props }) {
   }, [successMsg, errMsg, toast]);
 
   return (
-    <div className={styles.fondo}>
-      <div className={styles.container}>
-        <form className={styles.form}>
-          {/* TITULO CHAKRA */}
-          {elementInputValidate(
-            "Nombre del Libro",
-            errores.title,
-            book.title,
-            "title",
-            null,
-            handleInputsChange
-          )}
+    <Box>
+      <Menu />
+      <NavBar />
+      <Title />
+      <Box
+        display="flex"
+        justifyContent="center"
+        fontFamily="Quicksand"
+        pt="5%"
+        pb="5%"
+      >
+        <Stack
+          className={styles.form}
+          border="2px"
+          borderColor="#D9D9D9"
+          padding="2%"
+          spacing={4}
+          w="40%"
+          boxShadow="lg"
+          rounded="2xl"
+        >
+          <form onSubmit={handleOnSubmit}>
+            {/* TITULO CHAKRA */}
+            {elementInputValidate(
+              "Nombre del Libro",
+              errores.title,
+              book.title,
+              "title",
+              null,
+              handleInputsChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* DESCRIPCION CHAKRA*/}
-          {elementTestArea(
-            "Descripcion",
-            errores.description,
-            book.description,
-            "description",
-            null,
-            handleInputsChange
-          )}
+            {/* DESCRIPCION CHAKRA*/}
+            {elementTestArea(
+              "Descripcion",
+              errores.description,
+              book.description,
+              "description",
+              null,
+              handleInputsChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* PRECIO CHAKRA */}
-          {elementNumberValidate(
-            "Precio",
-            errores.price,
-            book.price,
-            "price",
-            null,
-            handleInputsChange
-          )}
+            {/* PRECIO CHAKRA */}
+            {elementNumberValidate(
+              "Precio",
+              errores.price,
+              book.price,
+              "price",
+              null,
+              handleInputsChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* IMAGEN DEL LIBRO */}
-          {elementInputImage(
-            "Imagen",
-            errores.image,
-            book.image,
-            "image",
-            null,
-            handleInputsChange,
-            handleFileInputChange
-          )}
+            {/* IMAGEN DEL LIBRO */}
+            {elementInputImage(
+              "Imagen",
+              errores.image,
+              book.image,
+              "image",
+              null,
+              handleInputsChange,
+              handleFileInputChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* EDITORIAL CHAKRA*/}
-          {elementSelectValidate(
-            "Editorial",
-            errores.publisherId,
-            book.publisherId,
-            "publisherId",
-            "Seleccione una opcion",
-            handleInputsChange,
-            allPublishers
-          )}
+            {/* EDITORIAL CHAKRA*/}
+            {elementSelectValidate(
+              "Editorial",
+              errores.publisherId,
+              book.publisherId,
+              "publisherId",
+              "Seleccione una opcion",
+              handleInputsChange,
+              allPublishers
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* FECHA DE PUBLICACION CHAKRA*/}
+            {/* FECHA DE PUBLICACION CHAKRA*/}
 
-          {elementInputDate(
-            "date",
-            "Fecha de Publicacion",
-            book.publishedDate,
-            "publishedDate",
-            handleInputsChange
-          )}
+            {elementInputDate(
+              "date",
+              "Fecha de Publicacion",
+              book.publishedDate,
+              "publishedDate",
+              handleInputsChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* CANTIDAD DE PAGINAS CHAKRA */}
-          {elementNumberValidate(
-            "Numero de Paginas",
-            errores.pageCount,
-            book.pageCount,
-            "pageCount",
-            null,
-            handleInputsChange
-          )}
+            {/* CANTIDAD DE PAGINAS CHAKRA */}
+            {elementNumberValidate(
+              "Numero de Paginas",
+              errores.pageCount,
+              book.pageCount,
+              "pageCount",
+              null,
+              handleInputsChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* LENGUAJES CHAKRA*/}
-          {elementSelectValidate(
-            "Idioma",
-            errores.language,
-            book.language,
-            "language",
-            "Seleccione una opcion",
-            handleInputsChange,
-            languages
-          )}
+            {/* LENGUAJES CHAKRA*/}
+            {elementSelectValidate(
+              "Idioma",
+              errores.language,
+              book.language,
+              "language",
+              "Seleccione una opcion",
+              handleInputsChange,
+              languages
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* STOCK  CHAKRA*/}
-          {elementNumberValidate(
-            "Stock",
-            errores.currentStock,
-            book.currentStock,
-            "currentStock",
-            null,
-            handleInputsChange
-          )}
+            {/* STOCK  CHAKRA*/}
+            {elementNumberValidate(
+              "Stock",
+              errores.currentStock,
+              book.currentStock,
+              "currentStock",
+              null,
+              handleInputsChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* RATING CHAKRA*/}
-          {elementInput(
-            "Rating",
-            book.rating,
-            "rating",
-            null,
-            handleInputsChange
-          )}
+            {/* RATING CHAKRA*/}
+            {elementInput(
+              "Rating",
+              book.rating,
+              "rating",
+              null,
+              handleInputsChange
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* CATEGORIAS CHAKRA*/}
-          {elementSelectOthers(
-            "Categorias",
-            book.categories,
-            "categories",
-            "category",
-            "Seleccione una opcion",
-            handleInputsChange,
-            eliminarCategories,
-            allCategories,
-            book.categories
-          )}
+            {/* CATEGORIAS CHAKRA*/}
+            {elementSelectOthers(
+              "Categorias",
+              book.categories,
+              "categories",
+              "category",
+              "Seleccione una opcion",
+              handleInputsChange,
+              eliminarCategories,
+              allCategories,
+              book.categories
+            )}
 
-          {/* AUTORES CHAKRA*/}
-          {elementSelectOthers(
-            "Autores",
-            book.authors,
-            "authors",
-            "author",
-            "Seleccione una opcion",
-            handleInputsChange,
-            eliminarAuthor,
-            allAuthors,
-            book.authors
-          )}
+            {/* AUTORES CHAKRA*/}
+            {elementSelectOthers(
+              "Autores",
+              book.authors,
+              "authors",
+              "author",
+              "Seleccione una opcion",
+              handleInputsChange,
+              eliminarAuthor,
+              allAuthors,
+              book.authors
+            )}
 
-          {/* =============================================================== */}
+            {/* =============================================================== */}
 
-          {/* BOTONES FORMULARIO */}
-          {elementButton(
-            handleOnSubmit,
-            handleBackSubmit,
-            errores,
-            book,
-            copyInitialBook
-          )}
-        </form>
-      </div>
-    </div>
+            {/* BOTONES FORMULARIO */}
+            {elementButton(
+              handleOnSubmit,
+              handleBackSubmit,
+              errores,
+              book,
+              copyInitialBook
+            )}
+          </form>
+        </Stack>
+      </Box>
+    </Box>
   );
 }
