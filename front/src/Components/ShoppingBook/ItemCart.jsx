@@ -7,7 +7,7 @@ import { BiMinus } from "react-icons/bi";
 import { FaTrashAlt } from "react-icons/fa";
 
 export const ItemCart = (props) => {
-  const {
+  let {
     id,
     title,
     image,
@@ -21,7 +21,9 @@ export const ItemCart = (props) => {
   const [value, setValue] = useState(quantity);
 
   useEffect(() => {
-    setValue(quantity);
+    setValue(quantity < currentStock ? quantity : currentStock);
+    handleChangeQuantity(quantity < currentStock ? quantity : currentStock, id, price, currentStock)
+    // quantity = quantity < currentStock ? quantity : currentStock;
   }, [quantity]);
 
   return (
