@@ -55,9 +55,6 @@ import {
   GET_ALL_REVIEW_BY_USER,
   GET_ALL_ORDERS,
 } from "../actions/dashboardActions";
-import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
-
-import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
 
 
 const initialState = {

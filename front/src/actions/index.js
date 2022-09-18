@@ -716,41 +716,36 @@ export function deleteUser(userId) {
             })
             .catch((error) => {
                 console.log("deleteUser", error);
-            }
-     }
+            });
+    };
 }
 
 export function getDirectionsUser(uid) {
-  return async (dispatch) => {
-    try {
-     await
-      axios.get(`/mercadopago/adresses/${uid}`)
-        .then((response) => {
-          dispatch({
-            type: GET_DIRECTIONS_USERS,
-            payload: response.data,
-          });
-        })
-    } catch (error) {
-      console.log("getDirectionsUser", error);
+    return async (dispatch) => {
+        try {
+            await axios.get(`/mercadopago/adresses/${uid}`).then((response) => {
+                dispatch({
+                    type: GET_DIRECTIONS_USERS,
+                    payload: response.data,
+                });
+            });
+        } catch (error) {
+            console.log("getDirectionsUser", error);
+        }
     };
-  };
 }
 
 export function updateUserAddress(uid, body) {
-    console.log(uid, body)
+    console.log(uid, body);
     return async function (dispatch) {
         await axios
             .put(`${baseURL}/user/address/${uid}`, body)
-            .then((response) => {
-                            
-            })
+            .then((response) => {})
             .catch((error) => {
                 console.log("updateUserAddress", error);
             });
     };
 }
-
 
 export function setUserAdmin(userId) {
     return async function (dispatch) {
@@ -764,12 +759,11 @@ export function setUserAdmin(userId) {
 }
 
 export function updateUserName(uid, body) {
-    console.log(uid, body)
+    console.log(uid, body);
     return async function (dispatch) {
         await axios
             .put(`${baseURL}/user/name/${uid}`, body)
             .then((response) => {
-              
                 console.log(response.data);
             })
             .catch((error) => {
@@ -777,4 +771,3 @@ export function updateUserName(uid, body) {
             });
     };
 }
-
