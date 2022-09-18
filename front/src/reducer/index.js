@@ -49,6 +49,7 @@ import {
   CLEAR_DELIVERY_ADDRESS,
 } from "../actions/checkoutActions";
 //DASHBOARD
+
 import {
   GET_ALL_USERS,
   GET_ALL_REVIEW_BY_USER,
@@ -153,6 +154,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         categories: action.payload,
       };
+
 
     case POST_CATEGORY:
       return {
@@ -341,6 +343,7 @@ function rootReducer(state = initialState, action) {
         type = "soldCopies";
       }
 
+
       if (less.indexOf(order) > -1) {
         orderedBy = state.allBooks.sort((el1, el2) => {
           return el1[type] > el2[type] ? 1 : el1[type] < el2[type] ? -1 : 0;
@@ -428,7 +431,7 @@ function rootReducer(state = initialState, action) {
                 description: i.description,
               };
             })
-          : [{ msg: "no hay datos" }],
+          : [{ msg: "no hay datos" }]
       };
 
     case SET_DELIVERY_ADDRESS:
@@ -497,7 +500,7 @@ function rootReducer(state = initialState, action) {
     case GET_ALL_ORDERS:
       return {
         ...JSON.parse(JSON.stringify(state)),
-        allOrders: action.payload,
+        allOrders: action.payload
       };
 
     case GET_DIRECTIONS_USERS:
