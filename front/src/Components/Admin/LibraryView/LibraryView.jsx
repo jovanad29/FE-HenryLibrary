@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBooks } from "../../../actions/index";
 
@@ -45,9 +45,9 @@ function LibraryView() {
         </Flex>
 
         {/* CONTENIDO */}
-        {allBooks.map((book) => (
-          <RowTable key={book.id} book={book} />
-        ))}
+        {allBooks.map(
+          (book) => book.isActive && <RowTable key={book.id} book={book} />
+        )}
       </Box>
     </Box>
   );
