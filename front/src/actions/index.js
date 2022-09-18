@@ -17,6 +17,7 @@ export const GET_NAME_BOOKS = "GET_NAME_BOOKS";
 export const GET_BOOKS_ID = "GET_BOOKS_ID";
 export const DELETE_BOOKS_DETAIL = "DELETE_BOOKS_DETAIL";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
+export const POST_CATEGORY = "POST_CATEGORY";
 export const GET_ALL_BOOKS_BY_CATEGORY = "GET_ALL_BOOKS_BY_CATEGORY";
 export const POST_BOOK = "POST_BOOK";
 export const SET_PAGE = "SET_PAGE";
@@ -152,6 +153,28 @@ export function getCategories() {
       });
   };
 }
+
+export function postCategory(body) {
+    return function (dispatch) {
+        try {
+            axios
+                .post(`${baseURL}/categories`, body)
+                .then((response) => {
+                    dispatch({
+                        type: POST_CATEGORY,
+                        payload: response.data,
+                    });
+                })
+                .catch((error) => {
+                    console.log("postCategory", error);
+                });
+        } catch (error) {
+            console.log("postCategory", error); 
+        }
+    };
+}
+
+
 
 export function getBooksByCategory(idCategory) {
   return function (dispatch) {
