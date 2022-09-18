@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateBook,
@@ -28,12 +29,13 @@ import swal from "sweetalert2";
 // import { ImCross } from "react-icons/im";
 import { useToast } from "@chakra-ui/react";
 
-export default function EditBook({ setModal }) {
+export default function EditBook({ props }) {
   const dispatch = useDispatch();
   const allAuthors = useSelector((state) => state.authors);
   const allCategories = useSelector((state) => state.categories);
   const allPublishers = useSelector((state) => state.publishers);
-  const bookDetail = useSelector((state) => state.bookDetail);
+  const location = useLocation();
+  const bookDetail = location.props;
 
   const languages = [
     { id: 1, name: "Español", value: "es" },
@@ -122,8 +124,6 @@ export default function EditBook({ setModal }) {
 
     dispatch(updateBook(bookDetail.id, book));
 
-    setModal(false);
-
     swal.fire({
       title: "Buen Trabajo!",
       text: "Se Modificó el libro!",
@@ -139,7 +139,6 @@ export default function EditBook({ setModal }) {
 
   const handleBackSubmit = (e) => {
     e.preventDefault();
-    setModal(false);
   };
 
   const eliminarAuthor = (e) => {
