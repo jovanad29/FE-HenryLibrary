@@ -35,8 +35,7 @@ import {
   POST_ALL_REVIEWS,
   GET_USER_PAYMENTS_BOOK,
   DISCOUNT_CURRENT_STOCK,
-  SET_BOOK_DETAIL_CURRENT_STOCK
-
+  SET_BOOK_DETAIL_CURRENT_STOCK,
 } from "../actions/index";
 //mercado pago
 import {
@@ -45,15 +44,20 @@ import {
   SET_PAYMENT,
   SET_ORDER,
   SET_DELIVERY_ADDRESS,
-  CLEAR_DELIVERY_ADDRESS
+  CLEAR_DELIVERY_ADDRESS,
 } from "../actions/checkoutActions";
 //DASHBOARD
-import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
+import {
+  GET_ALL_USERS,
+  GET_ALL_REVIEW_BY_USER,
+  GET_ALL_ORDERS,
+} from "../actions/dashboardActions";
 import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
 
 const initialState = {
   allBooks: [],
   allUsers: [],
+  allOrders: [],
   copyAllBooks: [],
   bookDetail: [],
   categories: [],
@@ -89,8 +93,8 @@ const initialState = {
     total: 0,
   },
   items: [],
-  deliveryAdress:"",
-//end Checkout
+  deliveryAdress: "",
+  //end Checkout
   reviews: [],
   reviewsUser: [],
   reviewsBook: 0,
@@ -406,17 +410,17 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         items: action.payload.length
-        ? action.payload.map((i) => {
-            return {
-              id: i.id,
-              unit_price: i.unit_price,
-              picture_url: i.picture_url,
-              quantity: i.quantity,
-              title: i.title,
-              description: i.description
-            };
-          })
-        : [{ msg: "no hay datos" }]
+          ? action.payload.map((i) => {
+              return {
+                id: i.id,
+                unit_price: i.unit_price,
+                picture_url: i.picture_url,
+                quantity: i.quantity,
+                title: i.title,
+                description: i.description,
+              };
+            })
+          : [{ msg: "no hay datos" }],
       };
 
     case SET_DELIVERY_ADDRESS:
@@ -479,6 +483,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...JSON.parse(JSON.stringify(state)),
         allUsers: action.payload,
+      };
+
+    case GET_ALL_ORDERS:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allOrders: action.payload,
       };
 
     case GET_DIRECTIONS_USERS:
