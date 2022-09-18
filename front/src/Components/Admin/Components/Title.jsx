@@ -19,7 +19,7 @@ function Title() {
         color="#01A86C"
       >
         {pathName.includes("catalogue")
-          ? "Libreria"
+          ? "Libros"
           : pathName.includes("users")
           ? "Usuarios"
           : pathName.includes("payments/")
