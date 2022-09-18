@@ -23,7 +23,7 @@ export function getAllUsers() {
       .catch((error) => {
         console.log("getAllUsers", error);
       });
-  };
+         };
 }
 
 //Convierte un usuario en admin
@@ -64,8 +64,7 @@ export function deleteUser(uid) {
 export function getAllOrders() {
   return (dispatch) => {
     axios
-
-      .get(`/mercadopago`)
+      .get(`/mercadopago`)                        // .get(`/payments`)
       .then((response) => {
         dispatch({
           type: GET_ALL_ORDERS,
