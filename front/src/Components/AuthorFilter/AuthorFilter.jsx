@@ -4,7 +4,7 @@ import { Heading, Input, Stack, List, ListItem } from "@chakra-ui/react";
 import {
     getBooksByAuthor,
     getAuthorByName,
-    getAllBooks,
+    // getAllBooks,
     emptyAuthors,
     setPage,
     getAllAuthors,
@@ -15,7 +15,7 @@ export default function AuthorFilter({ authorsFilter, category }) {
     const dispatch = useDispatch(),
         authors = useSelector((state) => state.authors),
         copyAllBooks = useSelector((state) => state.copyAllBooks),
-        [author, setAuthor] = useState([]),
+        [author] = useState([]),
         [input, setInput] = useState(""),
         [tempAuthors, setTempAuthors] = useState([authors]);
 
@@ -101,6 +101,7 @@ export default function AuthorFilter({ authorsFilter, category }) {
         // } else {
         //   setTempAuthors(authors);
         // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category]);
 
     return (
@@ -129,7 +130,7 @@ export default function AuthorFilter({ authorsFilter, category }) {
                         value={input}
                     />
 
-                    <List spacing={1} backgroundColor="white">
+                    <List spacing={1} backgroundColor="white" >
                         {tempAuthors.map((author) => (
                             <ListItem
                                 key={author.id}
