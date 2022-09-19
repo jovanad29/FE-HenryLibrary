@@ -28,16 +28,18 @@ function LibraryView() {
       <Title />
 
       <Box className={style.content}>
-        <NavLink to={`/user/admin/catalogue/new`}>
-          <Button colorScheme="green" size="sm" mb="5%">
-            Crear Libro
-          </Button>
-        </NavLink>
-        <NavLink to={`/user/admin/catalogue/category`}>
-          <Button colorScheme="green" size="sm" mb="5%">
-            Crear Categoria
-          </Button>
-        </NavLink>
+        <Box mb="5%">
+          <NavLink to={`/user/admin/catalogue/new`}>
+            <Button colorScheme="green" size="sm">
+              Crear Libro
+            </Button>
+          </NavLink>
+          <NavLink to={`/user/admin/catalogue/category`}>
+            <Button colorScheme="green" size="sm" ml="5%">
+              Crear Categoria
+            </Button>
+          </NavLink>
+        </Box>
         {/* CABECERA */}
         <Flex className={style.table}>
           <Box className={style.book}>Libro</Box>
