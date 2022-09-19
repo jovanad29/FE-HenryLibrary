@@ -10,11 +10,11 @@ import {
   Legend,
 } from "chart.js";
 import { Box } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 function BarChart({ paymentsStatistics }) {
-  const dispatch = useDispatch();
-  const [userData, setUserData] = useState({
+  // const dispatch = useDispatch();
+  const [userData] = useState({
     labels: paymentsStatistics?.map((data) => data.description),
     datasets: [
       {
