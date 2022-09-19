@@ -38,7 +38,8 @@ import {
   DISCOUNT_CURRENT_STOCK,
   SET_BOOK_DETAIL_CURRENT_STOCK,
   DELETE_USER,
-  GET_DIRECTIONS_USERS
+  GET_DIRECTIONS_USERS,
+  SET_PAYMENTS_STATISTICS,
 } from "../actions/index";
 //mercado pago
 import {
@@ -54,13 +55,15 @@ import {
   GET_ALL_USERS,
   GET_ALL_REVIEW_BY_USER,
   GET_ALL_ORDERS,
+  GET_ALL_ORDERS_STATUS,
+  UPDATE_ORDER_STATE,
 } from "../actions/dashboardActions";
-
 
 const initialState = {
   allBooks: [],
   allUsers: [],
   allOrders: [],
+  allOrderStatus: [],
   copyAllBooks: [],
   bookDetail: [],
   categories: [],
@@ -86,6 +89,7 @@ const initialState = {
   activeCartQuantity: 0,
   activeCartPaymentId: null,
   allCartByUser: [],
+  paymentsStatistics: [],
   //checkout
   mpID: "",
   order: {
@@ -154,7 +158,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         categories: action.payload,
       };
-
 
     case POST_CATEGORY:
       return {
@@ -343,7 +346,6 @@ function rootReducer(state = initialState, action) {
         type = "soldCopies";
       }
 
-
       if (less.indexOf(order) > -1) {
         orderedBy = state.allBooks.sort((el1, el2) => {
           return el1[type] > el2[type] ? 1 : el1[type] < el2[type] ? -1 : 0;
@@ -432,7 +434,7 @@ function rootReducer(state = initialState, action) {
                 description: i.description,
               };
             })
-          : [{ msg: "no hay datos" }]
+          : [{ msg: "no hay datos" }],
       };
 
     case SET_DELIVERY_ADDRESS:
@@ -500,7 +502,18 @@ function rootReducer(state = initialState, action) {
     case GET_ALL_ORDERS:
       return {
         ...JSON.parse(JSON.stringify(state)),
-        allOrders: action.payload
+        allOrders: action.payload,
+      };
+
+    case GET_ALL_ORDERS_STATUS:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allOrderStatus: action.payload,
+      };
+
+    case UPDATE_ORDER_STATE:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
       };
 
     case GET_DIRECTIONS_USERS:
@@ -508,18 +521,6 @@ function rootReducer(state = initialState, action) {
         ...JSON.parse(JSON.stringify(state)),
         directionsUser: action.payload,
       };
-
-    //*verificar respuesta de la ruta */
-    // case UPDATE_TO_ADMIN:
-    //   return {
-    //     ...JSON.parse(JSON.stringify(state)),
-    //     isAdmin: action.payload,
-    //   };
-    // case DELETE_USER:
-    //   return {
-    //     ...JSON.parse(JSON.stringify(state)),
-    //     isActive: action.payload,
-    //   };
 
     case GET_ALL_REVIEW_BY_USER:
       return {
@@ -534,6 +535,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: users,
+      };
+
+    case SET_PAYMENTS_STATISTICS:
+      return {
+        ...state,
+        paymentsStatistics: action.payload,
       };
 
     default:

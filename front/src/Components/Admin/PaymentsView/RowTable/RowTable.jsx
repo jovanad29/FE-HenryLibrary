@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import style from "./RowTable.module.css";
 
-function RowTable({ allPayments }) {
+function RowTable({ allPayments, allOrderStatus }) {
   const { id, user, books, total, order_status, payment_status, createdAt } =
     allPayments;
 
@@ -20,8 +20,16 @@ function RowTable({ allPayments }) {
     return newFormatedDate;
   };
 
+  const orderNumber = { nro: id };
+
   return (
-    <NavLink className={style.link} to={`/user/admin/payments/${id}`}>
+    <NavLink
+      className={style.link}
+      to={{
+        pathname: `/user/admin/payments/${id}`,
+        state: { orderNumber, allOrderStatus },
+      }}
+    >
       <Box className={style.content}>
         <Flex className={style.table}>
           <Box className={style.numOrder}>{id}</Box>
