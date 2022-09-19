@@ -38,7 +38,8 @@ import {
   DISCOUNT_CURRENT_STOCK,
   SET_BOOK_DETAIL_CURRENT_STOCK,
   DELETE_USER,
-  GET_DIRECTIONS_USERS
+  GET_DIRECTIONS_USERS,
+  SET_PAYMENTS_STATISTICS,
 } from "../actions/index";
 //mercado pago
 import {
@@ -57,7 +58,6 @@ import {
   GET_ALL_ORDERS_STATUS,
   UPDATE_ORDER_STATE,
 } from "../actions/dashboardActions";
-
 
 const initialState = {
   allBooks: [],
@@ -89,6 +89,7 @@ const initialState = {
   activeCartQuantity: 0,
   activeCartPaymentId: null,
   allCartByUser: [],
+  paymentsStatistics: [],
   //checkout
   mpID: "",
   order: {
@@ -534,6 +535,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: users,
+      };
+
+    case SET_PAYMENTS_STATISTICS:
+      return {
+        ...state,
+        paymentsStatistics: action.payload,
       };
 
     default:

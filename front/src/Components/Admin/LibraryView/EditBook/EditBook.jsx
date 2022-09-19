@@ -244,6 +244,7 @@ export default function EditBook({ props }) {
         isClosable: true,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successMsg, errMsg, toast]);
 
   return (
