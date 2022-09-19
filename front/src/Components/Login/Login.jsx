@@ -325,7 +325,7 @@ function Login({ HandleOpenLogin }) {
               height="2rem"
               onClick={handleCloseSesion}
             >
-              Cerrar Sesion
+              Cerrar Sesión
             </Button>
           </>
         )}

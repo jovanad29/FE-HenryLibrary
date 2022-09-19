@@ -58,7 +58,7 @@ export default function NavBar2() {
         <MenuButton as={Button} className={styles.responsiveContainer}>
           <FiMenu color='#01A86C' className={styles.responsiveBoton}/>
         </MenuButton>
-        <MenuList className={styles.menuLista}>
+        <MenuList className={styles.menuLista} zIndex={2}>
           <MenuItem className={styles.h3}><NavLink to="/home" onClick={() => dispatch(setSection("home"))}>Libros</NavLink></MenuItem>
           <MenuItem className={styles.h3}><NavLink to="/nuevoLibro">Nuevo Libro</NavLink></MenuItem>
           <MenuItem className={styles.h3}><NavLink to="">Ofertas</NavLink></MenuItem>
