@@ -720,7 +720,7 @@ export function deleteUser(userId) {
 export function getDirectionsUser(uid) {
   return async (dispatch) => {
     try {
-      await axios.get(`/mercadopago/adresses/${uid}`).then((response) => {
+      await axios.get(`/user/${uid}/adresses`).then((response) => {
         dispatch({
           type: GET_DIRECTIONS_USERS,
           payload: response.data,
