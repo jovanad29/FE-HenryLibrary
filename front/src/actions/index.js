@@ -54,6 +54,8 @@ export const SET_BOOK_DETAIL_CURRENT_STOCK = "SET_BOOK_DETAIL_CURRENT_STOCK";
 export const DELETE_USER = "DELETE_USER";
 export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 export const SET_PAYMENTS_STATISTICS = "SET_PAYMENTS_STATISTICS";
+export const DELETE_FAVORITES_WITHOUT_ALLBOOKS = "DELETE_FAVORITES_WITHOUT_ALLBOOKS";
+
 
 export function getAllBooks(pagina = 0, items = 10) {
   return function (dispatch) {
@@ -782,5 +784,20 @@ export function getPaymentsStatistics() {
       .catch((error) => {
         console.log("paymentsStatistics", error);
       });
+  };
+}
+
+export function deleteFavoriteBookWithoutReducer(uid, bid) {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${baseURL}/user/${uid}/favorites/${bid}`);
+      return dispatch({
+        type: DELETE_FAVORITES_WITHOUT_ALLBOOKS,
+        payload: bid,
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
