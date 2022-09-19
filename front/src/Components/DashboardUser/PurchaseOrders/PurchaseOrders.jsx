@@ -53,7 +53,8 @@ export default function PurchaseOrders() {
 
    const itemToPrint = orders?.map((b) => {
     let id, items, totalAmount, state, purchaseMetod, date;
-    let transactionId, paymentType, statusDetal, deliveryAddress  //ESTO DEBERIA AGREGARSE AL DETALLE DEL PAGO 
+    //la siguiente linea no funciona por eso la deshabilito, el que la arregle que la active
+    // let transactionId, paymentType, statusDetal, deliveryAddress  //ESTO DEBERIA AGREGARSE AL DETALLE DEL PAGO 
     id = b.id;
     //sumar la cantidad total que hay en todas las propiedades quantity de payment_book
     items = 0

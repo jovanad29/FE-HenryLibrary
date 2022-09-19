@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+// import { useEffect } from "react";
+// import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";

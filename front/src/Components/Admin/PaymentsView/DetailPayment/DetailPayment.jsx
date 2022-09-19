@@ -17,6 +17,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
+import { useToast } from "@chakra-ui/react";
+
 import style from "./DetailPayment.module.css";
 import Menu from "../../Components/Menu";
 import NavBar from "../../Components/NavBar";
@@ -27,6 +29,14 @@ function DetailPayment() {
   const { orderNumber, allOrderStatus } = location.state;
 
   const dispatch = useDispatch();
+  const toast = useToast();
+
+  const showNotification = () => {
+    return toast({
+      description: "Orden actualizada",
+      duration: 2000,
+    });
+  };
 
   useEffect(() => {
     dispatch(getAllOrders());
@@ -35,10 +45,10 @@ function DetailPayment() {
   const { allOrders } = useSelector((state) => state);
   const currentOrder = allOrders.find((e) => e.id === orderNumber.nro);
 
-  console.log("ggggggggggggggg", currentOrder);
-
   const { id, user, books, total, order_status, payment_method, createdAt } =
     currentOrder;
+
+  //console.log("ggggggggggggggg", books);
 
   const dateFormat = (createAt) => {
     let tuple = createAt.split("T");
@@ -53,8 +63,8 @@ function DetailPayment() {
   };
 
   const onSelectHandler = (e) => {
-    console.log("eeeeeeeee", e.target.value);
     dispatch(updateOrderStatus(orderNumber.nro, e.target.value));
+    showNotification();
     dispatch(getAllOrders());
   };
 
@@ -105,14 +115,15 @@ function DetailPayment() {
               {payment_method.descrption}
             </Box>
             <Box className={style.dateRow}>{dateFormat(createdAt)}</Box>
-            <Box className={style.editRow}>
+            {/* CREO QUE AMBOS BOTONES NO SON NECESARIOS */}
+            {/* <Box className={style.editRow}>
               <Button colorScheme="green" size="xs">
                 Guardar
               </Button>
               <Button colorScheme="green" size="xs">
                 Cancelar
               </Button>
-            </Box>
+            </Box> */}
           </Flex>
         </Box>
       </Box>
@@ -138,7 +149,7 @@ function DetailPayment() {
         <Box>
           <Flex className={style.table}>
             <Box className={style.book}>Libro</Box>
-            <Box className={style.price}>Precio</Box>
+            {/* <Box className={style.price}>Precio</Box> */}
             <Box className={style.quantity}>Catidad</Box>
             <Box className={style.total}>Total</Box>
           </Flex>
@@ -166,18 +177,20 @@ function DetailPayment() {
                     >
                       {book.title}
                     </Text>
-                    <Text
+                    {/* NO VIENE LA INFORMACIÓN DEL DETALLE DEL LIBRO */}
+                    {/* <Text
                       noOfLines={1}
                       height="30%"
                       paddingLeft="5%"
                       paddingRight="8%"
                     >
                       {book.description}
-                    </Text>
+                    </Text> */}
                   </VStack>
                 </Flex>
               </Box>
-              <Box className={style.price}>{book.price}</Box>
+              {/* NO VIENE LA INFORMACION DEL PRECIO INDIVIDUAL */}
+              {/* <Box className={style.price}>{book.price}</Box> */}
               <Box className={style.price}>{book.payment_mp_book.quantity}</Box>
               <Box className={style.price}>{book.payment_mp_book.price}</Box>
             </Flex>
