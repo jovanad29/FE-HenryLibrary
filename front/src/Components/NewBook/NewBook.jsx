@@ -54,8 +54,8 @@ export default function NewRecipe() {
     //FUNCION QUE MANIPULA LOS INPUTS
 
     function handleInputsChange(event) {
-        if (event.target.name === "authors") {
-            if (!book.authors.includes(event.target.value)) {
+       if (event.target.name === "authors") {
+             if (!book.authors.includes(event.target.value)) {
                 setBook({
                     ...book,
                     authors: [...book.authors, parseInt(event.target.value)],

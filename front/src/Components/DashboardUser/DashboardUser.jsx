@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
@@ -7,65 +7,84 @@ import PurchaseOrders from "./PurchaseOrders/PurchaseOrders.jsx";
 import ReviewUser from "./ReviewUser/ReviewUser.jsx";
 
 //CSS
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import {
+    Tabs,
+    TabList,
+    TabPanels,
+    Tab,
+    TabPanel,
+    Button,
+} from "@chakra-ui/react";
 import styles from "./DashboardUser.module.css";
 import DataUser from "./DataUser/DataUser.jsx";
-import DirectionsUser from "./DataUser/DirectionsUser.jsx";
-
-
-
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { startResetPasswordEmail } from "../../actions/index.js";
 
 function DashboardUser() {
+    const { status, displayName, email, reviews, uid } = useSelector(
+        (state) => state
+    );
 
-  const {uid} = useSelector (state => state)
-  
+    const dispatch = useDispatch();
 
+    const handleResetPassword = () => {
+      dispatch(startResetPasswordEmail({ email }));
+        Swal.fire({
+          title: "Mail de reseteo de password enviado!",
+          icon: "success",
+          iconColor: "#01A86C",
+          confirmButtonColor: "#01A86C",
+        });
+    }
 
-  
-  return (
-    <div className={styles.dashboardUser}>
-      <NavBar />
-      <NavBar2 />
+    return (
+        <div className={styles.dashboardUser}>
+            <NavBar />
+            <NavBar2 />
 
-      <div className={styles.container}>
-        <Tabs variant="soft-rounded" colorScheme='green'  >
-          <TabList>
-            <Tab className={styles.titulos}>Datos Personales</Tab>
-            <Tab className={styles.titulos}>Direcciones</Tab>
-            <Tab className={styles.titulos}>Órdenes de compras</Tab>
-            <Tab className={styles.titulos}>Historial de Comentarios</Tab>
-            <Tab className={styles.titulos}>Seguridad</Tab>
-          </TabList>
-          
-          <TabPanels className={styles.containerItem}>
-            <TabPanel >
-            <DataUser uid={uid}/>
-            </TabPanel>
+            <div className={styles.container}>
+                <Tabs variant="soft-rounded" colorScheme="green">
+                    <TabList>
+                        <Tab className={styles.titulos}>Datos Personales</Tab>
+                        <Tab className={styles.titulos}>Ordenes de compras</Tab>
+                        <Tab className={styles.titulos}>
+                            Historial de Comentarios
+                        </Tab>
+                        <Tab className={styles.titulos}>Seguridad</Tab>
+                    </TabList>
 
-            <TabPanel>
-            <DirectionsUser uid={uid}/>
-            </TabPanel>
+                    <TabPanels className={styles.containerItem}>
+                        <TabPanel>
+                            <DataUser uid={uid} />
+                        </TabPanel>
 
-            <TabPanel>
-              <PurchaseOrders />
-            </TabPanel>
+                        <TabPanel>
+                            <PurchaseOrders />
+                        </TabPanel>
 
-            <TabPanel>
-              <ReviewUser uid={uid}/>
-            </TabPanel>
+                        <TabPanel>
+                            <ReviewUser uid={uid} />
+                        </TabPanel>
 
-            <TabPanel>
-            <div>Seguridad</div>
-            </TabPanel>
+                        <TabPanel>
+                            <div>
+                                <Button
+                                    colorScheme="red"
+                                    size="md"
+                                    onClick={handleResetPassword}
+                                >
+                                    Resetear contraseña
+                                </Button>
+                            </div>
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </div>
 
-          </TabPanels>
-        </Tabs>
-      </div>
-
-      <Footer />
-    </div>
-  );
+            <Footer />
+        </div>
+    );
 }
 
 export default DashboardUser;
-

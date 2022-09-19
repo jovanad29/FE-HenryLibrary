@@ -38,6 +38,7 @@ import {
   DISCOUNT_CURRENT_STOCK,
   SET_BOOK_DETAIL_CURRENT_STOCK,
   DELETE_USER,
+  GET_DIRECTIONS_USERS
 } from "../actions/index";
 //mercado pago
 import {
@@ -49,7 +50,6 @@ import {
   CLEAR_DELIVERY_ADDRESS,
 } from "../actions/checkoutActions";
 //DASHBOARD
-
 import {
   GET_ALL_USERS,
   GET_ALL_REVIEW_BY_USER,
@@ -57,7 +57,7 @@ import {
   GET_ALL_ORDERS_STATUS,
   UPDATE_ORDER_STATE,
 } from "../actions/dashboardActions";
-import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
+
 
 const initialState = {
   allBooks: [],
@@ -375,6 +375,7 @@ function rootReducer(state = initialState, action) {
         isAdmin: action.payload.isAdmin,
         isBanned: action.payload.isBanned,
         address: action.payload.address,
+        displayName: action.payload.nameUser,
       };
 
     case GET_CART:
@@ -483,7 +484,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_USER_PAYMENTS_BOOK:
-      console.log("action", action.payload);
       return {
         ...state,
         reviewsBook: action.payload,
