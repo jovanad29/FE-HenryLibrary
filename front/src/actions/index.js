@@ -769,7 +769,7 @@ export function updateUserName(uid, body) {
   };
 }
 
-export function paymentsStatistics() {
+export function getPaymentsStatistics() {
   return async function (dispatch) {
     await axios
       .get(`${baseURL}/payments/statistics/all`)

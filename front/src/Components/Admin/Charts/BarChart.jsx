@@ -5,10 +5,12 @@ import Chart from "chart.js/auto";
 import { Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { paymentsStatistics } from "../../../actions";
+import { getPaymentsStatistics } from "../../../actions";
+import { useSelector } from "react-redux";
 
 function BarChart() {
   const dispatch = useDispatch();
+  const { paymentsStatistics } = useSelector((state) => state);
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
@@ -20,8 +22,10 @@ function BarChart() {
     ],
   });
 
+  console.log(paymentsStatistics);
+
   useEffect(() => {
-    dispatch(paymentsStatistics());
+    dispatch(getPaymentsStatistics());
   }, [dispatch]);
 
   return (
