@@ -7,6 +7,7 @@ import { Box } from "@chakra-ui/react";
 import Menu from "./Components/Menu";
 import Title from "./Components/Title";
 import NavBar from "./Components/NavBar";
+import BarChart from "./Charts/BarChart";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function Dashboard() {
       <Menu />
       <NavBar />
       <Title />
+      <BarChart />
     </Box>
   );
 }
