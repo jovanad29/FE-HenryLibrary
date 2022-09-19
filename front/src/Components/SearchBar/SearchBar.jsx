@@ -98,7 +98,7 @@ export default function SearchBar() {
         <Box
           fontFamily="Quicksand"
           position="absolute"
-          zIndex={50}
+          zIndex={1}
           bottom={-6}
           top={-10}
           width="100%"
