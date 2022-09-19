@@ -41,7 +41,6 @@ export default function BookDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
         dispatch(getBooksId(id));
-        // console.log('useeffect 1 getBooksId');
 
         return () => {
             dispatch(deleteBookDetail(id));
@@ -51,7 +50,7 @@ export default function BookDetail() {
 
     useEffect(() => {
         setIsActive(bookDetail.isActive);
-        // console.log('useeffect 2 setIsActive');
+
     }, [bookDetail.isActive]);
 
     //FUNCIONALIDADES PARA CARRITO
@@ -132,7 +131,6 @@ export default function BookDetail() {
 
     //traer el localstorage cuando carga el componente
     useEffect(() => {
-        // console.log('useeffect 4 getLocalStorage en localItems');
         const localItems = JSON.parse(localStorage.getItem("guestCartBooks"));
         if (localItems) {
             // setGuestCartBooks(localItems);
@@ -144,7 +142,6 @@ export default function BookDetail() {
     }, [id]);
 
     useEffect(() => {
-        // console.log('useeffect 5 setLocalStorage');
         if (guestBook.id) {
             const totals = JSON.parse(localStorage.getItem("total")) || {
                 totalBooks: 0,
