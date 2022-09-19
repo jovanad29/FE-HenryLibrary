@@ -319,7 +319,7 @@ function Login({ HandleOpenLogin }) {
             <Button
               w="60%"
               h='2rem'
-              backgroundColor="#B21016"
+              backgroundColor="#E43E3E"
               color="white"
               width="200px"
               height="2rem"
