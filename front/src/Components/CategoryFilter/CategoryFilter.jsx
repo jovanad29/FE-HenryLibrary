@@ -100,6 +100,7 @@ export default function CategoryFilter({ categoriesFilter, author }) {
     } else {
       setCategories(allCategories);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [author]);
 
   return (

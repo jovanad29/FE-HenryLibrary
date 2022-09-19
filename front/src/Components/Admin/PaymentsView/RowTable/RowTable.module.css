@@ -1,82 +1,12 @@
-.content{
-    /* background-color: aquamarine; */
-    margin-top: 1%;
+.content{    
     border-top: 2px solid #01A86C;
-    padding-top: 1% ;    
+    padding-top: 1% ; 
+    padding-bottom: 1%;
 }
 
-.user{
-    flex: 2;    
+.content:hover{
+    background-color: #01A86C;
 }
-
-.image{
-    border-radius: 15px;
-}
-
-.noImage{
-    border-radius: 15px;
-    color: #01A86C;
-}
-
-.infoUser{
-    align-items: start;
-    height: 70%;
-    margin-left: 5%;
-}
-
-.nameUser{
-    height: 70%;
-    font-size: large;
-    font-weight: bold;
-}
-
-.uid{
-    height: 70%;
-    color: #A0AEC0;
-}
-
-.email{
-    height: 70%;
-    color: #A0AEC0;
-}
-
-.address{
-    flex: 1;
-    color: #728198;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    
-}
-
-.ative{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.admin{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.banned{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.edit{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.fillEdit{
-    color: #01A86C;
-}
-/* ===================================================== */
 
 .numOrder{
     flex: 1;
@@ -119,3 +49,4 @@
     display: flex;
     align-items: center;
 }
+

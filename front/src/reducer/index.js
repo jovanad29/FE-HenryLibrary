@@ -4,6 +4,7 @@ import {
   GET_BOOKS_ID,
   DELETE_BOOKS_DETAIL,
   GET_ALL_CATEGORIES,
+  POST_CATEGORY,
   GET_ALL_BOOKS_BY_CATEGORY,
   POST_BOOK,
   SET_PAGE,
@@ -35,8 +36,10 @@ import {
   POST_ALL_REVIEWS,
   GET_USER_PAYMENTS_BOOK,
   DISCOUNT_CURRENT_STOCK,
-  SET_BOOK_DETAIL_CURRENT_STOCK
-
+  SET_BOOK_DETAIL_CURRENT_STOCK,
+  DELETE_USER,
+  GET_DIRECTIONS_USERS,
+  SET_PAYMENTS_STATISTICS,
 } from "../actions/index";
 //mercado pago
 import {
@@ -44,14 +47,24 @@ import {
   SET_ITEMS,
   SET_PAYMENT,
   SET_ORDER,
+  SET_DELIVERY_ADDRESS,
+  CLEAR_DELIVERY_ADDRESS,
 } from "../actions/checkoutActions";
 //DASHBOARD
-import { GET_ALL_USERS, GET_ALL_REVIEW_BY_USER } from "../actions/dashboardActions";
-import { GET_DIRECTIONS_USERS } from "../actions/directionsUserActions";
+import {
+  GET_ALL_USERS,
+  GET_ALL_REVIEW_BY_USER,
+  GET_ALL_ORDERS,
+  GET_ALL_ORDERS_STATUS,
+  UPDATE_ORDER_STATE,
+  USERS_MOST_BUIES,
+} from "../actions/dashboardActions";
 
 const initialState = {
   allBooks: [],
   allUsers: [],
+  allOrders: [],
+  allOrderStatus: [],
   copyAllBooks: [],
   bookDetail: [],
   categories: [],
@@ -77,6 +90,8 @@ const initialState = {
   activeCartQuantity: 0,
   activeCartPaymentId: null,
   allCartByUser: [],
+  paymentsStatistics: [],
+  //checkout
   mpID: "",
   order: {
     ID: "",
@@ -86,10 +101,14 @@ const initialState = {
     total: 0,
   },
   items: [],
+  deliveryAdress: "",
+  //end Checkout
   reviews: [],
   reviewsUser: [],
   reviewsBook: 0,
   directionsUser: [],
+  //dashboard image statistic
+  usersMostBuies:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -121,13 +140,13 @@ function rootReducer(state = initialState, action) {
 
     case SET_BOOK_DETAIL_CURRENT_STOCK:
       return {
-          ...state,
-          bookDetail: {
-            ...state.bookDetail,
-            currentStock: action.payload
-          }
+        ...state,
+        bookDetail: {
+          ...state.bookDetail,
+          currentStock: action.payload,
+        },
       };
-        
+
     case DISCOUNT_CURRENT_STOCK: //descuenta el stock de un libro
       return {
         ...state,
@@ -137,11 +156,16 @@ function rootReducer(state = initialState, action) {
         },
       };
 
-
     case GET_ALL_CATEGORIES:
       return {
         ...state,
         categories: action.payload,
+      };
+
+    case POST_CATEGORY:
+      return {
+        ...state,
+        categories: [...state.categories, action.payload],
       };
 
     case GET_ALL_BOOKS_BY_CATEGORY:
@@ -297,7 +321,7 @@ function rootReducer(state = initialState, action) {
         (b) => b !== action.payload
       );
       const filtereds = state.allBooks.filter((b) =>
-          availableFavorites.includes(b.id)
+        availableFavorites.includes(b.id)
       );
       return {
         ...state,
@@ -355,6 +379,7 @@ function rootReducer(state = initialState, action) {
         isAdmin: action.payload.isAdmin,
         isBanned: action.payload.isBanned,
         address: action.payload.address,
+        displayName: action.payload.nameUser,
       };
 
     case GET_CART:
@@ -373,7 +398,7 @@ function rootReducer(state = initialState, action) {
         allCartByUser: action.payload,
       };
 
-    //mercado pago
+    //pago
     case SET_PAYMENT:
       return {
         ...state,
@@ -394,12 +419,10 @@ function rootReducer(state = initialState, action) {
       };
 
     case SET_ORDER:
-      //alert("estoy en order " + action.payload);
       return {
         ...state,
         order: action.payload,
       };
-
     case SET_ITEMS:
       return {
         ...state,
@@ -407,15 +430,29 @@ function rootReducer(state = initialState, action) {
           ? action.payload.map((i) => {
               return {
                 id: i.id,
-                unit_price: i.price,
-                picture_url: i.image,
+                unit_price: i.unit_price,
+                picture_url: i.picture_url,
                 quantity: i.quantity,
                 title: i.title,
+                description: i.description,
               };
             })
           : [{ msg: "no hay datos" }],
       };
 
+    case SET_DELIVERY_ADDRESS:
+      return {
+        ...state,
+        deliveryAdress: action.payload,
+      };
+
+    case CLEAR_DELIVERY_ADDRESS:
+      return {
+        ...state,
+        deliveryAdress: "",
+      };
+
+    //fin pago
     case CLEAR_CART:
       return {
         ...state,
@@ -451,47 +488,69 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_USER_PAYMENTS_BOOK:
-      console.log("action",action.payload)
-      return{
+      return {
         ...state,
-        reviewsBook: action.payload
-      }
+        reviewsBook: action.payload,
+      };
 
     //DASHBOARDS
 
     case GET_ALL_USERS:
+      const allUsers = action.payload.filter((user) => user.isActive === true);
       return {
-        ...JSON.parse(JSON.stringify(state)),
-        allUsers: action.payload,
+        ...state,
+        allUsers: allUsers,
       };
 
-        case GET_DIRECTIONS_USERS:
-          return {
-            ...JSON.parse(JSON.stringify(state)),
-            directionsUser: action.payload,
-          };
+    case GET_ALL_ORDERS:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allOrders: action.payload,
+      };
 
+    case GET_ALL_ORDERS_STATUS:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        allOrderStatus: action.payload,
+      };
 
-    //*verificar respuesta de la ruta */
-    // case UPDATE_TO_ADMIN:
-    //   return {
-    //     ...JSON.parse(JSON.stringify(state)),
-    //     isAdmin: action.payload,
-    //   };
-    // case DELETE_USER:
-    //   return {
-    //     ...JSON.parse(JSON.stringify(state)),
-    //     isActive: action.payload,
-    //   };
+    case UPDATE_ORDER_STATE:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+      };
+
+    case GET_DIRECTIONS_USERS:
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        directionsUser: action.payload,
+      };
 
     case GET_ALL_REVIEW_BY_USER:
       return {
         ...state,
         reviewsUser: action.payload,
-      }
+      };
 
-    
+    case DELETE_USER:
+      const users = state.allUsers.filter(
+        (user) => user.uid !== action.payload
+      );
+      return {
+        ...state,
+        allUsers: users,
+      };
 
+    case SET_PAYMENTS_STATISTICS:
+      return {
+        ...state,
+        paymentsStatistics: action.payload,
+      };
+      case USERS_MOST_BUIES:
+        return {
+          ...state,
+          usersMostBuies: action.payload,
+        };
+  
     default:
       return state;
   }

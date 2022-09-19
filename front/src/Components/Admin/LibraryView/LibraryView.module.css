@@ -1,0 +1,51 @@
+.content{
+    /* background-color: aquamarine; */
+    margin-left: 18%;
+    margin-top: 5%;
+    margin-right: 5%;
+
+}
+
+.book{
+    flex: 3; 
+    font-weight: bold; 
+    color: #01A86C;    
+}
+
+.author{
+    flex: 1;
+    font-weight: bold;
+    color: #01A86C;
+}
+
+.category{
+    flex: 1;
+    font-weight: bold;
+    color: #01A86C;
+}
+
+.rating{
+    flex: 1;
+    font-weight: bold;
+    color: #01A86C;
+}
+
+.price{
+    flex: 1;
+    font-weight: bold;
+    color:
+     #01A86C;
+}
+.stock{
+    flex: 1;
+    font-weight: bold;
+    color: #01A86C;
+}
+
+.edit{
+    flex: 1;
+    font-weight: bold;
+    color: #01A86C;
+}
+
+

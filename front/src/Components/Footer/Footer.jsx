@@ -18,7 +18,7 @@ export default function Footer() {
   <div className={styles.container}>
 
     <div className={styles.titulo}>
-    <NavLink to="/"><h1 className={styles.h1}>Libreria</h1></NavLink>
+    <NavLink to="/"><h1 className={styles.h1}>Librería</h1></NavLink>
     <NavLink to="/"><h2 className={styles.h1_1}>HENRY</h2></NavLink>
     </div>
 

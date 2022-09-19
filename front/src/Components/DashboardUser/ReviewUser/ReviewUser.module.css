@@ -6,7 +6,7 @@ body {
 
 .TableContainer{
     width: 95%;
-    height: 26rem;
+    height: auto;
     overflow-y: scroll;
 }
 
@@ -27,4 +27,52 @@ body {
     color: var(--text) !important;
     font-size: 14px !important;
     font-weight: bolder; 
+}
+
+.item{
+    color: var(--text);
+    font-size: 14px;
+}
+
+
+
+
+      /* RESPONSIVE */
+
+@media screen and (max-width: 844px) {
+
+
+
+    .TableContainer{
+        width: 90%;
+        height: auto;
+        overflow-y: scroll;
+        margin-left: 1rem;
+    }
+    
+    
+    .comentarios{
+        color: var(--text) !important;
+        font-size: 14px !important;
+        font-weight: bolder;
+    }
+    
+    .titulo{
+        color: var(--text) !important;
+        font-size: 12px !important;
+        font-weight: bolder;
+    }
+    
+    .info{
+        color: var(--text) !important;
+        font-size: 14px !important;
+        font-weight: bolder; 
+    }
+    
+    .item{
+        color: var(--text);
+        font-size: 14px;
+    }
+    
+
 }

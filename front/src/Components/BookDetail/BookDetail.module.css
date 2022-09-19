@@ -153,7 +153,7 @@ body {
 
 .botones {
     height: 100%;
-    width: 60%;
+    width: 50%;
     display: flex;
 }
 
@@ -204,13 +204,18 @@ body {
     margin-top: 0.3rem;
     width: 100px;
     height: 40px;
-    background-color: white;
+    background-color: var(--bg);
     border: 2px solid #01A86C;
     font-weight: bolder;
     font-size: 13px;
     border-radius: 8px;
     color: #01A86C;
     margin-left: 2rem;
+}
+
+.botonBorradoLogico:hover {
+    color: white;
+    background-color: #01A86C;
 }
 
 /* disable --> true */
@@ -254,7 +259,7 @@ body {
     font-weight: bolder;
     font-size: 13px;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--bg);
     border: 2px solid #4ea1ea;
     color: #4ea1ea
 }
@@ -405,7 +410,7 @@ body {
     }
 
     .container {
-        margin-top: 5rem;
+        margin-top: 1rem;
         margin-left: 1rem;
         width: 90%;
         display: flex;
@@ -463,11 +468,11 @@ body {
 
 
     .title {
-        width: 14rem;
+        width: 17rem;
         font-weight: bolder;
         font-size: 17px;
         justify-items: center;
-        margin-left: 2rem;
+        margin-left: 0rem;
         margin-bottom: 1rem;
         margin-top: 1rem;
         color: #01A86C;
@@ -495,7 +500,7 @@ body {
         margin-top: 0.5rem;
         font-size: 14px;
         margin-bottom: 1rem;
-        margin-left: 0.5rem;
+        margin-left: 0rem;
         text-overflow: ellipsis;
         white-space: wrap;
         overflow: hidden;
@@ -603,7 +608,7 @@ body {
         margin-top: 3rem;
         width: 100px;
         height: 40px;
-        background-color: white;
+        background-color: var(--bg);
         border: 2px solid #01A86C;
         font-weight: bolder;
         font-size: 13px;
@@ -654,7 +659,7 @@ body {
         font-weight: bolder;
         font-size: 13px;
         border-radius: 8px;
-        background-color: white;
+        background-color: var(--bg);
         border: 2px solid #4ea1ea;
         color: #4ea1ea
     }
@@ -666,7 +671,7 @@ body {
 
     .review {
         margin-top: 6rem;
-        margin-left: 2rem;
+        margin-left: 0.5rem;
         width: 85%;
         height: auto;
         justify-content: center;
@@ -676,6 +681,6 @@ body {
         margin-top: 10rem;
         width: 85%;
         height: 75rem;
-        margin-left: 2rem;
+        margin-left: 0.5rem;
     }
 }

@@ -1,15 +1,19 @@
+
 .content{
     /* background-color: aquamarine; */
     margin-left: 18%;
     margin-top: 5%;
     margin-right: 5%;
+}
 
+.table{
+    margin-bottom: 1%;
 }
 
 .numOrder{
     flex: 1; 
     font-weight: bold; 
-    
+    color: #01A86C;
 }
 
 
@@ -17,26 +21,30 @@
 .items{
     flex: 1;
     font-weight: bold;
-    
+    color: #01A86C;
 }
 
 .amount{
     flex: 1;
     font-weight: bold;
+    color: #01A86C;
 }
 
 .status{
     flex: 1;
     font-weight: bold;
+    color: #01A86C;
 }
 
 .paymentMethod{
     flex: 1;
     font-weight: bold;
+    color: #01A86C;
 }
 
 .date{
     flex: 1;
     font-weight: bold;
+    color: #01A86C;
 }
 

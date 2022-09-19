@@ -20,7 +20,7 @@ body{
     flex-direction: column;
     width: 18rem;
     height: 25rem;
-    box-shadow: 0px 0px 10px  var(--sombras);
+    box-shadow: 0px 0px 6px  var(--sombras);
     border-radius: 8px 8px 0px 0px;
     filter: grayscale(100%);
     background-color: rgba(128, 128, 128, 0.381);
@@ -121,7 +121,7 @@ p{
     margin-bottom: 0.2rem;
     background-color: #01A86C;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 14px !important;
     border-radius: 8px;
     padding-left: 10px;
     padding-right: 10px;
@@ -132,15 +132,14 @@ p{
 
 
 .botonSinStock{
-    margin-bottom: 0.2rem;
-    font-weight: 600;
-    font-size: 12px;
-    border-radius: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
+    width: 8rem;
+    height: 20px;
+    margin-top: 0.5rem;
+    margin-left: 3rem;
+    font-size: 18px;  
     font-weight: bolder;
-    font-size: 13px;  
-    color: var(--text)
+    text-align: center;
+    color: var(--text);
 }
 
 .boton:hover{

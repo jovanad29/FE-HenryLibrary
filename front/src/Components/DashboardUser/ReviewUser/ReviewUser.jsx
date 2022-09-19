@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { getAllReviewByUser } from "../../../actions/dashboardActions.js";
 import { useSelector, useDispatch } from "react-redux";
+import RatingNoEditable from '../../Reviews/Rating/RatingNoEditable.jsx';
 
 //CSS
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
+  // Tfoot,
   Tr,
   Th,
   Td,
@@ -28,10 +29,7 @@ function ReviewUser() {
     dispatch(getAllReviewByUser(uid));
   }, [dispatch, uid]);
 
-
-
-
-  
+ 
   return (
     <div className={styles.TableContainer}>
     <TableContainer>
@@ -48,14 +46,17 @@ function ReviewUser() {
             {
               reviewsUser?.map((r) => {
                 return (
-                  <Tr key={r.id}>
-                    <Td className={styles.info}>{r.books?.map((b) => b.title)}</Td>
-                    <Td className={styles.info}>{r.descrption}</Td>
-                    <Td className={styles.info}>{r.rating}</Td>
+                  <Tr key={r.id} className={styles.item}>
+                    <Td>{r.books?.map((b) => b.title)}</Td>
+                    <Td>{r.descrption}</Td>
+                    {/* <Td>{r.rating}</Td> */}
+                    <Td>{<RatingNoEditable value={r.rating}/>}</Td>
                   </Tr>
                 )
               })
-            }
+              }
+            
+        
           </Tbody>
         </Table>
     </TableContainer>

@@ -21,15 +21,15 @@ import {
   AlertIcon,
   CloseButton,
   Stack,
-  Input, 
-  InputGroup ,
-  InputLeftElement
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 
 import { FiMail } from "react-icons/fi";
-import { MdNoEncryptionGmailerrorred } from "react-icons/md";
+// import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { AiFillSetting } from "react-icons/ai";
-import {FiEyeOff , FiEye} from "react-icons/fi"
+import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 
 function Login({ HandleOpenLogin }) {
@@ -52,7 +52,7 @@ function Login({ HandleOpenLogin }) {
 
   const [show, setShow] = useState(false); //Para manejar la contraseña
 
-  const handleClick = () => setShow(!show)
+  const handleClick = () => setShow(!show);
 
   function handleChange(event) {
     setLogin({
@@ -132,6 +132,10 @@ function Login({ HandleOpenLogin }) {
     history.push("/dashboard/user");
   };
 
+  const goToDashboardAdmin = () => {
+    history.push("/user/admin");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.containerItems}>
@@ -154,13 +158,14 @@ function Login({ HandleOpenLogin }) {
 
         {createUser && !isAuthenticated && (
           <div>
-            <input
+            <Input
               className={styles.input}
               type="text"
               placeholder="Nombre Completo"
               name="displayName"
               value={login.name}
               onChange={handleChange}
+              focusBorderColor="#01A86C"
             />
           </div>
         )}
@@ -173,34 +178,45 @@ function Login({ HandleOpenLogin }) {
                   !createUser ? styles.iconoEmail : styles.noIconoEmail
                 }
               />
-              <input
+              <Input
                 className={styles.input}
                 type="text"
                 placeholder="Email"
                 name="email"
                 value={login.email}
+                focusBorderColor="#01A86C"
                 onChange={handleChange}
               />
             </div>
 
             <div>
-
               <InputGroup>
                 <Input
                   pr="4rem"
                   type={show ? "text" : "password"}
                   placeholder="password"
+                  name="password"
+                  focusBorderColor="#01A86C"
+                  value={login.password}
+                  onChange={handleChange}
                   className={styles.input}
                 />
                 <InputLeftElement width="4.5rem">
-                    
-                {show ? <FiEye onClick={handleClick} className={styles.iconoContraseña}/>  : <FiEyeOff onClick={handleClick}  className={styles.iconoContraseña}/>}
-                  
+                  {show ? (
+                    <FiEye
+                      onClick={handleClick}
+                      className={styles.iconoContraseña}
+                    />
+                  ) : (
+                    <FiEyeOff
+                      onClick={handleClick}
+                      className={styles.iconoContraseña}
+                    />
+                  )}
                 </InputLeftElement>
               </InputGroup>
             </div>
           </>
-
         ) : (
           <h3 className={styles.nombre}>{displayName}</h3>
         )}
@@ -218,9 +234,10 @@ function Login({ HandleOpenLogin }) {
               {createUser ? (
                 <Button
                   disabled={isAuthenticating}
-                  colorScheme="green"
+                  backgroundColor="#01A86C"
                   width="200px"
                   height="2rem"
+                  color="white"
                   onClick={handleCreateUser}
                 >
                   CREAR
@@ -229,9 +246,10 @@ function Login({ HandleOpenLogin }) {
                 <Button
                   disabled={isAuthenticating}
                   leftIcon={<FcGoogle />}
-                  colorScheme="green"
+                  backgroundColor="#01A86C"
                   width="200px"
                   height="2rem"
+                  color="white"
                   onClick={onGoogleSignIn}
                 >
                   Google
@@ -241,9 +259,10 @@ function Login({ HandleOpenLogin }) {
               {!createUser && (
                 <Button
                   disabled={isAuthenticating}
-                  colorScheme="green"
+                  backgroundColor="#01A86C"
                   width="200px"
                   height="2rem"
+                  color="white"
                   onClick={handleLoginUserPass}
                 >
                   Ingresar
@@ -269,21 +288,39 @@ function Login({ HandleOpenLogin }) {
         )}
         {isAuthenticated && (
           <>
-            {!isAdmin && (
+            {!isAdmin ? (
               <Button
                 leftIcon={<AiFillSetting />}
-                bg="#01A86C"
+                w="60%"
+                h='2.3rem'
+                backgroundColor="#01A86C"
                 variant="solid"
                 marginBottom="1rem"
-                color="white"
+                color="black"
                 onClick={goToDashboardUser}
               >
                 Mi cuenta
               </Button>
+            ) : (
+              <Button
+                leftIcon={<AiFillSetting />}
+                w="60%"
+                h='2.3rem'
+                backgroundColor="#01A86C"
+                variant="solid"
+                marginBottom="1rem"
+                color="black"
+                onClick={goToDashboardAdmin}
+              >
+                Dashboard
+              </Button>
             )}
 
             <Button
-              colorScheme="pink"
+              w="60%"
+              h='2rem'
+              backgroundColor="#E43E3E"
+              color="white"
               width="200px"
               height="2rem"
               onClick={handleCloseSesion}

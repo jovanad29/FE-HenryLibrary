@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-
+import Swal from "sweetalert2";
 //CSS
 import styles from "./Direcciones.module.css";
 import {
@@ -10,30 +10,40 @@ import {
     RadioGroup,
     Radio,
     Input,
+    Button
 } from "@chakra-ui/react";
 import { getUserInfo } from "../../../actions/index";
+import { setDeliveryAddress, setAddressUser, setItems } from '../../../actions/checkoutActions';
 
 export default function Direcciones() {
     let [errors, setErrors] = useState({});
 
     const dispatch = useDispatch();
     const { address, uid } = useSelector((state) => state);
-    const [checkbottom, setCheckbottom] = useState("1"); //Estado para el manejo de checkbox
-
+    const [checkbottom, setCheckbottom] = useState("1");
     const [input, setInput] = useState({
         addressUser: address ? address : "",
         otherAddress: "",
-    }); //Estado para el manejo de direccioes);
+    });
 
     useEffect(() => {
-        if (uid) dispatch(getUserInfo(uid));
-    }, [dispatch, uid]);
+        if (uid) {
+            dispatch(getUserInfo(uid));
+            setInput({
+                ...input,
+                addressUser: address
+            })
+        }
 
-    let handleInputChange = (e) => {
+    }, [dispatch, uid, address, input]);
+
+
+
+    let handleInputChange = e => {
         setInput({
             ...input,
-            [e.target.name]: e.target.value,
-        });
+            [e.target.name]: e.target.value
+        })
 
         setErrors(
             validate({
@@ -68,7 +78,7 @@ export default function Direcciones() {
                 input.otherAddress.length < 20
             )
                 errors.name =
-                    "La direccion debe  tener entre 200 y 100 caracteres";
+                    "La direccion debe  tener entre 20 y 100 caracteres";
             if (input.otherAddress[0] === " ")
                 errors.name = "El primer caracter no puede ser un espacio";
         }
@@ -77,22 +87,68 @@ export default function Direcciones() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const pickUpInStore = "Retira en sucursal el cliente";
+
+        if (
+            (!input.addressUser && checkbottom === "1") ||
+            (!input.otherAddress && checkbottom === "2")
+        )
+            return Swal.fire({
+                title: "Para confirmar Envío debe ingresar una dirección o Retirar en Sucursal",
+                icon: "info",
+                confirmButtonColor: "#01A86C",
+                confirmButtonText: "Aceptar",
+            })
+
+
         if (checkbottom === "1") {
-            // dispatch(updateAdrress(uid,input.addressUser));//ruta nueva de user put de USER con a
-            dispatch(getUserInfo(uid));
-            // dispatch(updateDeliveryAddress(uid,input.addressUser)) // ruta nueva para payment
-            console.log("otra direccion", input.addressUser);
+
+            dispatch(setAddressUser(uid, input.addressUser));
+            dispatch(getUserInfo(uid)) 
+            dispatch(setDeliveryAddress(input.addressUser)) 
+
+            console.log(' direccion', input.addressUser);
         }
+
         if (checkbottom === "2") {
-            //  dispatch(updateDeliveryAddress(uid,otherAddress)) //ruta nueva para payment JOVVVVAAAAAAA!!!
-            console.log("otra direccion", input.otherAddress);
+            dispatch(setDeliveryAddress(input.otherAddress)) 
+            console.log('otra direccion', input.otherAddress);
+        }
+
+        if (checkbottom === "1" || checkbottom === "2") {
+            const items = {
+                id: 0,
+                unit_price: 1000,
+                picture_url: 'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
+                quantity: 1,
+                title: "Gasto de envío",
+                description: checkbottom === "1" ? input.addressUser : input.otherAddress
+            }
+            dispatch(setItems([items]))
+
         }
         if (checkbottom === "3") {
-            //  dispatch(updateDeliveryAddress(uid,pickUpInStore)) //
-            console.log("retira store", pickUpInStore);
+            const pickUpInStore = 'Retira en sucursal'
+            dispatch(setDeliveryAddress(pickUpInStore))
+            //clearDeliveryAddress();
+            //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
+            const items = {
+                id: 0,
+                unit_price: 0,
+                picture_url: 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
+                quantity: 1,
+                title: "Retira en Sucursal",
+                description: "Retira en Sucursal"
+            }
+            dispatch(setItems([items]))
         }
-        alert(`Direccion de Envio registrado`);
+        return Swal.fire({
+            title: "Se confirmo la dirección de envío puede comprar",
+            icon: "info",
+            confirmButtonColor: "#01A86C",
+            confirmButtonText: "Aceptar",
+        })
+
+
     }
 
     return (
@@ -100,13 +156,13 @@ export default function Direcciones() {
             {" "}
             {/* Direcciones */}
             <h2 className={styles.titulo}>
-                Indique el lugar de envio de la compra:
+                Indique el lugar de envío de la compra:
             </h2>
             <Flex className={styles.formularioContainer}>
                 <FormControl
                     isRequired
                     className={styles.formulario}
-                    onSubmit={(e) => handleSubmit(e)}
+
                 >
                     <RadioGroup onChange={setCheckbottom} value={checkbottom}>
                         <div className={styles.form}>
@@ -143,10 +199,11 @@ export default function Direcciones() {
                                 name="otherAddress"
                                 value={input.otherAddress}
                                 disabled={
-                                    checkbottom !== "2" || !input.addressUser
+                                    checkbottom !== "2"
                                 }
                                 onChange={(e) => handleInputChange(e)}
                                 focusBorderColor="#01A86C"
+                                className={styles.input2}
                             />
                             {checkbottom === "2" && errors.name && (
                                 <p className={styles.errores}>{errors.name}</p>
@@ -167,13 +224,27 @@ export default function Direcciones() {
                     </RadioGroup>
 
                     <div className={styles.button}>
-                        <button
+                        {/* <button
                             disabled={Object.keys(errors).length > 0}
-                            type="submit"
+                            onClick={handleSubmit}
                             className={styles.confirmar}
                         >
-                            Continuar{" "}
-                        </button>
+                            Confirmar
+                        </button> */}
+                        <Button
+                            w="40%"
+                            backgroundColor="#01A86C"
+                            variant="solid"
+                            onClick={handleSubmit}
+                            className={styles.confirmar}
+                            disabled={
+                                JSON.stringify(errors) === "{}"
+                                    ? false
+                                    : true
+                            }
+                        >
+                            Confirmar
+                        </Button>
                     </div>
                 </FormControl>
             </Flex>

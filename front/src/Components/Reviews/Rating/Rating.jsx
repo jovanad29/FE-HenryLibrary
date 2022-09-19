@@ -12,7 +12,6 @@ class Rating extends React.Component {
     this.state = {
       rating: 1
     }
-    console.log('ejecutando..')
   }
 
 
