@@ -5,6 +5,7 @@ export const GET_ALL_REVIEW_BY_USER = "GET_ALL_REVIEW_BY_USER";
 export const UPDATE_TO_ADMIN = "UPDATE_TO_ADMIN";
 export const DELETE_USER = "DELETE_USER";
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
+export const GET_ALL_ORDERS_STATUS = "GET_ALL_ORDERS_STATUS";
 export const GET_ORDER_DETAIL = "GET_ORDER_DETAIL";
 export const UPDATE_ORDER_STATE = "UPDATE_ORDER_STATE";
 export const FILTER_ORDER = "FILTER_ORDER";
@@ -74,7 +75,6 @@ export function getAllOrders() {
       .catch((error) => {
         console.log("getAllOrders", error);
       });
-      
   };
 }
 
@@ -95,19 +95,35 @@ export function getOrderDetail(id) {
   };
 }
 
-//Actualizar estado de una orden
-export function updateOrderDetail(paymentID, statusID) {
+//Todos los estados posibles de la orden de compra
+export function getAllOrderStatus() {
   return (dispatch) => {
     axios
-      .put(`/payments/${paymentID}/status/${statusID}`)
+      .get(`/mercadopago/order-status`)
       .then((response) => {
         dispatch({
-          type: UPDATE_ORDER_STATE,
+          type: GET_ALL_ORDERS_STATUS,
           payload: response.data,
         });
       })
       .catch((error) => {
-        console.log("updateOrderDetail", error);
+        console.log("getAllOrderStatus", error);
+      });
+  };
+}
+
+//Actualizar estado de una orden
+export function updateOrderStatus(orderID, statusID) {
+  return (dispatch) => {
+    axios
+      .put(`/mercadopago/${orderID}/order-status/${statusID}`)
+      .then((response) => {
+        dispatch({
+          type: UPDATE_ORDER_STATE,
+        });
+      })
+      .catch((error) => {
+        console.log("updateOrderStatus", error);
       });
   };
 }
@@ -127,5 +143,4 @@ export function getAllReviewByUser(uid) {
         console.log("getAllReviewByUser", error);
       });
   };
-  
 }
