@@ -35,7 +35,7 @@ export default function Direcciones() {
             })
         }
 
-    }, [dispatch, uid, address, input]);
+    }, [dispatch, uid, address]);
 
 
 
