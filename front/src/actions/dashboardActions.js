@@ -134,7 +134,7 @@ export function getAllReviewByUser(uid) {
     axios
       .get(`/reviews?uid=${uid}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         dispatch({
           type: GET_ALL_REVIEW_BY_USER,
           payload: response.data,

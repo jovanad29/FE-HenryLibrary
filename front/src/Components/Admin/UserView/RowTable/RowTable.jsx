@@ -11,7 +11,7 @@ import React from "react";
 
 import style from "./RowTable.module.css";
 
-import { AiFillEdit } from "react-icons/ai";
+// import { AiFillEdit } from "react-icons/ai";
 import { FaUserAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,7 @@ import {
     setUserBanned,
     startResetPasswordEmail,
 } from "../../../../actions";
-import { getAllUsers } from "../../../../actions/dashboardActions";
+// import { getAllUsers } from "../../../../actions/dashboardActions";
 
 function RowTable({ user }) {
     const { uid, nameUser, email, profilePic, isAdmin, address, isBanned } =

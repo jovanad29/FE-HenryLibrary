@@ -36,20 +36,20 @@ export default function Book({
 
   const section = useSelector((state) => state.section);
   const {
-    activeCart,
-    activeCartAmount,
+    // activeCart,
+    // activeCartAmount,
     status,
-    displayName,
-    activeCartQuantity,
+    // displayName,
+    // activeCartQuantity,
     uid,
   } = useSelector((state) => state);
   const isAuthenticated = useMemo(() => status === "authenticated", [status]);
   // const { uid } = useSelector((state) => state.user);
   const bookToCarrito = allBooks.filter((b) => b.id === id);
   const bookDetail = bookToCarrito[0];
-  const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
+  // const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
   const [guestBook, setGuestBook] = useState({}); //objeto de libro a guardar en local storage
-  const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
+  // const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
 
   function handleOnAdd(id, price) {
     if (isAuthenticated) {
@@ -91,18 +91,18 @@ export default function Book({
   // let localTotal = [];
 
   //traer el localstorage cuando carga el componente
-  useEffect(() => {
-    if (isAuthenticated) {
-      setGuestCartBooks(activeCart);
-      setTotal({
-        totalAmount: activeCartAmount,
-        totalBooks: activeCartQuantity,
-      });
-    } else {
-      setGuestCartBooks(JSON.parse(localStorage.getItem("guestCartBooks")));
-      setTotal(JSON.parse(localStorage.getItem("total")));
-    }
-  }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
+  // useEffect(() => {
+    // if (isAuthenticated) {
+      // setGuestCartBooks(activeCart);
+      // setTotal({
+        // totalAmount: activeCartAmount,
+        // totalBooks: activeCartQuantity,
+      // });
+    // } else {
+      // setGuestCartBooks(JSON.parse(localStorage.getItem("guestCartBooks")));
+      // setTotal(JSON.parse(localStorage.getItem("total")));
+    // }
+  // }, [isAuthenticated, activeCart, activeCartAmount, activeCartQuantity]);
 
   // useEffect(() => {
   //     if (!isAuthenticated) {
@@ -138,17 +138,17 @@ export default function Book({
           }
           return item;
         });
-        setGuestCartBooks(items);
+        // setGuestCartBooks(items);
         // console.log("items desde books", items);
         localStorage.setItem("guestCartBooks", JSON.stringify(items));
       } else {
         const items = [...itemsLS, guestBook];
-        setGuestCartBooks(items);
+        // setGuestCartBooks(items);
         localStorage.setItem("guestCartBooks", JSON.stringify(items));
       }
       totals.totalBooks += 1;
       totals.totalAmount += guestBook.price;
-      setTotal(totals);
+      // setTotal(totals);
       localStorage.setItem("total", JSON.stringify(totals));
     }
   }, [guestBook, guestBook.id, id]);
@@ -187,6 +187,7 @@ export default function Book({
 
   useEffect(() => {
     loadImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
