@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setSection } from "../../actions";
@@ -7,7 +7,7 @@ import Theme from "./Theme/Theme.jsx";
 //CSS
 import styles from "./NavBar2.module.css";
 import { FiMenu } from "react-icons/fi";
-import {BsChevronCompactDown} from "react-icons/bs";
+// import {BsChevronCompactDown} from "react-icons/bs";
 import {
   Menu,
   MenuButton,

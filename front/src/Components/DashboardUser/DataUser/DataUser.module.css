@@ -1,28 +1,84 @@
 .containerInputs{
+    width: 50%;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-        flex-direction: column;
+    flex-direction: column;
     height: 7rem;
     margin-bottom: 2rem;
+    margin-left: 3rem;
+}
+
+.label{
+    color: var(--text);
+}
+
+.label2{
+    color: var(--text);
+}
+
+.input{
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 .containerButtons{
     display: flex;
-    width: 15rem;
-    justify-content: space-between;
+    width: 18rem;
+    justify-content: space-around ;
     padding: 1rem;
-   
 }
+
+
+.containerButtons2{
+    display: flex;
+    width: 18rem !important;
+    justify-content: space-between ;   
+}
+
 .buttons{
-    border: solid 2px green; 
-    padding: 0.5rem;
-    margin: 3px;
-    cursor: pointer;
-}
-.btnDisabled{
-    display: none;
-}
-.btnEnabled{
-    display: block;
+    border: 2px solid #01A86C !important;
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+} 
+
+.buttons2{
+    border: 2px solid #E43E3E !important;
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+} 
+
+
+.buttons:hover{
+    background-color: #01A86C !important;
+} 
+
+.buttons2:hover{
+    background-color: #E43E3E !important;
+} 
+
+
+
+@media screen and (max-width: 844px) {
+
+    .containerInputs{
+        width: 95%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
+        flex-direction: column;
+        height: 15rem;
+        margin-bottom: 2rem;
+        margin-left: 2rem;
+    }
+
+    .label{
+        margin-top: 2rem;
+    }
+
+    .input{
+        margin-bottom: 2rem;
+        height: 2rem;
+    } 
+
 }
