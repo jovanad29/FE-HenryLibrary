@@ -1,32 +1,34 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UserView from "./UserView";
-import { getAllUsers } from "../../actions/dashboardActions";
+import { getAllUsers, getAllOrders } from "../../actions/dashboardActions";
 import { Box } from "@chakra-ui/react";
 
 import Menu from "./Components/Menu";
-import BreadCrumb from "./Components/BreadCrumb";
 import Title from "./Components/Title";
-import CardsInfo from "./Components/CardsInfo";
+import NavBar from "./Components/NavBar";
+import BarChart from "./Charts/BarChart";
+import { getPaymentsStatistics } from "../../actions";
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const { allUsers } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(getPaymentsStatistics());
+  }, [dispatch]);
+  const { paymentsStatistics } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getAllUsers());
+    dispatch(getAllOrders());
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Quicksand" bgColor="blackAlpha.50">
+    <Box fontFamily="Quicksand">
       <Menu />
-      <BreadCrumb />
+      <NavBar />
       <Title />
-
-      <Box ml="20%" mt="5%">
-        <CardsInfo />
-      </Box>
+      <BarChart paymentsStatistics={paymentsStatistics} />
     </Box>
   );
 }

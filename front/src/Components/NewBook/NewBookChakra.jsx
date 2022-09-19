@@ -202,7 +202,7 @@ export default function NewBookChakra() {
   const elementInput = (label, validate, value, name, placeholder = null) => {
     return (
       <FormControl isRequired isInvalid={validate}>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.text}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <Input
             value={value}
@@ -240,7 +240,7 @@ export default function NewBookChakra() {
   ) => {
     return (
       <FormControl isRequired isInvalid={validate}>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.text}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <Textarea
             value={value}
@@ -278,7 +278,7 @@ export default function NewBookChakra() {
   ) => {
     return (
       <FormControl isRequired isInvalid={validate}>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.text}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <NumberInput
             defaultValue={0}
@@ -322,7 +322,7 @@ export default function NewBookChakra() {
   ) => {
     return (
       <FormControl isRequired isInvalid={validate}>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.text}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <Select
             value={value}
@@ -370,7 +370,7 @@ export default function NewBookChakra() {
   ) => {
     return (
       <>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.text}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <Select
             value={value}
@@ -413,6 +413,7 @@ export default function NewBookChakra() {
             textAlign="center"
             width="91%"
             color="#01A86C"
+            className={styles.text}
           >
             {arr.filter((e) => e.id === Number(element))[0].name}
           </FormLabel>
@@ -425,7 +426,7 @@ export default function NewBookChakra() {
   const elementInputDate = (type, label, value, name) => {
     return (
       <>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.text}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <Input
             type={type}
@@ -461,7 +462,7 @@ export default function NewBookChakra() {
   ) => {
     return (
       <FormControl isRequired isInvalid={validate}>
-        <FormLabel fontWeight="bold">{label}</FormLabel>
+        <FormLabel fontWeight="bold" className={styles.text}>{label}</FormLabel>
         <Box display="flex" justifyContent="space-between" pr="2%">
           <InputGroup>
             <Input
@@ -588,6 +589,7 @@ export default function NewBookChakra() {
         isClosable: true,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successMsg, errMsg, toast]);
 
   return (
@@ -603,7 +605,7 @@ export default function NewBookChakra() {
         pt="5%"
         pb="5%"
       >
-        <Stack
+        <Stack className={styles.form}
           border="2px"
           borderColor="#D9D9D9"
           padding="2%"

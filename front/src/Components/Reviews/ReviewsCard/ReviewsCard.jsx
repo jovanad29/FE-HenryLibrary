@@ -23,7 +23,7 @@ function ReviewsCard({ reviews }) {
         
         return (
           <Accordion p="0.5rem" allowMultiple >
-            <AccordionItem >
+            <AccordionItem className={styles.contenedor} >
               <div key={r.id}>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
@@ -53,7 +53,7 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex> : <h2 className={styles.mensajeVacio}>Todavia no hay ningun comentario. ¡Cuentános tu experiencia! </h2> }  
+    </Flex> : <h2 className={styles.mensajeVacio}>Todavía no hay ningún comentario. ¡Comprá un libro y contanos tu experiencia! </h2> }  
       
     </div>
   );

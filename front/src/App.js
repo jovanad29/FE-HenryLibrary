@@ -19,11 +19,17 @@ import Checkout from "./Components/Checkout/Checkout";
 import Rejected from "./Components/MercadoPago/RejectedMP";
 import Pending from "./Components/MercadoPago/PendingMP";
 import Validate from "./Components/MercadoPago/ValidateMP";
-import PurchaseOrders from "./Components/PurchaseOrders/PurchaseOrders";
+import PurchaseOrders from "./Components/DashboardUser/PurchaseOrders/PurchaseOrders";
 import { useCheckAuth } from "../src/hooks/useCheckAuth";
 import Dashboard from "./Components/Admin/Dashboard";
 import DashboardUser from "./Components/DashboardUser/DashboardUser.jsx";
-import UserView from "./Components/Admin/UserView";
+import UserView from "./Components/Admin/UserView/UserView";
+import PaymentsView from "./Components/Admin/PaymentsView/PaymentsView";
+import DetailPayment from "./Components/Admin/PaymentsView/DetailPayment/DetailPayment";
+import LibraryView from "./Components/Admin/LibraryView/LibraryView";
+import EditBook from "./Components/Admin/LibraryView/EditBook/EditBook";
+import NewBook from "./Components/Admin/LibraryView/NewBook/NewBook";
+import CategoryForm from "./Components/Admin/CategoriesView/CategoryForm";
 
 function App() {
   const status = useCheckAuth();
@@ -67,8 +73,14 @@ function App() {
         <Route path="/catalog/author/:id" component={CardsAuthor} />
 
         {/*Ruta administrador*/}
-        <Route path={"/user/admin"} component={Dashboard} />
-        <Route path={"/user/admin/users"} component={UserView} />
+        <Route exact path={"/user/admin"} component={Dashboard} />
+        <Route exact path={"/user/admin/catalogue"} component={LibraryView} />
+        <Route exact path={"/user/admin/catalogue/new"} component={NewBook} />
+        <Route path={"/user/admin/catalogue/:id"} component={EditBook} />
+        <Route exact path={"/user/admin/users"} component={UserView} />
+        <Route exact path={"/user/admin/payments"} component={PaymentsView} />
+        <Route exact path={"/user/admin/categories/"} component={CategoryForm} />
+        <Route path={"/user/admin/payments/:id"} component={DetailPayment} />
 
         {/*Rutas Extras*/}
         <Route path="/aboutUs" component={AboutUs} />

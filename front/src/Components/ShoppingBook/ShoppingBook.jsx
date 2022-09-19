@@ -6,13 +6,11 @@ import { editCartItem } from "../../actions/index.js";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
 import Footer from "../Footer/Footer.jsx";
-// import Direcciones from "./Direcciones/Direcciones.jsx"
+import Direcciones from "./Direcciones/Direcciones.jsx";
 
 //CSS
 import styles from "./ShoppingBook.module.css";
-import { FaBackward, FaTrashAlt } from "react-icons/fa";
-// import { BsPlus } from "react-icons/bs";
-// import { BiMinus } from "react-icons/bi";
+import { FaBackward } from "react-icons/fa";
 
 import { Button } from "@chakra-ui/react";
 
@@ -20,15 +18,23 @@ import { Button } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import { setItems } from "../../actions/checkoutActions";
-
+import { ItemCart } from "./ItemCart.jsx";
 
 function ShoppingBook() {
   const history = useHistory(); //para ir al  checkout del pago
   const dispatch = useDispatch();
   const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
   const [total, setTotal] = useState({}); //total de libros y monto total en el carrito
-  const { activeCart, activeCartAmount, status, activeCartQuantity, uid } =
-    useSelector((state) => state);
+  const {
+    activeCart,
+    activeCartAmount,
+    status,
+    activeCartQuantity,
+    uid,
+    allBooks,
+    items,
+    deliveryAdress,
+  } = useSelector((state) => state);
 
   const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
@@ -62,26 +68,42 @@ function ShoppingBook() {
         title: "Para comprar debe estar autenticado",
         icon: "info",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#01A86C",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Go to Login",
+        confirmButtonText: "Ir a Loguin",
       }).then((result) => {
         if (result.isConfirmed) {
           history.push("/home");
         }
       });
+    }
+    if (!deliveryAdress) {
+      Swal.fire({
+        title: "Para comprar debe confirmar dirección de Envío ",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#01A86C",
+        confirmButtonText: "Aceptar",
+      });
     } else {
-      const booksBuy = guestCartBooks.map((b) => {
+      let booksBuy = guestCartBooks.map((b) => {
         return {
           id: b.id,
           title: b.title,
-          image: b.image,
+          picture_url: b.image,
           quantity: isAuthenticated ? b.payment_book?.quantity : b.quantity,
-          price: isAuthenticated ? b.payment_book?.price : b.price,
+          unit_price: isAuthenticated ? b.payment_book?.price : b.price,
+          description: "null",
         };
       });
-      console.log("estoy en boton pago carrito ", booksBuy);
-
+      // console.log("estoy en boton pago carrito ", booksBuy);
+      // console.log("estoy en shopping book", deliveryAdress)
+      const isDeliverySet = Boolean(items.find((i) => i.id === 0));
+      console.log(
+        "viendo si dirección ya se guardó en items",
+        items.find((i) => i.id === 0)
+      );
+      booksBuy = isDeliverySet ? booksBuy.concat(items) : booksBuy;
       dispatch(setItems(booksBuy));
       history.push("/checkout");
     }
@@ -108,29 +130,25 @@ function ShoppingBook() {
     }
   }, [guestCartBooks, isAuthenticated]);
 
-  const handleChangeQuantity = (e, id, price) => {
-    if (e.target.value > 0) {
-      let newItems = guestCartBooks.map((item) => {
-        if (item.id === id) {
-          if (isAuthenticated) item.payment_book.quantity = e.target.value;
-          else item.quantity = e.target.value;
-        }
-
-        return item;
-      });
-
-      setGuestCartBooks(newItems);
-      if (isAuthenticated) {
-        dispatch(editCartItem(uid, id, e.target.value, price));
+  const handleChangeQuantity = (value, id, price, currentStock) => {
+    if (value < 1) value = 1;
+    if (value > currentStock) value = currentStock;
+    let newItems = guestCartBooks.map((item) => {
+      if (item.id === id) {
+        if (isAuthenticated) item.payment_book.quantity = value;
+        else item.quantity = value;
       }
+      return item;
+    });
+    setGuestCartBooks(newItems);
+    if (isAuthenticated) {
+      dispatch(editCartItem(uid, id, value, price));
     }
   };
 
   function continuarComprando() {
     history.push("/home");
   }
-
-
 
   const item = guestCartBooks?.map((b) => {
     let id, title, image, quantity, price;
@@ -144,48 +162,27 @@ function ShoppingBook() {
       quantity = b.quantity;
       price = b.price;
     }
-    return (
-      <div className={styles.item} key={id}>
-        <img className={styles.img} src={image} alt="" width={10} heigh={10} />
+    const currentBook = allBooks.filter((b) => b.id === id);
+    let currentStock;
+    if (currentBook) currentStock = currentBook[0]?.currentStock;
 
-        <div className={styles.info}>
-          <div className={styles.infoItem1}>
-            <h3 className={styles.title}>{title}</h3>
-          </div>
-          <div className={styles.infoItem2}>
-            <h2 className={styles.precio}>
-              Precio: $ {parseFloat(price).toFixed(2)}
-            </h2>
-            <div className={styles.cantidadContainer}>
-              <label className={styles.cantidad}>Cantidad: </label>
-              <input
-                type="number"
-                className={styles.cantidadInput}
-                defaultValue={quantity}
-                min={"1"}
-                max={"100"}
-                onChange={(e) => handleChangeQuantity(e, id, price)}
-              />{" "}
-              {/*quantity*/}
-            </div>
-            <h2 className={styles.precio}>
-              Total: $ {parseFloat(price * quantity).toFixed(2)}
-            </h2>
-            <button
-              className={styles.itemCancelar}
-              onClick={() => handleOnDelete(id, 0, 0)}
-            >
-              <FaTrashAlt color="#01A86C" size="1rem" />
-            </button>
-          </div>
-        </div>
-      </div>
+    return (
+      <ItemCart
+        key={id}
+        id={id}
+        title={title}
+        image={image}
+        quantity={quantity}
+        price={price}
+        currentStock={currentStock}
+        handleOnDelete={handleOnDelete}
+        handleChangeQuantity={handleChangeQuantity}
+      />
     );
   });
 
   const totalBooks = total.totalBooks;
   const totalAmount = total.totalAmount;
-
 
   return (
     <div className={styles.shopping}>
@@ -217,16 +214,22 @@ function ShoppingBook() {
 
               {guestCartBooks?.length > 0 ? (
                 <div>
-                  <div>{item}</div>  {/* RENDERIZADO DE LOS LIBROS AGREGADOS AL CARRITO */}
-
-                  {/* <div className={styles.containerDirecciones}> Direcciones */}
-                  {/* <Direcciones /> */}
-                  {/* </div> */}
+                  <div>{item}</div>{" "}
+                  {/* RENDERIZADO DE LOS LIBROS AGREGADOS AL CARRITO */}
+                  <div className={styles.containerDirecciones}>
+                    {" "}
+                    {/* Direcciones */}
+                    <Direcciones />
+                  </div>
+                  <br /> <br />
                 </div>
               ) : (
                 <div className={styles.containerVacio}>
-                  <h2>Tu carrito está vacío</h2>
-                  <h4> ¿No sabés qué comprar? ¡Miles de libros te esperan!</h4>
+                  <h2 className={styles.textoVacio}>Tu carrito está vacío</h2>
+                  <h4 className={styles.parrafoVacio}>
+                    {" "}
+                    ¿No sabés qué comprar? ¡Miles de libros te esperan!
+                  </h4>
                 </div>
               )}
             </div>
@@ -240,12 +243,15 @@ function ShoppingBook() {
                     </h3>
                   </div>
                   <div className={styles.button}>
-                    <button
-                      className={styles.comprar}
+                    <Button
+                      w="85%"
+                      backgroundColor="#01A86C"
+                      variant="solid"
                       onClick={(e) => handleBuyingBooks(e)}
+                      className={styles.comprar}
                     >
-                      Comprar
-                    </button>
+                      Agregar al carrito
+                    </Button>
                   </div>
                 </div>
               )}

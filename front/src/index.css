@@ -22,7 +22,7 @@ body {
 }
 
 .dark {
-  --text: white;
+  --text: rgb(245, 236, 236);
   --bg: #1B1B1B;
   --linkSearchBar: #01A86C;
   --footerBg: #1B1B1B;

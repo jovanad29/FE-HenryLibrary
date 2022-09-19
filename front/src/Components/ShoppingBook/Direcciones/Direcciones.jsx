@@ -1,93 +1,253 @@
-import React, { useEffect, useState } from 'react'
-
+import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 //CSS
 import styles from "./Direcciones.module.css";
-import { Flex, FormControl, FormLabel, RadioGroup, Radio, Input } from "@chakra-ui/react";
-import { getUserById } from '../../../actions/dataUserIdActions';
-import { useId } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import {
+    Flex,
+    FormControl,
+    FormLabel,
+    RadioGroup,
+    Radio,
+    Input,
+    Button
+} from "@chakra-ui/react";
+import { getUserInfo } from "../../../actions/index";
+import { setDeliveryAddress, setAddressUser, setItems } from '../../../actions/checkoutActions';
 
 export default function Direcciones() {
-  const { address, uid } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const [addressUser, setAddress] = useState({   //Estado para el manejo de direccioes
-    direccion: address ? address : "",
-    otraDireccion: "",
-    sucursal: false
-  });
-  const [input, setInput] = useState({})
-  const [errors, setErrors] = useState({})
-  useEffect(() => {
-    dispatch(getUserById(uid));
-  }, [dispatch]);
+    let [errors, setErrors] = useState({});
 
-  function addressHandleChange() {
-    alert("Estoy manejando la dirección")
-  }
+    const dispatch = useDispatch();
+    const { address, uid } = useSelector((state) => state);
+    const [checkbottom, setCheckbottom] = useState("1");
+    const [input, setInput] = useState({
+        addressUser: address ? address : "",
+        otherAddress: "",
+    });
 
-  let handleInputChange = e => {
-    setInput({
-        ...input,
-        [e.target.name]: e.target.value
-    })
-    
-    setErrors(validate({
-        ...input,
-        [e.target.name]: e.target.value
-    }))
-}
+    useEffect(() => {
+        if (uid) {
+            dispatch(getUserInfo(uid));
+            setInput({
+                ...input,
+                addressUser: address
+            })
+        }
 
-  let validate = input => {
-    let  isAlpha =/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/
-    let errors = {};
+    }, [dispatch, uid, address, input]);
 
-    if (!input.name || input.name.length > 150 ||input.name.length < 4 ) errors.name = "El nombre debe tener entre 4 y 150 caracteres"
-    if (input.name[0] === " ") errors.name = "El primer caracter no puede ser un espacio"
-    if ((input.height )&&(input.height > 15 || input.height < 0.1 || !/^\d*\.?\d*$/.test(input.height))) errors.height = "El valor debe estar entre 0.1  y 15.0" 
-    if ((input.weight )&&(input.weight > 1000 || input.weight < 0.1 || !/^\d*\.?\d*$/.test(input.weight))) errors.weight = "El valor debe estar entre 0.1 y 1000.0" 
-    return errors;
-}
 
-  return (
-    <div className={styles.containerDirecciones}> {/* Direcciones */}
 
-      <h2 className={styles.titulo}>Indique el lugar de envio de la compra:</h2>
+    let handleInputChange = e => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
 
-      <Flex className={styles.formularioContainer}>
-        <FormControl
-          isRequired
-          className={styles.formulario}
-        >
-          <RadioGroup onChange={addressHandleChange} value={address}>
-            <div className={styles.form}>
-              <FormLabel className={styles.formLabel}>
-                <Radio value={address.direccion}
-                  onChange={addressHandleChange} >
-                  Domicilio:</Radio></FormLabel>
+        setErrors(
+            validate({
+                ...input,
+                [e.target.name]: e.target.value,
+            })
+        );
+    };
 
-                  <Input variant='outline' value={address.direccion}
-                        onChange={e=>handleInputChange(e)}
-                  className={styles.input} focusBorderColor='#01A86C' />
-            </div>
-            <div className={styles.form}>
-              <FormLabel className={styles.formLabel}>
-                <Radio value={address.otraDireccion}
-                       onChange={addressHandleChange} className={styles.radio}>
-                        Otro Domicilio:</Radio></FormLabel>
-                <Input variant='outline' value={address.direccion}
-                onChange={e=>handleInputChange(e)}  focusBorderColor='#01A86C' />
-            </div>
-            <div className={styles.form}>
-              <FormLabel className={styles.formLabel}>
-                <Radio value={address.sucursal}
-                  onChange={addressHandleChange}
-                  className={styles.radio}>Retiro en sucural:</Radio></FormLabel>
-            </div>
-          </RadioGroup>
-        </FormControl>
-      </Flex>
-      <h3 className={styles.errores}>Debe ingresar un domicilio de envío o seleccionar retirar en sucursal</h3>
-    </div>
-  )
+    let validate = (input) => {
+        let errors = {};
+
+        if (
+            (!input.addressUser && checkbottom === "1") ||
+            (!input.otherAddress && checkbottom === "2")
+        )
+            return (errors.name =
+                "Debe ingresar un domicilio de envío o seleccionar retirar en sucursal");
+
+        if (checkbottom === "1") {
+            if (input.addressUser.length > 100 || input.addressUser.length < 20)
+                errors.name =
+                    "La direccion debe  tener entre 20 y 100 caracteres";
+            if (input.addressUser[0] === " ")
+                errors.name = "El primer caracter no puede ser un espacio";
+        }
+
+        if (checkbottom === "2") {
+            if (
+                !input.otherAddress ||
+                input.otherAddress.length > 100 ||
+                input.otherAddress.length < 20
+            )
+                errors.name =
+                    "La direccion debe  tener entre 20 y 100 caracteres";
+            if (input.otherAddress[0] === " ")
+                errors.name = "El primer caracter no puede ser un espacio";
+        }
+        return errors;
+    };
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        if (
+            (!input.addressUser && checkbottom === "1") ||
+            (!input.otherAddress && checkbottom === "2")
+        )
+            return Swal.fire({
+                title: "Para confirmar Envío debe ingresar una dirección o Retirar en Sucursal",
+                icon: "info",
+                confirmButtonColor: "#01A86C",
+                confirmButtonText: "Aceptar",
+            })
+
+
+        if (checkbottom === "1") {
+
+            dispatch(setAddressUser(uid, input.addressUser));
+            dispatch(getUserInfo(uid)) 
+            dispatch(setDeliveryAddress(input.addressUser)) 
+
+            console.log(' direccion', input.addressUser);
+        }
+
+        if (checkbottom === "2") {
+            dispatch(setDeliveryAddress(input.otherAddress)) 
+            console.log('otra direccion', input.otherAddress);
+        }
+
+        if (checkbottom === "1" || checkbottom === "2") {
+            const items = {
+                id: 0,
+                unit_price: 1000,
+                picture_url: 'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
+                quantity: 1,
+                title: "Gasto de envío",
+                description: checkbottom === "1" ? input.addressUser : input.otherAddress
+            }
+            dispatch(setItems([items]))
+
+        }
+        if (checkbottom === "3") {
+            const pickUpInStore = 'Retira en sucursal'
+            dispatch(setDeliveryAddress(pickUpInStore))
+            //clearDeliveryAddress();
+            //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
+            const items = {
+                id: 0,
+                unit_price: 0,
+                picture_url: 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
+                quantity: 1,
+                title: "Retira en Sucursal",
+                description: "Retira en Sucursal"
+            }
+            dispatch(setItems([items]))
+        }
+        return Swal.fire({
+            title: "Se confirmo la dirección de envío puede comprar",
+            icon: "info",
+            confirmButtonColor: "#01A86C",
+            confirmButtonText: "Aceptar",
+        })
+
+
+    }
+
+    return (
+        <div className={styles.containerDirecciones}>
+            {" "}
+            {/* Direcciones */}
+            <h2 className={styles.titulo}>
+                Indique el lugar de envío de la compra:
+            </h2>
+            <Flex className={styles.formularioContainer}>
+                <FormControl
+                    isRequired
+                    className={styles.formulario}
+
+                >
+                    <RadioGroup onChange={setCheckbottom} value={checkbottom}>
+                        <div className={styles.form}>
+                            <FormLabel className={styles.formLabel}>
+                                <Radio value="1" className={styles.radio}>
+                                    Domicilio:
+                                </Radio>
+                            </FormLabel>
+
+                            <Input
+                                type="text"
+                                placeholder="Ingrese dirección envio "
+                                name="addressUser"
+                                disabled={checkbottom !== "1"}
+                                value={input.addressUser}
+                                onChange={(e) => handleInputChange(e)}
+                                className={styles.input}
+                                focusBorderColor="#01A86C"
+                            />
+                            {checkbottom === "1" && errors.name && (
+                                <p className={styles.errores}>{errors.name}</p>
+                            )}
+                        </div>
+                        <div className={styles.form}>
+                            <FormLabel className={styles.formLabel}>
+                                <Radio value="2" className={styles.radio}>
+                                    Otro Domicilio:
+                                </Radio>
+                            </FormLabel>
+                            <Input
+                                variant="outline"
+                                type="text"
+                                placeholder="Ingrese otra dirección de envío"
+                                name="otherAddress"
+                                value={input.otherAddress}
+                                disabled={
+                                    checkbottom !== "2"
+                                }
+                                onChange={(e) => handleInputChange(e)}
+                                focusBorderColor="#01A86C"
+                                className={styles.input2}
+                            />
+                            {checkbottom === "2" && errors.name && (
+                                <p className={styles.errores}>{errors.name}</p>
+                            )}
+                        </div>
+
+                        <div className={styles.form}>
+                            <FormLabel className={styles.formLabel}>
+                                <Radio
+                                    value="3"
+                                    disabled={checkbottom !== "3"}
+                                    className={styles.radio}
+                                >
+                                    Retiro en sucural:
+                                </Radio>
+                            </FormLabel>
+                        </div>
+                    </RadioGroup>
+
+                    <div className={styles.button}>
+                        {/* <button
+                            disabled={Object.keys(errors).length > 0}
+                            onClick={handleSubmit}
+                            className={styles.confirmar}
+                        >
+                            Confirmar
+                        </button> */}
+                        <Button
+                            w="40%"
+                            backgroundColor="#01A86C"
+                            variant="solid"
+                            onClick={handleSubmit}
+                            className={styles.confirmar}
+                            disabled={
+                                JSON.stringify(errors) === "{}"
+                                    ? false
+                                    : true
+                            }
+                        >
+                            Confirmar
+                        </Button>
+                    </div>
+                </FormControl>
+            </Flex>
+        </div>
+    );
 }

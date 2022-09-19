@@ -12,6 +12,10 @@ body {
     margin-left: 3rem;
 }
 
+.titulo{
+    display: flex;
+}
+
 .h1 {
     font-family: Quicksand;
     font-weight: bolder;
@@ -53,13 +57,22 @@ body {
 .iconos {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     margin-right: 1rem;
-    width: 8%;
+    width: 15%;
 }
 
 .icono{
-    color: var(--text);
+    width: 2rem;
+    color: var(--text);}
+
+.favoritos{
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    margin-right: -1rem;
 }
+
 
 .iconoFav {
     visibility: visible;
@@ -72,18 +85,15 @@ body {
 }
 
 .cantidad{
-    position: absolute;
     width: 1rem;
     height: 1rem;
-    top: 1.3rem;
-    right: 15.6rem;
     color: white;
     font-weight: bolder;
     text-align: center;
     font-size: 10px;
     background-color: #076744;
     border: 1px solid #076744;
-    border-radius: 300px;
+    border-radius: 300px
 }
 
 .banderas {
@@ -184,36 +194,72 @@ body {
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 844px) {
 
     .container {
-        margin-left: -0.5rem;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-left: 1rem;
     }
     
+    .h1 {
+        font-weight: bolder;
+        font-size: 33px;
+        color: #ABABAB;
+        margin-left: -4rem;
+        margin-top: 4.5rem;
+    }
     
     .h1_1 {
-        margin-right: 2rem;
+        font-weight: bolder;
+        font-size: 33px;
+        color: #01A86C;
+        margin-bottom: 1.5rem;
+        margin-top: 4.5rem;
     }
     
     .search{
-        margin-right: 3rem;
+        margin-top: 1.5rem;
+        margin-bottom: 3rem;
+        margin-left: 2.8rem;
+        width: 90%;
+        position: relative;
     }
     
-    .iconos {
-        margin-right: 0.8rem;
-        width: 10%;
-    }   
-
     .user{
-        width: 10%;
-        margin-right: 1.5rem;
-        font-size: 10px;
+        width: 95%;
+        margin-left: 1.5rem;
+        margin-bottom: 2rem;
+        font-weight: bolder;
+        text-align: center;
+        font-size: 15px;
+        color: #01A86C;
     }
     
     .notUser{
-        width: 10%;
-        margin-right: 1.5rem;
+        visibility: hidden;
+        width: 95%;
+        margin-left: 1.5rem;
+        margin-bottom: 2rem;
     }
+    
+    .iconos {
+        position: absolute;
+        top: 1.8rem;
+        width: 60%;
+        display: flex;
+        justify-content: space-around;
+        margin-left: -4rem;
+        margin-bottom: 1.5rem;
+        font-size: 2.5rem !important;
+    }
+    
+    .icono{
+        color: var(--text);
+    }
+       
     
     
 }
