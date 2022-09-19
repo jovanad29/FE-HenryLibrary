@@ -6,7 +6,7 @@ body {
 
 .TableContainer{
     width: 95%;
-    height: 26rem;
+    height: auto;
     overflow-y: scroll;
 }
 

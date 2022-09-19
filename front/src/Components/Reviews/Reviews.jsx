@@ -25,7 +25,7 @@ function Reviews({ id }) {
 
     const dispatch = useDispatch();
 
-    const { status, displayName, email, reviews, uid, reviewsBook, isBanned } =
+    const { displayName, email, reviews, uid, reviewsBook, isBanned } =
         useSelector((state) => state);
 
     useEffect(() => {
@@ -53,6 +53,7 @@ function Reviews({ id }) {
 
     useEffect(() => {
         setInput({ ...input, uid: uid });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uid]);
 
     function handleInputsChange(event) {
