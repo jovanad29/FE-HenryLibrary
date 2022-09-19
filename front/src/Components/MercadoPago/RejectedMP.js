@@ -17,7 +17,8 @@ function RejectedMP() {
     return () => {
       dispatch(clearPayment());
     };
-  }, [dispatch, history, mpID]);
+     //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   function goBack(e) {
     e.preventDefault();
     history.push("/home");
