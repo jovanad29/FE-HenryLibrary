@@ -33,6 +33,11 @@ function LibraryView() {
             Crear Libro
           </Button>
         </NavLink>
+        <NavLink to={`/user/admin/catalogue/category`}>
+          <Button colorScheme="green" size="sm" mb="5%">
+            Crear Categoria
+          </Button>
+        </NavLink>
         {/* CABECERA */}
         <Flex className={style.table}>
           <Box className={style.book}>Libro</Box>
