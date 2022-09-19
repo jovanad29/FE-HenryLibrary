@@ -38,6 +38,7 @@ export default function NavBar() {
 
   useEffect(() => {
     if (allBooks.length === 0) dispatch(getAllBooks());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const handleOnFavorites = () => {
