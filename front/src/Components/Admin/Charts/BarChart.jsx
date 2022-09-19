@@ -1,36 +1,66 @@
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { UserData } from "./data";
-import Chart from "chart.js/auto";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getPaymentsStatistics } from "../../../actions";
-import { useSelector } from "react-redux";
 
-function BarChart() {
+function BarChart({ paymentsStatistics }) {
   const dispatch = useDispatch();
-  const { paymentsStatistics } = useSelector((state) => state);
   const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.year),
+    labels: paymentsStatistics?.map((data) => data.description),
     datasets: [
       {
-        label: "Cantidad de Visitantes",
-        data: UserData.map((data) => data.userGain),
+        label: "Detalles de Ordenes de Compra",
+        data: paymentsStatistics?.map((data) => data.TotalCount),
         backgroundColor: ["#01A86C", "#94d5bd"],
       },
     ],
   });
 
-  console.log(paymentsStatistics);
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
-  useEffect(() => {
-    dispatch(getPaymentsStatistics());
-  }, [dispatch]);
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          font: {
+            size: 14,
+            family: "Quicksand",
+          },
+        },
+        data: {
+          font: {
+            size: 14,
+            family: "Quicksand",
+          },
+        },
+      },
+      title: {
+        display: true,
+      },
+    },
+  };
 
   return (
-    <Box ml="18%" w="30%">
-      <Bar data={userData} />
+    <Box ml="18%" w="30%" fontFamily="Quicksand">
+      <Bar data={userData} options={options} />
     </Box>
   );
 }
