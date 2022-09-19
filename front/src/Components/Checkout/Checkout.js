@@ -16,7 +16,8 @@ function Checkout() {
       history.push("/carrito");
     }
     setLoading(false);
-  }, [history, items]);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function goBack() {
     history.push("/carrito");
