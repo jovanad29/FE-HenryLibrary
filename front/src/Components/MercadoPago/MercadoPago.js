@@ -7,32 +7,30 @@ const FORM_ID = "payment-form";
 export default function MercadoPago({ items, setLoading, userID }) {
   const [preferenceId, setPreferenceId] = useState(null);
   const history = useHistory();
-  useEffect(() => { // cuando se monta (en /checkout) pide el preferenceId a MP
-    // console.log("Estoy en el primer userEffect: ", userID)
+  useEffect(() => {
     axios
-    .post("/mercadopago", {
+      .post("/mercadopago", {
         items,
-        base_url: process.env.REACT_APP_BASE_URL || 'http://localhost:3000',
+        base_url: process.env.REACT_APP_BASE_URL || "http://localhost:3000",
         ID: userID,
       })
       .then((order) => {
         setPreferenceId(order.data.preferenceId);
       })
       .catch((error) => {
-        console.log(error) // el error no se imprime en el swal
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: error.response.data.message,
         }).then(() => {
-          history.push("/"); // checkout?
+          history.push("/");
         });
       });
-  //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-   
+
   useEffect(() => {
-   // console.log('estoy en mercado pago ' , preferenceId)
+    // console.log('estoy en mercado pago ' , preferenceId)
     if (preferenceId) {
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -49,7 +47,6 @@ export default function MercadoPago({ items, setLoading, userID }) {
         setLoading(false);
       }, 2000);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferenceId]);
-  return <form id={FORM_ID} method="GET" />; // esto es el botón
+  return <form id={FORM_ID} method="GET" />;
 }

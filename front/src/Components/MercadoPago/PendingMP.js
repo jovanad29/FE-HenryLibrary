@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import {
-  // clearPayment,
   asyncGetMP,
 } from "../../actions/checkoutActions";
 
-import Loading from "../Loading/Loading";
-// import s from "./MercadoPago.module.sass";
+
 import s from "./PendingMP.module.css"
 import {
 	Table,
@@ -39,43 +37,33 @@ function PendingMP() {
 		} = useSelector((state) => state);
 	console.log("La orden es esta: ", order)
 	const history = useHistory();
-  // const [front, setOrder] = useState({
-  //   ID: order.order,
-  //   items: order.items,
-  //   status: order.status,
-  //   status_detail: order.status_detail,
-  //   total: order.total,
-  // });
+ 
   useEffect(() => {
 	console.log("Entro en el useEffect que dispara la petición de la compra hecha")
     if (mpID && activeCartPaymentId) {
       	dispatch(asyncGetMP(mpID,activeCartPaymentId));     
     }
 	return () => {
-		dispatch(getCartDB(uid)) // para limpiar el carrito después de comprar
+		dispatch(getCartDB(uid)) 
 	}
-  }, [mpID, activeCartPaymentId]);
-
-//   const [loading, setLoading] = useState(true);
+  }, [mpID, activeCartPaymentId, dispatch , uid ]);
 
   useEffect(() => {
-	console.log("Entro en el useEffect que dispara la la creación de la \"compra\"")
-	console.log("hay items? ", items)
+	
     if (order.items.length && uid) {
        axios.post(`/mercadopago/create`, { ...order, userID: uid })
        .then( r => console.log("se guardó en DB", r))
        .catch( e => console.log("no se guardó en DB", e))
     }   
-  }, [order, uid]);
+  }, [order, uid, items]);
 
-  // useEffect(() => {}, [front]);
+  
   function goBack(e) {
     e.preventDefault();
     history.push("/home");    
   }
   return (
 		<div className={s.container}>
-			{/* {loading && <Loading />} */}
 			<div className={s.cont}>
 				<div className={s.contGreen}>
 					<div className={s.check}><BsExclamationCircle fontSize="6rem"/></div>

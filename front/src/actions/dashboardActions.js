@@ -9,7 +9,7 @@ export const GET_ALL_ORDERS_STATUS = "GET_ALL_ORDERS_STATUS";
 export const GET_ORDER_DETAIL = "GET_ORDER_DETAIL";
 export const UPDATE_ORDER_STATE = "UPDATE_ORDER_STATE";
 export const FILTER_ORDER = "FILTER_ORDER";
-export const USERS_MOST_BUIES="USERS_MOST_BUIES"
+export const USERS_MOST_BUIES = "USERS_MOST_BUIES";
 
 //Trae la información de todos los usuarios
 export function getAllUsers() {
@@ -25,7 +25,7 @@ export function getAllUsers() {
       .catch((error) => {
         console.log("getAllUsers", error);
       });
-         };
+  };
 }
 
 //Convierte un usuario en admin
@@ -66,7 +66,7 @@ export function deleteUser(uid) {
 export function getAllOrders() {
   return (dispatch) => {
     axios
-      .get(`/mercadopago`)                        // .get(`/payments`)
+      .get(`/mercadopago`) // .get(`/payments`)
       .then((response) => {
         dispatch({
           type: GET_ALL_ORDERS,
@@ -128,7 +128,7 @@ export function updateOrderStatus(orderID, statusID) {
       });
   };
 }
-
+//get users buy most  in price
 export function getAllReviewByUser(uid) {
   return (dispatch) => {
     axios
@@ -145,7 +145,6 @@ export function getAllReviewByUser(uid) {
       });
   };
 }
-
 
 export function getUsersMostBuy() {
   return (dispatch) => {

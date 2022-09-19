@@ -17,12 +17,10 @@ function RejectedMP() {
     return () => {
       dispatch(clearPayment());
     };
-   
-  }, []);
+  }, [dispatch, history, mpID]);
   function goBack(e) {
     e.preventDefault();
-      history.push("/home");
-    
+    history.push("/home");
   }
   return (
     <div className={s.container}>
