@@ -35,7 +35,10 @@ export default function SuccessMP() {
     if (mpID && activeCartPaymentId) {
       dispatch(asyncGetMP(mpID, activeCartPaymentId));
     }
-  }, [mpID, activeCartPaymentId, dispatch]);
+
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+  
+  }, [mpID, activeCartPaymentId]);
 
   useEffect(() => {
     if (order.items.length && uid) {
@@ -46,19 +49,18 @@ export default function SuccessMP() {
         })
         .catch((e) => console.log("no se guardó en DB", e));
     }
-  }, [order, uid]); // front.ID
+  }, [order, uid]); 
 
   function goBack(e) {
     e.preventDefault();
     dispatch(getCartDB(uid));
     history.push("/home");
-    // }
   }
   return (
     <>
       {order.items.length > 0 ? (
         <div className={s.container}>
-          {/* {loading && <Loading />} */}
+         
           <div className={s.cont}>
             <div className={s.contGreen}>
               <div className={s.check}>
@@ -75,7 +77,6 @@ export default function SuccessMP() {
               <span className={s.itemsTotales}>
                 Total items: {activeCartQuantity}
               </span>{" "}
-              {/* y si tengo más de 1 mismo item ? */}
               <TableContainer className={s.tabla}>
                 <Table
                   key={Math.random()}
@@ -118,9 +119,6 @@ export default function SuccessMP() {
                 Total Libros:{" "}
                 <span className={s.price}> ${activeCartAmount}</span>
               </span>
-              {/* <span>
-              Gastos de envio: <span className={s.price}> ${1000}</span>
-            </span> */}
               <span>
                 Total:{" "}
                 <span className={s.price}>
