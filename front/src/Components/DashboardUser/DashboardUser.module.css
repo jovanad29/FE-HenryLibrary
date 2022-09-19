@@ -89,8 +89,7 @@ body {
         height: auto;
         margin-top: 3rem;
         margin-bottom: 3rem;
-        margin-left: 1rem;
-
+        margin-left: -1rem;
     }
 
     .titulos {
@@ -108,7 +107,7 @@ body {
 
     .boton{
         width: 30rem;
-        margin-left: 3rem;
+        margin-left: 5rem;
     }
     
 
