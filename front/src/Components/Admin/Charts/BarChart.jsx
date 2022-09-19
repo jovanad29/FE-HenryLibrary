@@ -3,8 +3,11 @@ import { Bar } from "react-chartjs-2";
 import { UserData } from "./data";
 import Chart from "chart.js/auto";
 import { Box } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function BarChart() {
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
@@ -16,7 +19,9 @@ function BarChart() {
     ],
   });
 
-  console.log(UserData[UserData.length - 1].id);
+  useEffect(() => {
+    // dispatch(paymentsStatistics());
+  }, [dispatch]);
 
   return (
     <Box ml="18%" w="30%">
