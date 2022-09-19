@@ -128,7 +128,7 @@ export function updateOrderStatus(orderID, statusID) {
       });
   };
 }
-//get users buy most  in price
+
 export function getAllReviewByUser(uid) {
   return (dispatch) => {
     axios
@@ -145,7 +145,7 @@ export function getAllReviewByUser(uid) {
       });
   };
 }
-
+//get users buy most  in price
 export function getUsersMostBuy() {
   return (dispatch) => {
     axios
