@@ -5,6 +5,7 @@ import Chart from "chart.js/auto";
 import { Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { paymentsStatistics } from "../../../actions";
 
 function BarChart() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function BarChart() {
   });
 
   useEffect(() => {
-    // dispatch(paymentsStatistics());
+    dispatch(paymentsStatistics());
   }, [dispatch]);
 
   return (
