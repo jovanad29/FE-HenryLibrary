@@ -67,7 +67,7 @@ export default function PurchaseOrders() {
     totalAmount = (b.totalAmount);
     state = (b.payment_status.description);
     purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.payment_method
-    date = b.books[0].payment_book.createdAt;
+    date = b.books[0]?.payment_book.createdAt;
 
         //darle formato de fecha y hora a date
         date = new Date(date).toLocaleString("es-ES");

@@ -57,6 +57,7 @@ import {
   GET_ALL_ORDERS,
   GET_ALL_ORDERS_STATUS,
   UPDATE_ORDER_STATE,
+  USERS_MOST_BUIES,
 } from "../actions/dashboardActions";
 
 const initialState = {
@@ -106,6 +107,8 @@ const initialState = {
   reviewsUser: [],
   reviewsBook: 0,
   directionsUser: [],
+  //dashboard image statistic
+  usersMostBuies:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -542,7 +545,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         paymentsStatistics: action.payload,
       };
-
+      case USERS_MOST_BUIES:
+        return {
+          ...state,
+          usersMostBuies: action.payload,
+        };
+  
     default:
       return state;
   }

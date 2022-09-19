@@ -39,7 +39,13 @@ body {
     color: var(--text);
 }
 
+.input{
+    color: var(--text) !important
+}
 
+.input2{
+    color: var(--text) !important
+}
 
 .errores{
     margin-left: 5rem;

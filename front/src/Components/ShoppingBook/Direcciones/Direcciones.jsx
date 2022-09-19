@@ -13,38 +13,37 @@ import {
     Button
 } from "@chakra-ui/react";
 import { getUserInfo } from "../../../actions/index";
-import { clearDeliveryAddress, setDeliveryAddress, setAddressUser, setItems } from '../../../actions/checkoutActions';
+import { setDeliveryAddress, setAddressUser, setItems } from '../../../actions/checkoutActions';
 
 export default function Direcciones() {
-  let [errors, setErrors] = useState({});
+    let [errors, setErrors] = useState({});
 
     const dispatch = useDispatch();
     const { address, uid } = useSelector((state) => state);
-    const [checkbottom, setCheckbottom] = useState("1"); //Estado para el manejo de checkbox
-
+    const [checkbottom, setCheckbottom] = useState("1");
     const [input, setInput] = useState({
         addressUser: address ? address : "",
         otherAddress: "",
-    }); //Estado para el manejo de direccioes);
+    });
 
-  useEffect(() => {
-        if (uid){
-        dispatch(getUserInfo(uid));
+    useEffect(() => {
+        if (uid) {
+            dispatch(getUserInfo(uid));
+            setInput({
+                ...input,
+                addressUser: address
+            })
+        }
+
+    }, [dispatch, uid, address, input]);
+
+
+
+    let handleInputChange = e => {
         setInput({
-        ...input,
-        addressUser:address
+            ...input,
+            [e.target.name]: e.target.value
         })
-    }
-
-  }, [dispatch, uid]);
-
-
-
-  let handleInputChange = e => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
-    })
 
         setErrors(
             validate({
@@ -86,71 +85,71 @@ export default function Direcciones() {
         return errors;
     };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-   
-    if (
-        (!input.addressUser && checkbottom === "1") ||
-        (!input.otherAddress && checkbottom === "2")
-    )
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        if (
+            (!input.addressUser && checkbottom === "1") ||
+            (!input.otherAddress && checkbottom === "2")
+        )
+            return Swal.fire({
+                title: "Para confirmar Envío debe ingresar una dirección o Retirar en Sucursal",
+                icon: "info",
+                confirmButtonColor: "#01A86C",
+                confirmButtonText: "Aceptar",
+            })
+
+
+        if (checkbottom === "1") {
+
+            dispatch(setAddressUser(uid, input.addressUser));
+            dispatch(getUserInfo(uid)) 
+            dispatch(setDeliveryAddress(input.addressUser)) 
+
+            console.log(' direccion', input.addressUser);
+        }
+
+        if (checkbottom === "2") {
+            dispatch(setDeliveryAddress(input.otherAddress)) 
+            console.log('otra direccion', input.otherAddress);
+        }
+
+        if (checkbottom === "1" || checkbottom === "2") {
+            const items = {
+                id: 0,
+                unit_price: 1000,
+                picture_url: 'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
+                quantity: 1,
+                title: "Gasto de envío",
+                description: checkbottom === "1" ? input.addressUser : input.otherAddress
+            }
+            dispatch(setItems([items]))
+
+        }
+        if (checkbottom === "3") {
+            const pickUpInStore = 'Retira en sucursal'
+            dispatch(setDeliveryAddress(pickUpInStore))
+            //clearDeliveryAddress();
+            //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
+            const items = {
+                id: 0,
+                unit_price: 0,
+                picture_url: 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
+                quantity: 1,
+                title: "Retira en Sucursal",
+                description: "Retira en Sucursal"
+            }
+            dispatch(setItems([items]))
+        }
         return Swal.fire({
-            title: "Para confirmar Envío debe ingresar una dirección o Retirar en Sucursal",
+            title: "Se confirmo la dirección de envío puede comprar",
             icon: "info",
             confirmButtonColor: "#01A86C",
-             confirmButtonText: "Aceptar",
+            confirmButtonText: "Aceptar",
         })
 
 
-    if (checkbottom === "1") {
-      
-     dispatch(setAddressUser(uid,input.addressUser));//envío dirección nueva a User ¿como hago para ver si no se cambio ?
-     dispatch(getUserInfo(uid)) // para que me muestre la nueva direccion en store 
-      dispatch(setDeliveryAddress(input.addressUser)) // seteo la dirección de envio en Store 
-     
-      console.log(' direccion', input.addressUser);
     }
-
-    if (checkbottom === "2") {
-      dispatch(setDeliveryAddress(input.otherAddress)) // otra no la dir del user
-      console.log('otra direccion', input.otherAddress);
-    }
-
-    if ( checkbottom === "1" || checkbottom==="2"  ){
-      const items= {
-          id: 0,
-          unit_price: 1000,
-          picture_url:'https://media.istockphoto.com/vectors/free-shipping-and-delivery-icon-symbol-vector-id1290078102',
-          quantity:1,
-          title: "Gasto de envío",
-          description: checkbottom === "1" ? input.addressUser : input.otherAddress
-      }
-     dispatch( setItems([items]))
-      
-    }
-    if (checkbottom === "3") {
-        const pickUpInStore = 'Retira en sucursal'
-        dispatch(setDeliveryAddress(pickUpInStore)) 
-      //clearDeliveryAddress();
-      //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
-      const items = {
-        id: 0,
-        unit_price: 0,
-        picture_url:'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/shakespeare-and-co-old-antique-book-shop-paris-france-ubachde-la-riva.jpg',
-        quantity: 1,
-        title: "Retira en Sucursal",
-        description: "Retira en Sucursal"
-      }
-      dispatch(setItems([items]))
-    }
-    return Swal.fire({
-        title: "Se confirmo la dirección de envío puede comprar",
-        icon: "info",
-        confirmButtonColor: "#01A86C",
-         confirmButtonText: "Aceptar",
-    })
-
-  
-  }
 
     return (
         <div className={styles.containerDirecciones}>
@@ -163,7 +162,7 @@ export default function Direcciones() {
                 <FormControl
                     isRequired
                     className={styles.formulario}
-                  
+
                 >
                     <RadioGroup onChange={setCheckbottom} value={checkbottom}>
                         <div className={styles.form}>
@@ -200,10 +199,11 @@ export default function Direcciones() {
                                 name="otherAddress"
                                 value={input.otherAddress}
                                 disabled={
-                                    checkbottom !== "2" 
+                                    checkbottom !== "2"
                                 }
                                 onChange={(e) => handleInputChange(e)}
                                 focusBorderColor="#01A86C"
+                                className={styles.input2}
                             />
                             {checkbottom === "2" && errors.name && (
                                 <p className={styles.errores}>{errors.name}</p>
@@ -232,19 +232,19 @@ export default function Direcciones() {
                             Confirmar
                         </button> */}
                         <Button
-                      w="40%"
-                      backgroundColor="#01A86C"
-                      variant="solid"
-                      onClick={handleSubmit}
-                      className={styles.confirmar}
-                      disabled={
-                        JSON.stringify(errors) === "{}"
-                          ? false
-                          : true
-                      }
-                    >
-                      Confirmar
-                    </Button>
+                            w="40%"
+                            backgroundColor="#01A86C"
+                            variant="solid"
+                            onClick={handleSubmit}
+                            className={styles.confirmar}
+                            disabled={
+                                JSON.stringify(errors) === "{}"
+                                    ? false
+                                    : true
+                            }
+                        >
+                            Confirmar
+                        </Button>
                     </div>
                 </FormControl>
             </Flex>
