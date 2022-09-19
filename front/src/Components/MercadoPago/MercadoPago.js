@@ -30,7 +30,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
   }, []);
 
   useEffect(() => {
-    // console.log('estoy en mercado pago ' , preferenceId)
+   
     if (preferenceId) {
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -47,6 +47,8 @@ export default function MercadoPago({ items, setLoading, userID }) {
         setLoading(false);
       }, 2000);
     }
+ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferenceId]);
+  
   return <form id={FORM_ID} method="GET" />;
 }
