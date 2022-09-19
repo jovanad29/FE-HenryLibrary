@@ -1,22 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllUsers, getAllOrders } from "../../actions/dashboardActions";
 import { Box } from "@chakra-ui/react";
 
 import Menu from "./Components/Menu";
 import Title from "./Components/Title";
 import NavBar from "./Components/NavBar";
-import BarChart from "./Charts/BarChart";
-import { getPaymentsStatistics } from "../../actions";
+import BarChartPayments from "./Charts/BarChartPayments";
 
 function Dashboard() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPaymentsStatistics());
-  }, [dispatch]);
-  const { paymentsStatistics } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -28,7 +22,7 @@ function Dashboard() {
       <Menu />
       <NavBar />
       <Title />
-      <BarChart paymentsStatistics={paymentsStatistics} />
+      <BarChartPayments />
     </Box>
   );
 }
