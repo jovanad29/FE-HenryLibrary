@@ -46,7 +46,7 @@ function ReviewUser() {
             {
               reviewsUser?.map((r) => {
                 return (
-                  <Tr key={r.id}>
+                  <Tr key={r.id} className={styles.item}>
                     <Td>{r.books?.map((b) => b.title)}</Td>
                     <Td>{r.descrption}</Td>
                     {/* <Td>{r.rating}</Td> */}

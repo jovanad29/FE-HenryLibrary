@@ -90,7 +90,7 @@ function DataUser(id) {
           </div>
           <p className={styles.label2}>Email: {email}</p>
           <p className={styles.label}>
-            Direccion: 
+            Direccion: {" "}
             <input
               value={direction}
               name="direccion"
@@ -125,7 +125,7 @@ function DataUser(id) {
                 onClick={handleOnSubmit}
                 className={styles.buttons}
               >
-                Cancelar
+                Confirmar
               </Button>
 
               <Button

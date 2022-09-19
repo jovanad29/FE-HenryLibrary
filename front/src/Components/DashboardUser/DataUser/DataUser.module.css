@@ -20,6 +20,7 @@
 .input{
     background-color: var(--bg);
     color: var(--text);
+    border-bottom: 2px solid #01A86C;
 }
 
 .containerButtons{
