@@ -2,14 +2,14 @@ import React from "react";
 import { Box, Image, Grid, Text, VStack } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
-import styles from "./SearchBar.module.css";
+// import styles from "./SearchBar.module.css";
 
 const SearchResults = ({ searchResults, clearTitle }) => {
   const handleClick = (e) => clearTitle();
   return (
     <Grid gridRowGap="1rem" onClick={handleClick}>
       {searchResults.map(({ title, description, image, id }) => (
-        <NavLink to={`/catalog/detail/${Number(id)}`}>
+        <NavLink to={`/catalog/detail/${Number(id)}`} key={id}>
           <Box
             key={id}
             _hover={{
@@ -29,6 +29,7 @@ const SearchResults = ({ searchResults, clearTitle }) => {
             >
               <Box>
                 <Image
+                  key={id}
                   src={image}
                   sx={{
                     width: "100%",
@@ -39,7 +40,7 @@ const SearchResults = ({ searchResults, clearTitle }) => {
               </Box>
 
               <VStack align="start" height="70%">
-                <Text noOfLines={1} height="70%" fontWeight="bold">
+                <Text noOfLines={1} height="70%" fontWeight="bold" key={id}>
                   {title}
                 </Text>
                 <Text noOfLines={1}>{description}</Text>
