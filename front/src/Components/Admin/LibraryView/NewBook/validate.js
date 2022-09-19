@@ -30,7 +30,7 @@ export default function validate(input) {
   if (!input.image) {
     errores.image = " La imagen se requiere  ";
   } else if (
-    !/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/.test(
+    !/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)(\.png|.jpg|.jpeg|.gif)/.test(
       input.image
     )
   ) {
@@ -41,7 +41,7 @@ export default function validate(input) {
     errores.pageCount = " Se requiere el numero de pagina";
   } else if (input.pageCount < 1) {
     errores.pageCount = " El numero de paginas debe ser mayor a 0";
-  } 
+  }
 
   if (!input.language) {
     errores.language = " Se requiere un idioma";
@@ -55,4 +55,3 @@ export default function validate(input) {
 
   return errores;
 }
-
