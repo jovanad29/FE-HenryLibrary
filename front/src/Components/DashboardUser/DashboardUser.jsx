@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React  from "react";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
