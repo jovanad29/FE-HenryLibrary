@@ -46,7 +46,8 @@ function PendingMP() {
 	return () => {
 		dispatch(getCartDB(uid)) 
 	}
-  }, [mpID, activeCartPaymentId, dispatch , uid ]);
+	 //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mpID, activeCartPaymentId ]);
 
   useEffect(() => {
 	
