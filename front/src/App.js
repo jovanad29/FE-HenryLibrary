@@ -32,72 +32,105 @@ import NewBook from "./Components/Admin/LibraryView/NewBook/NewBook";
 import CategoryForm from "./Components/Admin/CategoriesView/CategoryForm";
 
 function App() {
-  const status = useCheckAuth();
+    const status = useCheckAuth();
 
-  if (status === "checking") {
-    //     return <div>Autenticando</div>;
-  }
+    if (status === "not-authenticated") {
+        //     return <div>Autenticando</div>;
+    } else if (status === "not-authenticated") {
+    }
 
-  return (
-    <>
-      {/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
+    return (
+        <>
+            {/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
 
-      <Switch>
-        {/*Ruta Landing Page */}
-        <Route exact path="/" component={LandingPage} />
+            <Switch>
+                {/*Ruta Landing Page */}
+                <Route exact path="/" component={LandingPage} />
 
-        {/*Ruta Catalogo de Libros */}
-        <Route path="/home" component={Home} />
+                {/*Ruta Catalogo de Libros */}
+                <Route path="/home" component={Home} />
 
-        {/*Ruta Favoritos de Libros */}
-        {/* <Route path="/favoritos" component={Favorites} /> */}
+                {/*Ruta Favoritos de Libros */}
+                {/* <Route path="/favoritos" component={Favorites} /> */}
 
-        {/*Ruta Catalogo de Libros */}
-        <Route path={"/carrito"} component={ShoppingBook} />
+                {/*Ruta Catalogo de Libros */}
+                <Route path={"/carrito"} component={ShoppingBook} />
 
-        {/*Ruta Creacion de Nuevo Libro */}
-        <Route path={"/nuevoLibro"} component={NewBookChakra} />
+                {/*Ruta Creacion de Nuevo Libro */}
+                <Route path={"/nuevoLibro"} component={NewBookChakra} />
 
-        {/*Ruta Catalogo de Libros */}
-        {/* <Route path={"/favoritos"} component={} /> */}
+                {/*Ruta Catalogo de Libros */}
+                {/* <Route path={"/favoritos"} component={} /> */}
 
-        {/*Ruta Detalles de Libro */}
-        <Route path="/catalog/detail/:id" component={BookDetail} />
+                {/*Ruta Detalles de Libro */}
+                <Route path="/catalog/detail/:id" component={BookDetail} />
 
-        {/*Ruta Inicio de Sesion */}
-        {/* <Route path={"/login"} component={} /> */}
-        <Route path="/catalog/author/:id" component={CardsAuthor} />
-        {/*Ruta Panel de usuario */}
-        <Route path={"/dashboard/user"} component={DashboardUser} />
+                {/*Ruta Inicio de Sesion */}
+                {/* <Route path={"/login"} component={} /> */}
+                <Route path="/catalog/author/:id" component={CardsAuthor} />
+                {/*Ruta Panel de usuario */}
+                <Route path={"/dashboard/user"} component={DashboardUser} />
 
-        <Route path="/catalog/author/:id" component={CardsAuthor} />
+                <Route path="/catalog/author/:id" component={CardsAuthor} />
 
-        {/*Ruta administrador*/}
-        <Route exact path={"/user/admin"} component={Dashboard} />
-        <Route exact path={"/user/admin/catalogue"} component={LibraryView} />
-        <Route exact path={"/user/admin/catalogue/new"} component={NewBook} />
-        <Route path={"/user/admin/catalogue/:id"} component={EditBook} />
-        <Route exact path={"/user/admin/users"} component={UserView} />
-        <Route exact path={"/user/admin/payments"} component={PaymentsView} />
-        <Route exact path={"/user/admin/categories/"} component={CategoryForm} />
-        <Route path={"/user/admin/payments/:id"} component={DetailPayment} />
+                {/*Ruta administrador*/}
+                <Route exact path={"/user/admin"} component={Dashboard} />
+                <Route
+                    exact
+                    path={"/user/admin/catalogue"}
+                    component={LibraryView}
+                />
+                <Route
+                    exact
+                    path={"/user/admin/catalogue/new"}
+                    component={NewBook}
+                />
+                <Route
+                    path={"/user/admin/catalogue/:id"}
+                    component={EditBook}
+                />
+                <Route exact path={"/user/admin/users"} component={UserView} />
+                <Route
+                    exact
+                    path={"/user/admin/payments"}
+                    component={PaymentsView}
+                />
+                <Route
+                    exact
+                    path={"/user/admin/categories/"}
+                    component={CategoryForm}
+                />
+                <Route
+                    path={"/user/admin/payments/:id"}
+                    component={DetailPayment}
+                />
 
-        {/*Rutas Extras*/}
-        <Route path="/aboutUs" component={AboutUs} />
-        <Route path="/politicaPrivacidad" component={PoliticaPrivacidad} />
-        <Route exact path={"/checkout/validate"} component={Validate} />
-        <Route exact path={"/checkout/pending"} component={Pending} />
-        <Route exact path={"/checkout/rejected"} component={Rejected} />
-        <Route exact path={"/checkout/success"} component={Success} />
-        <Route exact path={"/checkout"} component={Checkout} />
-        <Route path="/politicaDevolucion" component={PoliticaDevolucion} />
+                {/*Rutas Extras*/}
+                <Route path="/aboutUs" component={AboutUs} />
+                <Route
+                    path="/politicaPrivacidad"
+                    component={PoliticaPrivacidad}
+                />
+                <Route exact path={"/checkout/validate"} component={Validate} />
+                <Route exact path={"/checkout/pending"} component={Pending} />
+                <Route exact path={"/checkout/rejected"} component={Rejected} />
+                <Route exact path={"/checkout/success"} component={Success} />
+                <Route exact path={"/checkout"} component={Checkout} />
+                <Route
+                    path="/politicaDevolucion"
+                    component={PoliticaDevolucion}
+                />
 
-        {/*Rutas Error*/}
-        <Route exact path={"/purchaseOrders"} component={PurchaseOrders} />
-        <Route path="*" component={PageError} />
-      </Switch>
-    </>
-  );
+                {/*Rutas Error*/}
+                <Route
+                    exact
+                    path={"/purchaseOrders"}
+                    component={PurchaseOrders}
+                />
+                <Route path="*" component={PageError} />
+            </Switch>
+        </>
+    );
 }
 
 export default App;

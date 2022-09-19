@@ -41,17 +41,18 @@ body {
         width: 93%;
         margin-left: 2rem;
         gap: 8rem;
+        
     }
-
+    
     .h3 {
         font-size: 14px;
     }
-
+    
 }
 
 
 @media (max-width: 710px) {
-
+    
     .container {
         margin-left: 1.5rem;
         margin-left: 2rem;
@@ -89,10 +90,9 @@ body {
     }
 
     .menuLista{
-        z-index: 0 !important;
         background-color: var(--bg) !important;
         color: #01A86C !important;
-        border: 2px solid var(--bg) !important
+        border: 2px solid var(--bg) !important;
     }
 
     
