@@ -27,7 +27,7 @@ import {
 } from "@chakra-ui/react";
 
 import { FiMail } from "react-icons/fi";
-import { MdNoEncryptionGmailerrorred } from "react-icons/md";
+// import { MdNoEncryptionGmailerrorred } from "react-icons/md";
 import { AiFillSetting } from "react-icons/ai";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
@@ -234,9 +234,10 @@ function Login({ HandleOpenLogin }) {
               {createUser ? (
                 <Button
                   disabled={isAuthenticating}
-                  colorScheme="green"
+                  backgroundColor="#01A86C"
                   width="200px"
                   height="2rem"
+                  color="white"
                   onClick={handleCreateUser}
                 >
                   CREAR
@@ -245,9 +246,10 @@ function Login({ HandleOpenLogin }) {
                 <Button
                   disabled={isAuthenticating}
                   leftIcon={<FcGoogle />}
-                  colorScheme="green"
+                  backgroundColor="#01A86C"
                   width="200px"
                   height="2rem"
+                  color="white"
                   onClick={onGoogleSignIn}
                 >
                   Google
@@ -257,9 +259,10 @@ function Login({ HandleOpenLogin }) {
               {!createUser && (
                 <Button
                   disabled={isAuthenticating}
-                  colorScheme="green"
+                  backgroundColor="#01A86C"
                   width="200px"
                   height="2rem"
+                  color="white"
                   onClick={handleLoginUserPass}
                 >
                   Ingresar
@@ -288,10 +291,12 @@ function Login({ HandleOpenLogin }) {
             {!isAdmin ? (
               <Button
                 leftIcon={<AiFillSetting />}
-                bg="#01A86C"
+                w="60%"
+                h='2.3rem'
+                backgroundColor="#01A86C"
                 variant="solid"
                 marginBottom="1rem"
-                color="white"
+                color="black"
                 onClick={goToDashboardUser}
               >
                 Mi cuenta
@@ -299,10 +304,12 @@ function Login({ HandleOpenLogin }) {
             ) : (
               <Button
                 leftIcon={<AiFillSetting />}
-                bg="#01A86C"
+                w="60%"
+                h='2.3rem'
+                backgroundColor="#01A86C"
                 variant="solid"
                 marginBottom="1rem"
-                color="white"
+                color="black"
                 onClick={goToDashboardAdmin}
               >
                 Dashboard
@@ -310,7 +317,10 @@ function Login({ HandleOpenLogin }) {
             )}
 
             <Button
-              colorScheme="pink"
+              w="60%"
+              h='2rem'
+              backgroundColor="#E43E3E"
+              color="white"
               width="200px"
               height="2rem"
               onClick={handleCloseSesion}

@@ -44,13 +44,13 @@ import {
     Grid,
     Flex,
     Divider,
-    TagCloseButton,
-    Box,
-    TagRightIcon,
+    // TagCloseButton,
+    // Box,
+    // TagRightIcon,
 } from "@chakra-ui/react";
 
 import { FaFilter } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
+// import { MdClose } from "react-icons/md";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -68,7 +68,7 @@ export default function Home() {
     //Labels con los filtros seleccionados
     const [author, setAuthor] = useState({});
     const [category, setCategory] = useState({});
-    const [clear, setClear] = useState(false);
+    // const [clear, setClear] = useState(false);
 
     //=================================================
     //Limpiar componentes hijos
@@ -110,6 +110,7 @@ export default function Home() {
         //   dispatch(getAllBooks());
         // }
 //         dispatch( getAllOrders())
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, category, author, favorites]);
 
     useEffect(() => {
@@ -123,10 +124,12 @@ export default function Home() {
         } else if (section === "search") {
           console.log("El estado es 'search'")
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, section]);
 
     useEffect(() => {
         dispatch(getCategories());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // useEffect(() => {

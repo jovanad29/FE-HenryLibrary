@@ -589,6 +589,7 @@ export default function NewBookChakra() {
         isClosable: true,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successMsg, errMsg, toast]);
 
   return (

@@ -198,6 +198,7 @@ export default function Direcciones() {
                                 }
                                 onChange={(e) => handleInputChange(e)}
                                 focusBorderColor="#01A86C"
+                                className={styles.input2}
                             />
                             {checkbottom === "2" && errors.name && (
                                 <p className={styles.errores}>{errors.name}</p>
