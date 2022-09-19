@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     getBooksId,
     deleteBookDetail,
-    deleteLogicBook,
+    // deleteLogicBook,
     addCartItem,
     discountCurrentStock,
     setBookDetailCurrentStock,
@@ -14,7 +14,7 @@ import { Link, useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import NavBar2 from "../NavBar2/NavBar2";
 import Footer from "../Footer/Footer";
-import EditBook from "../EditBook/EditBook";
+// import EditBook from "../EditBook/EditBook";
 import Recomendados from "../Recomendados/Recomendados";
 import Reviews from "../Reviews/Reviews";
 
@@ -25,8 +25,8 @@ import { Button, Stack, Flex } from "@chakra-ui/react";
 
 //pago
 import Swal from "sweetalert2";
-import { useHistory } from "react-router-dom";
-import { setItems } from "../../actions/checkoutActions";
+// import { useHistory } from "react-router-dom";
+// import { setItems } from "../../actions/checkoutActions";
 
 export default function BookDetail() {
     const dispatch = useDispatch();
@@ -34,9 +34,9 @@ export default function BookDetail() {
     const { bookDetail, status, uid, activeCart } = useSelector(
         (state) => state
     );
-    const history = useHistory();
+    // const history = useHistory();
 
-    const [isActive, setIsActive] = useState(true);
+    // const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -48,10 +48,10 @@ export default function BookDetail() {
         };
     }, [dispatch, id]);
 
-    useEffect(() => {
-        setIsActive(bookDetail.isActive);
+    // useEffect(() => {
+    //     setIsActive(bookDetail.isActive);
 
-    }, [bookDetail.isActive]);
+    // }, [bookDetail.isActive]);
 
     //FUNCIONALIDADES PARA CARRITO
     //  const [guestCartBooks, setGuestCartBooks] = useState([]);//arreglo de libros guardados en local storage
@@ -127,6 +127,7 @@ export default function BookDetail() {
                 }
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bookDetail.id]);
 
     //traer el localstorage cuando carga el componente
