@@ -34,10 +34,7 @@ export default function Direcciones() {
                 addressUser: address
             })
         }
-
-    }, [dispatch, uid, address, input]);
-
-
+    }, [dispatch, uid, address]);
 
     let handleInputChange = e => {
         setInput({
@@ -103,14 +100,14 @@ export default function Direcciones() {
         if (checkbottom === "1") {
 
             dispatch(setAddressUser(uid, input.addressUser));
-            dispatch(getUserInfo(uid)) 
-            dispatch(setDeliveryAddress(input.addressUser)) 
+            dispatch(getUserInfo(uid))
+            dispatch(setDeliveryAddress(input.addressUser))
 
             console.log(' direccion', input.addressUser);
         }
 
         if (checkbottom === "2") {
-            dispatch(setDeliveryAddress(input.otherAddress)) 
+            dispatch(setDeliveryAddress(input.otherAddress))
             console.log('otra direccion', input.otherAddress);
         }
 
@@ -129,8 +126,6 @@ export default function Direcciones() {
         if (checkbottom === "3") {
             const pickUpInStore = 'Retira en sucursal'
             dispatch(setDeliveryAddress(pickUpInStore))
-            //clearDeliveryAddress();
-            //agregar item costo en cero, quantity en cero  , descripción "Retira en Sucursal"
             const items = {
                 id: 0,
                 unit_price: 0,
@@ -147,10 +142,7 @@ export default function Direcciones() {
             confirmButtonColor: "#01A86C",
             confirmButtonText: "Aceptar",
         })
-
-
     }
-
     return (
         <div className={styles.containerDirecciones}>
             {" "}
@@ -224,13 +216,6 @@ export default function Direcciones() {
                     </RadioGroup>
 
                     <div className={styles.button}>
-                        {/* <button
-                            disabled={Object.keys(errors).length > 0}
-                            onClick={handleSubmit}
-                            className={styles.confirmar}
-                        >
-                            Confirmar
-                        </button> */}
                         <Button
                             w="40%"
                             backgroundColor="#01A86C"

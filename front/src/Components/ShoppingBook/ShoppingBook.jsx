@@ -250,7 +250,7 @@ function ShoppingBook() {
                       onClick={(e) => handleBuyingBooks(e)}
                       className={styles.comprar}
                     >
-                      Agregar al carrito
+                      Comprar
                     </Button>
                   </div>
                 </div>
