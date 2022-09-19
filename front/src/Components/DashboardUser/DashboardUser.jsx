@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React  from "react";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
@@ -22,7 +22,7 @@ import { useDispatch } from "react-redux";
 import { startResetPasswordEmail } from "../../actions/index.js";
 
 function DashboardUser() {
-    const { status, displayName, email, reviews, uid } = useSelector(
+    const { email, uid } = useSelector(
         (state) => state
     );
 
