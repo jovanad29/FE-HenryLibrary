@@ -36,15 +36,17 @@
 
 .ordenDeCompra{
     margin-bottom: 3rem;
+    gap: 40px;
 }
 
 .itemsCont {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
     justify-content: center;
     align-items: center;
     width: 80%;
+    /* height: auto; */
 }
 
 
@@ -69,8 +71,8 @@
 }
 
 .imageCont {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     overflow: hidden;
     border-radius: 10px;
     display: flex;

@@ -47,7 +47,7 @@ body {
 }
 
 .titulo {
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-weight: bolder;
     font-size: 20px;
     margin-bottom: 2rem;
@@ -55,7 +55,7 @@ body {
 
 
 .infoItem {
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-size: 18px;
     margin-bottom: 1rem;
 }
@@ -68,20 +68,12 @@ body {
 
 
 .precio {
-    font-family: Quicksand;
+    /* font-family: Quicksand; */
     font-weight: bolder;
     font-size: 20px;
     margin-bottom: 1rem;
 }
 
-.botonDisabled {
-    background-color: #7d7d7d;
-}
-
-.botonDisabled:hover {
-    background-color: #7d7d7d;
-    cursor: not-allowed;
-}
 
 .boton {
     margin-top: 2rem;
@@ -94,6 +86,85 @@ body {
     padding-right: 29px;
 }
 
-.boton:hover {
-    background-color: #11875c;
+
+
+
+
+/* RESPONSIVE */
+
+@media (max-width: 844px) {
+
+    .CardsAuthor {
+        width: 90%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        margin-left: 1rem;
+        margin-top: 5rem;
+        box-shadow: 0px 0px 10px #D7D7CF;
+        border-radius: 8px 8px 0px 0px;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+
+    .image {
+        width: 35%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .img {
+        width: 15rem;
+        height: 13rem;
+        border-radius: 8px 8px 0px 0px;
+        object-fit: cover;
+    }
+    
+    .info {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        height: 100%;
+    }
+    
+    .titulo {
+        font-weight: bolder;
+        font-size: 15px;
+        margin-top: 0.5rem;
+    }
+
+    .infoItem {
+        font-size: 15px;
+        margin-bottom: 1rem;
+    }
+    
+    
+    .pago {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    
+    .precio {
+        font-weight: bolder;
+        font-size: 19px;
+        margin-bottom: 0.5rem;
+    }
+
+    .boton {
+        margin-top: 0.5rem;
+        width: 170px !important;
+        height: 50px !important;
+        background-color: #01A86C;
+        font-weight: 600;
+        font-size: 15px;
+        border-radius: 8px;
+        padding-left: 29px;
+        margin-left: 0.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
 }
