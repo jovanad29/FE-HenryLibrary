@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 import OrdersMenu from "./OrdersMenu";
 import CatalogueMenu from "./CatologueMenu";
+import CategoriesMenu from "./CategoriesMenu";
 import DashboardMenu from "./DashboardMenu";
 
 function Menu() {
@@ -29,6 +30,8 @@ function Menu() {
       <DashboardMenu />
 
       <CatalogueMenu />
+
+      <CategoriesMenu />
 
       <UserMenu />
 
