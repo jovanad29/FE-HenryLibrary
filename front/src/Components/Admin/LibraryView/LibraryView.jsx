@@ -134,7 +134,7 @@ function LibraryView() {
       <Title />
 
       <Box className={style.content}>
-        <Box mb="5%" fontFamily="Quicksand">
+        <Box mb="3%" fontFamily="Quicksand">
           <NavLink to={`/user/admin/catalogue/new`}>
             <Button
               backgroundColor="#01A86C"
