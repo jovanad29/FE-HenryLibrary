@@ -11,10 +11,8 @@ import {
     getBooksByAuthor,
     getBooksByCategoryAuthor,
     setSection,
-    getIdFavorites
+    getIdFavorites,
 } from "../../actions/index.js";
-
-
 
 //COMPONENTES
 import NavBar from "../NavBar/NavBar.jsx";
@@ -54,9 +52,8 @@ import { FaFilter } from "react-icons/fa";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { status, actualPage, allBooks, section, uid, favorites } = useSelector(
-        (state) => state
-    );
+    const { status, actualPage, allBooks, section, uid, favorites } =
+        useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
     // const location = useLocation();
@@ -109,8 +106,8 @@ export default function Home() {
         // else {
         //   dispatch(getAllBooks());
         // }
-//         dispatch( getAllOrders())
-// eslint-disable-next-line react-hooks/exhaustive-deps
+        //         dispatch( getAllOrders())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, category, author, favorites]);
 
     useEffect(() => {
@@ -122,7 +119,13 @@ export default function Home() {
             dispatch(setPage(0));
             if (uid !== undefined) dispatch(getUserFavorites(uid));
         } else if (section === "search") {
-          console.log("El estado es 'search'")
+            console.log("El estado es 'search'");
+        } else if (section === "reload") {
+            dispatch(setPage(0));
+            dispatch(getAllBooks());
+            dispatch(setSection("home"));
+            setCategory({});
+            setAuthor({});
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, section]);
@@ -186,7 +189,6 @@ export default function Home() {
                     <div className={styles.banner}>
                         <img src={banner} alt="banner" />
                     </div>
-
 
                     <div className={styles.paginado}>
                         <>
@@ -377,9 +379,9 @@ export default function Home() {
                         </>
                         <div className={styles.paginas}>
                             <Paginated
-                            totalItems={allBooks.length}
-                            itemsPorPagina={itemsPorPagina}
-                        />
+                                totalItems={allBooks.length}
+                                itemsPorPagina={itemsPorPagina}
+                            />
                         </div>
 
                         <Order key={clearKeySort} />
