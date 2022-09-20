@@ -39,7 +39,7 @@ export default function Order() {
         fontFamily="Quicksand"
       >
         <Box fontWeight={"bold"}>
-          <label className={styles.claroOscuro}>Ordenado por: </label>
+          <label className={styles.claroOscuro} fontFamily= 'Segoe UI'>Ordenado por: </label>
         </Box>
         <Select
           size="sm"
@@ -52,6 +52,7 @@ export default function Order() {
           cursor="pointer"
           onChange={ordenByHandler}
           className={styles.claroOscuro}
+          fontFamily= 'Segoe UI'
         >
           {sorts.map((sort) => (
             <option key={sort.id} value={sort.value} className={styles.claroOscuro}>
