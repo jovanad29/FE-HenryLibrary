@@ -18,14 +18,14 @@ function UserView() {
     }, [dispatch]);
 
     return (
-        <Box fontFamily="Quicksand">
+        <Box fontFamily='Segoe UI' className={style.claroOscuroAdmin} >
             <Menu />
             <NavBar />
             <Title />
 
-            <Box className={style.content}>
+            <Box className={style.content} >
                 {/* CABECERA */}
-                <Flex className={style.table}>
+                <Flex className={style.table} >
                     <Box className={style.user}>Usuario</Box>
                     <Box className={style.address}>Direccion</Box>
                     <Box className={style.admin}>Administrador</Box>

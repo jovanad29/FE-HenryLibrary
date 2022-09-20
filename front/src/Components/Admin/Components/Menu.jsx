@@ -8,6 +8,10 @@ import OrdersMenu from "./OrdersMenu";
 import CatalogueMenu from "./CatologueMenu";
 import CategoriesMenu from "./CategoriesMenu";
 import DashboardMenu from "./DashboardMenu";
+import styles from "./Menu.module.css";
+import NavBar2 from "../../NavBar2/NavBar2.jsx";
+
+
 
 function Menu() {
   return (
@@ -21,8 +25,13 @@ function Menu() {
       ml="1%"
       mt="1%"
       pos="fixed"
-      fontFamily="Quicksand"
+      fontFamily="Segoe UI"
+      className={styles.claroOscuroAdmin}
     >
+      <div className={styles.icono}>
+        <div className={styles.icono2}><NavBar2/></div>
+      </div>
+
       <Logo />
 
       <Divider mt="15%" />

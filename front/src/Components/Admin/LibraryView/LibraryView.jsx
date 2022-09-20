@@ -128,7 +128,7 @@ function LibraryView() {
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Quicksand">
+    <Box fontFamily="Segoe UI" className={style.claroOscuro}>
       <Menu />
       <NavBar />
       <Title />
@@ -136,12 +136,12 @@ function LibraryView() {
       <Box className={style.content}>
         <Box mb="5%" fontFamily="Quicksand">
           <NavLink to={`/user/admin/catalogue/new`}>
-            <Button colorScheme="green" size="sm">
+            <Button backgroundColor="#01A86C" size="sm"  fontFamily='Segoe UI' color="black">
               Crear Libro
             </Button>
           </NavLink>
 
-          {/* <Button onClick={onOpen} colorScheme="green" size="sm" ml="5%">
+          <Button onClick={onOpen} backgroundColor="#01A86C" size="sm" ml="5%"  fontFamily='Segoe UI' color="black">
             Crear Categoria
           </Button>
 

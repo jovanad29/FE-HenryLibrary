@@ -86,6 +86,9 @@ body{
 }
 
 
+.fondoFiltro{
+    background-color: var(--bg) !important; 
+}
 
 
 @media screen and (max-width: 844px){
