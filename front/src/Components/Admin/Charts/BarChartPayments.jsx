@@ -9,10 +9,11 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPaymentsStatistics } from "../../../actions";
+import styles from "./Charts.module.css";
 
 function BarChartPayments() {
   const dispatch = useDispatch();
@@ -75,7 +76,8 @@ function BarChartPayments() {
   };
 
   return (
-    <Box ml="18%" w="30%" fontFamily="Quicksand">
+    <Box className={styles.content} w="50%" fontFamily="Quicksand">
+      <Heading className={styles.head}>Estados de Pago</Heading>
       <Bar data={paymentsData} options={options} />
     </Box>
   );
