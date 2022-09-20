@@ -1,0 +1,10 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.head{
+    margin-bottom: 5%;
+    color: #01A86C;
+}
