@@ -15,15 +15,13 @@ class Rating extends React.Component {
   }
 
 
-  onStarClick(nextValue, prevValue, name) {
-       this.setState({rating: nextValue});
-    this.props.setReviews(nextValue);
+  onStarClick = (nextValue, prevValue, name) => {
+      this.setState({rating: nextValue});
+      this.props.setReviews(nextValue);
   }
 
   componentDidMount(){
-    this.state = {
-      rating: this.props.rating
-    }
+    this.setState({rating: this.props.rating});
   }
  
   render() {
@@ -36,7 +34,7 @@ class Rating extends React.Component {
           name="rate1" 
           starCount={5}
           value={rating}
-          onStarClick={this.onStarClick.bind(this)}
+          onStarClick={this.onStarClick}
           className={styles.star} 
         />
       </div>
