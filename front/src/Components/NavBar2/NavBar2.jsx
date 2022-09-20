@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setSection } from "../../actions";
+import { getAllBooks, setPage, setSection } from "../../actions";
 import Theme from "./Theme/Theme.jsx";
 
 //CSS
@@ -23,6 +23,9 @@ export default function NavBar2() {
   const dispatch = useDispatch();
   const { isAdmin } = useSelector((state) => ({ isAdmin: state.isAdmin }));
 
+  const handleReLoadBooks = () => {
+    dispatch(setSection("reload"));
+  }
 
   return (
 
@@ -30,18 +33,9 @@ export default function NavBar2() {
 
     <nav className={styles.container}>
       <h3 className={styles.h3}>
-        <NavLink to="/home" onClick={() => dispatch(setSection("home"))}>
+        <NavLink to="/home" onClick={handleReLoadBooks}>
           Libros
         </NavLink>
-      </h3>
-
-      {isAdmin === true && (
-        <h3 className={styles.h3}>
-          <NavLink to="/nuevoLibro">Nuevo Libro</NavLink>
-        </h3>
-      )}
-      <h3 className={styles.h3}>
-        <NavLink to="">Ofertas</NavLink>
       </h3>
       <h3 className={styles.h3}>
         <NavLink to="/aboutUs">Sobre Nosotros</NavLink>
@@ -59,10 +53,8 @@ export default function NavBar2() {
           <FiMenu color='#01A86C' className={styles.responsiveBoton}/>
         </MenuButton>
         <MenuList className={styles.menuLista} zIndex={2}>
-          <MenuItem className={styles.h3}><NavLink to="/home" onClick={() => dispatch(setSection("home"))}>Libros</NavLink></MenuItem>
-          <MenuItem className={styles.h3}><NavLink to="/nuevoLibro">Nuevo Libro</NavLink></MenuItem>
-          <MenuItem className={styles.h3}><NavLink to="">Ofertas</NavLink></MenuItem>
-          <MenuItem className={styles.h3}><NavLink to="/aboutUs">Sobre Nosotros</NavLink></MenuItem>
+        <NavLink to="/home" onClick={() => dispatch(setSection("home"))}><MenuItem className={styles.h3}>Libros</MenuItem></NavLink>
+          <NavLink to="/aboutUs"><MenuItem className={styles.h3}>Sobre Nosotros</MenuItem></NavLink>
         </MenuList>
       </Menu>
 

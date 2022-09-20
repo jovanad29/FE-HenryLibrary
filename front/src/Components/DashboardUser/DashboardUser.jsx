@@ -73,7 +73,7 @@ function DashboardUser() {
                   w="40%"
                   h="3.5rem"
                   backgroundColor="#E43E3E"
-                  color="black"
+                  color="white"
                   onClick={handleResetPassword}
                 >
                   Resetear contraseña
