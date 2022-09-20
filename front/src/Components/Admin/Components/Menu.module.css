@@ -1,0 +1,17 @@
+
+
+
+.claroOscuroAdmin{
+    background-color: var(--bg) !important;
+}
+
+
+.icono{
+    margin-bottom: 3rem;
+}
+
+.icono2{
+    position: relative;
+    top: -6.5rem;
+    left: 10rem;
+}

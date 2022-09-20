@@ -138,7 +138,7 @@ function DetailPayment(props) {
       {/* TITULO */}
       <Box pl="10.8%" pt="5%" textAlign="center">
         <Heading
-          fontFamily="Quicksand"
+          fontFamily='Segoe UI' 
           as="h2"
           size="md"
           ml="8%"
@@ -179,6 +179,7 @@ function DetailPayment(props) {
                       paddingLeft="5%"
                       paddingRight="8%"
                       fontWeight="bold"
+                      className={style.bookRowTitle}
                     >
                       {book.title}
                     </Text>
