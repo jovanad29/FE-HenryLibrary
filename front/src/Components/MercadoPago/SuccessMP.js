@@ -95,7 +95,7 @@ export default function SuccessMP() {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {order.items.map((i) => {
+                    {order.withDelivery.map((i) => {
                       return (
                         <Tr>
                           <Td>{i.title}</Td>

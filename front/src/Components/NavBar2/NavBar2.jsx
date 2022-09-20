@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setSection } from "../../actions";
+import { getAllBooks, setPage, setSection } from "../../actions";
 import Theme from "./Theme/Theme.jsx";
 
 //CSS
@@ -23,6 +23,9 @@ export default function NavBar2() {
   const dispatch = useDispatch();
   const { isAdmin } = useSelector((state) => ({ isAdmin: state.isAdmin }));
 
+  const handleReLoadBooks = () => {
+    dispatch(setSection("reload"));
+  }
 
   return (
 
@@ -30,7 +33,7 @@ export default function NavBar2() {
 
     <nav className={styles.container}>
       <h3 className={styles.h3}>
-        <NavLink to="/home" onClick={() => dispatch(setSection("home"))}>
+        <NavLink to="/home" onClick={handleReLoadBooks}>
           Libros
         </NavLink>
       </h3>

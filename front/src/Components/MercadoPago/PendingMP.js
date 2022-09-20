@@ -35,11 +35,11 @@ function PendingMP() {
 			activeCartAmount,
 			items
 		} = useSelector((state) => state);
-	console.log("La orden es esta: ", order)
+	// console.log("La orden es esta: ", order)
 	const history = useHistory();
  
   useEffect(() => {
-	console.log("Entro en el useEffect que dispara la petición de la compra hecha")
+	// console.log("Entro en el useEffect que dispara la petición de la compra hecha")
     if (mpID && activeCartPaymentId) {
       	dispatch(asyncGetMP(mpID,activeCartPaymentId));     
     }
@@ -92,7 +92,7 @@ function PendingMP() {
 							</Thead>
 							<Tbody>
 								{
-								order.items.map(i => {
+								order.withDelivery.map(i => {
 									return (
 									<Tr>
 										<Td>{i.title}</Td>
