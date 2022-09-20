@@ -172,7 +172,7 @@ function ShoppingBook() {
         id={id}
         title={title}
         image={image}
-        quantity={quantity}
+        quantity={quantity < currentStock ? quantity : currentStock}
         price={price}
         currentStock={currentStock}
         handleOnDelete={handleOnDelete}
