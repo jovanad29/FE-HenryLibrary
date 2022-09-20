@@ -327,7 +327,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 favorites: availableFavorites,
-                allBooks: filtereds,
+                allBooks: filtereds.length ? filtereds : state.allBooks,
             };
 
         //ORDENAMIENTOS
