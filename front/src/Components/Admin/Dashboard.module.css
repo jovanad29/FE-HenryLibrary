@@ -1,0 +1,16 @@
+/* 
+.icono{
+    position: absolute;
+    top: -3rem;
+    right: -1rem;
+} */
+
+.claroOscuroAdmin{
+    height: 100% !important;
+    background-color: var(--bg) !important;
+}
+
+.claroOscuro{
+    height: auto !important;
+    background-color: var(--bg) !important;
+}

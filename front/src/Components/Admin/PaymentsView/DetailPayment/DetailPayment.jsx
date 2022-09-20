@@ -24,9 +24,9 @@ import Menu from "../../Components/Menu";
 import NavBar from "../../Components/NavBar";
 import Title from "../../Components/Title";
 
-function DetailPayment() {
+function DetailPayment(props) {
   const location = useLocation();
-  const { orderNumber, allOrderStatus } = location.state;
+  const { allOrderStatus } = location.state;
 
   const dispatch = useDispatch();
   const toast = useToast();
@@ -38,17 +38,22 @@ function DetailPayment() {
     });
   };
 
+  const { allOrders } = useSelector((state) => state);
+
   useEffect(() => {
-    dispatch(getAllOrders());
+    if (!allOrders) {
+      dispatch(getAllOrders());
+    }
   }, [dispatch]);
 
-  const { allOrders } = useSelector((state) => state);
-  const currentOrder = allOrders.find((e) => e.id === orderNumber.nro);
-
+  const currentOrder = allOrders.find(
+    (e) => Number(e.id) === Number(props.match.params.id)
+  );
+  console.log("ggggggggggggggg", allOrders);
   const { id, user, books, total, order_status, payment_method, createdAt } =
     currentOrder;
 
-  //console.log("ggggggggggggggg", books);
+  //console.log("ggggggggggggggg", allOrders);
 
   const dateFormat = (createAt) => {
     let tuple = createAt.split("T");
@@ -63,7 +68,7 @@ function DetailPayment() {
   };
 
   const onSelectHandler = (e) => {
-    dispatch(updateOrderStatus(orderNumber.nro, e.target.value));
+    dispatch(updateOrderStatus(props.match.params.id, e.target.value));
     showNotification();
     dispatch(getAllOrders());
   };
@@ -133,7 +138,7 @@ function DetailPayment() {
       {/* TITULO */}
       <Box pl="10.8%" pt="5%" textAlign="center">
         <Heading
-          fontFamily="Quicksand"
+          fontFamily='Segoe UI' 
           as="h2"
           size="md"
           ml="8%"
@@ -174,6 +179,7 @@ function DetailPayment() {
                       paddingLeft="5%"
                       paddingRight="8%"
                       fontWeight="bold"
+                      className={style.bookRowTitle}
                     >
                       {book.title}
                     </Text>

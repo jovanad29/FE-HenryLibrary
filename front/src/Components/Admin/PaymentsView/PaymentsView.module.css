@@ -16,7 +16,17 @@
     color: #01A86C;
 }
 
+.user{
+    flex: 1; 
+    font-weight: bold; 
+    color: #01A86C;
+}
 
+.email{
+    flex: 1; 
+    font-weight: bold; 
+    color: #01A86C;
+}
 
 .items{
     flex: 1;
@@ -30,7 +40,7 @@
     color: #01A86C;
 }
 
-.status{
+.date{
     flex: 1;
     font-weight: bold;
     color: #01A86C;
@@ -42,9 +52,13 @@
     color: #01A86C;
 }
 
-.date{
+.status{
     flex: 1;
     font-weight: bold;
     color: #01A86C;
 }
 
+.claroOscuro{
+    height: 200% !important;
+    background-color: var(--bg) !important;
+}

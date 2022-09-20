@@ -2,23 +2,23 @@ import React from "react";
 
 import { Box, Flex, Heading } from "@chakra-ui/react";
 
-import { MdPayment } from "react-icons/md";
+import { IoLibrarySharp } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 
-function OrdersMenu() {
+function CategoriesMenu() {
   return (
     <Box mt="25%">
-      <NavLink to={`/user/admin/payments`}>
+      <NavLink to={`/user/admin/categories`}>
         <Flex justifyContent="center">
-          <MdPayment size="12%" color="#01A86C" />
+          <IoLibrarySharp size="12%" color="#01A86C" />
           <Heading
-            fontFamily='Segoe UI' 
+            fontFamily="Quicksand"
             as="h2"
             size="md"
             ml="8%"
             color="#01A86C"
           >
-            Ordenes
+            Categorías
           </Heading>
         </Flex>
       </NavLink>
@@ -26,4 +26,4 @@ function OrdersMenu() {
   );
 }
 
-export default OrdersMenu;
+export default CategoriesMenu;

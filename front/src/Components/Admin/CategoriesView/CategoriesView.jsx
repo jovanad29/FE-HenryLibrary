@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, postCategory } from "../../../actions/index";
+import { getCategories, postCategory } from "../../../actions/index";
 
 // COMPONENTES
 import Menu from "../Components/Menu";
@@ -26,13 +26,15 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import style from "./LibraryView.module.css";
+
+import style from "../LibraryView/LibraryView.module.css";
+
 import RowTable from "./RowTable/RowTable";
 import { NavLink } from "react-router-dom";
 
-function LibraryView() {
+function CategoriesView() {
   const dispatch = useDispatch();
-  const { allBooks } = useSelector((state) => state);
+  const { categories } = useSelector((state) => state);
 
   const toast = useToast();
 
@@ -124,24 +126,19 @@ function LibraryView() {
   }
 
   useEffect(() => {
-    dispatch(getAllBooks());
+    dispatch(getCategories());
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Segoe UI" className={style.claroOscuro}>
+    <Box fontFamily="Quicksand">
       <Menu />
       <NavBar />
       <Title />
 
       <Box className={style.content}>
         <Box mb="5%" fontFamily="Quicksand">
-          <NavLink to={`/user/admin/catalogue/new`}>
-            <Button backgroundColor="#01A86C" size="sm"  fontFamily='Segoe UI' color="black">
-              Crear Libro
-            </Button>
-          </NavLink>
 
-          <Button onClick={onOpen} backgroundColor="#01A86C" size="sm" ml="5%"  fontFamily='Segoe UI' color="black">
+          <Button onClick={onOpen} colorScheme="green" size="sm" ml="5%">
             Crear Categoria
           </Button>
 
@@ -197,26 +194,24 @@ function LibraryView() {
                 </Button>
               </ModalFooter>
             </ModalContent>
-          </Modal> */}
+          </Modal>
         </Box>
         {/* CABECERA */}
         <Flex className={style.table}>
-          <Box className={style.book}>Libro</Box>
-          <Box className={style.author}>Autor</Box>
-          <Box className={style.category}>Genero</Box>
-          <Box className={style.rating}>Calificacion</Box>
-          <Box className={style.price}>Precio</Box>
-          <Box className={style.stock}>Stock</Box>
+          <Box className={style.book}>Nombre</Box>
+          <Box className={style.author}>Id</Box>
+          <Box className={style.category}>Está activa_</Box>
+
           <Box className={style.edit}></Box>
         </Flex>
 
         {/* CONTENIDO */}
-        {allBooks.map(
-          (book) => book.isActive && <RowTable key={book.id} book={book} />
+        {categories.map(
+          (category) => category.isActive && <RowTable key={category.id} category={category} />
         )}
       </Box>
     </Box>
   );
 }
 
-export default LibraryView;
+export default CategoriesView;

@@ -1,5 +1,6 @@
 .content{
-    /* background-color: aquamarine; */
+    height: auto !important;
+    background-color: var(--bg) !important;
     margin-top: 1%;
     border-top: 2px solid #01A86C;
     padding-top: 1% ;    
@@ -32,17 +33,17 @@
 
 .uid{
     height: 70%;
-    color: #A0AEC0;
+    color: var(--text);
 }
 
 .email{
     height: 70%;
-    color: #A0AEC0;
+    color: var(--text);
 }
 
 .address{
     flex: 1;
-    color: #728198;
+    color: var(--text);
     font-weight: bold;
     display: flex;
     align-items: center;
