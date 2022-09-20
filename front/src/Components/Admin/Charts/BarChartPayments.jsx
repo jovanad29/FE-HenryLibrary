@@ -31,7 +31,9 @@ function BarChartPayments() {
         {
           label: "Detalles de Ordenes de Compra",
           data: paymentsStatistics?.map((data) => data.TotalCount),
-          backgroundColor: ["#01A86C", "#94d5bd"],
+          backgroundColor: ["rgba(1, 168, 108, 0.2)"],
+          borderColor: ["rgba(1, 168, 108)"],
+          borderWidth: 2,
         },
       ],
     });
@@ -50,8 +52,10 @@ function BarChartPayments() {
     responsive: true,
     plugins: {
       legend: {
+        display: false,
         position: "top",
         labels: {
+          color: false,
           font: {
             size: 14,
             family: "Quicksand",
