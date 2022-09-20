@@ -9,7 +9,7 @@ p{
     color: black;
 }
 
-.container {
+.container{
     right: 8rem;
     top: 5rem;
     position: absolute;
@@ -70,8 +70,8 @@ p{
     display: flex;
     flex-direction: column;
     color: #01A86C;
-    font-size: 10px;
-    margin-top: 4%;
+    font-size: 14px;
+    margin-top: 0.6rem;
     text-decoration: underline;
 }
 
