@@ -24,9 +24,7 @@ function PolarBestUser() {
 
   useEffect(() => {
     const data =
-      usersMostBuies.length >= 5
-        ? usersMostBuies.splice(0, 5)
-        : JSON.parse(JSON.stringify(usersMostBuies));
+      usersMostBuies.length >= 5 ? usersMostBuies.splice(0, 5) : usersMostBuies;
     setUsersData({
       labels: data.map((d) => d.nameUser),
       datasets: [
