@@ -1,9 +1,9 @@
 .content{
-    /* background-color: aquamarine; */
+    height: auto !important;
     margin-left: 18%;
     margin-top: 5%;
     margin-right: 5%;
-
+    background-color: var(--bg) !important;
 }
 
 .book{
@@ -49,3 +49,6 @@
 }
 
 
+.claroOscuro{
+    background-color: var(--bg) !important;
+}

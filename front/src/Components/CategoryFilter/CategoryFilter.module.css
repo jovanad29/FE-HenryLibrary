@@ -16,3 +16,8 @@
     font-family: Quicksand;
     font-size: large;
 }
+
+.claroOscuro{
+    color: var(--text) !important;
+    background-color: var(--bg) !important;
+}

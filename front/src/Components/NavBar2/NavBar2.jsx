@@ -30,7 +30,7 @@ export default function NavBar2() {
   return (
 
     <>
-
+    {!isAdmin &&
     <nav className={styles.container}>
       <h3 className={styles.h3}>
         <NavLink to="/home" onClick={handleReLoadBooks}>
@@ -40,9 +40,8 @@ export default function NavBar2() {
       <h3 className={styles.h3}>
         <NavLink to="/aboutUs">Sobre Nosotros</NavLink>
       </h3>
-
-
     </nav>
+   }
 
     <Theme />
     

@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Box } from "@chakra-ui/react";
+import styles from "../Dashboard.module.css"
 // import { useDispatch } from "react-redux";
 
 function BarChart({ paymentsStatistics }) {
@@ -59,7 +60,7 @@ function BarChart({ paymentsStatistics }) {
   };
 
   return (
-    <Box ml="18%" w="30%" fontFamily="Quicksand">
+    <Box ml="18%" w="30%" fontFamily="Segoe UI" className={styles.claroOscuro}>
       <Bar data={userData} options={options} />
     </Box>
   );

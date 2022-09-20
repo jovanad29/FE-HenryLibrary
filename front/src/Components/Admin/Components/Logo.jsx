@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 
 function Logo() {
   return (
-    <NavLink to="/">
+    // <NavLink to="/">
       <Box fontFamily="Quicksand">
         <Flex justifyContent="center">
           <Heading fontFamily="Quicksand" as="h2" size="lg" color="#ABABAB">
@@ -16,7 +16,7 @@ function Logo() {
           </Heading>
         </Flex>
       </Box>
-    </NavLink>
+    // </NavLink>
   );
 }
 
