@@ -77,7 +77,7 @@ export default function PurchaseOrders() {
                 <Accordion allowToggle>
                     <AccordionItem>
                         <h2>
-                            <AccordionButton className={styles.tableDetails}>
+                            <AccordionButton className={styles.tableDetails} _focus={{ outlineColor: '#01A86C' }}>
                                 <Box flex="1" textAlign="left">
                                     <TableContainer maxWidth="100%">
                                         <Table variant="simple">

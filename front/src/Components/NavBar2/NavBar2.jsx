@@ -34,15 +34,6 @@ export default function NavBar2() {
           Libros
         </NavLink>
       </h3>
-
-      {isAdmin === true && (
-        <h3 className={styles.h3}>
-          <NavLink to="/nuevoLibro">Nuevo Libro</NavLink>
-        </h3>
-      )}
-      <h3 className={styles.h3}>
-        <NavLink to="">Ofertas</NavLink>
-      </h3>
       <h3 className={styles.h3}>
         <NavLink to="/aboutUs">Sobre Nosotros</NavLink>
       </h3>
@@ -59,10 +50,8 @@ export default function NavBar2() {
           <FiMenu color='#01A86C' className={styles.responsiveBoton}/>
         </MenuButton>
         <MenuList className={styles.menuLista} zIndex={2}>
-          <MenuItem className={styles.h3}><NavLink to="/home" onClick={() => dispatch(setSection("home"))}>Libros</NavLink></MenuItem>
-          <MenuItem className={styles.h3}><NavLink to="/nuevoLibro">Nuevo Libro</NavLink></MenuItem>
-          <MenuItem className={styles.h3}><NavLink to="">Ofertas</NavLink></MenuItem>
-          <MenuItem className={styles.h3}><NavLink to="/aboutUs">Sobre Nosotros</NavLink></MenuItem>
+        <NavLink to="/home" onClick={() => dispatch(setSection("home"))}><MenuItem className={styles.h3}>Libros</MenuItem></NavLink>
+          <NavLink to="/aboutUs"><MenuItem className={styles.h3}>Sobre Nosotros</MenuItem></NavLink>
         </MenuList>
       </Menu>
 
