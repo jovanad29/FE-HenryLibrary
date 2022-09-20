@@ -87,6 +87,7 @@ body {
     .responsiveBoton{
         width: 2rem !important;
         margin-left: -0.9rem;
+        
     }
 
     .menuLista{
@@ -95,6 +96,17 @@ body {
         border: 2px solid var(--bg) !important;
     }
 
-    
+    .h3 {
+        display: flex;
+        margin-top: 1rem;
+        color: #01A86C;
+        font-weight: bolder;
+        font-size: 18px;
+        background-color: var(--bg) !important
+    }
+
+    .h3:active {
+        background-color: var(--bgHover) !important
+    }
     
 }
