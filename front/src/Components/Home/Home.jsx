@@ -212,7 +212,7 @@ export default function Home() {
                                 finalFocusRef={btnRef}
                             >
                                 <DrawerOverlay />
-                                <DrawerContent>
+                                <DrawerContent className={styles.fondoFiltro}>
                                     <Flex pt={"10%"} justifyContent={"center"}>
                                         <Button
                                             ref={btnRef}
