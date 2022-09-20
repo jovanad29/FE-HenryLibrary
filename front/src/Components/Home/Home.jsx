@@ -127,7 +127,8 @@ export default function Home() {
             setCategory({});
             setAuthor({});
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        return () => {};
     }, [dispatch, section]);
 
     useEffect(() => {
