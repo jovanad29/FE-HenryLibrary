@@ -63,7 +63,9 @@ function DataUser(id) {
 
     const handleOnCancel = (e) => {
         e.preventDefault();
-        dispatch(getUserInfo(uid));
+        // dispatch(getUserInfo(uid));
+        setName(displayName || "");
+        setDirection(address || "");
         handleEdit(e);
     };
 
