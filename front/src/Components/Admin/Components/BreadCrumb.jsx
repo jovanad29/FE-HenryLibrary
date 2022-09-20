@@ -38,10 +38,16 @@ function BreadCrumb() {
             Orden de Compra
           </BreadcrumbLink>
         </BreadcrumbItem>
-      ) : pathName.includes(`/user/admin/catalogue/new`) ? (
+      ) : pathName === `/user/admin/catalogue/new` ? (
         <BreadcrumbItem>
           <BreadcrumbLink as={Link} to="/user/admin/catalogue">
             Libros
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      ) : pathName.includes(`/user/admin/catalogue/`) ? (
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} to="/user/admin/catalogue">
+            Libro
           </BreadcrumbLink>
         </BreadcrumbItem>
       ) : null}
@@ -51,10 +57,16 @@ function BreadCrumb() {
             {pathName.split("/").pop()}
           </BreadcrumbLink>
         </BreadcrumbItem>
-      ) : pathName.includes(`/user/admin/catalogue/new`) ? (
+      ) : pathName === `/user/admin/catalogue/new` ? (
         <BreadcrumbItem>
           <BreadcrumbLink as={Link} to="/user/admin/catalogue/new">
             Crear
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      ) : pathName.includes(`/user/admin/catalogue/`) ? (
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} to={pathName}>
+            {pathName.split("/").pop()}
           </BreadcrumbLink>
         </BreadcrumbItem>
       ) : null}
