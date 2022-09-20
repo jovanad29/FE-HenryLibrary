@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
@@ -20,9 +20,6 @@ import DataUser from "./DataUser/DataUser.jsx";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { startResetPasswordEmail } from "../../actions/index.js";
-
-
-
 
 function DashboardUser() {
   const { status, displayName, email, reviews, uid } = useSelector(
@@ -47,7 +44,7 @@ function DashboardUser() {
       <NavBar2 />
 
       <div className={styles.container}>
-        <Tabs variant="soft-rounded" colorScheme="green">
+        <Tabs variant="solid-rounded" colorScheme="whatsapp">
           <TabList className={styles.containerItems}>
             <Tab className={styles.titulos}>Datos Personales</Tab>
             <Tab className={styles.titulos}>Ordenes de compras</Tab>
@@ -69,15 +66,15 @@ function DashboardUser() {
             </TabPanel>
 
             <TabPanel className={styles.boton}>
-                <Button
-                  w="40%"
-                  h="3.5rem"
-                  backgroundColor="#E43E3E"
-                  color="white"
-                  onClick={handleResetPassword}
-                >
-                  Resetear contraseña
-                </Button>
+              <Button
+                w="40%"
+                h="3.5rem"
+                backgroundColor="#E43E3E"
+                color="white"
+                onClick={handleResetPassword}
+              >
+                Resetear contraseña
+              </Button>
               {/* </div> */}
             </TabPanel>
           </TabPanels>

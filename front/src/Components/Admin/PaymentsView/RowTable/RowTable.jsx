@@ -20,14 +20,12 @@ function RowTable({ allPayments, allOrderStatus }) {
     return newFormatedDate;
   };
 
-  const orderNumber = { nro: id };
-
   return (
     <NavLink
       className={style.link}
       to={{
         pathname: `/user/admin/payments/${id}`,
-        state: { orderNumber, allOrderStatus },
+        state: { allOrderStatus },
       }}
     >
       <Box className={style.content}>
