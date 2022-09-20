@@ -29,19 +29,20 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       console.log("estoy en la action asyncGetMP: ", response)
 
       const items = response.additional_info.items.map((i) => {
-        return {
-          bookId: i.id,
-          quantity: i.quantity,
-          paymentMpId: mpID,
-          image: i.picture_url,
-          title: i.title,
-          price: parseFloat(i.unit_price).toFixed(2),
-        };
+          return {
+            bookId: i.id,
+            quantity: i.quantity,
+            paymentMpId: mpID,
+            image: i.picture_url,
+            title: i.title,
+            price: parseFloat(i.unit_price).toFixed(2),
+          };
       });
 
       const order = {
         transactionId: mpID,
-        items: items.filter(i => i.id !== "0"),
+        withDelivery: items,
+        items: items.filter(i => i.bookId !== "0"),
         // userId  -> se agrega en el componente que pide la orden (rel. Checkout)
         paymentType: response.payment_type_id,
         total: parseFloat(response.transaction_details.total_paid_amount),
