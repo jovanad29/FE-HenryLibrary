@@ -8,6 +8,7 @@ import {
 } from "../../../actions";
 //CSS
 import { Button } from "@chakra-ui/react";
+import Swal from "sweetalert2";
 
 function DataUser(id) {
     let { email, displayName, address, uid } = useSelector((state) => state);
@@ -56,14 +57,29 @@ function DataUser(id) {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if (!direction || !name) {
+            return Swal.fire({
+                title: "Debe completar todos los datos!",
+                icon: "error",
+                // iconColor: "#01A86C",
+                confirmButtonColor: "#01A86C",
+            });
+        }
         dispatch(updateUserAddress(uid, { address: direction }));
         dispatch(updateUserName(uid, { name: name }));
+        dispatch(getUserInfo(uid));
         handleEdit(e);
+        Swal.fire({
+            title: "Perfil de usuario actualizado!",
+            icon: "success",
+            iconColor: "#01A86C",
+            confirmButtonColor: "#01A86C",
+        });
     };
 
     const handleOnCancel = (e) => {
         e.preventDefault();
-        // dispatch(getUserInfo(uid));
+        dispatch(getUserInfo(uid));
         setName(displayName || "");
         setDirection(address || "");
         handleEdit(e);
