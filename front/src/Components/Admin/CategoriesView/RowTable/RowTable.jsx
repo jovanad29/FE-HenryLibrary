@@ -6,18 +6,19 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 
+//cambiar por deleteCategory
 import { deleteLogicBook } from "../../../../actions/index";
 
 import style from "./RowTable.module.css";
 
-function RowTable({ book }) {
+function RowTable({ category }) {
   const dispatch = useDispatch();
-  const { id, image, title, description, authors, categories } = book;
+  const { id, name , isActive } = category;
 
   const handleClick = (event) => {
     Swal.fire({
       icon: "warning",
-      title: "Esta seguro que desea eliminar este libro?",
+      title: "Esta seguro que desea eliminar esta Categoría?",
       showConfirmButton: true,
       confirmButtonColor: "#01A86C",
       showDenyButton: true,
@@ -36,12 +37,12 @@ function RowTable({ book }) {
       <Flex className={style.table}>
         <Box className={style.bookRow}>
           <Flex>
-            <Image
+            {/* <Image
               className={style.image}
               src={image}
               boxSize="90px"
               flex={1}
-            />
+            /> */}
             <VStack flex={11} className={style.bookRow}>
               <Text
                 noOfLines={1}
@@ -49,47 +50,40 @@ function RowTable({ book }) {
                 paddingLeft="5%"
                 paddingRight="8%"
                 fontWeight="bold"
-                fontFamily='Segoe UI'
-                className={style.bookRowTitle}
               >
-                {title}
+                {name}
               </Text>
               <Text
                 noOfLines={1}
                 height="30%"
                 paddingLeft="5%"
                 paddingRight="8%"
-                fontFamily='Segoe UI'
-                className={style.bookRowTitle}
               >
-                {description}
+                {id}
               </Text>
             </VStack>
           </Flex>
         </Box>
-        <Box className={style.author}  fontFamily='Segoe UI'>
+        {/* <Box className={style.author}>
           {authors.length > 0 && book.authors[0].name}
         </Box>
-        <Box className={style.categories}  fontFamily='Segoe UI'>
+        <Box className={style.categories}>
           {categories.length > 0 && book.categories[0].name}
         </Box>
-        <Box className={style.rating}>{book.rating}</Box>
-        <Box className={style.price} >{book.price}</Box>
-        <Box className={style.stock}>
-          {book.currentStock === 0 ? "No Disponible" : book.currentStock}
-        </Box>
-        <Box className={style.edit}>
-          <NavLink
+        <Box className={style.rating}>{book.rating}</Box> */}
+        <Box className={style.price}>{category.isActive}</Box>
+{/* //cambiar a ruta de edicion de la categoria */}
+          {/* <NavLink
             to={{ pathname: `/user/admin/catalogue/${id}`, props: book }}
-          >
-            <Button colorScheme="green" size="xs">
+          > */}
+            {/* <Button colorScheme="green" size="xs">
               Editar
             </Button>
-          </NavLink>
+          </NavLink> */}
           <Button colorScheme="red" size="xs" onClick={handleClick}>
             Eliminar
           </Button>
-        </Box>
+        {/* </Box> */}
       </Flex>
     </Box>
   );

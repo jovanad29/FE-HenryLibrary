@@ -1,0 +1,5 @@
+
+.claroOscuro{
+    color: var(--text);
+    background-color: var(--bg) !important;
+}

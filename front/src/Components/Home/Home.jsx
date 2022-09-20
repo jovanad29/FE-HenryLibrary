@@ -51,11 +51,10 @@ import { FaFilter } from "react-icons/fa";
 // import { MdClose } from "react-icons/md";
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const { status, actualPage, allBooks, section, uid, favorites } = useSelector(
-    (state) => state
-  );
-  const isAuthenticated = useMemo(() => status === "authenticated", [status]);
+    const dispatch = useDispatch();
+    const { status, actualPage, allBooks, section, uid, favorites } =
+        useSelector((state) => state);
+    const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
   // const location = useLocation();
   // const search = location.state ? location.state.search : null;
@@ -192,95 +191,114 @@ export default function Home() {
             <img src={banner} alt="banner" />
           </div>
 
-          <div className={styles.paginado}>
-            <>
-              <Button
-                leftIcon={<FaFilter />}
-                ref={btnRef}
-                bgColor={"#01A86C"}
-                onClick={handleOpenFilters}
-                _focus={{ border: "2px solid #01A86C" }}
-                _hover={{
-                  color: "#01A86C",
-                  background: "transparent",
-                  border: "2px solid #01A86C",
-                }}
-                fontFamily="Quicksand"
-              >
-                Filtros
-              </Button>
-              <Drawer
-                isOpen={isOpen}
-                placement="left"
-                onClose={onClose}
-                finalFocusRef={btnRef}
-              >
-                <DrawerOverlay />
-                <DrawerContent>
-                  <Flex pt={"10%"} justifyContent={"center"}>
-                    <Button
-                      ref={btnRef}
-                      bgColor={"#01A86C"}
-                      onClick={handleClearFilter}
-                      _focus={{
-                        border: "2px solid #01A86C",
-                      }}
-                      _hover={{
-                        color: "#01A86C",
-                        background: "transparent",
-                        border: "2px solid #01A86C",
-                      }}
-                      fontFamily="Quicksand"
-                    >
-                      Limpiar Filtros
-                    </Button>
-                  </Flex>
-
-                  <DrawerBody pt={"10%"}>
-                    <HStack
-                      fontFamily="Quicksand"
-                      spacing={4}
-                      display={"flex"}
-                      flexDir={"column"}
-                    >
-                      {/* Labels por categoria */}
-                      <Flex
-                        flexDir={"column"}
-                        justifyContent={"center"}
-                        width={"100%"}
-                      >
-                        {category.id && (
-                          <>
-                            <TagLabel
-                              textAlign={"center"}
-                              onClick={handleClickCategory}
-                              mb={"5%"}
+                    <div className={styles.paginado}>
+                        <>
+                            <Button
+                                leftIcon={<FaFilter />}
+                                ref={btnRef}
+                                bgColor={"#01A86C"}
+                                onClick={handleOpenFilters}
+                                _focus={{ border: "2px solid #01A86C" }}
+                                _hover={{
+                                    color: "#01A86C",
+                                    background: "transparent",
+                                    border: "2px solid #01A86C",
+                                }}
+                                fontFamily="Quicksand"
                             >
-                              Generos
-                            </TagLabel>
+                                Filtros
+                            </Button>
+                            <Drawer
+                                isOpen={isOpen}
+                                placement="left"
+                                onClose={onClose}
+                                finalFocusRef={btnRef}
+                            >
+                                <DrawerOverlay />
+                                <DrawerContent className={styles.fondoFiltro}>
+                                    <Flex pt={"10%"} justifyContent={"center"}>
+                                        <Button
+                                            ref={btnRef}
+                                            bgColor={"#01A86C"}
+                                            onClick={handleClearFilter}
+                                            _focus={{
+                                                border: "2px solid #01A86C",
+                                            }}
+                                            _hover={{
+                                                color: "#01A86C",
+                                                background: "transparent",
+                                                border: "2px solid #01A86C",
+                                            }}
+                                            fontFamily="Quicksand"
+                                        >
+                                            Limpiar Filtros
+                                        </Button>
+                                    </Flex>
 
-                            <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                              <Tag
-                                size={"sm"}
-                                key={category.id}
-                                borderRadius="full"
-                                variant="solid"
-                                bgColor="#01A86C"
-                                cursor={"pointer"}
-                                onClick={handleClickCategory}
-                              >
-                                <TagLabel
-                                  textAlign={"center"}
-                                  id={category.id}
-                                  onClick={handleClickCategory}
-                                >
-                                  {category.name}
-                                </TagLabel>
-                              </Tag>
-                            </Grid>
-                          </>
-                        )}
-                      </Flex>
+                                    <DrawerBody pt={"10%"}>
+                                        <HStack
+                                            fontFamily="Quicksand"
+                                            spacing={4}
+                                            display={"flex"}
+                                            flexDir={"column"}
+                                        >
+                                            {/* Labels por categoria */}
+                                            <Flex
+                                                flexDir={"column"}
+                                                justifyContent={"center"}
+                                                width={"100%"}
+                                            >
+                                                {category.id && (
+                                                    <>
+                                                        <TagLabel
+                                                            textAlign={"center"}
+                                                            onClick={
+                                                                handleClickCategory
+                                                            }
+                                                            mb={"5%"}
+                                                        >
+                                                            Generos
+                                                        </TagLabel>
+
+                                                        <Grid
+                                                            templateColumns="repeat(2, 1fr)"
+                                                            gap={2}
+                                                        >
+                                                            <Tag
+                                                                size={"sm"}
+                                                                key={
+                                                                    category.id
+                                                                }
+                                                                borderRadius="full"
+                                                                variant="solid"
+                                                                bgColor="#01A86C"
+                                                                cursor={
+                                                                    "pointer"
+                                                                }
+                                                                onClick={
+                                                                    handleClickCategory
+                                                                }
+                                                            >
+                                                                <TagLabel
+                                                                    textAlign={
+                                                                        "center"
+                                                                    }
+                                                                    id={
+                                                                        category.id
+                                                                    }
+                                                                    onClick={
+                                                                        handleClickCategory
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        category.name
+                                                                    }
+                                                                </TagLabel>
+                                                            </Tag>
+                                                        </Grid>
+                                                    </>
+                                                )}
+                                            </Flex>
 
                       {/* Labels por autor */}
                       <Flex

@@ -7,6 +7,7 @@ import {
   setSection,
 } from "../../actions";
 import { List, ListItem, Heading, Link, Collapse } from "@chakra-ui/react";
+import styles from "./CategoryFilter.module.css"
 
 export default function CategoryFilter({ categoriesFilter, author }) {
   const dispatch = useDispatch(),
@@ -108,7 +109,7 @@ export default function CategoryFilter({ categoriesFilter, author }) {
       <Heading
         textAlign="center"
         fontSize={20}
-        fontFamily="Quicksand"
+        fontFamily='Segoe UI'
         pt="10px"
         textColor="#01A86C"
         onClick={handledClick}
@@ -119,15 +120,16 @@ export default function CategoryFilter({ categoriesFilter, author }) {
       <Collapse startingHeight={150} in={show}>
         <List spacing={-1} pt="10px" pl="10px">
           {categories.map((category) => (
-            <ListItem key={category.id}>
+            <ListItem key={category.id} >
               <Link
                 style={{ textDecoration: "none" }}
-                fontFamily="Quicksand"
+                fontFamily='Segoe UI'
                 fontSize={12}
                 textTransform="capitalize"
                 onClick={handledClick}
                 _hover={{ fontWeight: "semibold" }}
                 id={category.id}
+                className={styles.claroOscuro}
               >
                 {category.name}
               </Link>
@@ -136,8 +138,9 @@ export default function CategoryFilter({ categoriesFilter, author }) {
         </List>
       </Collapse>
       <Link
-        fontFamily="Quicksand"
+        fontFamily='Segoe UI'
         color="#01A86C"
+        marginTop={2}
         padding={2}
         onClick={handleToggle}
       >
