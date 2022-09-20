@@ -1,0 +1,50 @@
+.content{    
+    border-top: 2px solid #01A86C;
+    padding-top: 1% ; 
+    padding-bottom: 1%;
+}
+
+
+
+.bookRow{
+    flex: 3;
+    display: flex;
+    align-items: center;    
+}
+
+.author{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.categories{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.rating{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.price{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.stock{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.edit{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
