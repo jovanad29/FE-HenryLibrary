@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     clearCart,
@@ -48,6 +48,10 @@ function Login({ HandleOpenLogin }) {
         email: "",
         password: "",
     });
+
+    useEffect(() => {
+        if (isAdmin) history.push("/user/admin");
+    }, [isAdmin]);
 
     const [show, setShow] = useState(false); //Para manejar la contraseña
 
