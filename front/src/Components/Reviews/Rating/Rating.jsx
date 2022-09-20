@@ -22,20 +22,30 @@ class Rating extends React.Component {
         });
     }
 
-    render() {
-        const { rating } = this.props;
+  onStarClick = (nextValue, prevValue, name) => {
+      this.setState({rating: nextValue});
+      this.props.setReviews(nextValue);
+  }
 
-        return (
-            <div className={styles.containerRating}>
-                <StarRatingComponent
-                    name="rate1"
-                    starCount={5}
-                    value={rating}
-                    onStarClick={this.onStarClick.bind(this)}
-                    className={styles.star}
-                />
-            </div>
-        );
-    }
+  componentDidMount(){
+    this.setState({rating: this.props.rating});
+  }
+ 
+  render() {
+ 
+    const { rating } = this.props;
+    
+    return (                
+      <div className={styles.containerRating}>
+      <StarRatingComponent 
+          name="rate1" 
+          starCount={5}
+          value={rating}
+          onStarClick={this.onStarClick}
+          className={styles.star} 
+        />
+      </div>
+    );
+  }
 }
 export default Rating;

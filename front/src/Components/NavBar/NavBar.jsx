@@ -99,7 +99,7 @@ export default function NavBar() {
         )}
 
         <button onClick={() => HandleOpenLogin()}>
-          <VscAccount size="1.4rem" className={styles.icono} />
+          <VscAccount size="1.4rem" className={styles.iconoCuenta} />
         </button>
 
         <NavLink to="/carrito">
