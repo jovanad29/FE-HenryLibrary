@@ -52,3 +52,16 @@
 .claroOscuro{
     background-color: var(--bg) !important;
 }
+
+.contentTable{
+    border:2px solid green;
+    border-radius: 25px;    
+    padding: 1%;
+}
+
+
+/* border="2px solid green"
+p="5%"
+mb="5%"
+maxH="70vh"
+overflowY="auto" */

@@ -7,9 +7,10 @@ import {
   Legend,
 } from "chart.js";
 import { PolarArea } from "react-chartjs-2";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersMostBuy } from "../../../actions/dashboardActions";
+import styles from "./Charts.module.css";
 
 function PolarBestUser() {
   const dispatch = useDispatch();
@@ -53,7 +54,8 @@ function PolarBestUser() {
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
   return (
-    <Box ml="18%" w="30%" fontFamily="Quicksand">
+    <Box className={styles.content} w="30%" fontFamily="Quicksand">
+      <Heading className={styles.head}>Mejores Clientes</Heading>
       <PolarArea data={usersData} />
     </Box>
   );

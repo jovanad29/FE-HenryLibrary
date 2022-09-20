@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllUsers, getAllOrders } from "../../actions/dashboardActions";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import styles from "./Dashboard.module.css";
 import Menu from "./Components/Menu";
 import Title from "./Components/Title";
@@ -26,9 +26,16 @@ function Dashboard() {
         <Menu />
         <NavBar />
         <Title />
-        <BarChartPayments />
-        <PieCategories />
-        <PolarBestUser />
+
+        <Box className={styles.contentCharts}>
+          <Box className={styles.contentUserCategories}>
+            <PolarBestUser />
+            <PieCategories />
+          </Box>
+          <Box className={styles.contentUserCategories}>
+            <BarChartPayments />
+          </Box>
+        </Box>
       </Box>
     </>
   );

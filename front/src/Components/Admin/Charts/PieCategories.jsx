@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCategoriesMostBuy } from "../../../actions/dashboardActions";
+import styles from "./Charts.module.css";
 
 function PieCategories() {
   const dispatch = useDispatch();
@@ -49,7 +50,8 @@ function PieCategories() {
   ChartJS.register(ArcElement, Tooltip, Legend);
 
   return (
-    <Box ml="18%" w="30%" fontFamily="Quicksand">
+    <Box className={styles.content} w="30%" fontFamily="Quicksand">
+      <Heading className={styles.head}>Categorias Mas Vendidas</Heading>
       <Pie data={categoriesData} />
     </Box>
   );
