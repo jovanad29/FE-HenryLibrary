@@ -49,6 +49,8 @@ function RowTable({ book }) {
                 paddingLeft="5%"
                 paddingRight="8%"
                 fontWeight="bold"
+                fontFamily='Segoe UI'
+                className={style.bookRowTitle}
               >
                 {title}
               </Text>
@@ -57,20 +59,22 @@ function RowTable({ book }) {
                 height="30%"
                 paddingLeft="5%"
                 paddingRight="8%"
+                fontFamily='Segoe UI'
+                className={style.bookRowTitle}
               >
                 {description}
               </Text>
             </VStack>
           </Flex>
         </Box>
-        <Box className={style.author}>
+        <Box className={style.author}  fontFamily='Segoe UI'>
           {authors.length > 0 && book.authors[0].name}
         </Box>
-        <Box className={style.categories}>
+        <Box className={style.categories}  fontFamily='Segoe UI'>
           {categories.length > 0 && book.categories[0].name}
         </Box>
         <Box className={style.rating}>{book.rating}</Box>
-        <Box className={style.price}>{book.price}</Box>
+        <Box className={style.price} >{book.price}</Box>
         <Box className={style.stock}>
           {book.currentStock === 0 ? "No Disponible" : book.currentStock}
         </Box>
