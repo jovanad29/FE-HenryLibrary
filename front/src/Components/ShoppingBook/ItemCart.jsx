@@ -22,7 +22,7 @@ export const ItemCart = (props) => {
 
   useEffect(() => {
     setValue(quantity < currentStock ? quantity : currentStock);
-    handleChangeQuantity(quantity < currentStock ? quantity : currentStock, id, price, currentStock)
+    // handleChangeQuantity(quantity < currentStock ? quantity : currentStock, id, price, currentStock)
     // quantity = quantity < currentStock ? quantity : currentStock;
   }, [quantity]);
 

@@ -1,147 +1,157 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./DataUser.module.css";
-import { updateUserAddress, updateUserName } from "../../../actions";
+import {
+    getUserInfo,
+    updateUserAddress,
+    updateUserName,
+} from "../../../actions";
 //CSS
 import { Button } from "@chakra-ui/react";
 
 function DataUser(id) {
-  let { email, displayName, address, uid } = useSelector((state) => state);
-  const dispatch = useDispatch();
+    let { email, displayName, address, uid } = useSelector((state) => state);
+    const dispatch = useDispatch();
 
-  //ESTADO DEL FORMULARIO
-  const [name, setName] = useState("");
+    //ESTADO DEL FORMULARIO
+    const [name, setName] = useState("");
 
-  const [direction, setDirection] = useState("");
+    const [direction, setDirection] = useState("");
 
-  var [isEditable, setIsEditable] = useState(false);
+    var [isEditable, setIsEditable] = useState(false);
 
-  useEffect(() => {
-    if (displayName) {
-      setName(displayName);
-    }
-    if (address) {
-      setDirection(address);
-    }
-  }, [displayName, address]);
+    useEffect(() => {
+        if (displayName) {
+            setName(displayName);
+        }
+        if (address) {
+            setDirection(address);
+        }
+    }, [displayName, address]);
 
-  //ESTADO DE ERRORES
-  const [errores, setErrores] = useState({});
+    //ESTADO DE ERRORES
+    const [errores, setErrores] = useState({});
 
-  function handleInputsName(e) {
-    // if (displayName === " ") {
-    //   errores.displayName = "El campo nombre no puede estar vacio";
-    // } else if (displayName === "number") {
-    //   errores.displayName = "El Nombre no puede contener numeros";
-    // } else if (displayName.length > 50) {
-    //   errores.displayName = "El Nombre no puede superar los 50 caracteres";
-    // }
+    function handleInputsName(e) {
+        // if (displayName === " ") {
+        //   errores.displayName = "El campo nombre no puede estar vacio";
+        // } else if (displayName === "number") {
+        //   errores.displayName = "El Nombre no puede contener numeros";
+        // } else if (displayName.length > 50) {
+        //   errores.displayName = "El Nombre no puede superar los 50 caracteres";
+        // }
 
-    // if (address === " ") {
-    //   errores.address = "El campo Direccion no puede estar vacio";
-    // } else if (address.length > 70) {
-    //   errores.address = "La Direccion no puede superar los 70 caracteres";
-    // }
+        // if (address === " ") {
+        //   errores.address = "El campo Direccion no puede estar vacio";
+        // } else if (address.length > 70) {
+        //   errores.address = "La Direccion no puede superar los 70 caracteres";
+        // }
 
-    setName(e.target.value);
-  }
-
-  function handleInputsAddress(e) {
-    setDirection(e.target.value);
-  }
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    dispatch(updateUserAddress(uid, { address: direction }));
-    dispatch(updateUserName(uid, { name: name }));
-    handleEdit(e);
-  };
-
-  function handleEdit(e) {
-    e.preventDefault();
-    var b = document.querySelectorAll("#inputDisabled");
-    for (var i = 0; i < b.length; i++) {
-      b[i].disabled = !b[i].disabled;
-      if (b.value) {
-        b.value = " ";
-      }
+        setName(e.target.value);
     }
 
-    setIsEditable(!isEditable);
-  }
+    function handleInputsAddress(e) {
+        setDirection(e.target.value);
+    }
 
-  return (
-    <>
-      <form>
-        <div className={styles.containerInputs}>
-          <p className={styles.label}>
-            Nombre: {" "}
-            <input
-              value={name}
-              name="nombre"
-              id="inputDisabled"
-              disabled
-              onChange={handleInputsName}
-              className={styles.input}
-            />
-          </p>
-          <div className={styles.danger}>
-            {errores.nombre && <p>{errores.nombre}</p>}
-          </div>
-          <p className={styles.label2}>Email: {email}</p>
-          <p className={styles.label}>
-            Direccion: {" "}
-            <input
-              value={direction}
-              name="direccion"
-              id="inputDisabled"
-              disabled
-              onChange={handleInputsAddress}
-              className={styles.input}
-            />
-          </p>
-          <div className={styles.danger}>
-            {errores.direccion && <p>{errores.direccion}</p>}
-          </div>
-        </div>
-        <div className={styles.containerButtons}>
-          {!isEditable && (
-            <Button
-              w="50%"
-              h="3rem"
-              backgroundColor="#01A86C"
-              color="black"
-              onClick={handleEdit}
-              className={styles.buttonsEdit}
-            >
-              Editar
-            </Button>
-          )}
-          {isEditable && (
-            <div className={styles.containerButtons2}>
-              <Button
-                w="40%"
-                h="3rem"
-                onClick={handleOnSubmit}
-                className={styles.buttons}
-              >
-                Confirmar
-              </Button>
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        dispatch(updateUserAddress(uid, { address: direction }));
+        dispatch(updateUserName(uid, { name: name }));
+        handleEdit(e);
+    };
 
-              <Button
-                w="40%"
-                h="3rem"
-                onClick={handleEdit}
-                className={styles.buttons2}
-              >
-                Cancelar
-              </Button>
-            </div>
-          )}
-        </div>
-      </form>
-    </>
-  );
+    const handleOnCancel = (e) => {
+        e.preventDefault();
+        dispatch(getUserInfo(uid));
+        handleEdit(e);
+    };
+
+    function handleEdit(e) {
+        e.preventDefault();
+        var b = document.querySelectorAll("#inputDisabled");
+        for (var i = 0; i < b.length; i++) {
+            b[i].disabled = !b[i].disabled;
+            if (b.value) {
+                b.value = " ";
+            }
+        }
+
+        setIsEditable(!isEditable);
+    }
+
+    return (
+        <>
+            <form>
+                <div className={styles.containerInputs}>
+                    <p className={styles.label}>
+                        Nombre:{" "}
+                        <input
+                            value={name}
+                            name="nombre"
+                            id="inputDisabled"
+                            disabled
+                            onChange={handleInputsName}
+                            className={styles.input}
+                        />
+                    </p>
+                    <div className={styles.danger}>
+                        {errores.nombre && <p>{errores.nombre}</p>}
+                    </div>
+                    <p className={styles.label2}>Email: {email}</p>
+                    <p className={styles.label}>
+                        Direccion:{" "}
+                        <input
+                            value={direction}
+                            name="direccion"
+                            id="inputDisabled"
+                            disabled
+                            onChange={handleInputsAddress}
+                            className={styles.input}
+                        />
+                    </p>
+                    <div className={styles.danger}>
+                        {errores.direccion && <p>{errores.direccion}</p>}
+                    </div>
+                </div>
+                <div className={styles.containerButtons}>
+                    {!isEditable && (
+                        <Button
+                            w="50%"
+                            h="3rem"
+                            backgroundColor="#01A86C"
+                            color="black"
+                            onClick={handleEdit}
+                            className={styles.buttonsEdit}
+                        >
+                            Editar
+                        </Button>
+                    )}
+                    {isEditable && (
+                        <div className={styles.containerButtons2}>
+                            <Button
+                                w="40%"
+                                h="3rem"
+                                onClick={handleOnSubmit}
+                                className={styles.buttons}
+                            >
+                                Confirmar
+                            </Button>
+
+                            <Button
+                                w="40%"
+                                h="3rem"
+                                onClick={handleOnCancel}
+                                className={styles.buttons2}
+                            >
+                                Cancelar
+                            </Button>
+                        </div>
+                    )}
+                </div>
+            </form>
+        </>
+    );
 }
 
 export default DataUser;
