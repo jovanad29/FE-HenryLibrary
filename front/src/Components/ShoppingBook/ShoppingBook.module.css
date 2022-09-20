@@ -442,6 +442,7 @@ body {
         align-self: flex-end;
         cursor: pointer;
         font-size: 1.3rem !important;
+        margin-left: 1.5rem;
     }
 
     .precio {

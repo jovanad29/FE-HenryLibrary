@@ -240,7 +240,7 @@ function Login({ HandleOpenLogin }) {
                   color="white"
                   onClick={handleCreateUser}
                 >
-                  CREAR
+                  Crear
                 </Button>
               ) : (
                 <Button
