@@ -111,7 +111,7 @@ export default function Book() {
           background: "transparent",
           border: "2px solid #01A86C",
         }}
-        fontFamily="Quicksand"
+        fontFamily='Segoe UI'
       >
         Filtros
       </Button>
@@ -137,7 +137,7 @@ export default function Book() {
                 background: "transparent",
                 border: "2px solid #01A86C",
               }}
-              fontFamily="Quicksand"
+              fontFamily= 'Segoe UI'
             >
               Limpiar Filtros
             </Button>
@@ -145,7 +145,7 @@ export default function Book() {
 
           <DrawerBody pt={"10%"}>
             <HStack
-              fontFamily="Quicksand"
+              fontFamily='Segoe UI'
               spacing={4}
               display={"flex"}
               flexDir={"column"}
