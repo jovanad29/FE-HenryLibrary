@@ -10,6 +10,7 @@ export const GET_ORDER_DETAIL = "GET_ORDER_DETAIL";
 export const UPDATE_ORDER_STATE = "UPDATE_ORDER_STATE";
 export const FILTER_ORDER = "FILTER_ORDER";
 export const USERS_MOST_BUIES = "USERS_MOST_BUIES";
+export const SET_CATEGORIES_MOST_BUY = "SET_CATEGORIES_MOST_BUY";
 
 //Trae la información de todos los usuarios
 export function getAllUsers() {
@@ -159,6 +160,22 @@ export function getUsersMostBuy() {
       })
       .catch((error) => {
         console.log("getUsersMostBuy", error);
+      });
+  };
+}
+
+export function getCategoriesMostBuy() {
+  return (dispatch) => {
+    axios
+      .get(`/categories?bestseller=true`)
+      .then((response) => {
+        dispatch({
+          type: SET_CATEGORIES_MOST_BUY,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log("getCategoriesMostBuy", error);
       });
   };
 }
