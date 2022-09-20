@@ -23,12 +23,20 @@ function PolarBestUser() {
   }, [dispatch]);
 
   useEffect(() => {
-    const data = usersMostBuies.splice(0, 5);
+    const data =
+      usersMostBuies.length >= 5
+        ? usersMostBuies.splice(0, 5)
+        : JSON.parse(JSON.stringify(usersMostBuies));
     setUsersData({
       labels: data.map((d) => d.nameUser),
       datasets: [
         {
-          data: data.map((d) => d.totalBookBuy),
+          data: data.map((d) => {
+            if (d.totalBookBuy) {
+              return parseFloat(d.totalBookBuy).toFixed(2);
+            }
+            return 0;
+          }),
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",
