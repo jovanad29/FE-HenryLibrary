@@ -1,30 +1,34 @@
-import React, { useState } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import React, { useEffect, useState } from "react";
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { PolarArea } from "react-chartjs-2";
 import { Box, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getCategoriesMostBuy } from "../../../actions/dashboardActions";
+import { getUsersMostBuy } from "../../../actions/dashboardActions";
 import styles from "./Charts.module.css";
 
-function PieCategories() {
+function PolarBestUser() {
   const dispatch = useDispatch();
-  const { categoriesMostBuies } = useSelector((estate) => estate);
+  const { usersMostBuies } = useSelector((estate) => estate);
 
-  const [categoriesData, setCategoriesData] = useState({ datasets: [] });
+  const [usersData, setUsersData] = useState({ datasets: [] });
 
   useEffect(() => {
-    dispatch(getCategoriesMostBuy());
+    dispatch(getUsersMostBuy());
   }, [dispatch]);
 
   useEffect(() => {
-    const data = categoriesMostBuies.splice(0, 4);
-    setCategoriesData({
-      labels: data.map((d) => d.name),
+    const data = usersMostBuies.splice(0, 5);
+    setUsersData({
+      labels: data.map((d) => d.nameUser),
       datasets: [
         {
-          label: "Categorias mas vendidas",
-          data: data.map((d) => d.soldCopies),
+          data: data.map((d) => d.totalBookBuy),
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",
@@ -45,16 +49,16 @@ function PieCategories() {
         },
       ],
     });
-  }, [categoriesMostBuies]);
+  }, [usersMostBuies]);
 
-  ChartJS.register(ArcElement, Tooltip, Legend);
+  ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
   return (
     <Box className={styles.content} w="30%" fontFamily="Quicksand">
-      <Heading className={styles.head}>Categorias Mas Vendidas</Heading>
-      <Pie data={categoriesData} />
+      <Heading className={styles.head}>Mejores Clientes</Heading>
+      <PolarArea data={usersData} />
     </Box>
   );
 }
 
-export default PieCategories;
+export default PolarBestUser;
