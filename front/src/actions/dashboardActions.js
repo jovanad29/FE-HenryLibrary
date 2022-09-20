@@ -165,8 +165,8 @@ export function getUsersMostBuy() {
 }
 
 export function getCategoriesMostBuy() {
-  return (dispatch) => {
-    axios
+  return async function (dispatch) {
+    await axios
       .get(`/categories?bestseller=true`)
       .then((response) => {
         dispatch({

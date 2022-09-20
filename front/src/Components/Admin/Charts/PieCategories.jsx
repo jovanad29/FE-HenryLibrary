@@ -39,7 +39,7 @@ function PieCategories() {
   };
 
   useEffect(() => {
-    dispatch(getCategoriesMostBuy);
+    dispatch(getCategoriesMostBuy());
   }, [dispatch]);
 
   return (
