@@ -8,6 +8,7 @@ import Menu from "./Components/Menu";
 import Title from "./Components/Title";
 import NavBar from "./Components/NavBar";
 import BarChartPayments from "./Charts/BarChartPayments";
+import PieCategories from "./Charts/PieCategories";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Dashboard() {
       <NavBar />
       <Title />
       <BarChartPayments />
+      <PieCategories />
     </Box>
   );
 }
