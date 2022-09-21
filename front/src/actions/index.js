@@ -8,6 +8,7 @@ import {
   resetPasswordEmail,
 } from "../firebase/providers";
 
+
 dotenv.config();
 
 const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
@@ -18,6 +19,7 @@ export const GET_BOOKS_ID = "GET_BOOKS_ID";
 export const DELETE_BOOKS_DETAIL = "DELETE_BOOKS_DETAIL";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const POST_CATEGORY = "POST_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const GET_ALL_BOOKS_BY_CATEGORY = "GET_ALL_BOOKS_BY_CATEGORY";
 export const POST_BOOK = "POST_BOOK";
 export const SET_PAGE = "SET_PAGE";
@@ -55,6 +57,7 @@ export const DELETE_USER = "DELETE_USER";
 export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 export const SET_PAYMENTS_STATISTICS = "SET_PAYMENTS_STATISTICS";
 export const DELETE_FAVORITES_WITHOUT_ALLBOOKS = "DELETE_FAVORITES_WITHOUT_ALLBOOKS";
+export const SET_ERROR = "SET_ERROR";
 
 
 export function getAllBooks(pagina = 0, items = 10) {
@@ -171,9 +174,38 @@ export function postCategory(body) {
         })
         .catch((error) => {
           console.log("postCategory", error);
-        });
-    } catch (error) {
+          dispatch({
+            type: SET_ERROR,
+            payload: error,
+
+        });});
+      } catch (error) {
       console.log("postCategory", error);
+    }
+  };
+}
+
+//crear la function deleteCategory
+export function deleteCategory(id) {
+  return function (dispatch) {
+    try {
+    
+        axios
+          .delete(`${baseURL}/categories/${id}`)
+          .then((response) => {
+            dispatch({
+              type: DELETE_CATEGORY,
+              payload: id,
+            });
+          })
+          .catch((error) => {
+            console.log("deleteCategory", error);
+          });
+      
+
+
+    } catch (error) {
+      console.log("deleteCategory", error);
     }
   };
 }

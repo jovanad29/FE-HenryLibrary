@@ -5,6 +5,7 @@ import {
   DELETE_BOOKS_DETAIL,
   GET_ALL_CATEGORIES,
   POST_CATEGORY,
+  DELETE_CATEGORY,
   GET_ALL_BOOKS_BY_CATEGORY,
   POST_BOOK,
   SET_PAGE,
@@ -41,6 +42,7 @@ import {
   GET_DIRECTIONS_USERS,
   SET_PAYMENTS_STATISTICS,
   DELETE_FAVORITES_WITHOUT_ALLBOOKS,
+  SET_ERROR
 } from "../actions/index";
 //mercado pago
 import {
@@ -169,7 +171,23 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         categories: [...state.categories, action.payload],
+        errorMessage: null,
       };
+
+    case DELETE_CATEGORY:
+      return {
+        ...state,
+        categories: state.categories.filter(
+          (category) => category.id !== action.payload
+        ),
+      };
+
+    case SET_ERROR:
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
+
 
     case GET_ALL_BOOKS_BY_CATEGORY:
       return {
