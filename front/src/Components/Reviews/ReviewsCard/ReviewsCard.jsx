@@ -12,9 +12,11 @@ import {
 } from "@chakra-ui/react";
 
 import styles from "./ReviewsCard.module.css"
+import { useTranslation } from "react-i18next";
 
 
 function ReviewsCard({ reviews }) {
+  const { t } = useTranslation()
   return (
     <div>
       {reviews.length > 0 ? 
@@ -22,9 +24,9 @@ function ReviewsCard({ reviews }) {
       {reviews?.map((r) => {
         
         return (
-          <Accordion p="0.5rem" allowMultiple >
+          <Accordion p="0.5rem" allowMultiple key={r.id}>
             <AccordionItem className={styles.contenedor} >
-              <div key={r.id}>
+              <div>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
                     <Flex textAlign="left" w="8rem" fontFamily='Segoe UI'>
@@ -54,7 +56,7 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex> : <h2 className={styles.mensajeVacio}>Todavía no hay ningún comentario. ¡Comprá un libro y contanos tu experiencia! </h2> }  
+    </Flex> : <h2 className={styles.mensajeVacio}>{t("sinReviews")}</h2> }  
       
     </div>
   );

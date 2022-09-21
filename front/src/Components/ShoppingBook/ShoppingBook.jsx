@@ -19,8 +19,10 @@ import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import { setItems } from "../../actions/checkoutActions";
 import { ItemCart } from "./ItemCart.jsx";
+import { useTranslation } from "react-i18next";
 
 function ShoppingBook() {
+  const { t } = useTranslation()
   const history = useHistory(); //para ir al  checkout del pago
   const dispatch = useDispatch();
   const [guestCartBooks, setGuestCartBooks] = useState([]); //arreglo de libros guardados en local storage
@@ -65,25 +67,25 @@ function ShoppingBook() {
     e.preventDefault();
     if (!isAuthenticated) {
       Swal.fire({
-        title: "Para comprar debe estar autenticado",
+        title: t("debeLoguearse"),
         icon: "info",
         showCancelButton: true,
         confirmButtonColor: "#01A86C",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Ir a Loguin",
+        confirmButtonText: t("goToLogin"),
       }).then((result) => {
         if (result.isConfirmed) {
-          history.push("/home");
+          history.push("/carrito");
         }
       });
     }
     if (!deliveryAdress) {
       Swal.fire({
-        title: "Para comprar debe confirmar dirección de Envío ",
+        title: t("debeConfirmarAddress"),
         icon: "info",
         showCancelButton: true,
         confirmButtonColor: "#01A86C",
-        confirmButtonText: "Aceptar",
+        confirmButtonText: t("volver"),
       });
     } else {
       let booksBuy = guestCartBooks.map((b) => {
@@ -96,13 +98,7 @@ function ShoppingBook() {
           description: "null",
         };
       });
-      // console.log("estoy en boton pago carrito ", booksBuy);
-      // console.log("estoy en shopping book", deliveryAdress)
       const isDeliverySet = Boolean(items.find((i) => i.id === 0));
-      console.log(
-        "viendo si dirección ya se guardó en items",
-        items.find((i) => i.id === 0)
-      );
       booksBuy = isDeliverySet ? booksBuy.concat(items) : booksBuy;
       dispatch(setItems(booksBuy));
       history.push("/checkout");
@@ -192,8 +188,8 @@ function ShoppingBook() {
       <div className={styles.carrito}>
         <div className={styles.containerGeneral}>
           <div className={styles.tituloPrincipal}>
-            <h3 className={styles.titulo}>CARRITO</h3>
-            <h3 className={styles.titulo}>N° Items totales: {totalBooks}</h3>
+            <h3 className={styles.titulo}>{t("carrito")}</h3>
+            <h3 className={styles.titulo}>N° Items: {totalBooks}</h3>
           </div>
 
           <div className={styles.container}>
@@ -208,7 +204,7 @@ function ShoppingBook() {
                   _active={{ bg: "none" }}
                   _focus={{ borderColor: "none" }}
                 >
-                  Continuar comprando...
+                  {t("continuarComprando")}...
                 </Button>
               </div>
 
@@ -225,10 +221,10 @@ function ShoppingBook() {
                 </div>
               ) : (
                 <div className={styles.containerVacio}>
-                  <h2 className={styles.textoVacio}>Tu carrito está vacío</h2>
+                  <h2 className={styles.textoVacio}>{t("carritoVacio")}</h2>
                   <h4 className={styles.parrafoVacio}>
                     {" "}
-                    ¿No sabés qué comprar? ¡Miles de libros te esperan!
+                    {t("indeciso")}
                   </h4>
                 </div>
               )}
@@ -239,7 +235,7 @@ function ShoppingBook() {
                 <div className={styles.infoCompra}>
                   <div className={styles.total}>
                     <h3>
-                      Total a pagar: ${parseFloat(totalAmount).toFixed(2)}
+                      {t("totalAPagar")}: ${parseFloat(totalAmount).toFixed(2)}
                     </h3>
                   </div>
                   <div className={styles.button}>
@@ -250,7 +246,7 @@ function ShoppingBook() {
                       onClick={(e) => handleBuyingBooks(e)}
                       className={styles.comprar}
                     >
-                      Comprar
+                      {t("comprar")}
                     </Button>
                   </div>
                 </div>
@@ -259,7 +255,6 @@ function ShoppingBook() {
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
