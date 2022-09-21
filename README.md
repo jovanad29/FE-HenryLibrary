@@ -67,10 +67,8 @@ npm start
 ```
 
 ## Descripción
-La aplicación tiene como finalidad poder brindarle al usuario una visualización de diferentes
-ofertas de excursiones disponibles a poder realizarse en distintos lugares de Argentina.
-La plataforma no solo funcionará como un e-commerce de las excursiones, sino que también permitirá
-que los usuarios puedan reservar excursiones, sacando turno a través de la misma plataforma.
+La aplicación tiene como finalidad poder brindarle al usuario una visualización de libros disponibles.
+La plataforma no solo funcionará como un e-commerce, sino que también permitirá que los usuarios puedan dejar reviews una vez realizada la compra.
 
 **Datos bancarios para poder simular una compra:**
 - nickname: TETE2302478
