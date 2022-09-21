@@ -8,12 +8,12 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    /* height: 150vh; */
 }
 
 .CardsAuthor {
     width: 60%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
     margin-left: 16rem;
