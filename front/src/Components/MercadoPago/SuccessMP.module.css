@@ -5,10 +5,12 @@ body {
 }
 
 
+
 .container{
+    margin-top: 0px;
     width: 100%;
-    height: 120%;
-    background-color: white;
+    min-height: 120vh;
+    background-color: var(--bg);
 }
 
 
@@ -16,9 +18,8 @@ body {
     width: 60%;
     height: auto;
     margin-left: 17rem;
-    margin-top: 4rem;
     margin-bottom: 4rem;
-    /* background-color: #01A86C; */
+    background-color: var(--bg);
     border: 2px solid #01A86C;
     box-shadow: 2px 2px 10px 4px #b7b7b2;
 }
@@ -41,6 +42,7 @@ body {
 .transaccion{
     font-size: 23px;
     margin-bottom: 0.5rem;
+    color: var(--text) !important;
 }
 
 .pID{
@@ -53,22 +55,27 @@ body {
     font-size: 23px;
     margin-top: 0.5rem;
     margin-bottom: 2rem;
+    color: var(--text) !important;
 }
 
 .tituloTabla{
     font-weight: bolder !important;
     color: black !important;
     font-size: 10px !important;
+    color: var(--text) !important;
 }
 
 .total{
     margin-bottom: 2rem;
     margin-top: 2rem;
     font-size: 23px;
+    color: var(--text) !important;
 }
 
 .totalLibros{
     margin-top: 2rem;
+    font-size: 23px;
+    color: var(--text) !important;
 }
 
 .price{
@@ -104,9 +111,9 @@ body {
 
     .container{
         width: 100%;
-        height: 150vh;
-        max-height: 300vh;
-        background-color: white;
+        height: 130vh;
+        min-height: 150vh;
+        background-color: var(--bg);
     }
 
 
@@ -114,9 +121,7 @@ body {
         width: 90%;
         height: auto;
         margin-left: 1rem;
-        margin-top: 2rem;
         margin-bottom: 2rem;
-        /* background-color: #01A86C; */
         border: 2px solid #01A86C;
         box-shadow: 2px 2px 10px 4px #b7b7b2;
         overflow-y: scroll;
