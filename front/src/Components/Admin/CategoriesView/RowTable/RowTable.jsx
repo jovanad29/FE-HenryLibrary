@@ -13,7 +13,7 @@ import style from "./RowTable.module.css";
 
 function RowTable({ category }) {
   const dispatch = useDispatch();
-  const { id, name , isActive } = category;
+  const { id, name, isActive } = category;
 
   const handleClick = (event) => {
     Swal.fire({
@@ -34,34 +34,20 @@ function RowTable({ category }) {
 
   return (
     <Box className={style.content}>
-      <Flex >
-              <Text
-                noOfLines={1}
-                height="100%"
-                paddingLeft="5%"
-                paddingRight="8%"
-                fontWeight="bold"
-              >
-                {name}
-              </Text>
-            {/* </VStack> */}
-       
+      <Flex className={style.table}>
+        <Box className={style.name}>{name}</Box>
+        <Box className={style.id}>{id}</Box>
+        <Box className={style.isActive}>{isActive}</Box>
 
-
-        
-{/* //cambiar a ruta de edicion de la categoria */}
-
-          {/* <NavLink
-            to={{ pathname: `/user/admin/catalogue/${id}`, props: book }}
-          > */}
-            {/* <Button colorScheme="green" size="xs">
-              Editar
-              </Button>
-          </NavLink> */}
-          <Button colorScheme="red" size="xs" onClick={handleClick}>
-            Eliminar
-          </Button>
-        {/* </Box> */}
+        <Button
+          className={style.button}
+          colorScheme="red"
+          size="xs"
+          width="100%"
+          onClick={handleClick}
+        >
+          Eliminar
+        </Button>
       </Flex>
     </Box>
   );
