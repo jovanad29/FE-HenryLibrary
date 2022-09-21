@@ -53,11 +53,15 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       }
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
       const status = {'approved': 4, 'in_process': 2,'rejected':7, 'pending':2 } // falta actualizar con el transactionID
-      const methods = {'account_money': 2, 'credit_card': 3, 'debit_card': 4 ,'ticket':5 ,'cash': 6};                                                       // hacer el cambio de estado en el cart debajo
+      const methods = {'account_money': 2, 'credit_card': 3, 'debit_card': 4 ,'ticket':5 ,'cash': 6};
+      console.log("estoy en la action imprimiendo la orden y paymentMethods")                                                 // hacer el cambio de estado en el cart debajo
+      console.log(order)
+      console.log(methods)
       try {       
         await axios.put(`/payments/${idCart}/status/${status[response.status]}`,{
           transactionId: order.transactionId,
-          paymentMethod: methods[order.paymentMethodId]
+          paymentMethod: methods[order.paymentMethodId],
+          deliveryAddress: order.deliveryAddress
         }) // cambio el estatus del pedido de carrito a aprobado
       } catch (error) {
         console.log(error)
