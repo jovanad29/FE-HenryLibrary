@@ -108,11 +108,11 @@ function App() {
                     path="/politicaPrivacidad"
                     component={PoliticaPrivacidad}
                 />
-                {/* <Route exact path={"/checkout/validate"} component={Validate} />
+                <Route exact path={"/checkout/validate"} component={Validate} />
                 <Route exact path={"/checkout/pending"} component={Pending} />
                 <Route exact path={"/checkout/rejected"} component={Rejected} />
                 <Route exact path={"/checkout/success"} component={Success} />
-                <Route exact path={"/checkout"} component={Checkout} /> */}
+                {/* <Route exact path={"/checkout"} component={Checkout} /> */}
                 <Route
                     path="/politicaDevolucion"
                     component={PoliticaDevolucion}
@@ -125,9 +125,22 @@ function App() {
                         component={PurchaseOrders}
                     /> */}
 
-                <Route path={"/user/admin"}>
+                {/* <Route path={"/user/admin"}>
+                    <Redirect to="/" />
+                </Route> */}
+
+                <Route exact path={"/user/admin/logout"}>
                     <Redirect to="/" />
                 </Route>
+                <Route exact path={"/user/admin"} />
+                <Route exact path={"/user/admin/catalogue"} />
+                <Route exact path={"/user/admin/catalogue/new"} />
+                <Route exact path={"/user/admin/catalogue/:id"} />
+                <Route exact path={"/user/admin/categories/CategoriesForm"} />
+                <Route exact path={"/user/admin/categories"} />
+                <Route exact path={"/user/admin/users"} />
+                <Route exact path={"/user/admin/payments"} />
+                <Route exact path={"/user/admin/payments/:id"} />
 
                 <Route path="*" component={PageError} />
             </Switch>
@@ -248,11 +261,11 @@ function App() {
                     <Redirect to="/" />
                     </Route> */}
 
-                    {/* <Route exact path={"/user/admin/logout"} component={Dashboard} /> */}
+                    <Route exact path={"/user/admin/logout"} />
 
-                    <Route path="*">
+                    {/* <Route path="*">
                         <Redirect to="/user/admin" />
-                    </Route>
+                    </Route> */}
                 </Switch>
             );
         } else {
@@ -287,9 +300,9 @@ function App() {
 
                     <Route path="/catalog/author/:id" component={CardsAuthor} />
 
-                    <Route path={"/user/admin/"}>
+                    {/* <Route path={"/user/admin/"}>
                         <Redirect to="/" />
-                    </Route>
+                    </Route> */}
 
                     {/*Ruta administrador*/}
                     {/* <Route exact path={"/user/admin"} component={Dashboard} />
@@ -448,26 +461,10 @@ function App() {
                     path="/politicaPrivacidad"
                     component={PoliticaPrivacidad}
                 />
-                {/* <Route
-                        exact
-                        path={"/checkout/validate"}
-                        component={Validate}
-                    /> */}
-                {/* <Route
-                        exact
-                        path={"/checkout/pending"}
-                        component={Pending}
-                    /> */}
-                {/* <Route
-                        exact
-                        path={"/checkout/rejected"}
-                        component={Rejected}
-                    /> */}
-                {/* <Route
-                        exact
-                        path={"/checkout/success"}
-                        component={Success}
-                    /> */}
+                <Route exact path={"/checkout/validate"} component={Validate} />
+                <Route exact path={"/checkout/pending"} component={Pending} />
+                <Route exact path={"/checkout/rejected"} component={Rejected} />
+                <Route exact path={"/checkout/success"} component={Success} />
                 {/* <Route exact path={"/checkout"} component={Checkout} /> */}
                 <Route
                     path="/politicaDevolucion"
@@ -481,106 +478,23 @@ function App() {
                         component={PurchaseOrders}
                     /> */}
 
-                <Route path={"/user/admin/logout"}>
+                <Route exact path={"/user/admin/logout"}>
                     <Redirect to="/" />
                 </Route>
-                <Route path="*" component={PageError} />
+                <Route exact path={"/user/admin"} />
+                <Route exact path={"/user/admin/catalogue"} />
+                <Route exact path={"/user/admin/catalogue/new"} />
+                <Route path={"/user/admin/catalogue/:id"} />
+                <Route exact path={"/user/admin/categories/CategoriesForm"} />
+                <Route exact path={"/user/admin/categories"} />
+                <Route exact path={"/user/admin/users"} />
+                <Route exact path={"/user/admin/payments"} />
+                <Route path={"/user/admin/payments/:id"} />
+
+                {/* <Route path="*" component={PageError} /> */}
             </Switch>
         );
     }
-
-    // return (
-    //     <>
-    //         {/*Se agregan las rutas para el primer spint solo queda importar los componentes y pasarlos a cada ruta, puede ser necesario realizar cambios, ir descomentando una a una para que se puedan renderizar bien los componentes */}
-
-    //         <Switch>
-    //             {/*Ruta Landing Page */}
-    //             <Route exact path="/" component={LandingPage} />
-
-    //             {/*Ruta Catalogo de Libros */}
-    //             <Route path="/home" component={Home} />
-
-    //             {/*Ruta Favoritos de Libros */}
-    //             {/* <Route path="/favoritos" component={Favorites} /> */}
-
-    //             {/*Ruta Catalogo de Libros */}
-    //             <Route path={"/carrito"} component={ShoppingBook} />
-
-    //             {/*Ruta Creacion de Nuevo Libro */}
-    //             <Route path={"/nuevoLibro"} component={NewBookChakra} />
-
-    //             {/*Ruta Catalogo de Libros */}
-    //             {/* <Route path={"/favoritos"} component={} /> */}
-
-    //             {/*Ruta Detalles de Libro */}
-    //             <Route path="/catalog/detail/:id" component={BookDetail} />
-
-    //             {/*Ruta Inicio de Sesion */}
-    //             {/* <Route path={"/login"} component={} /> */}
-    //             <Route path="/catalog/author/:id" component={CardsAuthor} />
-    //             {/*Ruta Panel de usuario */}
-    //             <Route path={"/dashboard/user"} component={DashboardUser} />
-
-    //             <Route path="/catalog/author/:id" component={CardsAuthor} />
-
-    //             {/*Ruta administrador*/}
-    //             <Route exact path={"/user/admin"} component={Dashboard} />
-    //             <Route
-    //                 exact
-    //                 path={"/user/admin/catalogue"}
-    //                 component={LibraryView}
-    //             />
-    //             <Route
-    //                 exact
-    //                 path={"/user/admin/catalogue/new"}
-    //                 component={NewBook}
-    //             />
-    //             <Route
-    //                 path={"/user/admin/catalogue/:id"}
-    //                 component={EditBook}
-    //             />
-    //             <Route exact path={"/user/admin/users"} component={UserView} />
-    //             <Route
-    //                 exact
-    //                 path={"/user/admin/payments"}
-    //                 component={PaymentsView}
-    //             />
-    //             <Route
-    //                 exact
-    //                 path={"/user/admin/categories/"}
-    //                 component={CategoryForm}
-    //             />
-    //             <Route
-    //                 path={"/user/admin/payments/:id"}
-    //                 component={DetailPayment}
-    //             />
-
-    //             {/*Rutas Extras*/}
-    //             <Route path="/aboutUs" component={AboutUs} />
-    //             <Route
-    //                 path="/politicaPrivacidad"
-    //                 component={PoliticaPrivacidad}
-    //             />
-    //             <Route exact path={"/checkout/validate"} component={Validate} />
-    //             <Route exact path={"/checkout/pending"} component={Pending} />
-    //             <Route exact path={"/checkout/rejected"} component={Rejected} />
-    //             <Route exact path={"/checkout/success"} component={Success} />
-    //             <Route exact path={"/checkout"} component={Checkout} />
-    //             <Route
-    //                 path="/politicaDevolucion"
-    //                 component={PoliticaDevolucion}
-    //             />
-
-    //             {/*Rutas Error*/}
-    //             <Route
-    //                 exact
-    //                 path={"/purchaseOrders"}
-    //                 component={PurchaseOrders}
-    //             />
-    //             <Route path="*" component={PageError} />
-    //         </Switch>
-    //     </>
-    // );
 }
 
 export default App;
