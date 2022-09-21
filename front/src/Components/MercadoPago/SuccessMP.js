@@ -43,7 +43,7 @@ export default function SuccessMP() {
     if (order.items.length && uid) {
       axios
         .post(`/mercadopago/create`, { ...order, userID: uid })
-        .then((r) => console.log("se guardó en DB", r.json()))
+        .then((r) => console.log("se guardó en DB", r))
         .catch((e) => console.log("no se guardó en DB", e));
     }
   }, [order, uid]); 

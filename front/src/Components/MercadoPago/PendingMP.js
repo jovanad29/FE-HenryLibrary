@@ -65,10 +65,10 @@ function PendingMP() {
 					<div className={s.check}><BsExclamationCircle fontSize="6rem"/></div>
 					<h1 className={s.titulo}>{t("pendiente")}</h1>
 					<div className={s.transaccion}>
-						{t("transaccion")}: <span className={s.pID}>{order.transactionId || "Pendiente"}</span>
+						{t("transaccion")}: <span className={s.pID}>{order.transactionId || t("statusPendiente")}</span>
 					</div>
 					<div className={s.transaccion}>
-						{t("status")}: <span className={s.pID}>{order.status || "Pendiente"}</span>
+						{t("status")}: <span className={s.pID}>{order.status || t("statusPendiente")}</span>
 					</div>
 					<div className={s.transaccion}>
 						{t("nota")}: <small>{t("descNota")}</small>
@@ -76,7 +76,7 @@ function PendingMP() {
 					<span className={s.itemsTotales}>Total items: {activeCartQuantity}</span>
 		
 					<TableContainer className={s.tabla}>
-						<Table key={Math.random()} variant='striped' colorScheme='green'>
+						<Table key={Math.random()} variant='striped' colorScheme='orange'>
 							<Thead>
 								<Tr>
 								<Th className={s.tituloTabla}>{t("libro")}</Th>
