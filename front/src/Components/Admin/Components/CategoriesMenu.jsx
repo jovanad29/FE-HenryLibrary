@@ -18,7 +18,7 @@ function CategoriesMenu() {
             ml="8%"
             color="#01A86C"
           >
-            Géneros
+            Categorías
           </Heading>
         </Flex>
       </NavLink>
