@@ -4,6 +4,9 @@ import { useHistory } from "react-router-dom";
 import Loading from "../Loading/Loading.jsx";
 import MercadoPago from "../MercadoPago/MercadoPago";
 import s from "./Checkout.module.css";
+import {
+  Button,
+} from "@chakra-ui/react";
 
 function Checkout() {
   const [loading, setLoading] = useState(true);
@@ -31,9 +34,9 @@ function Checkout() {
         <div className={s.ticket}>
           <div className={s.contTicket}>
             <div className={s.backButton}>
-              <button className={s.buttonBack} onClick={goBack}>
+              <Button className={s.buttonBack} onClick={goBack} background="#01A86C">
                 Volver
-              </button>
+              </Button>
             </div>
             <h1 className={s.ordenDeCompra}>Orden de Compra</h1>
             <div className={s.itemsCont}>

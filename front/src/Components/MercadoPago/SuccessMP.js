@@ -119,7 +119,7 @@ export default function SuccessMP() {
                 Total Libros:{" "}
                 <span className={s.price}> ${activeCartAmount}</span>
               </span>
-              <span>
+              <span className={s.total}>
                 Total:{" "}
                 <span className={s.price}>
                   {" "}
