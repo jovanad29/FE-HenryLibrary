@@ -33,7 +33,7 @@ import RowTable from "./RowTable/RowTable";
 
 function CategoriesView() {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state);
+  const { categories,errorMessage } = useSelector((state) => state);
 
   const toast = useToast();
 
@@ -77,7 +77,16 @@ function CategoriesView() {
             ...input,
           })
         );
-
+        if (errorMessage) {
+            console.log("adentro")
+          toast({
+            title: "Error",
+            description: errorMessage,
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });onClose();
+        } else {
         toast({
           title: "Género",
           description: "El género fue creado con éxito.",
@@ -87,6 +96,7 @@ function CategoriesView() {
         });
 
         onClose();
+        }
       } catch (error) {
         toast({
           title: "Género",
@@ -135,7 +145,7 @@ function CategoriesView() {
       <Box className={style.content}>
         <Box mb="5%" fontFamily="Quicksand">
           <Button onClick={onOpen} colorScheme="green" size="sm">
-            Crear Categoría
+            Crear Género
           </Button>
 
           <Modal
@@ -198,7 +208,6 @@ function CategoriesView() {
           <Flex className={style.table}>
             <Box className={style.name}>Nombre</Box>
             <Box className={style.id}>Id</Box>
-            <Box className={style.isActive}>Está activa_</Box>
             <Box className={style.button}></Box>
           </Flex>
 
