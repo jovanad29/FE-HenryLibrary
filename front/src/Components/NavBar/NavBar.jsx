@@ -9,7 +9,7 @@ import {
   clearLoginError,
 } from "../../actions";
 import banderaArgentina from "./arg.png";
-// import banderaEeuu from "./eeuu.png";
+import banderaEeuu from "./eeuu.png";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
 
@@ -109,15 +109,15 @@ export default function NavBar() {
         </NavLink>
 
         <div className={styles.banderas}>
-          <button className={styles.bandera}>
-            <img src={banderaArgentina} alt="" />
-          </button>
 
-          {/* <button className={styles.bandera}>
-          <img src={banderaEeuu} alt="" />
-         </button> */}
-         <button onClick={() => changeLanguage('es') }>Español</button>
-         <button onClick={() => changeLanguage('en') }>English</button>
+         <button onClick={() => changeLanguage('es') }>
+         <img src={banderaArgentina} alt="" />
+         </button>
+         <h1> &nbsp;&nbsp;</h1>
+   
+         <button onClick={() => changeLanguage('en') }>  
+         <img src={banderaEeuu} alt="" />
+         </button>
         </div>
       </div>
 
