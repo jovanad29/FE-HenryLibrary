@@ -6,7 +6,8 @@ body {
 
 .TableContainer{
     width: 95%;
-    height: auto;
+    height: 15rem;
+    max-height: 30vh;
     overflow-y: scroll;
 }
 
@@ -44,7 +45,7 @@ body {
 
 
     .TableContainer{
-        width: 90%;
+        width: 100%;
         height: auto;
         overflow-y: scroll;
         margin-left: 1rem;
