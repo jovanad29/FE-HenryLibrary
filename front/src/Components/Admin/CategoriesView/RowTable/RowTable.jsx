@@ -27,9 +27,13 @@ function RowTable({ category }) {
       focusDeny: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteCategory(id));
+        
+          dispatch(deleteCategory(id))
+        
+         
+        }
       }
-    });
+    );
   };
 
   return (
