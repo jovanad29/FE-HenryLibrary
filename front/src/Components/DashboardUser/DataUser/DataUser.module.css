@@ -63,23 +63,31 @@
 @media screen and (max-width: 844px) {
 
     .containerInputs{
-        width: 95%;
+        width: 98%;
         display: flex;
         align-items: flex-start;
         justify-content: space-around;
         flex-direction: column;
-        height: 15rem;
+        height: 20rem;
         margin-bottom: 2rem;
-        margin-left: 2rem;
+        margin-left: 1rem;
     }
 
     .label{
+        height: 4.5rem;
         margin-top: 2rem;
+        font-size: 15px;
+    }
+
+    .label2{
+        height: 3.5rem;
+        font-size: 15px;
     }
 
     .input{
-        margin-bottom: 2rem;
-        height: 2rem;
+        width: 11rem;
+        margin-bottom: 0rem;
+        height: 3.5rem;
     } 
 
 }

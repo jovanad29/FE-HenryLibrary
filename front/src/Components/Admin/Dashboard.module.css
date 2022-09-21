@@ -4,6 +4,9 @@
     top: -3rem;
     right: -1rem;
 } */
+body{
+    background-color: var(--bg) !important;
+}
 
 .claroOscuroAdmin{
     height: 100% !important;
