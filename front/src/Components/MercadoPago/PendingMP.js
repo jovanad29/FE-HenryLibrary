@@ -20,10 +20,11 @@ import {
 } from '@chakra-ui/react'
 import {BsExclamationCircle} from "react-icons/bs"
 import { getCartDB } from "../../actions";
+import { useTranslation } from "react-i18next";
 
 
 function PendingMP() {
-  	
+  	const { t } = useTranslation()
 	const dispatch = useDispatch();
 	//const { userProfile } = useSelector((state) => state.profile);
 	const {
@@ -35,32 +36,26 @@ function PendingMP() {
 			activeCartAmount,
 			items
 		} = useSelector((state) => state);
-	// console.log("La orden es esta: ", order)
 	const history = useHistory();
  
   useEffect(() => {
-	// console.log("Entro en el useEffect que dispara la petición de la compra hecha")
     if (mpID && activeCartPaymentId) {
       	dispatch(asyncGetMP(mpID,activeCartPaymentId));     
     }
-	return () => {
-		dispatch(getCartDB(uid)) 
-	}
 	 //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mpID, activeCartPaymentId ]);
 
-  useEffect(() => {
-	
+  useEffect(() => {	
     if (order.items.length && uid) {
        axios.post(`/mercadopago/create`, { ...order, userID: uid })
        .then( r => console.log("se guardó en DB", r))
        .catch( e => console.log("no se guardó en DB", e))
     }   
   }, [order, uid, items]);
-
   
   function goBack(e) {
     e.preventDefault();
+    dispatch(getCartDB(uid));
     history.push("/home");    
   }
   return (
@@ -68,16 +63,15 @@ function PendingMP() {
 			<div className={s.cont}>
 				<div className={s.contGreen}>
 					<div className={s.check}><BsExclamationCircle fontSize="6rem"/></div>
-					<h1 className={s.titulo}>PAGO PENDIENTE</h1>
+					<h1 className={s.titulo}>{t("pendiente")}</h1>
 					<div className={s.transaccion}>
-						Numero transacción: <span className={s.pID}>{order.transactionId || "Pendiente"}</span>
+						{t("transaccion")}: <span className={s.pID}>{order.transactionId || "Pendiente"}</span>
 					</div>
 					<div className={s.transaccion}>
-						Estado: <span className={s.pID}>{order.status || "Pendiente"}</span>
+						{t("status")}: <span className={s.pID}>{order.status || "Pendiente"}</span>
 					</div>
 					<div className={s.transaccion}>
-						Nota: <span className={s.pID}>Esperando aprobación de mercado pago</span><br/>
-						<small>En el momento de recibir la aprobación, recibirá una notificación.</small>
+						{t("nota")}: <small>{t("descNota")}</small>
 					</div>
 					<span className={s.itemsTotales}>Total items: {activeCartQuantity}</span>
 		
@@ -85,36 +79,42 @@ function PendingMP() {
 						<Table key={Math.random()} variant='striped' colorScheme='green'>
 							<Thead>
 								<Tr>
-								<Th className={s.tituloTabla}>Libro</Th>
-								<Th isNumeric className={s.tituloTabla}>Cantidad</Th>
-								<Th isNumeric className={s.tituloTabla}>Precio</Th>
+								<Th className={s.tituloTabla}>{t("libro")}</Th>
+								<Th isNumeric className={s.tituloTabla}>{t("qty")}</Th>
+								<Th isNumeric className={s.tituloTabla}>{t("precio")}</Th>
 								</Tr>
 							</Thead>
 							<Tbody>
-								{
-								order.withDelivery.map(i => {
-									return (
+							{order.withDelivery.map((i) => {
+								return (
 									<Tr>
-										<Td>{i.title}</Td>
-										<Td>{i.quantity}</Td>
-										<Td isNumeric>{i.price}</Td>
+									<Td>{i.title}</Td>
+									<Td isNumeric>
+										{i.bookId !== 0 && i.description !== "Retira en Sucursal"
+										? i.quantity
+										: " "}
+									</Td>
+									<Td isNumeric>
+										{i.bookId !== 0 && i.description !== "Retira en Sucursal"
+										? i.price
+										: " "}
+									</Td>
 									</Tr>
-									)
-								})
-								}
+								);
+							})}
 							</Tbody>
 						</Table>
 					</TableContainer>
 					<span>
-						Total Libros: <span className={s.price}> ${activeCartAmount}</span>
+						Total {t("libros")}: <span className={s.price}> ${activeCartAmount}</span>
 					</span>
 					<span>
-						Gastos de envio: <span className={s.price}> ${1500}</span>
+						{t("gastoEnvio")}: <span className={s.price}> ${1500}</span>
 					</span>
 					<span>
 						Total: <span className={s.price}> ${parseFloat(order.total + 1500).toFixed(2)}</span>
 					</span>
-					<Button className={s.boton} onClick={goBack}>Seguir Comprando</Button>
+					<Button className={s.boton} onClick={goBack}>{t("continuarComprando")}</Button>
 					<div className={s.successCheckmark}>
 						<div className={s.checkIcon}>
 							<span className={`${s.iconLine} ${s.lineTip}`}></span>

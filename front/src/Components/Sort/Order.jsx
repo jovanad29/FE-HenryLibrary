@@ -4,19 +4,20 @@ import { BsChevronDown } from "react-icons/bs";
 import styles from "./Order.module.css"
 import { orderBy, getAllBooks } from "../../actions";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function Order() {
   const dispatch = useDispatch();
+  const { t } = useTranslation()
   const sorts = [
     { id: 1, title: "", value: "defecto" },
-    { id: 2, title: "Más vendidos", value: "masVendidos" },
-    { id: 3, title: "Menos vendidos", value: "menosVendidos" },
-    { id: 4, title: "Mayor precio", value: "mayorPrecio" },
-    { id: 5, title: "Menor precio", value: "menorPrecio" },
-    { id: 6, title: "Mejor calificación", value: "mayorRating" },
-    { id: 7, title: "Peor calificación", value: "menorRating" },
+    { id: 2, title: t("masVendidos"),  value: "masVendidos" },
+    { id: 3, title: t("menosVendidos"), value: "menosVendidos" },
+    { id: 4, title: t("mayorPrecio"),   value: "mayorPrecio" },
+    { id: 5, title: t("menorPrecio"),   value: "menorPrecio" },
+    { id: 6, title: t("mayorRating"),   value: "mayorRating" },
+    { id: 7, title: t("menorRating"),   value: "menorRating" },
   ];
-
   //ORDENAMIENTO
   const ordenByHandler = (event) => {
     event.preventDefault();
@@ -39,7 +40,7 @@ export default function Order() {
         fontFamily="Quicksand"
       >
         <Box fontWeight={"bold"}>
-          <label className={styles.claroOscuro} fontFamily= 'Segoe UI'>Ordenado por: </label>
+          <label className={styles.claroOscuro} fontFamily= 'Segoe UI'>{t("ordenarPor")}: </label>
         </Box>
         <Select
           size="sm"

@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -34,11 +35,11 @@ function Checkout() {
         <div className={s.ticket}>
           <div className={s.contTicket}>
             <div className={s.backButton}>
-              <Button className={s.buttonBack} onClick={goBack} background="#01A86C">
-                Volver
-              </Button>
+              <button className={s.buttonBack} onClick={goBack}>
+                {t("volver")}
+              </button>
             </div>
-            <h1 className={s.ordenDeCompra}>Orden de Compra</h1>
+            <h1 className={s.ordenDeCompra}>{t("purchaseOrder")}</h1>
             <div className={s.itemsCont}>
               {items?.map((i, key) => (
                 <div key={key} className={s.item}>

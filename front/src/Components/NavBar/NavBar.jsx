@@ -10,6 +10,8 @@ import {
 } from "../../actions";
 import banderaArgentina from "./arg.png";
 // import banderaEeuu from "./eeuu.png";
+import { useTranslation } from "react-i18next";
+import { changeLanguage } from "i18next";
 
 //COMPONENTES
 import SearchBar from "../SearchBar/SearchBar";
@@ -28,7 +30,7 @@ export default function NavBar() {
     (state) => state
   );
   const isAuthenticated = useMemo(() => status === "authenticated", [status]);
-
+  const { t } = useTranslation()
   const [loginModal, setLoginModal] = useState(false);
 
   function HandleOpenLogin() {
@@ -73,7 +75,7 @@ export default function NavBar() {
       <div
         className={status === "authenticated" ? styles.user : styles.notUser}
       >
-        <h4>Bienvenido, {displayName}</h4>
+        <h4>{t('bienvenida')}, {displayName}</h4>
       </div>
 
       <div className={styles.iconos}>
@@ -114,6 +116,8 @@ export default function NavBar() {
           {/* <button className={styles.bandera}>
           <img src={banderaEeuu} alt="" />
          </button> */}
+         <button onClick={() => changeLanguage('es') }>Español</button>
+         <button onClick={() => changeLanguage('en') }>English</button>
         </div>
       </div>
 

@@ -9,8 +9,10 @@ import {
 //CSS
 import { Button } from "@chakra-ui/react";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 function DataUser(id) {
+    const  { t } = useTranslation()
     let { email, displayName, address, uid } = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -59,7 +61,7 @@ function DataUser(id) {
         e.preventDefault();
         if (!direction || !name) {
             return Swal.fire({
-                title: "Debe completar todos los datos!",
+                title: t("todosLosCampos"),
                 icon: "error",
                 // iconColor: "#01A86C",
                 confirmButtonColor: "#01A86C",
@@ -70,7 +72,7 @@ function DataUser(id) {
         dispatch(getUserInfo(uid));
         handleEdit(e);
         Swal.fire({
-            title: "Perfil de usuario actualizado!",
+            title: t("perfilActualizado"),
             icon: "success",
             iconColor: "#01A86C",
             confirmButtonColor: "#01A86C",
@@ -103,7 +105,7 @@ function DataUser(id) {
             <form>
                 <div className={styles.containerInputs}>
                     <p className={styles.label}>
-                        Nombre:{" "}
+                        {t("fullname")}:{" "}
                         <input
                             value={name}
                             name="nombre"
@@ -116,9 +118,9 @@ function DataUser(id) {
                     <div className={styles.danger}>
                         {errores.nombre && <p>{errores.nombre}</p>}
                     </div>
-                    <p className={styles.label2}>Email: {email}</p>
+                    <p className={styles.label2}>{t("correoe")}: {email}</p>
                     <p className={styles.label}>
-                        Direccion:{" "}
+                        {t("direccion")}:{" "}
                         <input
                             value={direction}
                             name="direccion"
@@ -142,7 +144,7 @@ function DataUser(id) {
                             onClick={handleEdit}
                             className={styles.buttonsEdit}
                         >
-                            Editar
+                            {t("editar")}
                         </Button>
                     )}
                     {isEditable && (
@@ -153,7 +155,7 @@ function DataUser(id) {
                                 onClick={handleOnSubmit}
                                 className={styles.buttons}
                             >
-                                Confirmar
+                                {t("confirmar")}
                             </Button>
 
                             <Button
@@ -162,7 +164,7 @@ function DataUser(id) {
                                 onClick={handleOnCancel}
                                 className={styles.buttons2}
                             >
-                                Cancelar
+                                {t("cancelar")}
                             </Button>
                         </div>
                     )}

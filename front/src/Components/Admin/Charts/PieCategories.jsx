@@ -18,13 +18,21 @@ function PieCategories() {
   }, [dispatch]);
 
   useEffect(() => {
-    const data = categoriesMostBuies.splice(0, 4);
+    const data =
+      categoriesMostBuies.length >= 4
+        ? categoriesMostBuies.splice(0, 4)
+        : categoriesMostBuies;
     setCategoriesData({
       labels: data.map((d) => d.name),
       datasets: [
         {
           label: "Categorias mas vendidas",
-          data: data.map((d) => d.soldCopies),
+          data: data.map((d) => {
+            if (d.soldCopies) {
+              return d.soldCopies;
+            }
+            return 0;
+          }),
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",
