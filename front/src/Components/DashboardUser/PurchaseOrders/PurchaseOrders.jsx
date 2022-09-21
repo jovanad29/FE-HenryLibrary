@@ -22,12 +22,15 @@ import {
     AccordionIcon,
     Box,
 } from "@chakra-ui/react";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 // import { getAllOrders } from "../../../actions/dashboardActions";
 
 export default function PurchaseOrders() {
     const dispatch = useDispatch();
     //definir un estados local para guardar todas las ordenes de un cliente
     const [orders, setOrders] = useState([]);
+    const { t } = useTranslation()
 
     const { status, uid, allCartByUser,  } = useSelector( // allOrders
         (state) => state
@@ -172,22 +175,22 @@ export default function PurchaseOrders() {
                                             Id
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Items
+                                            Item
                                         </Th>
                                         <Th
                                             className={styles.tableTittles}
                                             isNumeric
                                         >
-                                            Importe/s
+                                            {t("importe")}
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Estado
+                                            {t("status")}
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Metodo de pago
+                                            {t("metodoPago")}
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Fecha
+                                            {t("fecha")}
                                         </Th>
                                     </Tr>
                                 </Thead>
@@ -203,9 +206,9 @@ export default function PurchaseOrders() {
                     <Table variant="striped" size="lg">
                         <Thead>
                             <Tr>
-                                <Th>Cantidad de Ordenes: {totalOrders}</Th>
+                                <Th>{t("nOrdenes")}: {totalOrders}</Th>
                                 <Th isNumeric>
-                                    Cantidad de Items: {totalItemsByUser}
+                                    {t("nItems")}: {totalItemsByUser}
                                 </Th>
                             </Tr>
                         </Thead>

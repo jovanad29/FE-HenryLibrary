@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -9,6 +9,7 @@ import store from "./store";
 import dotenv from "dotenv";
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
+import './i18n'
 dotenv.config();
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
@@ -18,7 +19,9 @@ ReactDOM.render(
     <Provider store={store}>
       <ChakraProvider resetCSS={true}>
         <BrowserRouter>
+        <Suspense fallback={null}>
           <App />
+        </Suspense>
         </BrowserRouter>
       </ChakraProvider>
     </Provider>

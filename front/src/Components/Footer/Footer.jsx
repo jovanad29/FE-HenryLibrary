@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 //CSS
 import styles from "./Footer.module.css"
 import medioPago from "./medioDePago.jpg"
@@ -13,7 +13,7 @@ import {BsInstagram} from "react-icons/bs"
 
 
 export default function Footer() {
-    
+    const { t } = useTranslation()
   return (
   <div className={styles.container}>
 
@@ -23,8 +23,8 @@ export default function Footer() {
     </div>
 
     <div className={styles.contacto}>
-      <h3 className={styles.h3}><NavLink to="/politicaDevolucion">Politicas de Devolucion</NavLink></h3>
-      <h3 className={styles.h3}><NavLink to="/politicaPrivacidad">Politicas de Privacidad</NavLink></h3>
+      <h3 className={styles.h3}><NavLink to="/politicaDevolucion">{t("devolucion")}</NavLink></h3>
+      <h3 className={styles.h3}><NavLink to="/politicaPrivacidad">{t("privacidad")}</NavLink></h3>
       <h3 className={styles.telefono}><NavLink to="">+549-3512436008</NavLink></h3>
     </div>
 

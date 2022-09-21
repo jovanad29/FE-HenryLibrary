@@ -4,6 +4,13 @@
     margin-right: 5%;
     height: auto !important;
     background-color: var(--bg) !important;
+    border: 2px solid transparent;
+    box-shadow: 5px 10px 30px #01A86C;
+    border-radius: 25px;    
+    padding: 1%;
+    margin-bottom: 5%;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .user{
