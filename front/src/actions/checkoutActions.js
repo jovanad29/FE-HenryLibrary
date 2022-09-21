@@ -52,7 +52,7 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
         deliveryAddress: response.additional_info.items.find(i => i.id === "0").description
       }
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
-      const status = {'approved': 4, 'in_process': 2} // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
+      const status = {'approved': 4, 'in_process': 2,'rejected':7, 'pending':3 } // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
       try {       
         await axios.put(`/payments/${idCart}/status/${status[response.status]}`) // cambio el estatus del pedido de carrito a aprobado
       } catch (error) {

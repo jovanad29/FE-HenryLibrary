@@ -67,9 +67,9 @@ function PendingMP() {
 					<div className={s.transaccion}>
 						{t("transaccion")}: <span className={s.pID}>{order.transactionId || "Pendiente"}</span>
 					</div>
-					<div className={s.transaccion}>
+					{/* <div className={s.transaccion}>
 						{t("status")}: <span className={s.pID}>{order.status || "Pendiente"}</span>
-					</div>
+					</div> */}
 					<div className={s.transaccion}>
 						{t("nota")}: <small>{t("descNota")}</small>
 					</div>
@@ -85,7 +85,7 @@ function PendingMP() {
 								</Tr>
 							</Thead>
 							<Tbody>
-							{order.withDelivery.map((i) => {
+							{order.withDelivery?.map((i) => {
 								return (
 									<Tr>
 									<Td>{i.title}</Td>
@@ -109,10 +109,7 @@ function PendingMP() {
 						Total {t("libros")}: <span className={s.price}> ${activeCartAmount}</span>
 					</span>
 					<span>
-						{t("gastoEnvio")}: <span className={s.price}> ${1500}</span>
-					</span>
-					<span>
-						Total: <span className={s.price}> ${parseFloat(order.total + 1500).toFixed(2)}</span>
+						Total: <span className={s.price}> ${parseFloat(order.total ).toFixed(2)}</span>
 					</span>
 					<Button className={s.boton} onClick={goBack}>{t("continuarComprando")}</Button>
 					<div className={s.successCheckmark}>
