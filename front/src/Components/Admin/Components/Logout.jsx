@@ -7,8 +7,9 @@ import { startLogout } from "../../../actions";
 function Logout() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const handleCloseSesion = () => {
-      dispatch(startLogout());
+    const handleCloseSesion = async () => {
+        await history.push("/user/admin/logout");
+        dispatch(startLogout());
     };
     return (
         <Box>
