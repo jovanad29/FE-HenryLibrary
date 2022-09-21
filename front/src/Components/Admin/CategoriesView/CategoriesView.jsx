@@ -27,10 +27,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import style from "../LibraryView/LibraryView.module.css";
+import style from "./CategoriesView.module.css";
 
 import RowTable from "./RowTable/RowTable";
-import { NavLink } from "react-router-dom";
 
 function CategoriesView() {
   const dispatch = useDispatch();
@@ -130,16 +129,15 @@ function CategoriesView() {
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Quicksand">
+    <Box fontFamily="Segoe UI">
       <Menu />
       <NavBar />
       <Title />
 
       <Box className={style.content}>
         <Box mb="5%" fontFamily="Quicksand">
-
-          <Button onClick={onOpen} colorScheme="green" size="sm" ml="5%">
-            Crear Categoria
+          <Button onClick={onOpen} colorScheme="green" size="sm">
+            Crear Categoría
           </Button>
 
           <Modal
@@ -196,19 +194,24 @@ function CategoriesView() {
             </ModalContent>
           </Modal>
         </Box>
-        {/* CABECERA */}
-        <Flex className={style.table}>
-          <Box className={style.book}>Nombre</Box>
-          <Box className={style.author}>Id</Box>
-          <Box className={style.category}>Está activa_</Box>
 
-          <Box className={style.edit}></Box>
-        </Flex>
+        <Box className={style.contentTable}>
+          {/* CABECERA */}
+          <Flex className={style.table}>
+            <Box className={style.name}>Nombre</Box>
+            <Box className={style.id}>Id</Box>
+            <Box className={style.isActive}>Está activa_</Box>
+            <Box className={style.button}></Box>
+          </Flex>
 
-        {/* CONTENIDO */}
-        {categories.map(
-          (category) => category.isActive && <RowTable key={category.id} category={category} />
-        )}
+          {/* CONTENIDO */}
+          {categories.map(
+            (category) =>
+              category.isActive && (
+                <RowTable key={category.id} category={category} />
+              )
+          )}
+        </Box>
       </Box>
     </Box>
   );
