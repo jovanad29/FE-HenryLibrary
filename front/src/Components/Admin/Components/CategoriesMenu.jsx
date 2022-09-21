@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Flex, Heading } from "@chakra-ui/react";
 
-import { IoLibrarySharp } from "react-icons/io5";
+import { MdCategory } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
 function CategoriesMenu() {
@@ -10,7 +10,7 @@ function CategoriesMenu() {
     <Box mt="25%">
       <NavLink to={`/user/admin/categories`}>
         <Flex justifyContent="flex-start">
-          <IoLibrarySharp size="12%" color="#01A86C" />
+          <MdCategory size="12%" color="#01A86C" />
           <Heading
             fontFamily="Quicksand"
             as="h2"
@@ -18,7 +18,7 @@ function CategoriesMenu() {
             ml="8%"
             color="#01A86C"
           >
-            Géneros
+            Categorías
           </Heading>
         </Flex>
       </NavLink>
