@@ -8,6 +8,7 @@ import {
 
 import {
   Box,
+  Button,
   // Button,
   Flex,
   Heading,
@@ -27,14 +28,18 @@ import Title from "../../Components/Title";
 function DetailPayment(props) {
   const location = useLocation();
   const { allOrderStatus } = location.state;
+  let totalBooksPrice = 0;
 
   const dispatch = useDispatch();
   const toast = useToast();
 
   const showNotification = () => {
     return toast({
-      description: "Orden actualizada",
-      duration: 2000,
+      title: "Orden de Pago",
+      description: "El estado fue actualizado.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
     });
   };
 
@@ -49,9 +54,13 @@ function DetailPayment(props) {
   const currentOrder = allOrders.find(
     (e) => Number(e.id) === Number(props.match.params.id)
   );
-  console.log("ggggggggggggggg", allOrders);
-  const { id, user, books, total, order_status, payment_method, createdAt } =
+
+  const { id, user, books, total, order_status, paymentType, createdAt } =
     currentOrder;
+
+  const sumTotalPrice = (num) => {
+    totalBooksPrice = totalBooksPrice + Number(num);
+  };
 
   //console.log("ggggggggggggggg", allOrders);
 
@@ -84,13 +93,12 @@ function DetailPayment(props) {
         {/* CABECERA */}
         <Box>
           <Flex className={style.table}>
-            <Box className={style.numOrder}>Numero de Orden</Box>
-            <Box className={style.status}>Usuario</Box>
+            <Box className={style.numOrder}>Nº Orden</Box>
+            <Box className={style.user}>Usuario</Box>
             <Box className={style.amount}>Importe/s</Box>
             <Box className={style.status}>Estado</Box>
             <Box className={style.paymentMethod}>Metodo de Pago</Box>
-            <Box className={style.date}>Fecha</Box>
-            <Box className={style.edit}></Box>
+            <Box className={style.date}>Fecha de Compra</Box>
           </Flex>
         </Box>
 
@@ -98,8 +106,8 @@ function DetailPayment(props) {
         <Box className={style.contentRow}>
           <Flex className={style.tableRow}>
             <Box className={style.numOrderRow}>{id}</Box>
-            <Box className={style.status}>{user.nameUser}</Box>
-            <Box className={style.amountRow}>{total}</Box>
+            <Box className={style.userRow}>{user.nameUser}</Box>
+            <Box className={style.amountRow}>{`$ ${total}`}</Box>
             <Box className={style.statusRow}>
               <Select
                 variant="flushed"
@@ -117,7 +125,11 @@ function DetailPayment(props) {
               </Select>
             </Box>
             <Box className={style.paymentMethodRow}>
-              {payment_method.descrption}
+              {paymentType === "account_money"
+                ? "Efectivo"
+                : paymentType === "credit_card"
+                ? "Credito"
+                : "Debito"}
             </Box>
             <Box className={style.dateRow}>{dateFormat(createdAt)}</Box>
             {/* CREO QUE AMBOS BOTONES NO SON NECESARIOS */}
@@ -138,7 +150,7 @@ function DetailPayment(props) {
       {/* TITULO */}
       <Box pl="10.8%" pt="5%" textAlign="center">
         <Heading
-          fontFamily='Segoe UI' 
+          fontFamily="Segoe UI"
           as="h2"
           size="md"
           ml="8%"
@@ -154,7 +166,7 @@ function DetailPayment(props) {
         <Box>
           <Flex className={style.table}>
             <Box className={style.book}>Libro</Box>
-            {/* <Box className={style.price}>Precio</Box> */}
+            <Box className={style.price}>Precio Unitario</Box>
             <Box className={style.quantity}>Catidad</Box>
             <Box className={style.total}>Total</Box>
           </Flex>
@@ -197,11 +209,31 @@ function DetailPayment(props) {
               </Box>
               {/* NO VIENE LA INFORMACION DEL PRECIO INDIVIDUAL */}
               {/* <Box className={style.price}>{book.price}</Box> */}
-              <Box className={style.price}>{book.payment_mp_book.quantity}</Box>
-              <Box className={style.price}>{book.payment_mp_book.price}</Box>
+              <Box className={style.price}>
+                {`$ ${book.payment_mp_book.price}`}
+              </Box>
+
+              <Box className={style.quantity}>
+                {book.payment_mp_book.quantity}
+              </Box>
+
+              <Box className={style.total}>{`$ ${parseFloat(
+                Number(book.payment_mp_book.price) *
+                  Number(book.payment_mp_book.quantity)
+              ).toFixed(2)}`}</Box>
+              {sumTotalPrice(
+                parseFloat(
+                  Number(book.payment_mp_book.price) *
+                    Number(book.payment_mp_book.quantity)
+                ).toFixed(2)
+              )}
             </Flex>
           </Box>
         ))}
+        {/* COSTO DE ENVIO */}
+        <Box className={style.shipping}>
+          {`Costo de Envio: $ ${Math.round(total - totalBooksPrice)}`}
+        </Box>
       </Box>
     </Box>
   );
