@@ -20,7 +20,7 @@
     "menorPrecio": "Menor precio",
     "mayorRating": "Mayor calificación",
     "menorRating": "Menor calificación",
-    "agregoAlCarrito": "Se agregó al carrito",
+    "agregoCarrito": "Se agregó al carrito",
     "noAgregoCarrito" : "No se pudo agregar al carrito",
     "agregarCarrito": "Agregar al carrito",
     "sinStock": "Sin stock",
