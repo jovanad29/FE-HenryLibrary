@@ -9,7 +9,7 @@ function CatalogueMenu() {
   return (
     <Box mt="25%">
       <NavLink to={`/user/admin/catalogue`}>
-        <Flex justifyContent="center">
+        <Flex justifyContent="flex-start">
           <IoLibrarySharp size="12%" color="#01A86C" />
           <Heading
             fontFamily="Quicksand"

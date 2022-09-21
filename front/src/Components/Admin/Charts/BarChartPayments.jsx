@@ -31,7 +31,12 @@ function BarChartPayments() {
       datasets: [
         {
           label: "Detalles de Ordenes de Compra",
-          data: paymentsStatistics?.map((data) => data.TotalCount),
+          data: paymentsStatistics?.map((data) => {
+            if (data.TotalCount) {
+              return data.TotalCount;
+            }
+            return 0;
+          }),
           backgroundColor: ["rgba(1, 168, 108, 0.2)"],
           borderColor: ["rgba(1, 168, 108)"],
           borderWidth: 2,
