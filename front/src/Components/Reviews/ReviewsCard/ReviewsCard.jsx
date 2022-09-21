@@ -27,7 +27,7 @@ function ReviewsCard({ reviews }) {
               <div key={r.id}>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
-                    <Flex textAlign="left" w="8rem" >
+                    <Flex textAlign="left" w="8rem" fontFamily='Segoe UI'>
                       {r.users &&
                         r.users.map((u) => {
                           return (
@@ -38,13 +38,14 @@ function ReviewsCard({ reviews }) {
                         })}
                      </Flex> 
 
-                     <Flex m="0.2rem"><h2>{<RatingNoEditable value={r.rating}/>} </h2>
-                    </Flex>
+
                     <AccordionIcon color="#01A86C"/>
                   </AccordionButton>
+                  <Flex m="0.2rem"><h2>{<RatingNoEditable value={r.rating}/>} </h2>
+                    </Flex>
                 </h2>
 
-                <AccordionPanel pb={4} fontFamily= "Quicksand">
+                <AccordionPanel pb={4} fontFamily='Segoe UI'>
                   <p className={styles.descrption}>{r.descrption}</p>
                 </AccordionPanel>
               </div>
