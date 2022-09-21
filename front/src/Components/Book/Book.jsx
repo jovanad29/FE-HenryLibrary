@@ -265,6 +265,7 @@ export default function Book({
                             backgroundColor="#01A86C"
                             variant="solid"
                             onClick={() => handleOnAdd(id, price)}
+                            _focus={{ outlineColor: 'none' }}
                             className={styles.boton}
                         >
                             {t("agregarCarrito")}

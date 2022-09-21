@@ -281,6 +281,7 @@ export default function BookDetail() {
                                         variant="solid"
                                         fontSize="15px"
                                         backgroundColor="#01A86C"
+                                        _focus={{ outlineColor: 'none' }}
                                         height="60px"
                                         className={
                                             bookDetail.currentStock > 0

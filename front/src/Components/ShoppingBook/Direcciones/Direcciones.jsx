@@ -209,11 +209,12 @@ export default function Direcciones() {
 
           <div className={styles.button}>
             <Button
-              w="40%"
+              w="28%"
               backgroundColor="#01A86C"
               variant="solid"
               onClick={handleSubmit}
               className={styles.confirmar}
+              _focus={{ outlineColor: 'none' }}
               disabled={JSON.stringify(errors) === "{}" ? false : true}
             >
               {t("confirmar")}

@@ -143,6 +143,7 @@ function DataUser(id) {
                             color="black"
                             onClick={handleEdit}
                             className={styles.buttonsEdit}
+                            _focus={{ outlineColor: 'none' }}
                         >
                             {t("editar")}
                         </Button>
@@ -154,6 +155,7 @@ function DataUser(id) {
                                 h="3rem"
                                 onClick={handleOnSubmit}
                                 className={styles.buttons}
+                                _focus={{ outlineColor: 'none' }}
                             >
                                 {t("confirmar")}
                             </Button>
@@ -163,6 +165,7 @@ function DataUser(id) {
                                 h="3rem"
                                 onClick={handleOnCancel}
                                 className={styles.buttons2}
+                                _focus={{ outlineColor: 'none' }}
                             >
                                 {t("cancelar")}
                             </Button>
