@@ -68,7 +68,7 @@ function PendingMP() {
 						{t("transaccion")}: <span className={s.pID}>{order.transactionId || t("statusPendiente")}</span>
 					</div>
 					<div className={s.transaccion}>
-						{t("status")}: <span className={s.pID}>{order.status || t("statusPendiente")}</span>
+						{t("status")}: <span className={s.pID}>{order.status.toUpperCase().replace("_", " ") || t("statusPendiente")}</span>
 					</div>
 					<div className={s.transaccion}>
 						{t("nota")}: <small>{t("descNota")}</small>
