@@ -62,7 +62,7 @@
     "editar": "Actualizar",
     "confirmar": "Confirmar",
     "cancelar": "Cancelar",
-    "status": "Estatus",
+    "status": "Estado",
     "metodoPago": "Método de pago",
     "fecha": "Fecha",
     "importe": "Importe",
@@ -100,5 +100,6 @@
     "pendiente": "PAGO PENDIENTE",
     "transaccion": "N° de transacción",
     "nota": "Nota",
-    "descNota": "En el momento de recibir la aprobación, recibirá una notificación."
+    "descNota": "En el momento de recibir la aprobación, recibirá una notificación.",
+    "statusPendiente": "Pendiente"
 }

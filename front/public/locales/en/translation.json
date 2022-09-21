@@ -100,5 +100,6 @@
     "pendiente": "PENDING",    
     "transaccion": "Transaction number",
     "nota": "Note",
-    "descNota": "Upon receipt of approval, you will receive a notification."
+    "descNota": "Upon receipt of approval, you will receive a notification.",
+    "statusPendiente": "Pending"
 }
