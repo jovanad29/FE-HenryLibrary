@@ -65,9 +65,7 @@ function CategoriesView() {
   //manejador del submit
   function handleSubmit(evento) {
     evento.preventDefault();
-    if (input.name &&!errors.name) {
-
-
+    if (input.name && !errors.name) {
       try {
         dispatch(postCategory(input));
         setInput({
@@ -136,14 +134,8 @@ function CategoriesView() {
 
       <Box className={style.content}>
         <Box mb="5%" fontFamily="Quicksand">
-<<<<<<< HEAD
           <Button onClick={onOpen} colorScheme="green" size="sm">
             Crear Categoría
-=======
-
-          <Button onClick={onOpen} colorScheme="green" size="sm" ml="5%">
-            Crear Género
->>>>>>> 2f2f4779a76fe3ec07af96e94d5ade457ca70c9e
           </Button>
 
           <Modal
@@ -200,7 +192,6 @@ function CategoriesView() {
             </ModalContent>
           </Modal>
         </Box>
-<<<<<<< HEAD
 
         <Box className={style.contentTable}>
           {/* CABECERA */}
@@ -219,18 +210,6 @@ function CategoriesView() {
               )
           )}
         </Box>
-=======
-        {/* CABECERA */}
-        <Flex className={style.table}>
-          <Box className={style.book}>Nombre</Box>
-          <Box className={style.edit}></Box>
-        </Flex>
-
-        {/* CONTENIDO */}
-        {categories.map(
-          (category) => category.isActive && <RowTable key={category.id} category={category} />
-        )}
->>>>>>> 2f2f4779a76fe3ec07af96e94d5ade457ca70c9e
       </Box>
     </Box>
   );
