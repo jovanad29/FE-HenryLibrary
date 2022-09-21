@@ -12,9 +12,11 @@ import {
 } from "@chakra-ui/react";
 
 import styles from "./ReviewsCard.module.css"
+import { useTranslation } from "react-i18next";
 
 
 function ReviewsCard({ reviews }) {
+  const { t } = useTranslation()
   return (
     <div>
       {reviews.length > 0 ? 
@@ -53,7 +55,7 @@ function ReviewsCard({ reviews }) {
 
         );
       })}
-    </Flex> : <h2 className={styles.mensajeVacio}>Todavía no hay ningún comentario. ¡Comprá un libro y contanos tu experiencia! </h2> }  
+    </Flex> : <h2 className={styles.mensajeVacio}>{t("sinReviews")}</h2> }  
       
     </div>
   );
