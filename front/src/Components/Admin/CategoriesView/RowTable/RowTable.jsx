@@ -7,18 +7,18 @@ import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 
 //cambiar por deleteCategory
-import { deleteLogicBook } from "../../../../actions/index";
+import { deleteCategory } from "../../../../actions/index";
 
 import style from "./RowTable.module.css";
 
 function RowTable({ category }) {
   const dispatch = useDispatch();
-  const { id, name, isActive } = category;
+  const { id, name } = category;
 
   const handleClick = (event) => {
     Swal.fire({
       icon: "warning",
-      title: "Esta seguro que desea eliminar esta Categoría?",
+      title: "Esta seguro que desea eliminar este género?",
       showConfirmButton: true,
       confirmButtonColor: "#01A86C",
       showDenyButton: true,
@@ -27,27 +27,37 @@ function RowTable({ category }) {
       focusDeny: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteLogicBook(id));
+        dispatch(deleteCategory(id));
       }
     });
   };
 
   return (
     <Box className={style.content}>
-      <Flex className={style.table}>
-        <Box className={style.name}>{name}</Box>
-        <Box className={style.id}>{id}</Box>
-        <Box className={style.isActive}>{isActive}</Box>
+      <Flex >
+              <Text
+                noOfLines={1}
+                height="100%"
+                paddingLeft="5%"
+                paddingRight="8%"
+                fontWeight="bold"
+              >
+                {name}
+              </Text>
+              <Text
 
-        <Button
-          className={style.button}
-          colorScheme="red"
-          size="xs"
-          width="100%"
-          onClick={handleClick}
-        >
-          Eliminar
-        </Button>
+                height="50%"
+                paddingLeft="5%"
+                paddingRight="8%"
+                fontWeight="bold"
+              >
+                {id}  
+              </Text>
+ 
+          <Button colorScheme="red" size="l" onClick={handleClick}>
+            Eliminar
+          </Button>
+
       </Flex>
     </Box>
   );
