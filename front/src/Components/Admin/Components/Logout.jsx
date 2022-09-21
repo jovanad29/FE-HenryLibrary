@@ -5,12 +5,13 @@ import { useHistory } from "react-router-dom";
 import { startLogout } from "../../../actions";
 
 function Logout() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const handleCloseSesion = () => {
-    dispatch(startLogout());
-  };
-  return (
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const handleCloseSesion = async () => {
+        await history.push("/user/admin/logout");
+        dispatch(startLogout());
+    };
+    return (
     <Box>
       <Button background="#01A86C" size="lg" onClick={handleCloseSesion}>
         Logout

@@ -65,8 +65,8 @@ function CategoriesView() {
   //manejador del submit
   function handleSubmit(evento) {
     evento.preventDefault();
-    if (input.name) {
-      // &&!errors.name ){
+    if (input.name &&!errors.name) {
+
 
       try {
         dispatch(postCategory(input));
@@ -81,8 +81,8 @@ function CategoriesView() {
         );
 
         toast({
-          title: "Categoria",
-          description: "La categoria fue creada.",
+          title: "Género",
+          description: "El género fue creado con éxito.",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -91,8 +91,8 @@ function CategoriesView() {
         onClose();
       } catch (error) {
         toast({
-          title: "Categoria",
-          description: `La categoria no fue creada.`,
+          title: "Género",
+          description: `El género no fue creado.`,
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -102,8 +102,8 @@ function CategoriesView() {
       }
     } else {
       toast({
-        title: "Categoria",
-        description: `La categoria no fue creada.`,
+        title: "Género",
+        description: `El género no fue creado.`,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -136,8 +136,14 @@ function CategoriesView() {
 
       <Box className={style.content}>
         <Box mb="5%" fontFamily="Quicksand">
+<<<<<<< HEAD
           <Button onClick={onOpen} colorScheme="green" size="sm">
             Crear Categoría
+=======
+
+          <Button onClick={onOpen} colorScheme="green" size="sm" ml="5%">
+            Crear Género
+>>>>>>> 2f2f4779a76fe3ec07af96e94d5ade457ca70c9e
           </Button>
 
           <Modal
@@ -149,20 +155,20 @@ function CategoriesView() {
             <ModalOverlay />
             <ModalContent>
               <ModalHeader fontFamily="Quicksand" color="#01A86C">
-                Crear Categoria
+                Crear Género
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody pb={6}>
                 <form onSubmit={handleSubmit}>
                   <FormControl isRequired>
-                    <FormLabel fontFamily="Quicksand">Categoria</FormLabel>
+                    <FormLabel fontFamily="Quicksand">Género</FormLabel>
                     <Input
                       value={input.name}
                       type="text"
                       name="name"
                       onChange={handleChange}
                       ref={initialRef}
-                      placeholder="Nombre de la categoria"
+                      placeholder="Nombre de género"
                       borderColor="#01A86C"
                       focusBorderColor="#01A86C"
                       fontFamily="Quicksand"
@@ -194,6 +200,7 @@ function CategoriesView() {
             </ModalContent>
           </Modal>
         </Box>
+<<<<<<< HEAD
 
         <Box className={style.contentTable}>
           {/* CABECERA */}
@@ -212,6 +219,18 @@ function CategoriesView() {
               )
           )}
         </Box>
+=======
+        {/* CABECERA */}
+        <Flex className={style.table}>
+          <Box className={style.book}>Nombre</Box>
+          <Box className={style.edit}></Box>
+        </Flex>
+
+        {/* CONTENIDO */}
+        {categories.map(
+          (category) => category.isActive && <RowTable key={category.id} category={category} />
+        )}
+>>>>>>> 2f2f4779a76fe3ec07af96e94d5ade457ca70c9e
       </Box>
     </Box>
   );
