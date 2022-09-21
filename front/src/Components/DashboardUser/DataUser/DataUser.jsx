@@ -69,7 +69,7 @@ function DataUser(id) {
         }
         dispatch(updateUserAddress(uid, { address: direction }));
         dispatch(updateUserName(uid, { name: name }));
-        dispatch(getUserInfo(uid));
+        // dispatch(getUserInfo(uid));
         handleEdit(e);
         Swal.fire({
             title: t("perfilActualizado"),
