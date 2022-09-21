@@ -245,6 +245,7 @@ function ShoppingBook() {
                       variant="solid"
                       onClick={(e) => handleBuyingBooks(e)}
                       className={styles.comprar}
+                      _focus={{ outlineColor: 'none' }}
                     >
                       {t("comprar")}
                     </Button>

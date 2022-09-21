@@ -41,6 +41,7 @@ function RowTable({ category }) {
                 paddingLeft="5%"
                 paddingRight="8%"
                 fontWeight="bold"
+                className={style.text}
               >
                 {name}
               </Text>
@@ -50,11 +51,12 @@ function RowTable({ category }) {
                 paddingLeft="5%"
                 paddingRight="8%"
                 fontWeight="bold"
+                className={style.text}
               >
                 {id}  
               </Text>
  
-          <Button colorScheme="red" size="l" onClick={handleClick}>
+          <Button background="red" size="" color='white' onClick={handleClick}  _focus={{border: "2px solid red" }}>
             Eliminar
           </Button>
 
