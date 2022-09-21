@@ -25,7 +25,7 @@ function Title() {
           : pathName.includes("payments")
           ? "Ordenes de Compra"
           : pathName.includes("categories")
-          ? "Categorías"
+          ? "Géneros"
           : null}
       </Heading>
     </Box>

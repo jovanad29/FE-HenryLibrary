@@ -146,7 +146,7 @@ function LibraryView() {
             </Button>
           </NavLink>
 
-          <Button
+          {/* <Button
             onClick={onOpen}
             backgroundColor="#01A86C"
             size="sm"
@@ -155,7 +155,7 @@ function LibraryView() {
             color="black"
           >
             Crear Categoria
-          </Button>
+          </Button> */}
 
           <Modal
             initialFocusRef={initialRef}
