@@ -58,7 +58,7 @@ export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 export const SET_PAYMENTS_STATISTICS = "SET_PAYMENTS_STATISTICS";
 export const DELETE_FAVORITES_WITHOUT_ALLBOOKS = "DELETE_FAVORITES_WITHOUT_ALLBOOKS";
 export const SET_ERROR = "SET_ERROR";
-
+export const SET_USERNAME = "SET_USERNAME"
 
 export function getAllBooks(pagina = 0, items = 10) {
   return function (dispatch) {
@@ -795,7 +795,10 @@ export function updateUserName(uid, body) {
     await axios
       .put(`${baseURL}/user/name/${uid}`, body)
       .then((response) => {
-        console.log(response.data);
+        dispatch({
+          type: SET_USERNAME,
+          payload: body.name,
+        });
       })
       .catch((error) => {
         console.log("updateUserName", error);
