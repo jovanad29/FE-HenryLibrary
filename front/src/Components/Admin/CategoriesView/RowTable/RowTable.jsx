@@ -13,7 +13,7 @@ import style from "./RowTable.module.css";
 
 function RowTable({ category }) {
   const dispatch = useDispatch();
-  const { id, name , isActive } = category;
+  const { id, name } = category;
 
   const handleClick = (event) => {
     Swal.fire({
