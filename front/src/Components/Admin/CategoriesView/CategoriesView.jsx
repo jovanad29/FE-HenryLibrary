@@ -66,8 +66,8 @@ function CategoriesView() {
   //manejador del submit
   function handleSubmit(evento) {
     evento.preventDefault();
-    if (input.name) {
-      // &&!errors.name ){
+    if (input.name &&!errors.name) {
+
 
       try {
         dispatch(postCategory(input));
@@ -82,8 +82,8 @@ function CategoriesView() {
         );
 
         toast({
-          title: "Categoria",
-          description: "La categoria fue creada.",
+          title: "Género",
+          description: "El género fue creado con éxito.",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -92,8 +92,8 @@ function CategoriesView() {
         onClose();
       } catch (error) {
         toast({
-          title: "Categoria",
-          description: `La categoria no fue creada.`,
+          title: "Género",
+          description: `El género no fue creado.`,
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -103,8 +103,8 @@ function CategoriesView() {
       }
     } else {
       toast({
-        title: "Categoria",
-        description: `La categoria no fue creada.`,
+        title: "Género",
+        description: `El género no fue creado.`,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -139,7 +139,7 @@ function CategoriesView() {
         <Box mb="5%" fontFamily="Quicksand">
 
           <Button onClick={onOpen} colorScheme="green" size="sm" ml="5%">
-            Crear Categoria
+            Crear Género
           </Button>
 
           <Modal
@@ -151,20 +151,20 @@ function CategoriesView() {
             <ModalOverlay />
             <ModalContent>
               <ModalHeader fontFamily="Quicksand" color="#01A86C">
-                Crear Categoria
+                Crear Género
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody pb={6}>
                 <form onSubmit={handleSubmit}>
                   <FormControl isRequired>
-                    <FormLabel fontFamily="Quicksand">Categoria</FormLabel>
+                    <FormLabel fontFamily="Quicksand">Género</FormLabel>
                     <Input
                       value={input.name}
                       type="text"
                       name="name"
                       onChange={handleChange}
                       ref={initialRef}
-                      placeholder="Nombre de la categoria"
+                      placeholder="Nombre de género"
                       borderColor="#01A86C"
                       focusBorderColor="#01A86C"
                       fontFamily="Quicksand"
@@ -199,9 +199,6 @@ function CategoriesView() {
         {/* CABECERA */}
         <Flex className={style.table}>
           <Box className={style.book}>Nombre</Box>
-          <Box className={style.author}>Id</Box>
-          <Box className={style.category}>Está activa_</Box>
-
           <Box className={style.edit}></Box>
         </Flex>
 
