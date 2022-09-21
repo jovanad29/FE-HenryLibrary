@@ -58,6 +58,8 @@ export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 export const SET_PAYMENTS_STATISTICS = "SET_PAYMENTS_STATISTICS";
 export const DELETE_FAVORITES_WITHOUT_ALLBOOKS = "DELETE_FAVORITES_WITHOUT_ALLBOOKS";
 export const SET_ERROR = "SET_ERROR";
+export const RESET_DELETE_MESSAGE = "RESET_DELETE_MESSAGE";
+export const RESET_ERROR = "RESET_ERROR";
 export const SET_USERNAME = "SET_USERNAME"
 
 export function getAllBooks(pagina = 0, items = 10) {
@@ -163,7 +165,7 @@ export function getCategories() {
 
 export function postCategory(body) {
   return function (dispatch) {
-    try {
+    
       axios
         .post(`${baseURL}/categories`, body)
         .then((response) => {
@@ -176,20 +178,16 @@ export function postCategory(body) {
           console.log("postCategory", error);
           dispatch({
             type: SET_ERROR,
-            payload: error,
+            payload: [],
 
         });});
-      } catch (error) {
-      console.log("postCategory", error);
-    }
+      
   };
 }
 
 //crear la function deleteCategory
 export function deleteCategory(id) {
   return function (dispatch) {
-    try {
-    
         axios
           .delete(`${baseURL}/categories/${id}`)
           .then((response) => {
@@ -199,16 +197,30 @@ export function deleteCategory(id) {
             });
           })
           .catch((error) => {
+              dispatch({
+                type: DELETE_CATEGORY,
+                payload: [],
+            });
             console.log("deleteCategory", error);
           });
-      
 
-
-    } catch (error) {
-      console.log("deleteCategory", error);
-    }
   };
 }
+
+export function resetError () {
+  return {
+    type: RESET_ERROR,
+    payload: null,
+  };
+}
+
+export function resetDeleteMessage() {
+  return {
+    type: RESET_DELETE_MESSAGE,
+    payload: null,
+  };
+}
+
 
 export function getBooksByCategory(idCategory) {
   return function (dispatch) {

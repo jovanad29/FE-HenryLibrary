@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories, postCategory } from "../../../actions/index";
+import { getCategories, postCategory, resetDeleteMessage,resetError } from "../../../actions/index";
 
 // COMPONENTES
 import Menu from "../Components/Menu";
@@ -33,7 +33,7 @@ import RowTable from "./RowTable/RowTable";
 
 function CategoriesView() {
   const dispatch = useDispatch();
-  const { categories,errorMessage } = useSelector((state) => state);
+  const { categories,errorMessage, deleteMessage} = useSelector((state) => state);
 
   const toast = useToast();
 
@@ -41,8 +41,10 @@ function CategoriesView() {
     name: "",
   });
   const [errors, setErrors] = useState({
-    name: "",
+    name: null,
   });
+
+  const [deleteError, setDeleteError] = useState('');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
@@ -66,8 +68,9 @@ function CategoriesView() {
   function handleSubmit(evento) {
     evento.preventDefault();
     if (input.name && !errors.name) {
-      try {
+
         dispatch(postCategory(input));
+
         setInput({
           name: "",
         });
@@ -77,48 +80,23 @@ function CategoriesView() {
             ...input,
           })
         );
-        if (errorMessage) {
-            console.log("adentro")
-          toast({
-            title: "Error",
-            description: errorMessage,
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-          });onClose();
-        } else {
-        toast({
-          title: "Género",
-          description: "El género fue creado con éxito.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-
-        onClose();
-        }
-      } catch (error) {
-        toast({
-          title: "Género",
-          description: `El género no fue creado.`,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-
-        onClose();
-      }
-    } else {
+    }else {
       toast({
         title: "Género",
         description: `El género no fue creado.`,
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
 
       onClose();
     }
+    setInput({
+      name: "",
+    });
+    setErrors({
+      name: null,
+    })
   }
 
   //validaciones
@@ -134,7 +112,47 @@ function CategoriesView() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [dispatch]);
+  }, [dispatch,categories.length]);
+
+  useEffect(() => {
+    if (deleteMessage) {
+      toast({
+        title: "Error",
+        description: deleteMessage,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      onClose();
+      //crear un acctio que resetee el estado de deleteMessage
+      dispatch(resetDeleteMessage());
+    }
+  }, [deleteMessage,errorMessage]);
+  
+  useEffect(() => {
+    if (Array.isArray(errorMessage)) {
+      toast({
+        title: "Error",
+        description: "No se pudo crear el género",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });onClose();
+    } else if (errorMessage === "El genero se creó con éxito") {    
+            toast({
+              title: "Género",
+              description: "El género fue creado con éxito.",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+            });
+
+            onClose();
+          }
+    dispatch(resetError());
+  }, [errorMessage]);
+
+
 
   return (
     <Box fontFamily="Segoe UI"  className={style.claroOscuro}>
