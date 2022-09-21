@@ -59,9 +59,10 @@ CLOUDINARY_API_SECRET=5QNVD-hIZPsnZ3lD39gLRKlAV-M
 
 Reemplazar postgresUser y postgresPassword por tus propias credenciales para conectarse a postgres.
 
-5. Correr los siguientes comandos en las carpetas /api y /client:
+5. Correr los siguientes comandos en las carpetas /api y /front:
 ```
 npm install
+npm run sync (en api para correr la base de datos)
 npm start
 ```
 
