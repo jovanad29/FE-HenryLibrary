@@ -21,15 +21,6 @@ class Rating extends React.Component {
             rating: this.props.rating,
         });
     }
-
-  onStarClick = (nextValue, prevValue, name) => {
-      this.setState({rating: nextValue});
-      this.props.setReviews(nextValue);
-  }
-
-  componentDidMount(){
-    this.setState({rating: this.props.rating});
-  }
  
   render() {
  
