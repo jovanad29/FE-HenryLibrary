@@ -48,10 +48,10 @@ function DashboardUser() {
       <div className={styles.container}>
         <Tabs variant="solid-rounded" colorScheme="whatsapp">
           <TabList className={styles.containerItems}>
-            <Tab className={styles.titulos}>{t("infoPersonal")}</Tab>
-            <Tab className={styles.titulos}>{t("purchaseOrders")}</Tab>
-            <Tab className={styles.titulos}>{t("commentsHistory")}</Tab>
-            <Tab className={styles.titulos}>{t("seguridad")}</Tab>
+            <Tab className={styles.titulos} _focus={{ outlineColor: 'none' }}>{t("infoPersonal")}</Tab>
+            <Tab className={styles.titulos} _focus={{ outlineColor: 'none' }}>{t("purchaseOrders")}</Tab>
+            <Tab className={styles.titulos} _focus={{ outlineColor: 'none' }}>{t("commentsHistory")}</Tab>
+            <Tab className={styles.titulos} _focus={{ outlineColor: 'none' }}>{t("seguridad")}</Tab>
           </TabList>
 
           <TabPanels className={styles.containerItem}>
@@ -74,6 +74,7 @@ function DashboardUser() {
                 backgroundColor="#E43E3E"
                 color="white"
                 onClick={handleResetPassword}
+                _focus={{ outlineColor: 'none' }}
                 className={styles.reset}
               >
                 {t("resetPass")}
