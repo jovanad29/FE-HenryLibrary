@@ -5,6 +5,9 @@ import { useHistory } from "react-router-dom";
 import Loading from "../Loading/Loading.jsx";
 import MercadoPago from "../MercadoPago/MercadoPago";
 import s from "./Checkout.module.css";
+import {
+  Button,
+} from "@chakra-ui/react";
 
 function Checkout() {
   const [loading, setLoading] = useState(true);

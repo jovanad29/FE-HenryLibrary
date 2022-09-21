@@ -74,6 +74,7 @@ function DashboardUser() {
                 backgroundColor="#E43E3E"
                 color="white"
                 onClick={handleResetPassword}
+                className={styles.reset}
               >
                 {t("resetPass")}
               </Button>

@@ -9,7 +9,7 @@ function CategoriesMenu() {
   return (
     <Box mt="25%">
       <NavLink to={`/user/admin/categories`}>
-        <Flex justifyContent="center">
+        <Flex justifyContent="flex-start">
           <IoLibrarySharp size="12%" color="#01A86C" />
           <Heading
             fontFamily="Quicksand"
@@ -18,7 +18,7 @@ function CategoriesMenu() {
             ml="8%"
             color="#01A86C"
           >
-            Categorías
+            Géneros
           </Heading>
         </Flex>
       </NavLink>
