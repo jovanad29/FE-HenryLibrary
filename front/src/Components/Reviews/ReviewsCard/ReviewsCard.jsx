@@ -22,9 +22,9 @@ function ReviewsCard({ reviews }) {
       {reviews?.map((r) => {
         
         return (
-          <Accordion p="0.5rem" allowMultiple >
+          <Accordion p="0.5rem" allowMultiple key={r.id}>
             <AccordionItem className={styles.contenedor} >
-              <div key={r.id}>
+              <div>
                 <h2>
                   <AccordionButton _focus={{ outlineColor: '#01A86C' }}>
                     <Flex textAlign="left" w="8rem" >
