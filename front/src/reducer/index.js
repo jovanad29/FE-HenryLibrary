@@ -44,6 +44,8 @@ import {
     DELETE_FAVORITES_WITHOUT_ALLBOOKS,
     SET_ERROR,
     SET_USERNAME,
+    RESET_ERROR,
+    RESET_DELETE_MESSAGE,
 } from "../actions/index";
 //mercado pago
 import {
@@ -88,6 +90,7 @@ const initialState = {
     isAdmin: false,
     isBanned: false,
     errorMessage: null,
+    deleteMessage: null,
     favorites: [],
     section: "",
     activeCart: [],
@@ -172,21 +175,40 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 categories: [...state.categories, action.payload],
-                errorMessage: null,
+                errorMessage: "El genero se creó con éxito",
             };
 
         case DELETE_CATEGORY:
+            if (!Array.isArray(action.payload)) {
+                return {
+                    ...state,
+                    categories: state.categories.filter(
+                        (category) => category.id !== action.payload
+                    ),
+                };
+            } else {
+                return {
+                    ...state,
+                    deleteMessage:
+                        "No se puede eliminar un género que tiene libros asociados",
+                };
+            }
+        case RESET_DELETE_MESSAGE:
             return {
                 ...state,
-                categories: state.categories.filter(
-                    (category) => category.id !== action.payload
-                ),
+                deleteMessage: null,
             };
 
         case SET_ERROR:
             return {
                 ...state,
                 errorMessage: action.payload,
+            };
+
+        case RESET_ERROR:
+            return {
+                ...state,
+                errorMessage: null,
             };
 
         case GET_ALL_BOOKS_BY_CATEGORY:
