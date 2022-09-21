@@ -16,6 +16,7 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import styles from "./ReviewUser.module.css"
+import { t } from "i18next";
 
 
 
@@ -34,12 +35,12 @@ function ReviewUser() {
     <div className={styles.TableContainer}>
     <TableContainer>
         <Table variant="simple" >
-          <TableCaption className={styles.comentarios}>Tabla de comentarios de {displayName}</TableCaption>
+          <TableCaption className={styles.comentarios}>{t("tablaComentarios")}</TableCaption>
           <Thead>
             <Tr>
-              <Th className={styles.titulo}>Titulo del libro</Th>
-              <Th className={styles.titulo}>Descripcion</Th>
-              <Th className={styles.titulo}>Rating</Th>
+              <Th className={styles.titulo}>{t("titulo")}</Th>
+              <Th className={styles.titulo}>{t("descripcion")}</Th>
+              <Th className={styles.titulo}>{t("calificacion")}</Th>
             </Tr>
           </Thead>
           <Tbody>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import {
     addFavoriteBook,
     getAllBooks,
@@ -28,6 +29,7 @@ export default function Book({
     stock,
     allBooks,
 }) {
+    const { t } = useTranslation()
     const dispatch = useDispatch();
     const favorites = useSelector((state) => state.favorites);
 
@@ -54,14 +56,14 @@ export default function Book({
                 dispatch(addCartItem(uid, id, price));
                 Swal.fire({
                     icon: "success",
-                    title: "Se agregó el libro al carrito",
+                    title: t("agregoAlCarrito"),
                     showConfirmButton: true,
                     confirmButtonColor: "#01A86C",
                 });
             } catch (error) {
                 Swal.fire({
                     icon: "error",
-                    title: "El libro no se pudo agregar al carrito",
+                    title: t("noAgregoCarrito"),
                     showConfirmButton: true,
                     confirmButtonColor: "#01A86C",
                 });
@@ -77,7 +79,7 @@ export default function Book({
 
             Swal.fire({
                 icon: "success",
-                title: "Se agrego el libro al carrito",
+                title: t("agregoAlCarrito"),
                 showConfirmButton: true,
                 confirmButtonColor: "#01A86C",
             });
@@ -211,7 +213,7 @@ export default function Book({
 
             <p className={styles.title}>{title}</p>
             <h4 className={styles.authors}>
-                {authors && authors.map((a) => `Autor: ${a.name}`)}
+                {authors && authors.map((a) => `${t("autor")}: ${a.name}`)}
             </h4>
 
             {isAuthenticated && (
@@ -265,13 +267,13 @@ export default function Book({
                             onClick={() => handleOnAdd(id, price)}
                             className={styles.boton}
                         >
-                            Agregar al carrito
+                            {t("agregarCarrito")}
                         </Button>
                     </div>
                 ) : (
                     <div className={styles.pago}>
                         <div className={styles.botonSinStock} disabled={true}>
-                            Sin stock
+                            {t("sinStock")}
                         </div>
                     </div>
                 )}

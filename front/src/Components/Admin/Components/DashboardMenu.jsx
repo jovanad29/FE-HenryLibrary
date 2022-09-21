@@ -9,7 +9,7 @@ function DashboardMenu() {
   return (
     <Box mt="25%">
       <NavLink to={`/user/admin`}>
-        <Flex justifyContent="center">
+        <Flex justifyContent="flex-start">
           <AiFillDashboard size="12%" color="#01A86C" />
           <Heading
             fontFamily="Quicksand"

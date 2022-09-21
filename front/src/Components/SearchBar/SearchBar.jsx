@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getNameBooks, setPage, setSection } from "../../actions";
 import { useHistory } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 //REACT ICONS
 // import { RiSearch2Line } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
@@ -20,7 +20,7 @@ export default function SearchBar() {
   const copyAllBooks = useSelector((state) => state.copyAllBooks);
   const [title, setTitle] = useState("");
   const [result, setResult] = useState([]);
-
+  const { t } = useTranslation()
   const clearTitle = () => setTitle("");
 
   const handleChange = (event) => {
@@ -129,7 +129,7 @@ export default function SearchBar() {
                   fontWeight: "bold",
                   outline: 0,
                 }}
-                placeholder="Buscar Libro"
+                placeholder={t("buscar")}
                 _placeholder={{ color: "#01A86C", opacity: 0.6 }}
                 value={title}
                 onChange={handleChange}

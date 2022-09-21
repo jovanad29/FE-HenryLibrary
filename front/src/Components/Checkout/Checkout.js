@@ -1,9 +1,13 @@
+import { t } from "i18next";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Loading from "../Loading/Loading.jsx";
 import MercadoPago from "../MercadoPago/MercadoPago";
 import s from "./Checkout.module.css";
+import {
+  Button,
+} from "@chakra-ui/react";
 
 function Checkout() {
   const [loading, setLoading] = useState(true);
@@ -32,10 +36,10 @@ function Checkout() {
           <div className={s.contTicket}>
             <div className={s.backButton}>
               <button className={s.buttonBack} onClick={goBack}>
-                Volver
+                {t("volver")}
               </button>
             </div>
-            <h1 className={s.ordenDeCompra}>Orden de Compra</h1>
+            <h1 className={s.ordenDeCompra}>{t("purchaseOrder")}</h1>
             <div className={s.itemsCont}>
               {items?.map((i, key) => (
                 <div key={key} className={s.item}>

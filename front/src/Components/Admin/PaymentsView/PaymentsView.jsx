@@ -24,7 +24,7 @@ function PaymentsView() {
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Quicksand">
+    <Box fontFamily="Segoe UI" className={style.claroOscuroAdmin}>
       <Menu />
       <NavBar />
       <Title />
@@ -32,13 +32,13 @@ function PaymentsView() {
       <Box className={style.content}>
         {/* CABECERA */}
         <Flex className={style.table}>
-          <Box className={style.numOrder}>Numero de Orden</Box>
-          <Box className={style.numOrder}>Usuario</Box>
-          <Box className={style.numOrder}>E-mail</Box>
+          <Box className={style.numOrder}>Nº Orden</Box>
+          <Box className={style.user}>Usuario</Box>
+          <Box className={style.email}>E-mail</Box>
           <Box className={style.items}>Cantidad</Box>
           <Box className={style.amount}>Importe/s</Box>
           <Box className={style.date}>Fecha Compra</Box>
-          <Box className={style.status}>Pago</Box>
+          <Box className={style.paymentMethod}>Pago</Box>
           <Box className={style.status}>Estado</Box>
         </Flex>
 

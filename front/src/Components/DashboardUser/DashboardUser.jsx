@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar.jsx";
 import NavBar2 from "../NavBar2/NavBar2.jsx";
@@ -20,21 +20,20 @@ import DataUser from "./DataUser/DataUser.jsx";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { startResetPasswordEmail } from "../../actions/index.js";
-
-
-
+import { useTranslation } from "react-i18next";
 
 function DashboardUser() {
   const { status, displayName, email, reviews, uid } = useSelector(
     (state) => state
   );
+  const { t } = useTranslation()
 
   const dispatch = useDispatch();
 
   const handleResetPassword = () => {
     dispatch(startResetPasswordEmail({ email }));
     Swal.fire({
-      title: "Mail de reseteo de password enviado!",
+      title: t("correoEnviado"),
       icon: "success",
       iconColor: "#01A86C",
       confirmButtonColor: "#01A86C",
@@ -47,12 +46,12 @@ function DashboardUser() {
       <NavBar2 />
 
       <div className={styles.container}>
-        <Tabs variant="soft-rounded" colorScheme="green">
+        <Tabs variant="solid-rounded" colorScheme="whatsapp">
           <TabList className={styles.containerItems}>
-            <Tab className={styles.titulos}>Datos Personales</Tab>
-            <Tab className={styles.titulos}>Ordenes de compras</Tab>
-            <Tab className={styles.titulos}>Historial de Comentarios</Tab>
-            <Tab className={styles.titulos}>Seguridad</Tab>
+            <Tab className={styles.titulos}>{t("infoPersonal")}</Tab>
+            <Tab className={styles.titulos}>{t("purchaseOrders")}</Tab>
+            <Tab className={styles.titulos}>{t("commentsHistory")}</Tab>
+            <Tab className={styles.titulos}>{t("seguridad")}</Tab>
           </TabList>
 
           <TabPanels className={styles.containerItem}>
@@ -69,15 +68,16 @@ function DashboardUser() {
             </TabPanel>
 
             <TabPanel className={styles.boton}>
-                <Button
-                  w="40%"
-                  h="3.5rem"
-                  backgroundColor="#E43E3E"
-                  color="white"
-                  onClick={handleResetPassword}
-                >
-                  Resetear contraseña
-                </Button>
+              <Button
+                w="40%"
+                h="3.5rem"
+                backgroundColor="#E43E3E"
+                color="white"
+                onClick={handleResetPassword}
+                className={styles.reset}
+              >
+                {t("resetPass")}
+              </Button>
               {/* </div> */}
             </TabPanel>
           </TabPanels>

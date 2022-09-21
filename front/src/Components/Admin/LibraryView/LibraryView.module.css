@@ -1,9 +1,9 @@
 .content{
-    /* background-color: aquamarine; */
+    height: auto !important;
     margin-left: 18%;
-    margin-top: 5%;
+    margin-top: 2%;
     margin-right: 5%;
-
+    background-color: var(--bg) !important;
 }
 
 .book{
@@ -49,3 +49,23 @@
 }
 
 
+.claroOscuro{
+    background-color: var(--bg) !important;
+}
+
+.contentTable{
+    border:2px solid transparent;
+    box-shadow: 5px 10px 30px #01A86C;
+    border-radius: 25px;    
+    padding: 1%;
+    margin-bottom: 5%;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+
+/* border="2px solid green"
+p="5%"
+mb="5%"
+maxH="70vh"
+overflowY="auto" */

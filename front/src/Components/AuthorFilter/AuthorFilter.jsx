@@ -10,6 +10,7 @@ import {
     getAllAuthors,
     setSection,
 } from "../../actions";
+import styles from "./AuthorFilter.module.css"
 
 export default function AuthorFilter({ authorsFilter, category }) {
     const dispatch = useDispatch(),
@@ -110,7 +111,7 @@ export default function AuthorFilter({ authorsFilter, category }) {
                 <Heading
                     textAlign="center"
                     fontSize={20}
-                    fontFamily="Quicksand"
+                    fontFamily='Segoe UI'
                     textColor="#01A86C"
                 >
                     Autor
@@ -120,17 +121,18 @@ export default function AuthorFilter({ authorsFilter, category }) {
                         placeholder="Nombre del Autor"
                         focusBorderColor="#01A86C"
                         //   color="#01A86C"
-                        background="fff"
-                        fontFamily="Quicksand"
+                        // background="fff"
+                        fontFamily='Segoe UI'
                         _placeholder={{
-                            color: "#a3a1a1",
-                            fontFamily: "Quicksand",
+                            color: "#01A86C",
+                            fontFamily: 'Segoe UI',
                         }}
                         onChange={handleChange}
                         value={input}
+                        className={styles.claroOscuro}
                     />
 
-                    <List spacing={1} backgroundColor="white" >
+                    <List spacing={1} className={styles.claroOscuro} >
                         {tempAuthors.map((author) => (
                             <ListItem
                                 key={author.id}
@@ -138,7 +140,8 @@ export default function AuthorFilter({ authorsFilter, category }) {
                                 value={author.name}
                                 onClick={handledClick}
                                 _hover={{ cursor: "pointer" }}
-                                fontFamily="Quicksand"
+                                fontFamily='Segoe UI'
+                                className={styles.claroOscuro}
                             >
                                 {author.name}
                             </ListItem>
