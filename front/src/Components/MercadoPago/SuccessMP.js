@@ -17,6 +17,7 @@ import {
 import s from "./SuccessMP.module.css";
 import { BsCheckCircle } from "react-icons/bs";
 import { getCartDB } from "../../actions/index.js";
+import { useTranslation } from "react-i18next";
 
 export default function SuccessMP() {
   const dispatch = useDispatch();
@@ -30,23 +31,19 @@ export default function SuccessMP() {
   } = useSelector((state) => state);
 
   const history = useHistory();
-
+  const { t } = useTranslation()
   useEffect(() => {
     if (mpID && activeCartPaymentId) {
       dispatch(asyncGetMP(mpID, activeCartPaymentId));
     }
-
-  //eslint-disable-next-line react-hooks/exhaustive-deps
-  
+  //eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [mpID, activeCartPaymentId]);
 
   useEffect(() => {
     if (order.items.length && uid) {
       axios
         .post(`/mercadopago/create`, { ...order, userID: uid })
-        .then((r) => {
-          console.log("se guardó en DB", r);
-        })
+        .then((r) => console.log("se guardó en DB", r.json()))
         .catch((e) => console.log("no se guardó en DB", e));
     }
   }, [order, uid]); 
@@ -66,13 +63,13 @@ export default function SuccessMP() {
               <div className={s.check}>
                 <BsCheckCircle fontSize="6rem" />
               </div>
-              <h1 className={s.titulo}>PAGO EXITOSO</h1>
+              <h1 className={s.titulo}>{t("exito")}</h1>
               <div className={s.transaccion}>
-                Numero transacción:{" "}
+                {t("transaccion")}:{" "}
                 <span className={s.pID}>{order.transactionId}</span>
               </div>
               <div className={s.transaccion}>
-                Estado: <span className={s.pID}>{order.status}</span>
+                {t("status")}: <span className={s.pID}>{order.status}</span>
               </div>
               <span className={s.itemsTotales}>
                 Total items: {activeCartQuantity}
@@ -85,12 +82,12 @@ export default function SuccessMP() {
                 >
                   <Thead>
                     <Tr>
-                      <Th className={s.tituloTabla}>Libro</Th>
+                      <Th className={s.tituloTabla}>{t("libro")}</Th>
                       <Th isNumeric className={s.tituloTabla}>
-                        Cantidad
+                      {t("qty")}
                       </Th>
                       <Th isNumeric className={s.tituloTabla}>
-                        Precio
+                      {t("precio")}
                       </Th>
                     </Tr>
                   </Thead>
@@ -100,12 +97,12 @@ export default function SuccessMP() {
                         <Tr>
                           <Td>{i.title}</Td>
                           <Td isNumeric>
-                            {i.bookId !== 0 && i.title !== "Retira en Sucursal"
+                            {i.bookId !== 0 && i.description !== "Retira en Sucursal"
                               ? i.quantity
                               : " "}
                           </Td>
                           <Td isNumeric>
-                            {i.bookId !== 0 && i.title !== "Retira en Sucursal"
+                            {i.bookId !== 0 && i.description !== "Retira en Sucursal"
                               ? i.price
                               : " "}
                           </Td>
@@ -116,7 +113,7 @@ export default function SuccessMP() {
                 </Table>
               </TableContainer>
               <span className={s.totalLibros}>
-                Total Libros:{" "}
+                Total {t("libros")}:{" "}
                 <span className={s.price}> ${activeCartAmount}</span>
               </span>
               <span className={s.total}>
@@ -127,7 +124,7 @@ export default function SuccessMP() {
                 </span>
               </span>
               <Button className={s.boton} onClick={goBack}>
-                Seguir Comprando
+                {t("continuarComprando")}
               </Button>
               <div className={s.successCheckmark}>
                 <div className={s.checkIcon}>

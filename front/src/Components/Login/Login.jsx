@@ -31,6 +31,7 @@ import { FiMail } from "react-icons/fi";
 import { AiFillSetting } from "react-icons/ai";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
+import { t } from "i18next";
 
 function Login({ HandleOpenLogin }) {
   const dispatch = useDispatch();
@@ -96,7 +97,7 @@ function Login({ HandleOpenLogin }) {
       dispatch(
         logout({
           ok: false,
-          errorMessage: "Necesita completa todos los campos!",
+          errorMessage: t("todosLosCampos"),
         })
       );
     } else dispatch(startCreatingUserWithEmailPassword(login));
@@ -127,7 +128,7 @@ function Login({ HandleOpenLogin }) {
       dispatch(
         logout({
           ok: false,
-          errorMessage: "Necesita completar el mail a resetear!",
+          errorMessage: t("elMail"),
         })
       );
     } else dispatch(startResetPasswordEmail(login));
@@ -162,7 +163,7 @@ function Login({ HandleOpenLogin }) {
             <Input
               className={styles.input}
               type="text"
-              placeholder="Nombre Completo"
+              placeholder={t("fullname")}
               name="displayName"
               value={login.name}
               onChange={handleChange}
@@ -182,7 +183,7 @@ function Login({ HandleOpenLogin }) {
               <Input
                 className={styles.input}
                 type="text"
-                placeholder="Email"
+                placeholder={t("correo")}
                 name="email"
                 value={login.email}
                 focusBorderColor="#01A86C"
@@ -195,7 +196,7 @@ function Login({ HandleOpenLogin }) {
                 <Input
                   pr="4rem"
                   type={show ? "text" : "password"}
-                  placeholder="password"
+                  placeholder={t("contrasena")}
                   name="password"
                   focusBorderColor="#01A86C"
                   value={login.password}
@@ -241,7 +242,7 @@ function Login({ HandleOpenLogin }) {
                   color="white"
                   onClick={handleCreateUser}
                 >
-                  Crear
+                  {t("crearCuentaBtn")}
                 </Button>
               ) : (
                 <Button
@@ -266,22 +267,23 @@ function Login({ HandleOpenLogin }) {
                   color="white"
                   onClick={handleLoginUserPass}
                 >
-                  Ingresar
+                  {t("login")}
                 </Button>
               )}
             </Stack>
             <div className={styles.cuenta}>
               {!createUser ? (
                 <button onClick={handleCreateNewUser}>
-                  Crear nueva cuenta
+                  {t("nuevaCuentaBtn")}
                 </button>
               ) : (
-                <button onClick={handleVolver}>volver</button>
+                <button onClick={handleVolver}>{t("volver")}</button>
               )}
               {!createUser && (
                 <button onClick={handleResetPassword}>
                   {" "}
-                  Olvido la contraseña{" "}
+                  {t("olvidoContrasena")}
+                  {" "}
                 </button>
               )}
             </div>
@@ -300,7 +302,7 @@ function Login({ HandleOpenLogin }) {
                 color="black"
                 onClick={goToDashboardUser}
               >
-                Mi cuenta
+                {t("perfil")}
               </Button>
             )}
 
@@ -313,7 +315,7 @@ function Login({ HandleOpenLogin }) {
               height="2rem"
               onClick={handleCloseSesion}
             >
-              Cerrar Sesión
+              {t("logout")}
             </Button>
           </>
         )}

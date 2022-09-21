@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 // import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 // import { getAllOrders } from '../../actions/dashboardActions';
 import {
   getAllBooks,
@@ -55,7 +56,7 @@ export default function Home() {
     const { status, actualPage, allBooks, section, uid, favorites } =
         useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
-
+    const { t } = useTranslation()
   // const location = useLocation();
   // const search = location.state ? location.state.search : null;
   const itemsPorPagina = 12;
@@ -206,7 +207,7 @@ export default function Home() {
                                 }}
                                 fontFamily="Quicksand"
                             >
-                                Filtros
+                                {t("filtros")}
                             </Button>
                             <Drawer
                                 isOpen={isOpen}
@@ -231,7 +232,7 @@ export default function Home() {
                                             }}
                                             fontFamily="Quicksand"
                                         >
-                                            Limpiar Filtros
+                                            {t("limpiarFiltros")}
                                         </Button>
                                     </Flex>
 
@@ -257,7 +258,7 @@ export default function Home() {
                                                             }
                                                             mb={"5%"}
                                                         >
-                                                            Generos
+                                                            {t("generos")}
                                                         </TagLabel>
 
                                                         <Grid
@@ -314,7 +315,7 @@ export default function Home() {
                               pt={"5%"}
                             />
                             <TagLabel textAlign={"center"} mb={"5%"}>
-                              Autores
+							{t("autores")}
                             </TagLabel>
 
                             <Grid templateColumns="repeat(2, 1fr)" gap={2}>
@@ -411,7 +412,7 @@ export default function Home() {
                 }}
                 fontFamily="Quicksand"
               >
-                Filtros
+                {t("filtros")}
               </Button>
               <Drawer
                 isOpen={isOpen}
@@ -436,7 +437,7 @@ export default function Home() {
                       }}
                       fontFamily="Quicksand"
                     >
-                      Limpiar Filtros
+                      {t("limpiarFiltros")}
                     </Button>
                   </Flex>
 
@@ -460,7 +461,7 @@ export default function Home() {
                               onClick={handleClickCategory}
                               mb={"5%"}
                             >
-                              Generos
+                              {t("generos")}
                             </TagLabel>
 
                             <Grid templateColumns="repeat(2, 1fr)" gap={2}>
@@ -500,7 +501,7 @@ export default function Home() {
                               pt={"5%"}
                             />
                             <TagLabel textAlign={"center"} mb={"5%"}>
-                              Autores
+							{t("autores")}
                             </TagLabel>
 
                             <Grid templateColumns="repeat(2, 1fr)" gap={2}>

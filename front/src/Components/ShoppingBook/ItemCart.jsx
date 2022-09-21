@@ -5,6 +5,7 @@ import styles from "./ShoppingBook.module.css";
 import { BsPlus } from "react-icons/bs";
 import { BiMinus } from "react-icons/bi";
 import { FaTrashAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export const ItemCart = (props) => {
     let {
@@ -17,7 +18,7 @@ export const ItemCart = (props) => {
         handleOnDelete,
         handleChangeQuantity,
     } = props;
-
+    const { t } = useTranslation()
     const [value, setValue] = useState(quantity);
 
     useEffect(() => {
@@ -40,10 +41,10 @@ export const ItemCart = (props) => {
                 </div>
                 <div className={styles.infoItem2}>
                     <h2 className={styles.precio}>
-                        Precio: $ {parseFloat(price).toFixed(2)}
+                        {t("precio")}: $ {parseFloat(price).toFixed(2)}
                     </h2>
                     <div className={styles.cantidadContainer}>
-                        <label className={styles.cantidad}>Cantidad: </label>
+                        <label className={styles.cantidad}>{t("qty")}: </label>
                         <button
                             onClick={() =>
                                 handleChangeQuantity(
