@@ -32,6 +32,12 @@ function BreadCrumb() {
             Ordenes de Compra
           </BreadcrumbLink>
         </BreadcrumbItem>
+      ) : pathName === "/user/admin/categories" ? (
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} to="/user/admin/categories">
+            Categorías
+          </BreadcrumbLink>
+        </BreadcrumbItem>
       ) : pathName.includes(`/user/admin/payments/`) ? (
         <BreadcrumbItem>
           <BreadcrumbLink as={Link} to="/user/admin/payments">

@@ -6,45 +6,30 @@
 
 
 
-.bookRow{
-    flex: 3;
+.name{
+    flex: 4;
     display: flex;
+    font-weight: bold;
     align-items: center;    
 }
 
-.author{
-    flex: 1;
+.id{
+    flex: 3;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+}
+
+.isActive{
+    flex: 3;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+}
+
+.button{
+    flex: 2;
     display: flex;
     align-items: center;
 }
 
-.categories{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.rating{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.price{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.stock{
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.edit{
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
