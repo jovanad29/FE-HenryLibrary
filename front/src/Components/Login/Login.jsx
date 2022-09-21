@@ -240,6 +240,7 @@ function Login({ HandleOpenLogin }) {
                   width="200px"
                   height="2rem"
                   color="white"
+                  _focus={{ outlineColor: 'none' }}
                   onClick={handleCreateUser}
                 >
                   {t("crearCuentaBtn")}
@@ -252,6 +253,7 @@ function Login({ HandleOpenLogin }) {
                   width="200px"
                   height="2rem"
                   color="white"
+                  _focus={{ outlineColor: 'none' }}
                   onClick={onGoogleSignIn}
                 >
                   Google
@@ -265,6 +267,7 @@ function Login({ HandleOpenLogin }) {
                   width="200px"
                   height="2rem"
                   color="white"
+                  _focus={{ outlineColor: 'none' }}
                   onClick={handleLoginUserPass}
                 >
                   {t("login")}
@@ -300,6 +303,7 @@ function Login({ HandleOpenLogin }) {
                 variant="solid"
                 marginBottom="1rem"
                 color="black"
+                _focus={{ outlineColor: 'none' }}
                 onClick={goToDashboardUser}
               >
                 {t("perfil")}
@@ -313,6 +317,7 @@ function Login({ HandleOpenLogin }) {
               color="white"
               width="200px"
               height="2rem"
+              _focus={{ outlineColor: 'none' }}
               onClick={handleCloseSesion}
             >
               {t("logout")}
