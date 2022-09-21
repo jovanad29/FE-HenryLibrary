@@ -151,6 +151,7 @@ function Reviews({ id }) {
                                     w="90%"
                                     h="40%"
                                     onClick={handleOnSubmit}
+                                    _focus={{ outlineColor: 'none' }}
                                     className={styles.enviar}
                                     disabled={
                                         JSON.stringify(errores) === "{}" &&

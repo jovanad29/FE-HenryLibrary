@@ -155,14 +155,14 @@ function CategoriesView() {
 
 
   return (
-    <Box fontFamily="Segoe UI">
+    <Box fontFamily="Segoe UI"  className={style.claroOscuro}>
       <Menu />
       <NavBar />
       <Title />
 
       <Box className={style.content}>
-        <Box mb="5%" fontFamily="Quicksand">
-          <Button onClick={onOpen} colorScheme="green" size="sm">
+        <Box mb="5%" fontFamily="Segoe UI">
+          <Button onClick={onOpen} background="#01A86C" size="md" color='black' _focus={{border: "2px solid #01A86C" }}>
             Crear Género
           </Button>
 
@@ -170,18 +170,18 @@ function CategoriesView() {
             initialFocusRef={initialRef}
             isOpen={isOpen}
             onClose={onClose}
-            fontFamily="Quicksand"
+            fontFamily="Segoe UI"
           >
             <ModalOverlay />
-            <ModalContent>
-              <ModalHeader fontFamily="Quicksand" color="#01A86C">
+            <ModalContent className={style.form}>
+              <ModalHeader fontFamily="Segoe UI" color="#01A86C">
                 Crear Género
               </ModalHeader>
-              <ModalCloseButton />
+              <ModalCloseButton color="#01A86C"/>
               <ModalBody pb={6}>
                 <form onSubmit={handleSubmit}>
                   <FormControl isRequired>
-                    <FormLabel fontFamily="Quicksand">Género</FormLabel>
+                    <FormLabel fontFamily="Segoe UI" className={style.label}>Género</FormLabel>
                     <Input
                       value={input.name}
                       type="text"
@@ -191,7 +191,8 @@ function CategoriesView() {
                       placeholder="Nombre de género"
                       borderColor="#01A86C"
                       focusBorderColor="#01A86C"
-                      fontFamily="Quicksand"
+                      fontFamily="Segoe UI"
+                      className={style.label}
                     />
                     {errors.name && (
                       <FormErrorMessage>{errors.name}</FormErrorMessage>
@@ -205,14 +206,20 @@ function CategoriesView() {
                   onClick={handleSubmit}
                   bgColor="#01A86C"
                   mr={3}
-                  fontFamily="Quicksand"
+                  fontFamily="Segoe UI"
+                  _focus={{
+                    border: "2px solid #01A86C",
+                  }}
                 >
                   Guardar
                 </Button>
                 <Button
                   onClick={onClose}
                   bgColor="#01A86C"
-                  fontFamily="Quicksand"
+                  fontFamily="Segoe UI"
+                  _focus={{
+                    border: "2px solid #01A86C",
+                  }}
                 >
                   Cancelar
                 </Button>

@@ -24,7 +24,7 @@ function PaymentsView() {
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Segoe UI" className={style.claroOscuroAdmin}>
+    <Box fontFamily="Segoe UI" className={style.claroOscuro}>
       <Menu />
       <NavBar />
       <Title />

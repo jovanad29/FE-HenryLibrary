@@ -68,9 +68,9 @@ export default function SuccessMP() {
                 {t("transaccion")}:{" "}
                 <span className={s.pID}>{order.transactionId}</span>
               </div>
-              <div className={s.transaccion}>
+              {/* <div className={s.transaccion}>
                 {t("status")}: <span className={s.pID}>{order.status}</span>
-              </div>
+              </div> */}
               <span className={s.itemsTotales}>
                 Total items: {activeCartQuantity}
               </span>{" "}
