@@ -30,7 +30,7 @@ import { useTranslation } from "react-i18next";
 // import { setItems } from "../../actions/checkoutActions";
 
 export default function BookDetail() {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { id } = useParams();
     const { bookDetail, status, uid, activeCart } = useSelector(
@@ -129,7 +129,7 @@ export default function BookDetail() {
                 }
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bookDetail.id]);
 
     //traer el localstorage cuando carga el componente
@@ -240,7 +240,9 @@ export default function BookDetail() {
                         <h2 className={styles.datos}>
                             {t("genero")}: {arrCategories}
                         </h2>
-                        <h4 className={styles.datos}>{t("autores")}: {arrAuthores}</h4>
+                        <h4 className={styles.datos}>
+                            {t("autores")}: {arrAuthores}
+                        </h4>
                         <h4 className={styles.datos}>
                             {t("editorial")}:{" "}
                             {bookDetail.publisher && bookDetail.publisher.name}
@@ -252,7 +254,8 @@ export default function BookDetail() {
                             {t("paginas")}: {bookDetail.pageCount}
                         </h2>
                         <h4 className={styles.datos}>
-                            {t("calificacion")}: {bookDetail.rating} {t("puntos")}
+                            {t("calificacion")}: {bookDetail.rating}{" "}
+                            {t("puntos")}
                         </h4>
                         <h4 className={styles.description}>
                             {bookDetail.description}
@@ -276,30 +279,34 @@ export default function BookDetail() {
                         <div className={styles.botones}>
                             <div className={styles.carrito}>
                                 <Stack direction="row" spacing={10}>
-                                    <Button
-                                        rightIcon={<RiShoppingCart2Fill />}
-                                        variant="solid"
-                                        fontSize="15px"
-                                        backgroundColor="#01A86C"
-                                        _focus={{ outlineColor: 'none' }}
-                                        height="60px"
-                                        className={
-                                            bookDetail.currentStock > 0
-                                                ? styles.boton
-                                                : styles.boton +
-                                                  " " +
-                                                  styles.botonDisabled
-                                        }
-                                        disabled={bookDetail.currentStock <= 0}
-                                        onClick={() =>
-                                            handleOnAdd(
-                                                bookDetail.id,
-                                                bookDetail.price
-                                            )
-                                        }
-                                    >
-                                        {t("agregarCarrito")}
-                                    </Button>
+                                    {bookDetail.isActive && (
+                                        <Button
+                                            rightIcon={<RiShoppingCart2Fill />}
+                                            variant="solid"
+                                            fontSize="15px"
+                                            backgroundColor="#01A86C"
+                                            _focus={{ outlineColor: "none" }}
+                                            height="60px"
+                                            className={
+                                                bookDetail.currentStock > 0
+                                                    ? styles.boton
+                                                    : styles.boton +
+                                                      " " +
+                                                      styles.botonDisabled
+                                            }
+                                            disabled={
+                                                bookDetail.currentStock <= 0
+                                            }
+                                            onClick={() =>
+                                                handleOnAdd(
+                                                    bookDetail.id,
+                                                    bookDetail.price
+                                                )
+                                            }
+                                        >
+                                            {t("agregarCarrito")}
+                                        </Button>
+                                    )}
                                 </Stack>
                             </div>
                             <div className={styles.carrito2}></div>
