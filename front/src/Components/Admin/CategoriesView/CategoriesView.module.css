@@ -32,13 +32,6 @@
     color: var(--text) !important;
 }
 
-.isActive{
-    flex: 3;
-    display: flex;
-    font-weight: bold;
-    align-items: center;
-}
-
 .button{
     flex: 2;
     display: flex;
