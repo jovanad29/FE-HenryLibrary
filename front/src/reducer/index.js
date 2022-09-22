@@ -129,7 +129,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 allBooks: action.payload,
-                copyAllBooks: [...action.payload],
+                copyAllBooks: action.payload,
             };
 
         case GET_NAME_BOOKS:

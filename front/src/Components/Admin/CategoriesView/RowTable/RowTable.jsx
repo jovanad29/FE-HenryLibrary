@@ -27,43 +27,44 @@ function RowTable({ category }) {
       focusDeny: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        
-          dispatch(deleteCategory(id))
-        
-         
-        }
+        dispatch(deleteCategory(id));
       }
-    );
+    });
   };
 
   return (
     <Box className={style.content}>
-      <Flex >
-              <Text
-                noOfLines={1}
-                height="100%"
-                paddingLeft="5%"
-                paddingRight="8%"
-                fontWeight="bold"
-                className={style.text}
-              >
-                {name}
-              </Text>
-              <Text
+      <Flex>
+        <Text
+          noOfLines={1}
+          height="100%"
+          // paddingLeft="5%"
+          // paddingRight="8%"
+          fontWeight="bold"
+          className={style.name}
+        >
+          {name}
+        </Text>
+        <Text
+          height="50%"
+          // paddingLeft="5%"
+          // paddingRight="8%"
+          fontWeight="bold"
+          className={style.id}
+        >
+          {id}
+        </Text>
 
-                height="50%"
-                paddingLeft="5%"
-                paddingRight="8%"
-                fontWeight="bold"
-                className={style.text}
-              >
-                {id}  
-              </Text>
- 
-          <Button background="red" size="" color='white' onClick={handleClick}  _focus={{border: "2px solid red" }}>
-            Eliminar
-          </Button>
-
+        <Button
+          background="red"
+          size=""
+          color="white"
+          onClick={handleClick}
+          className={style.button}
+          _focus={{ border: "2px solid red" }}
+        >
+          Eliminar
+        </Button>
       </Flex>
     </Box>
   );

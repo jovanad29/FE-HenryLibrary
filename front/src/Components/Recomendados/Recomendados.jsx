@@ -8,7 +8,7 @@ import styles from "./Recomendados.module.css";
 function Recomendados() {
   // console.log(recomendados2)
   const  { t } = useTranslation()
-  const allBooks  = useSelector( (state) => state.allBooks );
+  const allBooks  = useSelector( (state) => state.copyAllBooks );
 
   const recomendados = allBooks.slice(0,5)
 
