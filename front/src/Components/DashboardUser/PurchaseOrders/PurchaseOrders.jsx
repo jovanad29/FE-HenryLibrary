@@ -67,7 +67,8 @@ export default function PurchaseOrders() {
     // convertir totalAmount a formato internacional de moneda
     totalAmount = (b.totalAmount);
     state = (b.payment_status.description);
-    purchaseMetod = (!b.payment_method.descrption) ? "-" : b.payment_method.descrption
+    // console.log(b.payment_method.descrption)
+    purchaseMetod = (Boolean(b.payment_method.descrption)) ? "-" : b.payment_method.descrption
     date = b.books[0]?.payment_book.createdAt;
 
         //darle formato de fecha y hora a date
