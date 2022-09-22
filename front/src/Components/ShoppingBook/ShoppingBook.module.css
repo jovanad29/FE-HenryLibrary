@@ -50,13 +50,10 @@ body {
 .container {
     margin-top: 1rem;
     width: 100%;
-    height: 100%;
     display: auto;
     flex-direction: column;
-    border-right: 1px solid #01A86C;
-    border-top: 1px solid #01A86C;
-    border-left: 1px solid #01A86C;
-    border-bottom: 1px solid #01A86C;
+    min-height: max-content;
+    border: 1px solid #01A86C;
 }
 
 .container1 {
@@ -267,14 +264,12 @@ body {
 
 
 .containerVacio {
-    margin-top: 6rem;
-    margin-left: 18rem;
-    margin-bottom: 10rem;
-    width: 80%;
-    height: 1rem;
+    padding: 2em 2em 4em 2em;
     display: flex;
-    flex-direction: row;
-    font-weight: bolder;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
     font-size: 18px;
     color: var(--text);
 }
@@ -455,20 +450,12 @@ body {
     }
 
 
-
     .itemTotales {
         font-weight: bolder;
         /* font-family: Quicksand; */
         font-size: 16px;
         color: black;
         text-align: center;
-    }
-
-
-    .containerDirecciones {
-        width: 100%;
-        padding-top: 2rem;
-        /* height: 20rem; */
     }
 
 
@@ -531,6 +518,7 @@ body {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        text-align: center;
     }
 
     .textoVacio{

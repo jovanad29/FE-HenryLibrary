@@ -4,9 +4,9 @@ import styles from "./RatingNoEditable.module.css";
 
 
 class RatingNoEditable extends React.Component {
- constructor(props){
-    super(props)
- }
+//  constructor(props){
+//     super(props)
+//  }
     render() {
     const { value } = this.props;
  

@@ -56,7 +56,7 @@ export default function Book({
                 dispatch(addCartItem(uid, id, price));
                 Swal.fire({
                     icon: "success",
-                    title: t("agregoAlCarrito"),
+                    title: t("agregoCarrito"),
                     showConfirmButton: true,
                     confirmButtonColor: "#01A86C",
                 });
@@ -79,7 +79,7 @@ export default function Book({
 
             Swal.fire({
                 icon: "success",
-                title: t("agregoAlCarrito"),
+                title: t("agregoCarrito"),
                 showConfirmButton: true,
                 confirmButtonColor: "#01A86C",
             });
@@ -265,6 +265,7 @@ export default function Book({
                             backgroundColor="#01A86C"
                             variant="solid"
                             onClick={() => handleOnAdd(id, price)}
+                            _focus={{ outlineColor: 'none' }}
                             className={styles.boton}
                         >
                             {t("agregarCarrito")}

@@ -20,7 +20,7 @@
     "menorPrecio": "Menor precio",
     "mayorRating": "Mayor calificación",
     "menorRating": "Menor calificación",
-    "agregoAlCarrito": "Se agregó al carrito",
+    "agregoCarrito": "Se agregó al carrito",
     "noAgregoCarrito" : "No se pudo agregar al carrito",
     "agregarCarrito": "Agregar al carrito",
     "sinStock": "Sin stock",
@@ -46,8 +46,8 @@
     "todosLosCampos": "¡Necesitas completar todos los campos!",
     "elMail": "¡Necesitas agregar el correo electrónico para poder enviarle el mail con las intrucciones!",
     "crearCuentaBtn": "Crear",
-    "login": "Inicia Sesión",
-    "logout": "Cierra Sesión",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
     "nuevaCuentaBtn": "Nueva cuenta",
     "olvidoContrasena": "¿Olvidaste tu contraseña?",
     "perfil": "Mi perfil",
@@ -62,7 +62,7 @@
     "editar": "Actualizar",
     "confirmar": "Confirmar",
     "cancelar": "Cancelar",
-    "status": "Estatus",
+    "status": "Estado",
     "metodoPago": "Método de pago",
     "fecha": "Fecha",
     "importe": "Importe",
@@ -100,5 +100,6 @@
     "pendiente": "PAGO PENDIENTE",
     "transaccion": "N° de transacción",
     "nota": "Nota",
-    "descNota": "En el momento de recibir la aprobación, recibirá una notificación."
+    "descNota": "En el momento de recibir la aprobación, recibirá una notificación.",
+    "statusPendiente": "Pendiente"
 }

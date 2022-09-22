@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllBooks, setPage, setSection } from "../../actions";
+import { setSection } from "../../actions";
 import Theme from "./Theme/Theme.jsx";
 import { useTranslation } from "react-i18next";
 

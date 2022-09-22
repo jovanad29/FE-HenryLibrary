@@ -27,22 +27,29 @@ body {
     display: flex;
     width: 20%;
     margin-left: 1rem;    
+    justify-content: center;
 }
 
+.recomendadosItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .image{
     width: 200px;
     height: 200px;
+    align-content: center;
 }
 
 .title{
+    width: 100%;
     height: 18%;
     font-weight: bolder;
     font-size: 15px;
     text-align: center;
     text-overflow: ellipsis;
-    align-content: center;
-    color: var(--text)
+    color: var(--text);
 }
 
 
@@ -68,15 +75,22 @@ body {
     
     .recomendadosContainer{
         display: flex;
-        width: 95%;
+        width: 70%;
+        margin-left: 2rem;
+        align-content: center;
         flex-direction: column;
     }
     
-    
+    .recomendadosItem{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: red;
+    }
+
     .image{
         width: 150px;
         height: 150px;
-        margin-left: 4rem;
     }
     
     .title{
@@ -84,7 +98,6 @@ body {
         font-weight: bolder;
         font-size: 10px;
         text-align: center;
-        text-overflow: ellipsis;
         align-content: center;
         color: var(--text);
         margin-top: 0.5rem;

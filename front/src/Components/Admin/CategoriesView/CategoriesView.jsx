@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories, postCategory } from "../../../actions/index";
+import { getCategories, postCategory, resetDeleteMessage,resetError } from "../../../actions/index";
 
 // COMPONENTES
 import Menu from "../Components/Menu";
@@ -33,7 +33,7 @@ import RowTable from "./RowTable/RowTable";
 
 function CategoriesView() {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state);
+  const { categories,errorMessage, deleteMessage} = useSelector((state) => state);
 
   const toast = useToast();
 
@@ -41,8 +41,10 @@ function CategoriesView() {
     name: "",
   });
   const [errors, setErrors] = useState({
-    name: "",
+    name: null,
   });
+
+  const [deleteError, setDeleteError] = useState('');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
@@ -66,8 +68,9 @@ function CategoriesView() {
   function handleSubmit(evento) {
     evento.preventDefault();
     if (input.name && !errors.name) {
-      try {
+
         dispatch(postCategory(input));
+
         setInput({
           name: "",
         });
@@ -77,38 +80,23 @@ function CategoriesView() {
             ...input,
           })
         );
-
-        toast({
-          title: "Género",
-          description: "El género fue creado con éxito.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-
-        onClose();
-      } catch (error) {
-        toast({
-          title: "Género",
-          description: `El género no fue creado.`,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-
-        onClose();
-      }
-    } else {
+    }else {
       toast({
         title: "Género",
         description: `El género no fue creado.`,
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
 
       onClose();
     }
+    setInput({
+      name: "",
+    });
+    setErrors({
+      name: null,
+    })
   }
 
   //validaciones
@@ -124,36 +112,76 @@ function CategoriesView() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [dispatch]);
+  }, [dispatch,categories.length]);
+
+  useEffect(() => {
+    if (deleteMessage) {
+      toast({
+        title: "Error",
+        description: deleteMessage,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      onClose();
+      //crear un acctio que resetee el estado de deleteMessage
+      dispatch(resetDeleteMessage());
+    }
+  }, [deleteMessage,errorMessage]);
+  
+  useEffect(() => {
+    if (Array.isArray(errorMessage)) {
+      toast({
+        title: "Error",
+        description: "No se pudo crear el género",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });onClose();
+    } else if (errorMessage === "El genero se creó con éxito") {    
+            toast({
+              title: "Género",
+              description: "El género fue creado con éxito.",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+            });
+
+            onClose();
+          }
+    dispatch(resetError());
+  }, [errorMessage]);
+
+
 
   return (
-    <Box fontFamily="Segoe UI">
+    <Box fontFamily="Segoe UI"  className={style.claroOscuro}>
       <Menu />
       <NavBar />
       <Title />
 
       <Box className={style.content}>
-        <Box mb="5%" fontFamily="Quicksand">
-          <Button onClick={onOpen} colorScheme="green" size="sm">
-            Crear Categoría
+        <Box mb="5%" fontFamily="Segoe UI">
+          <Button onClick={onOpen} background="#01A86C" size="md" color='black' _focus={{border: "2px solid #01A86C" }}>
+            Crear Género
           </Button>
 
           <Modal
             initialFocusRef={initialRef}
             isOpen={isOpen}
             onClose={onClose}
-            fontFamily="Quicksand"
+            fontFamily="Segoe UI"
           >
             <ModalOverlay />
-            <ModalContent>
-              <ModalHeader fontFamily="Quicksand" color="#01A86C">
+            <ModalContent className={style.form}>
+              <ModalHeader fontFamily="Segoe UI" color="#01A86C">
                 Crear Género
               </ModalHeader>
-              <ModalCloseButton />
+              <ModalCloseButton color="#01A86C"/>
               <ModalBody pb={6}>
                 <form onSubmit={handleSubmit}>
                   <FormControl isRequired>
-                    <FormLabel fontFamily="Quicksand">Género</FormLabel>
+                    <FormLabel fontFamily="Segoe UI" className={style.label}>Género</FormLabel>
                     <Input
                       value={input.name}
                       type="text"
@@ -163,7 +191,8 @@ function CategoriesView() {
                       placeholder="Nombre de género"
                       borderColor="#01A86C"
                       focusBorderColor="#01A86C"
-                      fontFamily="Quicksand"
+                      fontFamily="Segoe UI"
+                      className={style.label}
                     />
                     {errors.name && (
                       <FormErrorMessage>{errors.name}</FormErrorMessage>
@@ -177,14 +206,20 @@ function CategoriesView() {
                   onClick={handleSubmit}
                   bgColor="#01A86C"
                   mr={3}
-                  fontFamily="Quicksand"
+                  fontFamily="Segoe UI"
+                  _focus={{
+                    border: "2px solid #01A86C",
+                  }}
                 >
                   Guardar
                 </Button>
                 <Button
                   onClick={onClose}
                   bgColor="#01A86C"
-                  fontFamily="Quicksand"
+                  fontFamily="Segoe UI"
+                  _focus={{
+                    border: "2px solid #01A86C",
+                  }}
                 >
                   Cancelar
                 </Button>
@@ -198,7 +233,6 @@ function CategoriesView() {
           <Flex className={style.table}>
             <Box className={style.name}>Nombre</Box>
             <Box className={style.id}>Id</Box>
-            <Box className={style.isActive}>Está activa_</Box>
             <Box className={style.button}></Box>
           </Flex>
 

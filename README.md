@@ -10,7 +10,7 @@
 ## Tecnologías utilizadas:
 
 * __Javascript__
-* __React__
+* __ReactJS__
 * __Redux__
 * __Hooks__
 * __Chakra-ui__
@@ -19,6 +19,7 @@
 * __PostgreSQL / Sequelize__
 * __Firebase__
 * __MercadoPago__
+* __Cloudinary__
 
 
 <p align="left"> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/index.html" alt="firebase" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://es.redux.js.org/" target="_blank" rel="noreferrer"> <img src="https://www.svgrepo.com/svg/303557/redux-logo" alt="redux" width="40" height="40"/> </a> </p>
@@ -28,8 +29,8 @@
 Es necesario tener, al menos, la última versión estable de Node y NPM. Asegurese de tenerlas para instalar correctamente las dependencias necesarias para correr el proyecto.
 
 Las versiones requeridas son:
-- **Node**: 16.14.2 o mayor
-- **NPM**: 8.5 o mayor
+- **Node**: 14.20 o superior
+- **NPM**: 6.14 o superior
 
 Para chequear que versiones tiene instaladas:
 > node -v
@@ -44,8 +45,8 @@ Para chequear que versiones tiene instaladas:
 4. Crear un archivo en api llamado .env, que tendrá la siguiente estructura: 
 
 ```
-DB_USER=postgresUser
-DB_PASSWORD=postgresPassword
+DB_USER=USUARIO_DE_DB
+DB_PASSWORD=CONTRASEÑA_DE_DB
 DB_HOST=localhost
 DB_NAME=bookst
 PASS_TOKEN=RaJwsh6NCfw4iTEu5fQpIsSlsQpUwxcPQguV3wpW60hStpAiFUKhp7laK8ONV6thYpf49mmFk0p7wm0OMiKjx0SIY8O4iU3YfA7pAqJByP2VdKhcHdXLmtv0SPo7B12fUHdht0QuI2pcw788yvzLXcZkRjyrCGrSv7CDYYDKVDmxjGm8OkDmTdociAvkNGAugc3fvmuy
@@ -62,7 +63,7 @@ Reemplazar postgresUser y postgresPassword por tus propias credenciales para con
 5. Correr los siguientes comandos en las carpetas /api y /front:
 ```
 npm install
-npm run sync (en api para correr la base de datos)
+npm run sync (en api para sincronizar la base de datos con la API externa)
 npm start
 ```
 
@@ -124,9 +125,9 @@ Vista de administrador (panel de control):
 
 ## Deployment
 
-La aplicación tiene el backend y bases de datos deployadas en [RAILWAY](https://railway.app/) y el frontend en [NETLIFY](https://netlify.com)
+La aplicación tiene el backend y bases de datos en [RAILWAY](https://railway.app/) y el frontend en [NETLIFY](https://netlify.com)
 
-[Link](https://henry-library.netlify.app/) to visit the app
+[Link](https://henry-library.netlify.app/) para visitar la app.
 
 
 
