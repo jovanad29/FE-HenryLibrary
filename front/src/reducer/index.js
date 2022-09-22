@@ -217,7 +217,7 @@ function rootReducer(state = initialState, action) {
         case GET_ALL_BOOKS_BY_CATEGORY:
             return {
                 ...state,
-                allBooks: action.payload,
+                allBooks: action.payload.length ? action.payload :  {message: "no cat"},
             };
 
         case POST_BOOK:

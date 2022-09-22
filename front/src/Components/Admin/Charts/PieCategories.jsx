@@ -20,8 +20,9 @@ function PieCategories() {
   useEffect(() => {
     const data =
       categoriesMostBuies.length >= 4
-        ? categoriesMostBuies.splice(0, 4)
+        ? categoriesMostBuies.slice(0, 4)
         : categoriesMostBuies;
+    console.log(data.slice(0, 4))
     setCategoriesData({
       labels: data.map((d) => d.name),
       datasets: [

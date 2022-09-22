@@ -101,5 +101,6 @@
     "transaccion": "N° de transacción",
     "nota": "Nota",
     "descNota": "En el momento de recibir la aprobación, recibirá una notificación.",
-    "statusPendiente": "Pendiente"
+    "statusPendiente": "Pendiente",
+    "sinLibrosCat": "Esta categoría no tiene libros todavía"
 }
