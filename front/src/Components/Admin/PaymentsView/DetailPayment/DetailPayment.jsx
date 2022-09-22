@@ -114,10 +114,11 @@ function DetailPayment(props) {
                 width="70%"
                 defaultValue={order_status.id}
                 onChange={(e) => onSelectHandler(e)}
+                
               >
                 {allOrderStatus?.map((status) => {
                   return (
-                    <option key={status.id} value={status.id}>
+                    <option key={status.id} value={status.id} className={style.select}>
                       {status.description}
                     </option>
                   );
