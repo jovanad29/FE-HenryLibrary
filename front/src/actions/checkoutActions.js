@@ -26,7 +26,6 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
           },
         })
       ).data;
-      console.log("estoy en la action asyncGetMP: ", response)
 
       const items = response.additional_info.items.map((i) => {
           return {
@@ -54,9 +53,6 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
       const status = {'approved': 4, 'in_process': 2,'rejected':7, 'pending':2 } // falta actualizar con el transactionID
       const methods = {'account_money': 2, 'credit_card': 3, 'debit_card': 4 ,'ticket':5 ,'cash': 6};
-      console.log("estoy en la action imprimiendo la orden y paymentMethods")                                                 // hacer el cambio de estado en el cart debajo
-      console.log(order)
-      console.log(methods)
       try {       
         await axios.put(`/payments/${idCart}/status/${status[response.status]}`,{
           transactionId: order.transactionId,
@@ -114,8 +110,7 @@ export function clearDeliveryAddress() {
 export  function setAddressUser(uid,addressUser) {
   return async function (dispatch) {
   try {       
-    await axios.put(`/user/address/${uid}`, {address: addressUser })
-   
+    await axios.put(`/user/address/${uid}`, {address: addressUser })   
   } catch (error) {
     console.log(error)
   }
