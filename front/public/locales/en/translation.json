@@ -20,7 +20,7 @@
     "menorPrecio": "Lowest price",
     "mayorRating": "Highest rating",
     "menorRating": "Lowest rating",
-    "agregoAlCarrito": "Added to cart",
+    "agregoCarrito": "Added to cart",
     "noAgregoCarrito": "Could not add to cart",
     "agregarCarrito": "Add to cart",
     "sinStock": "Out of stock",
@@ -100,5 +100,6 @@
     "pendiente": "PENDING",    
     "transaccion": "Transaction number",
     "nota": "Note",
-    "descNota": "Upon receipt of approval, you will receive a notification."
+    "descNota": "Upon receipt of approval, you will receive a notification.",
+    "statusPendiente": "Pending"
 }

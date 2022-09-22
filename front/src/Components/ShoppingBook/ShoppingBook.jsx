@@ -208,30 +208,26 @@ function ShoppingBook() {
                                 </Button>
                             </div>
 
-                            {guestCartBooks?.length > 0 ? (
-                                <div>
-                                    <div>{item}</div>{" "}
-                                    {/* RENDERIZADO DE LOS LIBROS AGREGADOS AL CARRITO */}
-                                    <div
-                                        className={styles.containerDirecciones}
-                                    >
-                                        {" "}
-                                        {/* Direcciones */}
-                                        <Direcciones />
-                                    </div>
-                                    <br /> <br />
-                                </div>
+                          {guestCartBooks?.length > 0 ? (
+                              <div>
+                                  <div>{item}</div>{" "}
+                                      {/* RENDERIZADO DE LOS LIBROS AGREGADOS AL CARRITO */}
+                                      <div className={styles.containerDirecciones}>
+                                          {" "}
+                                          {/* Direcciones */}
+                                          <Direcciones />
+                                      </div>
+                                {/* <br /> <br /> */}
+                              </div>
                             ) : (
-                                <div className={styles.containerVacio}>
-                                    <h2 className={styles.textoVacio}>
-                                        {t("carritoVacio")}
-                                    </h2>
-                                    <h4 className={styles.parrafoVacio}>
-                                        {" "}
-                                        {t("indeciso")}
-                                    </h4>
-                                </div>
-                            )}
+                              <div className={styles.containerVacio}>
+                                  <h2 className={styles.textoVacio}>{t("carritoVacio")}</h2>
+                                  <h4 className={styles.parrafoVacio}>
+                                     {" "}
+                                     {t("indeciso")}
+                                  </h4>
+                              </div>
+                              )}
                         </div>
 
                         <div className={styles.container2}>
