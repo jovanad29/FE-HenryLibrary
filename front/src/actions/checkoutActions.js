@@ -26,7 +26,6 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
           },
         })
       ).data;
-      console.log("estoy en la action asyncGetMP: ", response)
 
       const items = response.additional_info.items.map((i) => {
           return {
@@ -52,9 +51,14 @@ export function asyncGetMP(mpID, idCart) { // ejecuta el pago en mercadopago
         deliveryAddress: response.additional_info.items.find(i => i.id === "0").description
       }
       dispatch(setOrder(order)); // esto va al store y se usa en el componente que lo pide
-      const status = {'approved': 4, 'in_process': 2,'rejected':7, 'pending':3 } // falta actualizar con el transactionID                                                         // hacer el cambio de estado en el cart debajo
+      const status = {'approved': 4, 'in_process': 2,'rejected':7, 'pending':2 } // falta actualizar con el transactionID
+      const methods = {'account_money': 2, 'credit_card': 3, 'debit_card': 4 ,'ticket':5 ,'cash': 6};
       try {       
-        await axios.put(`/payments/${idCart}/status/${status[response.status]}`) // cambio el estatus del pedido de carrito a aprobado
+        await axios.put(`/payments/${idCart}/status/${status[response.status]}`,{
+          transactionId: order.transactionId,
+          paymentMethod: methods[order.paymentMethodId],
+          deliveryAddress: order.deliveryAddress
+        }) // cambio el estatus del pedido de carrito a aprobado
       } catch (error) {
         console.log(error)
       }
@@ -106,8 +110,7 @@ export function clearDeliveryAddress() {
 export  function setAddressUser(uid,addressUser) {
   return async function (dispatch) {
   try {       
-    await axios.put(`/user/address/${uid}`, {address: addressUser })
-   
+    await axios.put(`/user/address/${uid}`, {address: addressUser })   
   } catch (error) {
     console.log(error)
   }

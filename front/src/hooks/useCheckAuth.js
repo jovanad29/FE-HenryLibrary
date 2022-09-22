@@ -14,7 +14,7 @@ import {
 import { checkLocalShoppingBookExist } from "../functions/shoppingBook";
 
 export const useCheckAuth = () => {
-    const { status, isActive } = useSelector((state) => state);
+    const { status } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     useEffect(() => {
