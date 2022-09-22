@@ -11,6 +11,8 @@ export const UPDATE_ORDER_STATE = "UPDATE_ORDER_STATE";
 export const FILTER_ORDER = "FILTER_ORDER";
 export const USERS_MOST_BUIES = "USERS_MOST_BUIES";
 export const SET_CATEGORIES_MOST_BUY = "SET_CATEGORIES_MOST_BUY";
+export const FILTER_STATUS_ORDER='FILTER_STATUS_ORDER';
+export const FILTER_STATUS_PAYMENT='FILTER_STATUS_PAYMENT';
 
 //Trae la información de todos los usuarios
 export function getAllUsers() {
@@ -179,3 +181,23 @@ export function getCategoriesMostBuy() {
       });
   };
 }
+//filtrar por estado de la orden 
+export function filterByStatusOrder(statusIdOrder) {
+  console.log("estoy en la action filter by status: ", statusIdOrder)
+  return {
+    type: FILTER_STATUS_ORDER,
+    payload: statusIdOrder
+  }
+}
+
+//filtrar por estado del pago 
+export function filterByStatusPayment(statusId) {
+  console.log("estoy en la action filter by status pyament : ", statusId)
+  return {
+    type: FILTER_STATUS_PAYMENT,
+    payload: statusId
+  }
+}
+
+
+
