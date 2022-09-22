@@ -208,7 +208,7 @@ function ShoppingBook() {
                                 </Button>
                             </div>
 
-                          {guestCartBooks?.length > 0 ? (
+                            {guestCartBooks?.length > 0 ? (
                               <div>
                                   <div>{item}</div>{" "}
                                       {/* RENDERIZADO DE LOS LIBROS AGREGADOS AL CARRITO */}
