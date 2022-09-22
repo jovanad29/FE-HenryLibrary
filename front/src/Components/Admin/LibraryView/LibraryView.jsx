@@ -125,7 +125,7 @@ function LibraryView() {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, [dispatch]);
+  }, [dispatch, allBooks.length]);
 
   return (
     <Box fontFamily="Segoe UI" className={style.claroOscuro}>
