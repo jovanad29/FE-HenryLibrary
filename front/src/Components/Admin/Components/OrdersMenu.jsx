@@ -9,10 +9,10 @@ function OrdersMenu() {
   return (
     <Box mt="25%">
       <NavLink to={`/user/admin/payments`}>
-        <Flex justifyContent="center">
+        <Flex justifyContent="flex-start">
           <MdPayment size="12%" color="#01A86C" />
           <Heading
-            fontFamily="Quicksand"
+            fontFamily="Segoe UI"
             as="h2"
             size="md"
             ml="8%"

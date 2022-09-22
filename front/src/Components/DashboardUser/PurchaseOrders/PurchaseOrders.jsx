@@ -22,12 +22,14 @@ import {
     AccordionIcon,
     Box,
 } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 // import { getAllOrders } from "../../../actions/dashboardActions";
 
 export default function PurchaseOrders() {
     const dispatch = useDispatch();
     //definir un estados local para guardar todas las ordenes de un cliente
     const [orders, setOrders] = useState([]);
+    const { t } = useTranslation()
 
     const { status, uid, allCartByUser,  } = useSelector( // allOrders
         (state) => state
@@ -63,10 +65,9 @@ export default function PurchaseOrders() {
     }
     
     // convertir totalAmount a formato internacional de moneda
-    
     totalAmount = (b.totalAmount);
     state = (b.payment_status.description);
-    purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.payment_method
+    purchaseMetod = (!b.payment_method.descrption) ? "-" : b.payment_method.descrption
     date = b.books[0]?.payment_book.createdAt;
 
         //darle formato de fecha y hora a date
@@ -77,7 +78,7 @@ export default function PurchaseOrders() {
                 <Accordion allowToggle>
                     <AccordionItem>
                         <h2>
-                            <AccordionButton className={styles.tableDetails}>
+                            <AccordionButton className={styles.tableDetails} _focus={{ outlineColor: '#01A86C' }}>
                                 <Box flex="1" textAlign="left">
                                     <TableContainer maxWidth="100%">
                                         <Table variant="simple">
@@ -172,22 +173,22 @@ export default function PurchaseOrders() {
                                             Id
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Items
+                                            Item
                                         </Th>
                                         <Th
                                             className={styles.tableTittles}
                                             isNumeric
                                         >
-                                            Importe/s
+                                            {t("importe")}
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Estado
+                                            {t("status")}
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Metodo de pago
+                                            {t("metodoPago")}
                                         </Th>
                                         <Th className={styles.tableTittles}>
-                                            Fecha
+                                            {t("fecha")}
                                         </Th>
                                     </Tr>
                                 </Thead>
@@ -203,9 +204,9 @@ export default function PurchaseOrders() {
                     <Table variant="striped" size="lg">
                         <Thead>
                             <Tr>
-                                <Th>Cantidad de Ordenes: {totalOrders}</Th>
+                                <Th>{t("nOrdenes")}: {totalOrders}</Th>
                                 <Th isNumeric>
-                                    Cantidad de Items: {totalItemsByUser}
+                                    {t("nItems")}: {totalItemsByUser}
                                 </Th>
                             </Tr>
                         </Thead>

@@ -19,11 +19,9 @@ function ValidateMP() {
   return (
     <Redirect
       to={
-        status === "approved"
-          ? "/checkout/success"
-          : status === "in_process"
-          ? "/checkout/pending"
-          : "/checkout/rejected"
+        status === "approved"  ? "/checkout/success" :  status === "in_process"  ? "/checkout/pending" :
+        status === "pending"  ? "/checkout/pending"  :
+        status === "rejected" ? "/checkout/rejected" : "/checkout/rejected"
       }
     />
   );

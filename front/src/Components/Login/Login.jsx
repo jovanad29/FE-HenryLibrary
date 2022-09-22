@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearCart,
@@ -31,6 +31,7 @@ import { FiMail } from "react-icons/fi";
 import { AiFillSetting } from "react-icons/ai";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
+import { t } from "i18next";
 
 function Login({ HandleOpenLogin }) {
   const dispatch = useDispatch();
@@ -49,6 +50,10 @@ function Login({ HandleOpenLogin }) {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isAdmin) history.push("/user/admin");
+  }, [isAdmin]);
 
   const [show, setShow] = useState(false); //Para manejar la contraseña
 
@@ -74,6 +79,7 @@ function Login({ HandleOpenLogin }) {
     dispatch(clearCart());
     localStorage.setItem("guestCartBooks", JSON.stringify([]));
     setLogin({ displayName: "", email: "", password: "" });
+    history.push("/");
   };
 
   const handleCreateNewUser = () => {
@@ -91,7 +97,7 @@ function Login({ HandleOpenLogin }) {
       dispatch(
         logout({
           ok: false,
-          errorMessage: "Necesita completa todos los campos!",
+          errorMessage: t("todosLosCampos"),
         })
       );
     } else dispatch(startCreatingUserWithEmailPassword(login));
@@ -122,7 +128,7 @@ function Login({ HandleOpenLogin }) {
       dispatch(
         logout({
           ok: false,
-          errorMessage: "Necesita completar el mail a resetear!",
+          errorMessage: t("elMail"),
         })
       );
     } else dispatch(startResetPasswordEmail(login));
@@ -130,10 +136,6 @@ function Login({ HandleOpenLogin }) {
 
   const goToDashboardUser = () => {
     history.push("/dashboard/user");
-  };
-
-  const goToDashboardAdmin = () => {
-    history.push("/user/admin");
   };
 
   return (
@@ -161,7 +163,7 @@ function Login({ HandleOpenLogin }) {
             <Input
               className={styles.input}
               type="text"
-              placeholder="Nombre Completo"
+              placeholder={t("fullname")}
               name="displayName"
               value={login.name}
               onChange={handleChange}
@@ -181,7 +183,7 @@ function Login({ HandleOpenLogin }) {
               <Input
                 className={styles.input}
                 type="text"
-                placeholder="Email"
+                placeholder={t("correo")}
                 name="email"
                 value={login.email}
                 focusBorderColor="#01A86C"
@@ -194,7 +196,7 @@ function Login({ HandleOpenLogin }) {
                 <Input
                   pr="4rem"
                   type={show ? "text" : "password"}
-                  placeholder="password"
+                  placeholder={t("contrasena")}
                   name="password"
                   focusBorderColor="#01A86C"
                   value={login.password}
@@ -238,9 +240,10 @@ function Login({ HandleOpenLogin }) {
                   width="200px"
                   height="2rem"
                   color="white"
+                  _focus={{ outlineColor: 'none' }}
                   onClick={handleCreateUser}
                 >
-                  CREAR
+                  {t("crearCuentaBtn")}
                 </Button>
               ) : (
                 <Button
@@ -250,6 +253,7 @@ function Login({ HandleOpenLogin }) {
                   width="200px"
                   height="2rem"
                   color="white"
+                  _focus={{ outlineColor: 'none' }}
                   onClick={onGoogleSignIn}
                 >
                   Google
@@ -263,24 +267,26 @@ function Login({ HandleOpenLogin }) {
                   width="200px"
                   height="2rem"
                   color="white"
+                  _focus={{ outlineColor: 'none' }}
                   onClick={handleLoginUserPass}
                 >
-                  Ingresar
+                  {t("login")}
                 </Button>
               )}
             </Stack>
             <div className={styles.cuenta}>
               {!createUser ? (
                 <button onClick={handleCreateNewUser}>
-                  Crear nueva cuenta
+                  {t("nuevaCuentaBtn")}
                 </button>
               ) : (
-                <button onClick={handleVolver}>volver</button>
+                <button onClick={handleVolver}>{t("volver")}</button>
               )}
               {!createUser && (
                 <button onClick={handleResetPassword}>
                   {" "}
-                  Olvido la contraseña{" "}
+                  {t("olvidoContrasena")}
+                  {" "}
                 </button>
               )}
             </div>
@@ -288,44 +294,33 @@ function Login({ HandleOpenLogin }) {
         )}
         {isAuthenticated && (
           <>
-            {!isAdmin ? (
+            {!isAdmin && (
               <Button
                 leftIcon={<AiFillSetting />}
                 w="60%"
-                h='2.3rem'
+                h="2.3rem"
                 backgroundColor="#01A86C"
                 variant="solid"
                 marginBottom="1rem"
                 color="black"
+                _focus={{ outlineColor: 'none' }}
                 onClick={goToDashboardUser}
               >
-                Mi cuenta
-              </Button>
-            ) : (
-              <Button
-                leftIcon={<AiFillSetting />}
-                w="60%"
-                h='2.3rem'
-                backgroundColor="#01A86C"
-                variant="solid"
-                marginBottom="1rem"
-                color="black"
-                onClick={goToDashboardAdmin}
-              >
-                Dashboard
+                {t("perfil")}
               </Button>
             )}
 
             <Button
               w="60%"
-              h='2rem'
+              h="2rem"
               backgroundColor="#E43E3E"
               color="white"
               width="200px"
               height="2rem"
+              _focus={{ outlineColor: 'none' }}
               onClick={handleCloseSesion}
             >
-              Cerrar Sesion
+              {t("logout")}
             </Button>
           </>
         )}

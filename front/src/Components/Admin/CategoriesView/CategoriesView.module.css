@@ -1,0 +1,52 @@
+.content{
+    height: auto !important;
+    margin-left: 18%;
+    margin-top: 2%;
+    margin-right: 5%;
+    background-color: var(--bg) !important;
+}
+
+.contentTable{    
+    border:2px solid transparent;
+    box-shadow: 5px 10px 30px #01A86C;
+    border-radius: 25px;    
+    padding: 1%;
+    margin-bottom: 5%;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.name{
+    flex: 4;
+    display: flex;
+    font-weight: bold;
+    align-items: center;   
+    color: var(--text) !important; 
+}
+
+.id{
+    flex: 3;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    color: var(--text) !important;
+}
+
+.button{
+    flex: 2;
+    display: flex;
+    align-items: center;
+}
+
+.form{
+    background-color: var(--bg) !important;
+}
+
+.label{
+    color: var(--text) !important;
+}
+
+.claroOscuro{
+    height: 100% !important;
+    background-color: var(--bg) !important;
+}

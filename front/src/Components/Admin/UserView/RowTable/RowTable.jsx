@@ -65,7 +65,7 @@ function RowTable({ user }) {
     };
 
     return (
-        <Box className={style.content}>
+        <Box className={style.content}> 
             <Flex className={style.table}>
                 <Box className={style.user}>
                     <Flex>
@@ -79,13 +79,13 @@ function RowTable({ user }) {
                             <FaUserAlt className={style.noImage} size="90px" />
                         )}
                         <VStack className={style.infoUser}>
-                            <Text noOfLines={1} className={style.nameUser}>
+                            <Text noOfLines={1} color="#01A86C" fontFamily='Segoe UI' className={style.nameUser}>
                                 {nameUser}
                             </Text>
-                            <Text noOfLines={1} className={style.uid}>
+                            <Text noOfLines={1} fontFamily='Segoe UI' className={style.uid}>
                                 {uid}
                             </Text>
-                            <Text noOfLines={1} className={style.email}>
+                            <Text noOfLines={1} fontFamily='Segoe UI' className={style.email}>
                                 {email}
                             </Text>
                         </VStack>

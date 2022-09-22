@@ -8,7 +8,7 @@ import {
 } from "../../actions/index.js";
 import ReviewsCard from "./ReviewsCard/ReviewsCard.jsx";
 import Rating from "./Rating/Rating.jsx";
-
+import { useTranslation } from "react-i18next";
 //CSS
 import styles from "./Reviews.module.css";
 import {
@@ -20,9 +20,10 @@ import {
     Button,
 } from "@chakra-ui/react";
 
+
 function Reviews({ id }) {
     //Este id me lo traigo del componente BookDetail para traer los reviews por cada libro
-
+    const { t } = useTranslation()
     const dispatch = useDispatch();
 
     const { displayName, email, reviews, uid, reviewsBook, isBanned } =
@@ -84,7 +85,7 @@ function Reviews({ id }) {
 
     return (
         <div className={styles.reviews}>
-            <h2 className={styles.titulo}> OPINIONES DE NUESTROS CLIENTES </h2>
+            <h2 className={styles.titulo}>{t("hayReviews")}</h2>
 
             <Flex className={styles.conteiner}>
                 <Flex className={styles.review}>
@@ -101,10 +102,10 @@ function Reviews({ id }) {
                         >
                             <div className={styles.info}>
                                 <FormLabel className={styles.texto}>
-                                    Nombre de usuario: {displayName}
+                                    {t("username")}: {displayName}
                                 </FormLabel>
                                 <FormLabel className={styles.texto}>
-                                    Mail: {email}
+                                    {t("correoe")}: {email}
                                 </FormLabel>
 
                                 <Flex>
@@ -124,14 +125,14 @@ function Reviews({ id }) {
                                             : styles.contador
                                     }
                                 >
-                                    {contadorDescription} de 100 caracteres
+                                    {contadorDescription} {t("caracteres")}
                                 </span>
                                 <Textarea
                                     className={styles.textarea}
                                     value={input.descrption}
                                     name="descrption"
                                     onChange={handleInputsChange}
-                                    placeholder="escribe tu opinion"
+                                    placeholder={t("reviewPlaceholder")}
                                     _placeholder={{ color: "#01A86C" }}
                                     w="90%"
                                     h="60%"
@@ -150,6 +151,7 @@ function Reviews({ id }) {
                                     w="90%"
                                     h="40%"
                                     onClick={handleOnSubmit}
+                                    _focus={{ outlineColor: 'none' }}
                                     className={styles.enviar}
                                     disabled={
                                         JSON.stringify(errores) === "{}" &&

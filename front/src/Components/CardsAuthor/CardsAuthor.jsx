@@ -137,7 +137,7 @@ export default function CardsAuthor() {
                             )} */}
                             <Button
                                 rightIcon={<RiShoppingCart2Fill />}
-                                colorScheme="#01A86C"
+                                background="#01A86C"
                                 variant="solid"
                                 height="60px"
                                 className={
@@ -157,7 +157,7 @@ export default function CardsAuthor() {
                 </div>
             ))}
 
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }

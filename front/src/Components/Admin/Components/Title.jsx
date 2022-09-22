@@ -24,6 +24,8 @@ function Title() {
           ? `Orden de Compra # ${pathName.split("/").pop()}`
           : pathName.includes("payments")
           ? "Ordenes de Compra"
+          : pathName.includes("categories")
+          ? "Géneros"
           : null}
       </Heading>
     </Box>

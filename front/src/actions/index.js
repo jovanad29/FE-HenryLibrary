@@ -8,6 +8,7 @@ import {
   resetPasswordEmail,
 } from "../firebase/providers";
 
+
 dotenv.config();
 
 const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
@@ -18,6 +19,7 @@ export const GET_BOOKS_ID = "GET_BOOKS_ID";
 export const DELETE_BOOKS_DETAIL = "DELETE_BOOKS_DETAIL";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const POST_CATEGORY = "POST_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const GET_ALL_BOOKS_BY_CATEGORY = "GET_ALL_BOOKS_BY_CATEGORY";
 export const POST_BOOK = "POST_BOOK";
 export const SET_PAGE = "SET_PAGE";
@@ -54,6 +56,11 @@ export const SET_BOOK_DETAIL_CURRENT_STOCK = "SET_BOOK_DETAIL_CURRENT_STOCK";
 export const DELETE_USER = "DELETE_USER";
 export const GET_DIRECTIONS_USERS = "GET_DIRECTIONS_USERS";
 export const SET_PAYMENTS_STATISTICS = "SET_PAYMENTS_STATISTICS";
+export const DELETE_FAVORITES_WITHOUT_ALLBOOKS = "DELETE_FAVORITES_WITHOUT_ALLBOOKS";
+export const SET_ERROR = "SET_ERROR";
+export const RESET_DELETE_MESSAGE = "RESET_DELETE_MESSAGE";
+export const RESET_ERROR = "RESET_ERROR";
+export const SET_USERNAME = "SET_USERNAME"
 
 export function getAllBooks(pagina = 0, items = 10) {
   return function (dispatch) {
@@ -158,7 +165,7 @@ export function getCategories() {
 
 export function postCategory(body) {
   return function (dispatch) {
-    try {
+    
       axios
         .post(`${baseURL}/categories`, body)
         .then((response) => {
@@ -169,12 +176,51 @@ export function postCategory(body) {
         })
         .catch((error) => {
           console.log("postCategory", error);
-        });
-    } catch (error) {
-      console.log("postCategory", error);
-    }
+          dispatch({
+            type: SET_ERROR,
+            payload: [],
+
+        });});
+      
   };
 }
+
+//crear la function deleteCategory
+export function deleteCategory(id) {
+  return function (dispatch) {
+        axios
+          .delete(`${baseURL}/categories/${id}`)
+          .then((response) => {
+            dispatch({
+              type: DELETE_CATEGORY,
+              payload: id,
+            });
+          })
+          .catch((error) => {
+              dispatch({
+                type: DELETE_CATEGORY,
+                payload: [],
+            });
+            console.log("deleteCategory", error);
+          });
+
+  };
+}
+
+export function resetError () {
+  return {
+    type: RESET_ERROR,
+    payload: null,
+  };
+}
+
+export function resetDeleteMessage() {
+  return {
+    type: RESET_DELETE_MESSAGE,
+    payload: null,
+  };
+}
+
 
 export function getBooksByCategory(idCategory) {
   return function (dispatch) {
@@ -761,7 +807,10 @@ export function updateUserName(uid, body) {
     await axios
       .put(`${baseURL}/user/name/${uid}`, body)
       .then((response) => {
-        console.log(response.data);
+        dispatch({
+          type: SET_USERNAME,
+          payload: body.name,
+        });
       })
       .catch((error) => {
         console.log("updateUserName", error);
@@ -782,5 +831,20 @@ export function getPaymentsStatistics() {
       .catch((error) => {
         console.log("paymentsStatistics", error);
       });
+  };
+}
+
+export function deleteFavoriteBookWithoutReducer(uid, bid) {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${baseURL}/user/${uid}/favorites/${bid}`);
+      return dispatch({
+        type: DELETE_FAVORITES_WITHOUT_ALLBOOKS,
+        payload: bid,
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

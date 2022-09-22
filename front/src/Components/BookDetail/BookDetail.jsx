@@ -25,10 +25,12 @@ import { Button, Stack, Flex } from "@chakra-ui/react";
 
 //pago
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 // import { useHistory } from "react-router-dom";
 // import { setItems } from "../../actions/checkoutActions";
 
 export default function BookDetail() {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { id } = useParams();
     const { bookDetail, status, uid, activeCart } = useSelector(
@@ -65,14 +67,14 @@ export default function BookDetail() {
                 dispatch(addCartItem(uid, id, price));
                 Swal.fire({
                     icon: "success",
-                    title: "Se agregó el libro al carrito",
+                    title: t("agregoCarrito"),
                     showConfirmButton: true,
                     confirmButtonColor: "#01A86C",
                 });
             } catch (error) {
                 Swal.fire({
                     icon: "error",
-                    title: "El libro no se pudo agregar al carrito",
+                    title: t("noAgregoCarrito"),
                     showConfirmButton: true,
                     confirmButtonColor: "#01A86C",
                 });
@@ -88,7 +90,7 @@ export default function BookDetail() {
 
             Swal.fire({
                 icon: "success",
-                title: "Se agrego el libro al carrito",
+                title: t("agregoCarrito"),
                 showConfirmButton: true,
                 confirmButtonColor: "#01A86C",
             });
@@ -127,7 +129,7 @@ export default function BookDetail() {
                 }
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bookDetail.id]);
 
     //traer el localstorage cuando carga el componente
@@ -208,7 +210,7 @@ export default function BookDetail() {
                         <img
                             className={styles.img1}
                             src={bookDetail.image}
-                            alt="imagen del libro"
+                            alt={t("altImg")}
                         />
                     </div>
 
@@ -216,17 +218,17 @@ export default function BookDetail() {
                         <img
                             className={styles.img2}
                             src={bookDetail.image}
-                            alt="imagen del libro"
+                            alt={t("altImg")}
                         />
                         <img
                             className={styles.img2}
                             src={bookDetail.image}
-                            alt="imagen del libro"
+                            alt={t("altImg")}
                         />
                         <img
                             className={styles.img2}
                             src={bookDetail.image}
-                            alt="imagen del libro"
+                            alt={t("altImg")}
                         />
                     </div>
                 </div>
@@ -236,21 +238,24 @@ export default function BookDetail() {
                     <Flex className={styles.info}>
                         <h2 className={styles.title}>{bookDetail.title}</h2>
                         <h2 className={styles.datos}>
-                            Genero: {arrCategories}
+                            {t("genero")}: {arrCategories}
                         </h2>
-                        <h4 className={styles.datos}>Autores: {arrAuthores}</h4>
                         <h4 className={styles.datos}>
-                            Editorial:{" "}
+                            {t("autores")}: {arrAuthores}
+                        </h4>
+                        <h4 className={styles.datos}>
+                            {t("editorial")}:{" "}
                             {bookDetail.publisher && bookDetail.publisher.name}
                         </h4>
                         <h4 className={styles.datos}>
-                            Fecha de Publicacion: {bookDetail.publishedDate}
+                            {t("publicacion")}: {bookDetail.publishedDate}
                         </h4>
                         <h2 className={styles.datos}>
-                            Numero de paginas: {bookDetail.pageCount}
+                            {t("paginas")}: {bookDetail.pageCount}
                         </h2>
                         <h4 className={styles.datos}>
-                            Rating: {bookDetail.rating} puntos
+                            {t("calificacion")}: {bookDetail.rating}{" "}
+                            {t("puntos")}
                         </h4>
                         <h4 className={styles.description}>
                             {bookDetail.description}
@@ -264,7 +269,7 @@ export default function BookDetail() {
                                 $ {bookDetail.price}
                             </h2>
                             <div className={styles.stockItems}>
-                                <h6 className={styles.stock}>Stock:</h6>
+                                <h6 className={styles.stock}>Stock: </h6>
                                 <h6 className={styles.NumeroStock}>
                                     {bookDetail?.currentStock}
                                 </h6>
@@ -274,29 +279,34 @@ export default function BookDetail() {
                         <div className={styles.botones}>
                             <div className={styles.carrito}>
                                 <Stack direction="row" spacing={10}>
-                                    <Button
-                                        rightIcon={<RiShoppingCart2Fill />}
-                                        variant="solid"
-                                        fontSize="15px"
-                                        backgroundColor="#01A86C"
-                                        height="60px"
-                                        className={
-                                            bookDetail.currentStock > 0
-                                                ? styles.boton
-                                                : styles.boton +
-                                                  " " +
-                                                  styles.botonDisabled
-                                        }
-                                        disabled={bookDetail.currentStock <= 0}
-                                        onClick={() =>
-                                            handleOnAdd(
-                                                bookDetail.id,
-                                                bookDetail.price
-                                            )
-                                        }
-                                    >
-                                        Agregar al carrito
-                                    </Button>
+                                    {bookDetail.isActive && (
+                                        <Button
+                                            rightIcon={<RiShoppingCart2Fill />}
+                                            variant="solid"
+                                            fontSize="15px"
+                                            backgroundColor="#01A86C"
+                                            _focus={{ outlineColor: "none" }}
+                                            height="60px"
+                                            className={
+                                                bookDetail.currentStock > 0
+                                                    ? styles.boton
+                                                    : styles.boton +
+                                                      " " +
+                                                      styles.botonDisabled
+                                            }
+                                            disabled={
+                                                bookDetail.currentStock <= 0
+                                            }
+                                            onClick={() =>
+                                                handleOnAdd(
+                                                    bookDetail.id,
+                                                    bookDetail.price
+                                                )
+                                            }
+                                        >
+                                            {t("agregarCarrito")}
+                                        </Button>
+                                    )}
                                 </Stack>
                             </div>
                             <div className={styles.carrito2}></div>

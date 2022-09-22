@@ -128,22 +128,34 @@ function LibraryView() {
   }, [dispatch]);
 
   return (
-    <Box fontFamily="Quicksand">
+    <Box fontFamily="Segoe UI" className={style.claroOscuro}>
       <Menu />
       <NavBar />
       <Title />
 
       <Box className={style.content}>
-        <Box mb="5%" fontFamily="Quicksand">
+        <Box mb="3%" fontFamily="Quicksand">
           <NavLink to={`/user/admin/catalogue/new`}>
-            <Button colorScheme="green" size="sm">
+            <Button
+              backgroundColor="#01A86C"
+              size="sm"
+              fontFamily="Segoe UI"
+              color="black"
+            >
               Crear Libro
             </Button>
           </NavLink>
 
-          <Button onClick={onOpen} colorScheme="green" size="sm" ml="5%">
+          {/* <Button
+            onClick={onOpen}
+            backgroundColor="#01A86C"
+            size="sm"
+            ml="5%"
+            fontFamily="Segoe UI"
+            color="black"
+          >
             Crear Categoria
-          </Button>
+          </Button> */}
 
           <Modal
             initialFocusRef={initialRef}
@@ -199,21 +211,23 @@ function LibraryView() {
             </ModalContent>
           </Modal>
         </Box>
-        {/* CABECERA */}
-        <Flex className={style.table}>
-          <Box className={style.book}>Libro</Box>
-          <Box className={style.author}>Autor</Box>
-          <Box className={style.category}>Genero</Box>
-          <Box className={style.rating}>Calificacion</Box>
-          <Box className={style.price}>Precio</Box>
-          <Box className={style.stock}>Stock</Box>
-          <Box className={style.edit}></Box>
-        </Flex>
+        <Box className={style.contentTable}>
+          {/* CABECERA */}
+          <Flex className={style.table}>
+            <Box className={style.book}>Libro</Box>
+            <Box className={style.author}>Autor</Box>
+            <Box className={style.category}>Genero</Box>
+            <Box className={style.rating}>Calificacion</Box>
+            <Box className={style.price}>Precio</Box>
+            <Box className={style.stock}>Stock</Box>
+            <Box className={style.edit}></Box>
+          </Flex>
 
-        {/* CONTENIDO */}
-        {allBooks.map(
-          (book) => book.isActive && <RowTable key={book.id} book={book} />
-        )}
+          {/* CONTENIDO */}
+          {allBooks.map(
+            (book) => book.isActive && <RowTable key={book.id} book={book} />
+          )}
+        </Box>
       </Box>
     </Box>
   );

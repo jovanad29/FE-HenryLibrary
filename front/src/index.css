@@ -17,6 +17,7 @@ body {
   --footerBg: #F2F1EF;
   --footerMargin: none;
   --sombras: #D7D7CF;
+  --bgHover: black;
   background-color: var(--bg);
 
 }
@@ -28,6 +29,7 @@ body {
   --footerBg: #1B1B1B;
   --footerMargin: #01A86C;
   --sombras: #6d6d6d;
+  --bgHover: white;
 }
 
 code {

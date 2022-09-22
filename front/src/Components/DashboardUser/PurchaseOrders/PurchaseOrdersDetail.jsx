@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -59,10 +60,10 @@ export default function PurchaseOrdersDetail({id}) {
                       <h3 className={styles.title}>{title}</h3></Link>
                   </div>
                   <div className={styles.infoItem2}>
-                      <h2 className={styles.precio}>Precio: $ {price}</h2>
+                      <h2 className={styles.precio}>{t("precio")}: ${price}</h2>
                       <div className={styles.cantidadContainer}>
                           <label className={styles.cantidad}>
-                              Cantidad:{" "}
+                              {t("qty")}: {" "}
                           </label>
                           
                           {quantity}
@@ -96,7 +97,11 @@ export default function PurchaseOrdersDetail({id}) {
                     </div>
                     <div className={styles.button}>
                         {order.statusId === 1 ? 
-                            (<button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>Continuar Comprando</button>) :''}
+                            (
+                                <button className={styles.comprar} onClick={(e) => handleBuyingBooks(id)}>
+                                    {t("continuarComprando")}
+                                </button>
+                            ) : ''}
                     </div>
 
                 </div>

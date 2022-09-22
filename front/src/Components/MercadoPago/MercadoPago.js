@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const FORM_ID = "payment-form";
 
 export default function MercadoPago({ items, setLoading, userID }) {
   const [preferenceId, setPreferenceId] = useState(null);
   const history = useHistory();
+  const { t } = useTranslation()
   useEffect(() => {
     axios
       .post("/mercadopago", {
@@ -27,10 +29,10 @@ export default function MercadoPago({ items, setLoading, userID }) {
           history.push("/");
         });
       });
-  }, []);
+  }, [history, items, userID]);
 
   useEffect(() => {
-    // console.log('estoy en mercado pago ' , preferenceId)
+   
     if (preferenceId) {
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -41,12 +43,14 @@ export default function MercadoPago({ items, setLoading, userID }) {
       form.appendChild(script);
       setTimeout(() => {
         const button = document.querySelector(".mercadopago-button");
-        button.innerHTML = "Pagar (Mercado Pago)";
+        button.innerHTML = t("pagarMP");
       }, 1000);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
     }
+ // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferenceId]);
+  
   return <form id={FORM_ID} method="GET" />;
 }

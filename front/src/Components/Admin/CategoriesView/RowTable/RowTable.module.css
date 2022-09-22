@@ -1,0 +1,36 @@
+.content{    
+    border-top: 2px solid #01A86C;
+    padding-top: 1% ; 
+    padding-bottom: 1%;
+}
+
+
+
+.name{
+    flex: 4;
+    display: flex;
+    font-weight: bold;
+    align-items: center; 
+    color: var(--text)   
+}
+
+.id{
+    flex: 3;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    color: var(--text)
+}
+
+
+.button{
+    flex: 2;
+    display: flex;
+    align-items: center;
+    color: var(--text)
+}
+
+
+.text{
+    color: var(--text)
+}
