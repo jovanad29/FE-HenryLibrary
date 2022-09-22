@@ -86,12 +86,12 @@ function ShoppingBook() {
                 dispatch(setItems(booksBuy));
                 history.push("/checkout");
             } else {
-              Swal.fire({
-                title: t("Falta ingresar la direccion"),
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#01A86C",
-            })
+                Swal.fire({
+                    title: t("Falta ingresar la direccion"),
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#01A86C",
+                });
             }
         } else {
             Swal.fire({
@@ -99,7 +99,7 @@ function ShoppingBook() {
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#01A86C",
-            })
+            });
         }
     }
 
@@ -125,7 +125,7 @@ function ShoppingBook() {
     }, [guestCartBooks, isAuthenticated]);
 
     const handleChangeQuantity = (value, id, price, currentStock) => {
-        if (value < 1) value = 1;
+        if (value < 1 || isNaN(value)) value = 1;
         if (value > currentStock) value = currentStock;
         let newItems = guestCartBooks.map((item) => {
             if (item.id === id) {
