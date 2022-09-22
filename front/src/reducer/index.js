@@ -630,7 +630,7 @@ function rootReducer(state = initialState, action) {
         //Dashboard admin
         case FILTER_STATUS_ORDER:
             const paymentsfilter = state.allOrders.filter(
-                (e) => e.orderStatusId == action.payload
+                (e) => e.orderStatusId === action.payload
             );
             return {
                 ...state,
@@ -639,7 +639,7 @@ function rootReducer(state = initialState, action) {
 
         case FILTER_STATUS_PAYMENT:
             const paymentsMp = state.allOrders.filter(
-                (e) => e.statusId == action.payload
+                (e) => e.statusId === action.payload
             );
             return {
                 ...state,
