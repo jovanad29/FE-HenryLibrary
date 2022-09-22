@@ -10,7 +10,8 @@
     flex: 4;
     display: flex;
     font-weight: bold;
-    align-items: center;    
+    align-items: center; 
+    color: var(--text)   
 }
 
 .id{
@@ -18,19 +19,15 @@
     display: flex;
     font-weight: bold;
     align-items: center;
+    color: var(--text)
 }
 
-.isActive{
-    flex: 3;
-    display: flex;
-    font-weight: bold;
-    align-items: center;
-}
 
 .button{
     flex: 2;
     display: flex;
     align-items: center;
+    color: var(--text)
 }
 
 
