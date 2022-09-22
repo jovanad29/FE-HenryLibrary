@@ -68,14 +68,13 @@ export default function SuccessMP() {
 							<span className={s.pID}>{order.transactionId}</span>
 						</div>
 						<div className={s.transaccion}>
-							{t("status")}: <span className={s.pID}>{order.status}</span>
+							{t("status")}: <span className={s.pID}>{order.status.toUpperCase()}</span>
 						</div>
 						<span className={s.itemsTotales}>
 							Total items: {activeCartQuantity}
 						</span>{" "}
 						<TableContainer className={s.tabla}>
 						<Table
-							key={Math.random()}
 							variant="striped"
 							colorScheme="green"
 						>
@@ -93,7 +92,7 @@ export default function SuccessMP() {
 							<Tbody>
 								{order.withDelivery.map((i) => {
 									return (
-									<Tr>
+									<Tr key={Math.random()}>
 										<Td>{i.title}</Td>
 										<Td isNumeric>
 											{i.bookId !== 0 && i.description !== "Retira en Sucursal"

@@ -29,7 +29,7 @@ export default function MercadoPago({ items, setLoading, userID }) {
           history.push("/");
         });
       });
-  }, []);
+  }, [history, items, userID]);
 
   useEffect(() => {
    
