@@ -132,15 +132,15 @@ function App() {
                 <Route exact path={"/user/admin/logout"}>
                     <Redirect to="/" />
                 </Route>
-                <Route exact path={"/user/admin"} />
-                <Route exact path={"/user/admin/catalogue"} />
+                <Route path={"/user/admin"}><Redirect to="/" /></Route>
+                {/* <Route exact path={"/user/admin/catalogue"} />
                 <Route exact path={"/user/admin/catalogue/new"} />
                 <Route exact path={"/user/admin/catalogue/:id"} />
                 <Route exact path={"/user/admin/categories/CategoriesForm"} />
                 <Route exact path={"/user/admin/categories"} />
                 <Route exact path={"/user/admin/users"} />
                 <Route exact path={"/user/admin/payments"} />
-                <Route exact path={"/user/admin/payments/:id"} />
+                <Route exact path={"/user/admin/payments/:id"} /> */}
 
                 <Route path="*" component={PageError} />
             </Switch>

@@ -59,7 +59,7 @@ function PieCategories() {
 
   return (
     <Box className={styles.content} w="30%" fontFamily="Quicksand">
-      <Heading className={styles.head}>Categorias Mas Vendidas</Heading>
+      <Heading className={styles.head}>Géneros Mas Vendidos</Heading>
       <Pie data={categoriesData} />
     </Box>
   );

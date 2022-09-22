@@ -65,12 +65,15 @@ import {
     UPDATE_ORDER_STATE,
     USERS_MOST_BUIES,
     SET_CATEGORIES_MOST_BUY,
+    FILTER_STATUS_ORDER,
+    FILTER_STATUS_PAYMENT
 } from "../actions/dashboardActions";
 
 const initialState = {
     allBooks: [],
     allUsers: [],
     allOrders: [],
+    filterOrders: [],
     allOrderStatus: [],
     copyAllBooks: [],
     bookDetail: [],
@@ -624,7 +627,24 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 displayName: action.payload,
             };
+        //Dashboard admin
+        case FILTER_STATUS_ORDER:
+            const paymentsfilter = state.allOrders.filter(
+            (e) => e.orderStatusId == action.payload
+            );
+            return {
+            ...state,
+            filterOrders: paymentsfilter,
+            };
 
+        case FILTER_STATUS_PAYMENT:
+            const paymentsMp = state.allOrders.filter(
+            (e) => e.statusId == action.payload
+            );
+            return {
+            ...state,
+            filterOrders: paymentsMp,
+            };
         default:
             return state;
     }
