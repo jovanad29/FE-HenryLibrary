@@ -87,18 +87,18 @@ function PendingMP() {
 							<Tbody>
 							{order.withDelivery?.map((i) => {
 								return (
-									<Tr>
-									<Td>{i.title}</Td>
-									<Td isNumeric>
-										{i.bookId !== 0 && i.description !== "Retira en Sucursal"
-										? i.quantity
-										: " "}
-									</Td>
-									<Td isNumeric>
-										{i.bookId !== 0 && i.description !== "Retira en Sucursal"
-										? i.price
-										: " "}
-									</Td>
+									<Tr key={Math.random()}>
+										<Td>{i.title}</Td>
+										<Td isNumeric>
+											{i.bookId !== 0 && i.description !== "Retira en Sucursal"
+											? i.quantity
+											: " "}
+										</Td>
+										<Td isNumeric>
+											{i.bookId !== 0 && i.description !== "Retira en Sucursal"
+											? i.price
+											: " "}
+										</Td>
 									</Tr>
 								);
 							})}
