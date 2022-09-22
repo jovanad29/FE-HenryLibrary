@@ -31,7 +31,7 @@ export default function PurchaseOrders() {
     const [orders, setOrders] = useState([]);
     const { t } = useTranslation()
 
-    const { status, uid, allCartByUser,  } = useSelector( // allOrders
+    const { status, uid, allCartByUser } = useSelector( // allOrders
         (state) => state
     );
 
@@ -61,14 +61,12 @@ export default function PurchaseOrders() {
     //sumar la cantidad total que hay en todas las propiedades quantity de payment_book
     items = 0
     for (let i = 0; i <b.books.length; i++) {    
-            items = items + b.books[i].payment_book.quantity; 
-    }
-    
+        items = items + b.books[i].payment_book.quantity; 
+    }    
     // convertir totalAmount a formato internacional de moneda
     totalAmount = (b.totalAmount);
     state = (b.payment_status.description);
-    // console.log(b.payment_method.descrption)
-    purchaseMetod = (Boolean(b.payment_method.descrption)) ? "-" : b.payment_method.descrption
+    purchaseMetod = b.payment_method !== null ? b.payment_method.descrption : "-"
     date = b.books[0]?.payment_book.createdAt;
 
         //darle formato de fecha y hora a date
