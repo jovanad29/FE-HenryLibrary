@@ -95,32 +95,7 @@ function PaymentsView() {
           <Box className={style.amount}>Importe/s</Box>
           <Box className={style.date}>Fecha Compra</Box>
           <Box className={style.paymentMethod}>Pago</Box>
-          <Box className={style.status}>
-            <Select
-              variant="unstyled"
-              width="80%"
-              ml="1%"
-              size="md"
-              borderColor="#01A86C"
-              focusBorderColor="#01A86C"
-              fontWeight="bold"
-              cursor="pointer"
-              onChange={(e) => onSelectHandler(e)}
-              className={style.claroOscuro}
-              fontFamily="Segoe UI"
-            >
-              <option key={1000} value={1000}>
-                Estado
-              </option>
-              {allOrderStatus?.map((status) => {
-                return (
-                  <option key={status.id} value={status.id}>
-                    {status.description}
-                  </option>
-                );
-              })}
-            </Select>
-          </Box>
+          <Box className={style.status}>Estado</Box>
         </Flex>
 
         {/* INFORMACION */}
