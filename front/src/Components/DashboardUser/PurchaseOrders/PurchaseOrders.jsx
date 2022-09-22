@@ -22,7 +22,6 @@ import {
     AccordionIcon,
     Box,
 } from "@chakra-ui/react";
-import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 // import { getAllOrders } from "../../../actions/dashboardActions";
 
@@ -66,10 +65,9 @@ export default function PurchaseOrders() {
     }
     
     // convertir totalAmount a formato internacional de moneda
-    
     totalAmount = (b.totalAmount);
     state = (b.payment_status.description);
-    purchaseMetod = (!b.paymentMethodId?.length) ? "-" : b.payment_method
+    purchaseMetod = (!b.payment_method.descrption) ? "-" : b.payment_method.descrption
     date = b.books[0]?.payment_book.createdAt;
 
         //darle formato de fecha y hora a date

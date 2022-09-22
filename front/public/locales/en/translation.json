@@ -101,5 +101,6 @@
     "transaccion": "Transaction number",
     "nota": "Note",
     "descNota": "Upon receipt of approval, you will receive a notification.",
-    "statusPendiente": "Pending"
+    "statusPendiente": "Pending",
+    "sinLibrosCat": "This category does not have any books yet"
 }

@@ -52,11 +52,11 @@ import { FaFilter } from "react-icons/fa";
 // import { MdClose } from "react-icons/md";
 
 export default function Home() {
+    const { t } = useTranslation() 
     const dispatch = useDispatch();
     const { status, actualPage, allBooks, section, uid, favorites } =
         useSelector((state) => state);
     const isAuthenticated = useMemo(() => status === "authenticated", [status]);
-    const { t } = useTranslation()
   // const location = useLocation();
   // const search = location.state ? location.state.search : null;
   const itemsPorPagina = 12;
@@ -561,7 +561,7 @@ export default function Home() {
             </div> */}
 
             <div className={styles.ErrorSearch}>
-              <h3 className={styles.errorH3}>{allBooks.message}</h3>
+              <h3 className={styles.errorH3}>{allBooks.message === 'no cat' ? t("sinLibrosCat") : allBooks.message}</h3>
             </div>
           </div>
         </>

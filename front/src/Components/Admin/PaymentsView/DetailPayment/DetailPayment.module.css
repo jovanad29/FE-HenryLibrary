@@ -189,3 +189,13 @@
     font-weight: bold;
     font-size: 125%;
 }
+
+.select{
+    background-color: var(--bg) !important;
+    color: var(--text) !important  
+}
+
+.select:focus{
+    background-color: var(--bg) !important;
+    color: var(--text) !important  
+}
