@@ -135,23 +135,25 @@ export default function CardsAuthor() {
                                     <button disabled={true}>Sin stock</button>
                                 </div>
                             )} */}
-                            <Button
-                                rightIcon={<RiShoppingCart2Fill />}
-                                background="#01A86C"
-                                variant="solid"
-                                height="60px"
-                                className={
-                                    a.currentStock > 0
-                                        ? styles.boton
-                                        : styles.boton +
-                                          " " +
-                                          styles.botonDisabled
-                                }
-                                disabled={a.currentStock === 0}
-                                onClick={() => handleOnAdd(a.id, a.price)}
-                            >
-                                Agregar al carrito
-                            </Button>
+                            {a.isActive && (
+                                <Button
+                                    rightIcon={<RiShoppingCart2Fill />}
+                                    background="#01A86C"
+                                    variant="solid"
+                                    height="60px"
+                                    className={
+                                        a.currentStock > 0
+                                            ? styles.boton
+                                            : styles.boton +
+                                              " " +
+                                              styles.botonDisabled
+                                    }
+                                    disabled={a.currentStock === 0}
+                                    onClick={() => handleOnAdd(a.id, a.price)}
+                                >
+                                    Agregar al carrito
+                                </Button>
+                            )}
                         </div>
                     </div>
                 </div>

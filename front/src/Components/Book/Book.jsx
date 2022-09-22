@@ -29,7 +29,7 @@ export default function Book({
     stock,
     allBooks,
 }) {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const favorites = useSelector((state) => state.favorites);
 
@@ -151,11 +151,8 @@ export default function Book({
             // setTotal(totals);
             localStorage.setItem("total", JSON.stringify(totals));
         }
-        return () => {
-          
-        }
+        return () => {};
     }, [guestBook, guestBook.id, id]);
-    
 
     const handleOnFavorite = (id) => {
         dispatch(addFavoriteBook(uid, id));
@@ -260,16 +257,18 @@ export default function Book({
                         >
                             Agregar al carrito
                         </button> */}
-                        <Button
-                            w="87%"
-                            backgroundColor="#01A86C"
-                            variant="solid"
-                            onClick={() => handleOnAdd(id, price)}
-                            _focus={{ outlineColor: 'none' }}
-                            className={styles.boton}
-                        >
-                            {t("agregarCarrito")}
-                        </Button>
+                        {bookDetail.isActive && (
+                            <Button
+                                w="87%"
+                                backgroundColor="#01A86C"
+                                variant="solid"
+                                onClick={() => handleOnAdd(id, price)}
+                                _focus={{ outlineColor: "none" }}
+                                className={styles.boton}
+                            >
+                                {t("agregarCarrito")}
+                            </Button>
+                        )}
                     </div>
                 ) : (
                     <div className={styles.pago}>
